@@ -16,57 +16,155 @@
 
 	<style>
 
-		.top-box{
+		.core-lnb{
+
+			position: relative;
+
+			height: 27px;
 
 			background-color: #fff;
 
-    	border-bottom: 1px solid #ccc;
+			font-size: 11px;
 
-    	width: 100%;
+			letter-spacing: -1px;
 
-    	position: absolute;
+			z-index: 100000;
 
-    	top: 0;
-
-    	left: 0;
-
-    	height: 30px;
-
-    	box-sizing: initial;
-
-			z-index: -1;
-
-    	outline: 0;
-
-    	border-top-width: 0;
+			display: block;
 
 		}
 
-		.box{
+		.lnb-container{
+
+			position: relative; 
+			
+			margin: 0 auto;
+
+			width: 900px !important;
+
+			display: block;
+
+		}
+
+		.usermenu{
+
+			display: block;
 
 			float: right;
 
 		}
 
-		ul{
+		.core-lnb .usermenu > ul{
 
 			list-style:none;
 
-    	margin:0;
+    		margin:0;
 
-    	padding:0;
+    		padding:0;
+
+			margin-block-start: 1em;
+
+    		margin-block-end: 1em;
+
+    		margin-inline-start: 0px;
+
+    		margin-inline-end: 0px;
+
+    		padding-inline-start: 40px;
+			
+			display: block;
 
 		}
 
-		li{
+		.core-lnb .usermenu > ul > li{
 
-			margin: 0 0 0 0;
+			float: left;
 
-    	padding: 0 0 0 0;
+			list-style: none;
 
-    	border : 0;
+			display: list-item;
 
-    	float: left;
+			text-align: -webkit-match-parent;
+
+			background: url(//pics.auction.co.kr/pc/common/header/header.png) -140px -152px no-repeat;
+
+		}
+
+		.core-lnb .usermenu > ul > li:first-child{
+
+			background: none;
+
+		}
+
+		.core-lnb .usermenu > ul::after{
+
+			display: table;
+
+			content: '';
+
+			clear: both;
+
+		}
+
+		.core-lnb .lnb-container .usermenu > ul > li > a{
+
+			margin-top: 7px;
+
+			display: inline-block;
+
+			padding: 0 8px;
+
+			text-decoration: none;
+
+			font-size: 11px;
+
+			color: #777;
+
+			line-height: 15px;
+
+			font-family: dotum, 돋움, "굴림", Gulim, Tahoma, sans-serif;
+
+		}
+
+		.core-lnb .usermsg{
+
+			float: left;
+
+			height: 18px;
+
+			margin-top: 7px;
+
+			margin-right: 10px;
+
+			font-size: 11px;
+
+			color: #777;
+
+			display: block;
+
+		}
+
+		.core-lnb .usermsg strong{
+
+			color: #222;
+
+			font-weight: normal;
+
+			line-height: 14px;
+
+			float: left;
+
+		}
+
+		.core-lnb .usermsg strong a{
+
+			color: #222;
+
+			font-weight: normal;
+
+			line-height: 14px;
+
+			text-decoration: none;
 
 		}
 		
@@ -78,21 +176,59 @@
 	
 </body>
 
-<div class="top-box">
+<div class="core-lnb">
 
-</div>
+	<div class="lnb-container">
 
-<div class="box">
+		<div class="usermsg">
 
-	<ul>
+			<strong>
 
-		<li>1</li>
+				<a href="#">user</a>
 
-		<li>2</li>
+			</strong>님 환영합니다.
 
-		<li>3</li>
+		</div>
 
-	</ul>
+		<div class="usermenu">
+
+			<ul>
+
+				<li>
+					
+					<a href="#">로그인</a>
+
+				</li>
+
+				<li>
+					
+					<a href="#">경매</a>
+
+				</li>
+
+				<li>
+					
+					<a href="#">마이 페이지</a>
+
+				</li>
+
+				<li>
+					
+					<a href="#">판매하기</a>
+
+				</li>
+
+				<li>
+					
+					<a href="#">고객센터</a>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+	</div>
 
 </div>
 
