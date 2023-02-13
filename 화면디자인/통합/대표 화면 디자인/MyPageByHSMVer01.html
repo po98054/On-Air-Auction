@@ -54,15 +54,15 @@
 
 		}
 
-		.core-lnb .usermenu > ul{
+		.core-lnb .usermenu > .user-ul{
 
-			list-style:none;
+				list-style:none;
 
     		margin:0;
 
     		padding:0;
 
-			margin-block-start: 1em;
+				margin-block-start: 1em;
 
     		margin-block-end: 1em;
 
@@ -72,11 +72,11 @@
 
     		padding-inline-start: 40px;
 			
-			display: block;
+				display: block;
 
 		}
 
-		.core-lnb .usermenu > ul > li{
+		.core-lnb .usermenu > .user-ul > li{
 
 			float: left;
 
@@ -90,13 +90,13 @@
 
 		}
 
-		.core-lnb .usermenu > ul > li:first-child{
+		.core-lnb .usermenu > .user-ul > li:first-child{
 
 			background: none;
 
 		}
 
-		.core-lnb .usermenu > ul::after{
+		.core-lnb .usermenu > .user-ul::after{
 
 			display: table;
 
@@ -106,7 +106,7 @@
 
 		}
 
-		.core-lnb .lnb-container .usermenu > ul > li > a{
+		.core-lnb .lnb-container .usermenu > .user-ul > li > a{
 
 			margin-top: 7px;
 
@@ -167,6 +167,53 @@
 			text-decoration: none;
 
 		}
+
+		.nav-block .nav-ul li{
+
+			text-align: center;
+
+			width: 165px; 
+
+			height: 22px; 
+			
+			margin-bottom: 100px;
+
+			list-style: none;
+
+		}
+
+		.nav-block .nav-ul li:nth-child(2),
+		
+		.nav-block .nav-ul li:nth-child(n+2){
+
+			border-top: 1px solid #ddd;
+
+		}
+
+		.nav-block .nav-ul li a{
+
+			display: inline-block; 
+
+			padding-top: 33px;
+
+			text-decoration: none;
+
+			color: #222;
+
+		}
+
+		.nav-block{
+
+			width: 165px;
+
+			margin-top: 120px;
+
+			margin-left: 100px;
+
+			font-family: dotum, 돋움, "굴림", Gulim, Tahoma, sans-serif;
+
+		}
+
 		
 	</style>
 
@@ -192,7 +239,7 @@
 
 		<div class="usermenu">
 
-			<ul>
+			<ul class="user-ul">
 
 				<li>
 					
@@ -231,5 +278,49 @@
 	</div>
 
 </div>
+
+	<div class="nav-block">
+
+		<ul class="nav-ul">
+
+			<li>
+
+				<a href="#">구매/판매/경매 내역</a>
+
+			</li>
+
+			<li>
+
+				<a href="#">후기 내역</a>
+
+			</li>
+
+			<li>
+
+				<a href="#">신고 내역</a>
+
+			</li>
+
+			<li>
+
+				<a href="#">문의사항 내역</a>
+
+			</li>
+
+			<li>
+
+				<a href="#">회원 정보 수정</a>
+
+			</li>
+
+			<li>
+
+				<a href="#">회원 탈퇴</a>
+
+			</li>
+
+		</ul>
+
+	</div>
 
 </html>
