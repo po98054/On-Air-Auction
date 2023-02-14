@@ -80,7 +80,7 @@
 		}
 		.title-content{
 			overflow: hidden; padding: 10px 19px;
-    		border-left: 1px solid #ccc; border-right: 1px solid #ccc;
+    	border-left: 1px solid #ccc; border-right: 1px solid #ccc;
 		}
 		.title-content .title{
 			float: left; font-size: 17px; line-height: 22px;
@@ -154,7 +154,32 @@
 			display: inline-block; height: 23px; padding: 9px 9px 0 9px;
     		color: #666; text-decoration: none; cursor: pointer;
 		}
-		
+		.pagination{
+			padding: 12px 0 12px 0; color: #333; border-left: 1px solid #ccc;
+   	  border-right: 1px solid #ccc; text-align: center;
+			padding-bottom: 35px !important; border-bottom: 1px solid #a6a6a6;
+		}
+		.name{
+			color: #333333;;
+		}
+		.sale-tems{
+			height: 59px; padding-bottom: 9px; background: #e8001e;
+		}
+		.basic-sidebar h2 a{
+			display: block; height: 59px; color: #fff; text-align: center;
+			padding-top: 20px;
+		}
+		.basic-list2{
+			margin-top: 18px; border-top: 1px solid #e1e1e1;
+		}
+		.basic-list2 .deposits{
+			position: relative; margin-top: 11px; color: #00b7bc;
+		}
+		.basic-list2 .deposits > a{ 
+			display: inline-block; padding-right: 14px; color: #00b7bc;
+    	text-decoration: none; font-size: 18px;
+		}
+
 	</style>
 </head>
 <body>
@@ -192,6 +217,11 @@
 		<div class="contents">
 			<div class="basic-contents">
 				<div class="basic-sidebar">
+					<div>
+						<h2 class="sale-tems">
+							<a href="#">판매물품 등록</a>
+						</h2>
+					</div>
 					<div class="basic-list1">
 						<h3>확인해주세요</h3>
 						<ul>						
@@ -206,11 +236,14 @@
 							</li>
 							<li>
 								<a href="#">취소요청</a>
-							</li>
-							<li>
-								<a href="#">긴급알리미</a>
-							</li>				
+							</li>		
 						</ul>
+					</div>
+					<div class="basic-list2">
+						<h3>보유 판매 예치금</h3>
+						<div class="deposits">
+							<a href="#">0<span>원 </span></a>
+						</div>
 					</div>
 				</div>
 				<div class="basic-container">
@@ -273,6 +306,45 @@
 								</table>
 							</div>	
 						</form>	
+						<div class="pagination"></div>
+						<form method="post" id="form1">
+							<div class="title-content">
+								<h4 class="title">판매내역 <span>0</span>건</h4>
+								<div class="step-months">
+									<ul class="step-list">
+										<li id="liMonth1" class="step-list01 on"><a id="btnMonth1" href="#"><span>1</span>개월</a></li>
+										<li id="liMonth3" class="step-list02"><a id="btnMonth3" href="#"><span>3</span>개월</a></li>
+										<li id="liMonth6" class="step-list03"><a id="btnMonth6" href="#"><span>6</span>개월</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="item-table-list">
+								<table>
+									<colgroup>
+										<col style="width:27%"> 
+										<col style="*">
+										<col style="width:16%">
+										<col style="width:12%">
+										<col style="width:7%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th class="name">물품명/판매금액</th>
+											<th>판매상태</th>
+											<th>구매자</th>
+											<th>판매일</th>
+											<th>문의</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr id="trNoRegItemList" class="random_bg">
+											<td colspan="5" class="name no-data">
+												<strong>등록된 물품이 없습니다.</strong>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>				
 					</div>
 				</div>
 			</div>
