@@ -16,169 +16,123 @@
 
 	<style>
 
-		.core-lnb{
-
-			position: relative;
-
-			height: 27px;
-
-			background-color: #fff;
-
-			font-size: 11px;
-
-			letter-spacing: -1px;
-
-			z-index: 100000;
-
-			display: block;
-
-		}
-
 		.lnb-container{
 
-			position: relative; 
-			
-			margin: 0 auto;
-
-			width: 900px !important;
-
-			display: block;
+			height: 40px;
 
 		}
 
-		.usermenu{
+		.lnb-container .usermsg{
 
-			display: block;
+			margin-top: 13px; 
+
+			float: left;
+
+			margin-left: 25px; 
+
+			color: black;
+
+			line-height: 15px;
+
+		}
+
+		.lnb-container .usermsg a{
+
+			font-size: 11px; 
+
+			color:black;
+
+			text-decoration: none;
+
+		}
+		
+		.lnb-container .usermenu{
+
+			margin-top: 6px;
 
 			float: right;
 
 		}
 
-		.core-lnb .usermenu > .user-ul{
+		.lnb-container .usermenu > ul {
 
-				list-style:none;
+			margin: 0; 
 
-    		margin:0;
-
-    		padding:0;
-
-				margin-block-start: 1em;
-
-    		margin-block-end: 1em;
-
-    		margin-inline-start: 0px;
-
-    		margin-inline-end: 0px;
-
-    		padding-inline-start: 40px;
-			
-				display: block;
+			padding: 0;
 
 		}
 
-		.core-lnb .usermenu > .user-ul > li{
+		.lnb-container .usermenu > ul > li {
 
-			float: left;
-
-			list-style: none;
-
-			display: list-item;
-
-			text-align: -webkit-match-parent;
-
-			background: url(//pics.auction.co.kr/pc/common/header/header.png) -140px -152px no-repeat;
-
-		}
-
-		.core-lnb .usermenu > .user-ul > li:first-child{
-
-			background: none;
-
-		}
-
-		.core-lnb .usermenu > .user-ul::after{
-
-			display: table;
-
-			content: '';
-
-			clear: both;
-
-		}
-
-		.core-lnb .lnb-container .usermenu > .user-ul > li > a{
-
-			margin-top: 7px;
-
-			display: inline-block;
-
-			padding: 0 8px;
-
-			text-decoration: none;
-
-			font-size: 11px;
-
-			color: #777;
+			float: left; 
 
 			line-height: 15px;
 
-			font-family: dotum, 돋움, "굴림", Gulim, Tahoma, sans-serif;
+			list-style: none;
 
 		}
 
-		.core-lnb .usermsg{
-
-			float: left;
-
-			height: 18px;
+		.lnb-container .usermenu > ul > li > a {
 
 			margin-top: 7px;
 
-			margin-right: 10px;
+			padding-right: 7px; 
+
+			padding: 0 6px 0 8px; 
+
+			color: black;
+
+			display: inline-block; 
+
+			text-decoration: none; 
 
 			font-size: 11px;
 
-			color: #777;
+		}
 
-			display: block;
+		.middle{
+
+			width: 100%;
 
 		}
 
-		.core-lnb .usermsg strong{
+		.middle .nav{
 
-			color: #222;
+			width: 980px; 
 
-			font-weight: normal;
+		}
 
-			line-height: 14px;
+		.middle .nav .nav-block{
 
 			float: left;
 
+			margin-top: 18px;
+
+			border-right: 1px solid black;
+
+			border-bottom: 1px solid black;
+
 		}
 
-		.core-lnb .usermsg strong a{
+		.middle .nav .nav-block .nav-ul li{
 
-			color: #222;
+			width: 165px;
 
-			font-weight: normal;
+			height: 22px;
 
-			line-height: 14px;
+			margin-bottom: 120px;
+
+			list-style: none;
+
+		}
+
+		.middle .nav .nav-block .nav-ul li a{
 
 			text-decoration: none;
 
-		}
+			padding-top: 4px;
 
-		.nav-block .nav-ul li{
-
-			text-align: center;
-
-			width: 165px; 
-
-			height: 22px; 
-			
-			margin-bottom: 100px;
-
-			list-style: none;
+			color: #666;
 
 		}
 
@@ -190,39 +144,12 @@
 
 		}
 
-		.nav-block .nav-ul li a{
-
-			display: inline-block; 
-
-			padding-top: 33px;
-
-			text-decoration: none;
-
-			color: #222;
-
-		}
-
-		.nav-block{
-
-			width: 165px;
-
-			margin-top: 120px;
-
-			margin-left: 100px;
-
-			font-family: dotum, 돋움, "굴림", Gulim, Tahoma, sans-serif;
-
-		}
-
-		
 	</style>
 
 </head>
 
 <body>
 	
-</body>
-
 <div class="core-lnb">
 
 	<div class="lnb-container">
@@ -277,50 +204,60 @@
 
 	</div>
 
+<div class="middle">
+
+<div class="nav">
+
+<div class="nav-block">
+
+	<ul class="nav-ul">
+
+		<li>
+
+			<a href="#">구매/판매/경매 내역</a>
+
+		</li>
+
+		<li>
+
+			<a href="#">후기 내역</a>
+
+		</li>
+
+		<li>
+
+			<a href="#">신고 내역</a>
+
+		</li>
+
+		<li>
+
+			<a href="#">문의사항 내역</a>
+
+		</li>
+
+		<li>
+
+			<a href="#">회원 정보 수정</a>
+
+		</li>
+
+		<li>
+
+			<a href="#">회원 탈퇴</a>
+
+		</li>
+
+	</ul>
+
 </div>
 
-	<div class="nav-block">
+</div>
 
-		<ul class="nav-ul">
+</div>
 
-			<li>
+</div>
 
-				<a href="#">구매/판매/경매 내역</a>
-
-			</li>
-
-			<li>
-
-				<a href="#">후기 내역</a>
-
-			</li>
-
-			<li>
-
-				<a href="#">신고 내역</a>
-
-			</li>
-
-			<li>
-
-				<a href="#">문의사항 내역</a>
-
-			</li>
-
-			<li>
-
-				<a href="#">회원 정보 수정</a>
-
-			</li>
-
-			<li>
-
-				<a href="#">회원 탈퇴</a>
-
-			</li>
-
-		</ul>
-
-	</div>
+</body>
 
 </html>
