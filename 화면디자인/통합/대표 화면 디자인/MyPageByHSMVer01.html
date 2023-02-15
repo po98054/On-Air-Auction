@@ -144,6 +144,122 @@
 
 		}
 
+		.information{
+
+			width: 1000px;
+
+			float: left;
+
+		}
+
+		.information .beforeMonth{
+
+			margin-top: 50px;
+
+			margin-left: 80px;
+
+		}
+
+		.information .beforeMonth .month{
+
+			list-style: nont;
+
+			text-decoration: none;
+
+			color: gray;
+
+			margin-left: 15px;
+
+		}
+
+		.information .beforeMonth .total{
+
+			float: right;
+
+			margin-left: 15px;
+
+			list-style: nont;
+
+			text-decoration: none;
+
+			color: gray;
+
+			margin-right: 5px;
+
+		}
+
+		.information .resultSelect{
+
+			width: 722px;
+
+		}
+
+		.information .resultSelect::after{
+
+			clear: both;
+
+			display: block;
+
+			content: '';
+
+		}
+
+		.information .resultSelect .select-menu{
+
+			list-style: none;
+
+			margin-top: 100px;
+
+			margin-left: 300px;
+
+			padding: 0;
+
+			float: left;
+
+			width: 630px;
+
+			height: 48px;
+
+			border: 1px solid black;
+
+		}
+
+		.information .resultSelect .select-menu .item-menu{
+
+			float: left;
+
+			width: 120px;
+
+			height: 48px;
+
+			text-align: center;
+
+			line-height: 48px;
+
+		}
+
+		.item-menu ~ .item-menu{
+
+			border-left: 1px solid black;
+
+			margin-left: -1[x];
+
+		}
+
+		.information .resultSelect .select-menu .item-menu .link-menu{
+
+			height: 100%;
+
+			width: 100%;
+
+			display: block;
+
+			color: black;
+
+			text-decoration: none;
+
+		}
+
 	</style>
 
 </head>
@@ -249,6 +365,70 @@
 					</li>
 
 				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="information">
+
+			<div class="beforeMonth">
+
+				<a href="#" class="month">1개월</a>
+
+				<a href="#" class="month">3개월</a>
+
+				<a href="#" class="month">6개월</a>
+
+				<a href="#" class="month">9개월</a>
+
+				<a href="#" class="month">1년</a>
+
+				<a href="#" class="total">조회건 : 30건</a>
+
+				<a href="#" class="total">조회건 : 10건</a>
+
+			</div>
+
+			<div class="resultSelect">
+
+				<ul class="select-menu">
+
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">구매 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">구매 취소 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">판매 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">경매 개최 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">경매 참가 내역</a>
+		
+					</li>
+		
+				</ul>
+
+			</div>
+
+			<div class="resultbox">
 
 			</div>
 
