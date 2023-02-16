@@ -90,77 +90,99 @@
 
 		}
 
-		.middle{
+		.body{
 
 			width: 100%;
 
+			height: 100%;
+
 		}
 
-		.middle .nav{
+		.body .nav{
 
 			float: left;
 
-			height: 150px;
-
-			margin-top: 170px;
+			height: 800px;
 
 			font: 12px/1.25 'Malgun Gothic','맑은고딕','나눔고딕',Tahoma;
 
+			border-right: 1px solid black;
+
 		}
 
-		.middle .nav .nav-block .nav-ul li{
+		.body .nav .body-left{
+
+			height: 780px;
+
+		}
+
+		.body .nav .body-left .nav-ul{
+
+			padding: 0;
+
+			margin-top: 20px;
+
+		}
+
+		.body .nav .body-left .nav-ul li{
 
 			width: 120px;
-            line-height: 42px; text-align: center;
-			height: 42px;
-            border-bottom: 1px solid black;
-            padding: 0 0 0 0;
 
-			margin-bottom: 5px;
+			height: 42px;
+
+			margin-bottom: 60px;
 
 			list-style: none;
 
 		}
 
-		.middle .nav .nav-block .nav-ul li a{
+		.body .nav .body-left .nav-ul li a{
 
 			text-decoration: none;
-
-			padding-top: 4px;
-
-			text-align: center;
 
 			color: #666;
 
 		}
 
-		.nav-block .nav-ul li:nth-child(2),
-		
-		.nav-block .nav-ul li:nth-child(n+2){
-
-			
-
-		}
-
-		.information{
+		.body-middle{
 
 			width: 1000px;
 
 			float: left;
 
-		}
-
-		.information .beforeMonth{
-
-			margin-top: 120px;
-
-			margin-left: 80px;
+			border-right: 1px solid black;
 
 		}
 
-		.information .beforeMonth .month{
+		.body-middle .middle{
 
-			list-style: nont;
+			height: 100px;
+
+		}
+
+		.body-middle .middle .beforeMonth{
+
+			float: left;
+
+			width: 400px;
+
+			height: 60px;
+
+			margin-top: 30px;
+
+			margin-left: 30px;
+
+		}
+
+		.body-middle .middle .beforeMonth .Month{
+
+			list-style: none;
+
+		}
+
+		.body-middle .middle .beforeMonth .month{
+
+			list-style: none;
 
 			text-decoration: none;
 
@@ -170,29 +192,41 @@
 
 		}
 
-		.information .beforeMonth .total{
+		.body-middle .middle .TotalData{
 
 			float: right;
 
-			margin-left: 15px;
+		}
 
-			list-style: nont;
+		.body-middle .middle .TotalData .Total{
+
+			margin-top: 50px;
+
+			margin-right: 10px;
+
+			padding: 0;
+
+		}
+
+		.body-middle .middle .TotalData .Total .total{
+
+			line-height: 15px;
+
+			list-style: none;
 
 			text-decoration: none;
 
 			color: gray;
 
-			margin-right: 5px;
-
 		}
 
-		.information .resultSelect{
+		.body-middle .resultSelect{
 
 			width: 722px;
 
 		}
 
-		.information .resultSelect::after{
+		.body-middle .resultSelect::after{
 
 			clear: both;
 
@@ -202,7 +236,7 @@
 
 		}
 
-		.information .resultSelect .select-menu{
+		.body-middle .resultSelect .select-menu{
 
 			list-style: none;
 
@@ -222,7 +256,7 @@
 
 		}
 
-		.information .resultSelect .select-menu .item-menu{
+		.body-middle .resultSelect .select-menu .item-menu{
 
 			float: left;
 
@@ -244,7 +278,7 @@
 
 		}
 
-		.information .resultSelect .select-menu .item-menu .link-menu{
+		.body-middle .resultSelect .select-menu .item-menu .link-menu{
 
 			height: 100%;
 
@@ -350,11 +384,11 @@
 
 		</div>
 
-	<div class="middle">
+	<div class="body">
 
 		<div class="nav">
 
-			<div class="nav-block">
+			<div class="body-left">
 
 				<ul class="nav-ul">
 
@@ -400,23 +434,43 @@
 
 		</div>
 
-		<div class="information">
+		<div class="body-middle">
 
-			<div class="beforeMonth">
+			<div class="middle">
 
-				<a href="#" class="month">1개월</a>
+				<div class="beforeMonth">
 
-				<a href="#" class="month">3개월</a>
+					<ul class="Month">
 
-				<a href="#" class="month">6개월</a>
+						<li>기간별 데이터 조회</li>
 
-				<a href="#" class="month">9개월</a>
+					</ul>
 
-				<a href="#" class="month">1년</a>
+					<a href="#" class="month">1개월</a>
 
-				<a href="#" class="total">조회건 : 30건</a>
+					<a href="#" class="month">3개월</a>
 
-				<a href="#" class="total">조회건 : 10건</a>
+					<a href="#" class="month">6개월</a>
+
+					<a href="#" class="month">9개월</a>
+
+					<a href="#" class="month">1년</a>
+
+				</div>
+
+				<div class="TotalData">
+
+					<ul class="Total">
+
+						<li>한번에 볼 수 있는 데이터 건수</li>
+
+					</ul>
+
+					<a href="#" class="total">조회건 : 30건</a>
+
+					<a href="#" class="total">조회건 : 10건</a>
+
+				</div>
 
 			</div>
 
