@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경매화면</title>
+    <script src="../JS/jquery.min.js"></script>
+    <style>
+        *{ 
+            margin: 0; padding: 0; text-decoration: none; color: inherit;
+            box-sizing: border-box; font-size: inherit; font-style: normal;
+            border-collapse: collapse; border: 0; list-style: none; line-height: inherit;
+            outline: none; word-break: inherit;
+        }
+        .top-header{
+            width: 100%; height: 31px; 
+        }
+        .top-header .top-inner{
+            height: 31px; line-height: 31px; font-family: Arial, Helvetica, sans-serif;
+            padding: 0 1%; width: 100%; border-bottom: 1px solid black;
+        }
+        .top-header .top-inner h2{
+            display: inline-block; padding-top: 8px;
+        }
+        .top-header .top-inner h2 a{
+            font-size: 13px; width: 88px; height: 13px; display: block; line-height: 26px;
+            background-position: 0 0; background: url(//static.itrcomm.com/img/common/common-icon.png);
+        }
+        .top-header .top-inner ul{
+            float: right; line-height: 31px; list-style: none;
+        }
+        .top-header .top-inner ul li{
+            position: relative; float: left; padding: 0 12px;
+        }
+        .top-header .top-inner ul li:nth-child(1):before{
+            content: ''; position: absolute; display: block; width: 1px;
+            height: 12px; right: 0; top: 50%; transform: translateY(-50%);
+        }
+        .top-header .top-inner ul li:last-child{
+            padding-right: 0;
+        }
+        .top-header .top-inner ul li a {
+            color: #666; font-size: 0.87rem;
+        }
+		.body{
+			margin: 3px 0 3px 0;
+		}
+		.body::after{
+			content: ''; clear: both; display: block;
+		}
+		.box{
+			width: 33%; 
+			float: left; box-sizing: border-box; height: 650px;
+		}
+        .body .left{margin-left: 2px;}
+        .box .left .title{
+            font-size: 1.7rem; font-weight: 700; color: #080808;
+            padding: 0 0 7px; line-height: 29px;
+        }
+        .product-area{
+            text-align: center; margin-top: 10px;
+        }
+        .inner-area{
+            width: 100%;
+        }
+        .thumnail{
+            position: relative; 
+        }
+        .thuminner{
+        position: relative; width: 100%; height: 0; padding-top: 64%;
+        overflow: hidden;
+        }
+        .zoo-item{
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; transition: all 150ms linear; border: 1px solid #ccc;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .zoo-item img{
+            display: none;
+        }
+        .zoo-item .zoo-img{
+            background-image: url(https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/TAYAAOSwFqNj2sAH/$_57.JPG?set_id=880000500F);
+            cursor: pointer; transform: scale(1); transform-origin: 99.1726% 51.3396%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-repeat: no-repeat; background-position: center;
+            background-size: contain;
+        }
+        .zoombox{
+            position: absolute; color: #5a5a5a; font-size: 1em;
+            background: #fff; width: 228px; height: 49px; left: 50%;
+            transform: translateX(-50%); bottom: -24px; text-align: center;
+            line-height: 49px;
+        }
+        .zoombox span{
+            position: relative; top: 9px; width: 17px; height: 28px;
+            background-position: -54px -23px; margin-right: 15px;
+            background-repeat: no-repeat; background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+            display: inline-block;
+        }
+        .thumnail2{
+            height: 0; padding-top: 16%; position: relative; margin-top: 20px;
+            overflow: hidden;
+        }
+        .thumnail2 .thumnail2-inner{
+            transition-duration: 0ms; transform:  translate3d(25px, 0px, 0px);
+            position: absolute; top: 0; left: 0; text-align: center;
+            margin: 0 auto; width: 100%; height: 100%; z-index: 1;
+            box-sizing: content-box; display: flex; margin-left: 5px;
+        }
+        .thumnail2 .thumnail2-inner .inner-box{
+            width: 54px; margin-right: 11px;
+            height: 100%; position: relative; 
+        }
+        .thumnail2 .thumnail2-inner .inner-box img{
+            border: 1px solid #000; font-size: 0; vertical-align: top;
+            margin: 0 7px; position: relative; width: 53px; height: 50px;
+            border-radius: 0; background: #fff; opacity: 1; box-sizing: border-box;
+            background-position: left top; background-size: 85px 85px;cursor: pointer;
+        }
+        .thumnail2 .thumnail2-inner2 .btn_prev{
+            left: 0; position: absolute; top: 50%; transform: translateY(-50%);
+            z-index: 99; width: 25px; height: 80px; background-color: #fff;
+            opacity: 0.9; cursor: pointer; 
+        }
+        .thumnail2 .thumnail2-inner2 .btn_prev span{
+            background-position: -97px 0; display: block; width: 15px; height: 29px;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .thumnail2 .thumnail2-inner2 .btn_next{
+            right: 0; position: absolute; top: 50%; transform: translateY(-50%);
+            z-index: 99; width: 25px; height: 80px; background-color: #fff;
+            opacity: 0.9; cursor: pointer;
+        }
+        .thumnail2 .thumnail2-inner2 .btn_next span{
+            background-position: -119px 0; display: block; width: 15px; height: 29px;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .product-seller{
+            position: relative; margin-top: 10px; border: 1px solid #ddd;
+            border-radius: 18px; padding: 10px 10px 10px 10px;
+        }
+        .product-seller ul{
+            display: inline-block; vertical-align: top;
+        }
+        .product-seller li{
+            line-height: 26px; font-size: 13px; color: #666;
+        }
+        .product-seller li.id{
+            font-size: 16px; color:#000
+        }
+        .product-seller .id .seller{
+            width: 84px; display: inline-block; font-size: 13px;
+        }
+        .product-seller li strong{
+            font-size: 13px; font-weight: 600; color: #000;
+        }
+        .product-seller li.pay strong{
+            margin-left: 20px;
+        }
+        font{font-size: 14px;}
+        .product-seller li.recall strong{
+            font-size: 11px; color: #85b816; margin-left: 10px;
+         }
+         .product-seller li.recall strong.st{
+            display: block; padding-left: 75px; color: #000;
+         }
+         .product-seller a{
+            position: absolute; padding-left: 5px; display: block; text-align: left;
+            font-size: 11px; color: #444; width: 120px; height: 36px; border: 1px solid #ccc;
+            line-height: 32px; border-radius: 6px;
+         }
+         .product-seller .sel_btn{
+            top: 10px; right: 10px; margin-top: 5px; margin-right: -5px;
+         }
+         .product-seller a span{
+            position: absolute; height: 25px; width: 23px; right: 1px; top: 50%; transform: translateY(-50%);
+         }
+         .product-seller .sel_btn span{
+            background-position: -75px 0; height: 21px; display: inline-block;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+         }
+         .product-seller .more_btn{
+            top: 52px; right: 10px; margin-top: 5px; margin-right: -5px;
+         }
+         .product-seller .more_btn span{
+            background-position: -257px 0; display: inline-block;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+         }
+         .add{
+            border: 1px solid #ccc; border-radius: 18px; height: 50px;
+            margin-top: 5px; font-size: 15px; text-align: center; line-height: 50px;
+            color: blue;
+        }
+        .mid{
+            border: 1px solid black; border-radius: 18px; height: 650px; 
+            font-size: 15px; text-align: center; line-height: 650px; color: red;
+        }
+        .step{
+            padding: 10px 0 10px 0;
+            position: relative;
+            border-bottom: 1px solid #ccc;
+        }
+        .step::after{content: ''; display: block; clear: both;}
+        .step .itemid{
+            position: relative; line-height: 40px; margin-bottom: 10px;
+        }
+        .itemid strong{
+            position: relative; font-size: 15px; color: #9b9b9b; padding-right: 8px;
+            margin-right: 4px;
+        }
+        .itemid strong::before{
+            content: ''; position: absolute; top: 6px; right: 0; background: #bbb;
+            display: block;
+        }
+        .itemid span{
+            color: #262626; border-bottom: 1px solid #ccc; padding-bottom: 1px;
+        }
+        .itemid a{
+            width: 17px; height: 17px; vertical-align: middle; margin-left: 10px;
+            margin-top: -4px; background-position: -154px 0;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+            display: inline-block;
+        }
+        .step01 button{
+            width: 36px; height: 36px; border: 1px solid #d7d7d7; position: absolute;
+            top: 0; border-radius: 20px;
+        }
+        .step01 .share_btn{
+            right: 45px; cursor: pointer;
+        }
+        .share_btn span{
+            background-position: -52px 0; border-bottom: 0;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .step01 button span{
+            width: 17px; height: 18px; display: block; margin: 0 auto;
+        }
+        .step01 .like_btn{
+            right: 0; cursor: pointer; margin-right: 2px;
+        }
+        .step01 .like_btn span{
+            background-position: -75px 0; border-bottom: 0;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .list_ul li{
+            padding-bottom: 11px;
+        }
+        .step dt{
+            color: #666; display: inline-block; font-size: 1.0rem;
+        }
+        .list_ul li:first-child dd{
+            width: 230px; text-align: right;
+        }
+        .step dd{
+            position: relative; float: right; font-size: 1.0rem; color: #666;
+        }
+        .step01 dd > span{
+            position: relative; cursor: pointer; border-right: 1px solid #ddd;
+            margin-right: 8px; vertical-align: middle;
+        }
+        .pr0{padding-right: 0px;}
+        .list_ul .pr0 img{
+            width: 20px; margin-bottom: 4px;
+        }
+        .list_ul li .warehouseInfo{
+            border: 1px solid #398439; color: #398439;
+            background-color: #fff; padding: 3px 6px; border-radius: 6px;
+            font-size: 0.95rem; cursor: pointer; margin-right: 2px;
+        }
+        .step01 .list_ul li:last-child{
+            padding-bottom: 10px;
+        }
+        .dd1 font{
+            font-size: 10px;
+        }
+        .step li.current{
+            line-height: 27px;
+        }
+        .f18{font-weight: 600; }
+        .step li.currnent .history_btn{
+            width: 111px; margin-top: -5px; height: 27px; border: 1px solid #ccc;
+            font-size: 12px; color: #666; vertical-align: middle; margin-left: 5px;
+            line-height: 24px; border-radius: 6px; cursor: pointer; margin-right: 2px;
+        }
+        .step li.currnent .history_btn span{
+            background-position: -175px 0; margin-left: 10px; width: 11px; height: 9px;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png); display: inline-block;
+        }
+        .step li.est{
+            padding: 0;
+        }
+        .step .pb5{ padding-bottom: 5px;}
+        .est_view{
+            width: 100px; height: 27px; border: 1px solid #ccc;
+            line-height: 23px; font-size: 13px; color: #666; margin-left: 10px;
+            border-radius: 6px; vertical-align: middle; cursor: pointer;
+        }
+        .est_view span{
+            width: 12px; height: 12px; background-position: -190px 0; margin-left: 3px;
+            display: inline-block; background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+            cursor: pointer;
+        }
+        .est_ok{
+            width: 130px; margin-right: 2px; height: 48px; background: #0053a0;
+            color: #fff; font-size: 18px; border-radius: 24px; line-height: 48px;
+            cursor: pointer;
+        }
+        .est_ok span{
+            width: 23px; height: 18px; background-position: -207px 0; margin-top: -5px;
+            margin-left: 1px; display: inline-block; margin-right: 5px;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .amount{font-size: 15px; font-weight: bold;}
+        .add2{
+            border: 1px solid #ccc; border-radius: 18px; height: 49%;
+            margin-top: 5px; font-size: 15px; text-align: center; line-height: 320px;
+            color: blue;
+        }
+		.box~.box{margin-left: 3px;}
+        .bottom{border: 1px solid black; height: 50px; line-height: 50px;
+            text-align: center;}
+        .step .dd1{font-size: 7px; padding-top: 5px;}
+        .step .dt1{font-size: 15px;}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-header">
+            <div class="inner top-inner">
+                <h2>
+                    <a href=""></a>
+                </h2>
+                <ul>
+                    <li>
+                        <a href="">로그인</a>
+                    </li>
+                    <li>
+                        <a href="">회원가입</a>
+                    </li>
+                    <li>
+                        <a href="">실시간경매 이용안내</a>
+                    </li>   
+                </ul>
+            </div>
+        </div>
+        <div class="body">
+            <div class="box left">
+                <h1 class="title">Bonhams auction catalogue Gipsy Moth III Brochure 1981 Sale
+                </h1>
+                <div class="product-area">
+                    <div class="inner-area">
+                        <div class="thumnail">
+                            <div class="thuminner">
+                                <div class="item img_list_tab">
+                                    <figure class="zoo-item" zoo-image="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/TAYAAOSwFqNj2sAH/$_57.JPG?set_id=880000500F">
+                                        <img src="//static.itrcomm.com/img/common/loading_360.png">
+                                        <div class="zoo-img"></div>
+                                    </figure>
+                                </div>
+                            </div>
+                            <button type="button" class="zoombox">
+                                <span class="all_icon"></span>
+                                "Mouse over to Zoom"
+                            </button>
+                        </div>
+                        <div class="thumnail2">
+                            <div class="thumnail2-inner">
+                                <div class="inner-box" data-url="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/TAYAAOSwFqNj2sAH/$_?set_id=880000500F">
+                                    <img src="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/TAYAAOSwFqNj2sAH/$_0.JPG?set_id=880000500F" alt="">
+                                </div>
+                                <div class="inner-box" data-url="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/cgoAAOSws4Rj2sAJ/$_?set_id=880000500F">
+                                    <img src="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/cgoAAOSws4Rj2sAJ/$_0.JPG?set_id=880000500F" alt="">
+                                </div>
+                                <div class="inner-box" data-url="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/qboAAOSwoNhj2sAR/$_?set_id=880000500F">
+                                    <img src="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/qboAAOSwoNhj2sAR/$_0.JPG?set_id=880000500F" alt="">
+                                </div>
+                                <div class="inner-box" data-url="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/exQAAOSwG5Jj2sAT/$_?set_id=880000500F">
+                                    <img src="https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/exQAAOSwG5Jj2sAT/$_0.JPG?set_id=880000500F" alt="">
+                                </div>
+                            </div>
+                            <div class="thumnail2-inner2">
+                                <div class="swiper-control">
+                                    <button type="button" class="btn_prev">
+                                        <span class="all_icon"></span>
+                                    </button>
+                                    <button type="button" class="btn_next">
+                                        <span clsaa="all_icon"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-seller">
+                    <ul>
+                        <li class="id">
+                            <div class="seller">판매자</div>
+                            <strong>PowerLeseller</strong>
+                        </li>
+                        <li class="pay">구매만족도
+                            <strong>100%</strong>
+                           
+                            <font>(2,365)
+                                <span class="grade"></span>
+                                
+                            </font>
+                        </li>
+                        <li class="recall">
+                            반품수용여부
+                            <strong>ReturnAccepted</strong>
+                            <strong class="st">30 days returns.</strong>
+                        </li>
+                    </ul>
+                    <a href="" class="sel_btn">판매자 찜
+                        <span class="all_icon"></span>
+                    </a>
+                    <a href="" class="more_btn">판매자 상품 보기
+                        <span class="all_icon"></span>
+                    </a>
+                </div>
+                <div class="add">추가기능</div>
+            </div>
+            <div class="box mid">실시간 채팅</div>
+            <div class="box right">
+                <div class="step step01">
+                    <div class="itemid">
+                        <strong>Item ID</strong>
+                        <span>304798106833</span>
+                        <a href="https://www.ebay.com/itm/304798106833?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5338569225&customid=&toolid=10001&mkevt=1" class="all_icon"></a>
+                        <button class="share_btn">
+                            <span class="all_icon"></span>
+                        </button>
+                        <button class="like_btn">
+                            <span class="all_icon"></span>
+                        </button>
+                    </div>
+                    <ul class="list_ul">
+                        <li>
+                            <dl>
+                                <dt>상품상태</dt>
+                                <dd>
+                                    <span class="pr0">
+                                        <img src="//static.itrcomm.com/img/sub/item_status_ico_1.png" alt="">
+                                    </span>
+                                    중고상품 (좋은 상태)
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt>상품위치</dt>
+                                <dd>
+                                    <font class="warehouse">Clevedon, GB</font>
+                                    <label class="warehouseInfo">영국 물류센터 경유</label>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt>판매종료시간</dt>
+                                <dd class="korEndTime">
+                                    <font class="leftTime"></font>
+                                    (02월 16일 04시 46분 20초)
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="dt1">물류센터 도착 예정일</dt>
+                                <dd class="dd1">
+                                    미국시간
+                                    <font class="fw 500">
+                                        02월 18일(토)~02월 21일(화)
+                                    </font>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+                <div class="step step02">
+                    <ul class="list_ul">
+                        <li class="currnent">
+                            <dl>
+                                <dt class="c_000">현재 입찰가</dt>
+                                <dd>
+                                    <font class="f18">￡ 0.99</font>
+                                    <button class="history_btn">
+                                        <span class="all_icon"></span>
+                                        입찰내역보기
+                                    </button>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="est pd5">
+                            <dl>
+                                <dt>입찰 견적가</dt>
+                                <dd>
+                                    <strong>
+                                        <font class="amount">28,980원</font>
+                                    </strong>
+                                    <button class="est_view">
+                                        자세히보기
+                                        <span class="all_icon"></span>
+                                    </button>
+                                    <button class="est_ok">
+                                        입찰신청
+                                        <span class="all_icon"></span>
+                                    </button>
+                                </dd>
+                            </dl>
+                        </li>
+                       
+                    </ul>
+                </div>
+                <div class="add2">추가기능2</div>
+            </div>
+        </div>
+        <div class="bottom">하단메뉴</div>
+    </div>
+    <script>
+        
+    </script>
+    
+</body>
+</html>
