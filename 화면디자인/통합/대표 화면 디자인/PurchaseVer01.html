@@ -3,7 +3,17 @@
 <head>
 	<script src="../js/jquery.min.js"></script>
 	<style>
-		
+		body, html {
+			padding: 0; margin: 0; height: 100%;
+		}
+		.html {
+    font-family: Tahoma, Gulim, '굴림';
+    font-size: 12px;
+    line-height: 1.3;
+    color: #333333;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
 		.head-box1{
 			height: 40px; background: #e8001e; font-size: 11px; letter-spacing: -1px;
 			color: #fff;
@@ -41,13 +51,13 @@
 			display: inline-block; text-decoration: none; font-size: 11px;
 		}
 		.contents{
-			width: 980px; margin: 0 auto
+			min-width: 980px !important;
 		}
 		.basic-contents{
-			margin-top: 20px;
+			width: 100%; margin: 0 auto;
 		}
 		.basic-sidebar{
-			float: left; width: 165px; font: 12px/1.25 'Malgun Gothic','맑은고딕','나눔고딕',Tahoma; letter-spacing: -1px;
+			float: left; width: 150px; font: 12px/1.25 'Malgun Gothic','맑은고딕','나눔고딕',Tahoma; letter-spacing: -1px;
 		}
 		.basic-list1{
 			margin-top: 18px; 
@@ -63,7 +73,7 @@
 			display: inline-block; padding-top: 4px; color: #888; cursor: pointer;
 		}
 		.basic-container{
-			float: right; width: 795px;
+			float: right; width: 650px;
 		}
 		.tabbar{
 			overflow: hidden; position: relative;
@@ -213,7 +223,14 @@
 			float: left; position: relative; margin-top: 15px;
 			padding: 0 15px; list-style: none;
 		}
+		.contents-box{
+			width: 980px; margin: 0 auto;
+		}
+		.clearfix::after{
+		clear: both; display: block; content: '';
+		}
 		.navi-a{
+			position: relative; bottom: 8px
 		}
 	</style>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -250,7 +267,7 @@
 				</div>	
 				<div class="head-box2">
 					<div class="core-gnb">
-						<div class="layout">
+						<div class="layout clearfix">
 							<div class="navi-allmenu">
 								<button class="btn"><i class="fas fa-bars"></i></button>
 								<a href="#" class="navi-a">전체 카테고리</a>
@@ -276,137 +293,139 @@
 		</div>	
 		<div class="contents">
 			<div class="basic-contents">
-				<div class="basic-sidebar">
-					<div>
-						<h2 class="sale-tems">
-							<a href="#">판매물품 등록</a>
-						</h2>
-					</div>
-					<div class="basic-list1">
-						<h3>확인해주세요</h3>
-						<ul>						
-							<li>
-								<a href="#">신규문의</a>
-							</li>
-							<li>
-								<a href="#">입찰취소요청</a>
-							</li>
-							<li>
-								<a href="#">반품요청</a>
-							</li>
-							<li>
-								<a href="#">취소요청</a>
-							</li>		
-						</ul>
-					</div>
-					<div class="basic-list2">
-						<h3>보유 판매 예치금</h3>
-						<div class="deposits">
-							<a href="#">0<span>원 </span></a>
+				<div class="contents-box clearfix">
+					<div class="basic-sidebar">
+						<div>
+							<h2 class="sale-tems">
+								<a href="#">판매물품 등록</a>
+							</h2>
+						</div>
+						<div class="basic-list1">
+							<h3>확인해주세요</h3>
+							<ul class="clearfix">						
+								<li>
+									<a href="#">신규문의</a>
+								</li>
+								<li>
+									<a href="#">입찰취소요청</a>
+								</li>
+								<li>
+									<a href="#">반품요청</a>
+								</li>
+								<li>
+									<a href="#">취소요청</a>
+								</li>		
+							</ul>
+						</div>
+						<div class="basic-list2 ">
+							<h3>보유 판매 예치금</h3>
+							<div class="deposits">
+								<a href="#">0<span>원 </span></a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="basic-container">
-					<div class="tabbar">
-						<ul class="tabbar-tablist">
-							<li class="tabbar-li"> 
-								<a class="tab" href="#">
-									<span class="tab-label">
-										내 물품판매 홈
-									</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-					<div class="content">
-						<form method="post" id="form1">
-							<div class="title-content">
-								<h4 class="title">등록물품 <span>0</span>건</h4>
-								<div class="step-months">
-									<ul class="step-list">
-										<li id="liMonth1" class="step-list01 on"><a id="btnMonth1" href="#"><span>1</span>개월</a></li>
-										<li id="liMonth3" class="step-list02"><a id="btnMonth3" href="#"><span>3</span>개월</a></li>
-										<li id="liMonth6" class="step-list03"><a id="btnMonth6" href="#"><span>6</span>개월</a></li>
-									</ul>
+					<div class="basic-container">
+						<div class="tabbar">
+							<ul class="tabbar-tablist clearfix">
+								<li class="tabbar-li"> 
+									<a class="tab" href="#">
+										<span class="tab-label">
+											내 물품판매 홈
+										</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="content">
+							<form method="post" id="form1">
+								<div class="title-content">
+									<h4 class="title">등록물품 <span>0</span>건</h4>
+									<div class="step-months">
+										<ul class="step-list">
+											<li id="liMonth1" class="step-list01 on"><a id="btnMonth1" href="#"><span>1</span>개월</a></li>
+											<li id="liMonth3" class="step-list02"><a id="btnMonth3" href="#"><span>3</span>개월</a></li>
+											<li id="liMonth6" class="step-list03"><a id="btnMonth6" href="#"><span>6</span>개월</a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
-							<div class="item-table-list">
-								<table>
-									<colgroup>
-										<col style="*">
-										<col style="width:16%"> 
-										<col style="width:16%">
-										<col style="width:22%">
-										<col style="width:8%">
-										<col style="width:12%">
-										<col style="width:7%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th class="name">물품명</th>
-											<th>현재 경매가</th>
-											<th>등록가격(즉시판매가)</th>
-											<th>판매상태</th>
-											<th>노출대기</th>
-											<th>종료일</th>
-											<th>문의</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr id="trNoRegItemList" class="random_bg">
-											<td colspan="6" class="name no-data">
-												<strong>등록된 물품이 없습니다.</strong>
-												<p>간편해진 내 물품 판매로 판매물품을 등록해보세요!</p>
-												<div class="btn-register">
-													<a href="javascript:showRegistNew()" class="btn-silver"><span class="btn-inner">판매물품 등록하기</span></a>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>	
-						</form>	
-						<div class="pagination"></div>
-						<form method="post" id="form1">
-							<div class="title-content">
-								<h4 class="title">판매내역 <span>0</span>건</h4>
-								<div class="step-months">
-									<ul class="step-list">
-										<li id="liMonth1" class="step-list01 on"><a id="btnMonth1" href="#"><span>1</span>개월</a></li>
-										<li id="liMonth3" class="step-list02"><a id="btnMonth3" href="#"><span>3</span>개월</a></li>
-										<li id="liMonth6" class="step-list03"><a id="btnMonth6" href="#"><span>6</span>개월</a></li>
-									</ul>
+								<div class="item-table-list">
+									<table>
+										<colgroup>
+											<col style="*">
+											<col style="width:16%"> 
+											<col style="width:16%">
+											<col style="width:22%">
+											<col style="width:8%">
+											<col style="width:12%">
+											<col style="width:7%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th class="name">물품명</th>
+												<th>현재 경매가</th>
+												<th>등록가격(즉시판매가)</th>
+												<th>판매상태</th>
+												<th>노출대기</th>
+												<th>종료일</th>
+												<th>문의</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr id="trNoRegItemList" class="random_bg">
+												<td colspan="6" class="name no-data">
+													<strong>등록된 물품이 없습니다.</strong>
+													<p>간편해진 내 물품 판매로 판매물품을 등록해보세요!</p>
+													<div class="btn-register">
+														<a href="javascript:showRegistNew()" class="btn-silver"><span class="btn-inner">판매물품 등록하기</span></a>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>	
+							</form>	
+							<div class="pagination"></div>
+							<form method="post" id="form1">
+								<div class="title-content">
+									<h4 class="title">판매내역 <span>0</span>건</h4>
+									<div class="step-months">
+										<ul class="step-list">
+											<li id="liMonth1" class="step-list01 on"><a id="btnMonth1" href="#"><span>1</span>개월</a></li>
+											<li id="liMonth3" class="step-list02"><a id="btnMonth3" href="#"><span>3</span>개월</a></li>
+											<li id="liMonth6" class="step-list03"><a id="btnMonth6" href="#"><span>6</span>개월</a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
-							<div class="item-table-list">
-								<table>
-									<colgroup>
-										<col style="width:27%"> 
-										<col style="*">
-										<col style="width:16%">
-										<col style="width:12%">
-										<col style="width:7%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th class="name">물품명/판매금액</th>
-											<th>판매상태</th>
-											<th>구매자</th>
-											<th>판매일</th>
-											<th>문의</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr id="trNoRegItemList" class="random_bg">
-											<td colspan="5" class="name no-data">
-												<strong>등록된 물품이 없습니다.</strong>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>				
+								<div class="item-table-list">
+									<table>
+										<colgroup>
+											<col style="width:27%"> 
+											<col style="*">
+											<col style="width:16%">
+											<col style="width:12%">
+											<col style="width:7%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th class="name">물품명/판매금액</th>
+												<th>판매상태</th>
+												<th>구매자</th>
+												<th>판매일</th>
+												<th>문의</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr id="trNoRegItemList" class="random_bg">
+												<td colspan="5" class="name no-data">
+													<strong>등록된 물품이 없습니다.</strong>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>				
+						</div>
 					</div>
-				</div>
+				</div>	
 			</div>
 		</div>
 	</div>
