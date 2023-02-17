@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 상세페이지_박사라(수정중)</title>
+  <style>
+    *{ margin: 0; padding: 0}
+    #product-detail-page{
+      font-family: dotum,"돋움",-apple-system,BlinkMacSystemFont,sans-serif;
+      min-width: 980px;;
+    }
+    .header{
+      height: 87px;
+      position: relative; display: block; box-sizing: content-box;
+    }
+    .container-header{
+      background-color: #e8001e; height: 40px;
+    }
+    .item-search{
+      display: relative;
+      width: 150px; height: 26px; background: #ab0017;
+      font-size: 11px; border-radius: 10px;
+    }
+    .logo{
+      overflow: clip;
+    }
+    .header-layout-left{
+      float: left;
+    }
+    .box-head-search{
+      float: left; box-sizing: content-box;
+    }
+    .inner-search{
+      position: relative; width: 150px; height: 26px;
+    }
+    .input-search{
+     padding: 0; border: 0; outline: 0 none;
+      letter-spacing: -0.5px; line-height: 1em;
+      border-radius: 10px; font-style: bold;
+      background: transparent; padding: 8px 6px 0 6px; color: #fff;
+      box-sizing: border-box; background-position: 15px 50%;
+    }
+    .btn-search{
+      right: 6px; top: 5px;
+      display: absolute; width: 18px; height: 18px;
+      border: none; background: url(http://pics.auction.co.kr/pc/common/header/header.png)-194px -90px;
+      cursor: pointer; padding: 1px 6px;
+      display: block; box-sizing: border-box;
+    }
+
+    .header-layout-right{
+      float: right; position: relative;
+      box-sizing: content-box;
+    }
+    .item-user-menu{
+      float: left; display: block;
+    }
+    .list-user-menu{
+      margin-top: 6px; float: left; list-style: none;
+      padding: 0 6px 0 8px;
+      margin-top: 7px; padding-right: 7px;
+      font-family: -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Roboto, Noto Sans CJK KR, Tahoma, 'Noto Sans KR', 'Gmarket Sans', sans-serif
+    } 
+    .link-user-menu{
+      color: #fff; padding: 0 6px 0 8px;
+      display: inline-block; text-decoration: none;
+      font-size: 11px; list-style-type: none;
+    }
+
+
+
+    .body{
+      position: relative;
+      width: 980px;
+      margin: 0 auto;
+    }
+    .info-image{
+      width: 200px; height: 200px;
+      display: inline;
+    }
+    .list-product-navi{
+      list-style: none;  padding-top: 30px;
+    }
+    .item-product-tab{
+      height: 32px; padding-top: 30px;;
+      clear: both; font-size: 14px;
+      display: inline-block; position: relative; 
+      border-top: 2px solid #2a2a2a;
+      border-right: 2px solid #2a2a2a;
+      border-bottom: 2px solid #fff;
+      border-left: 2px solid #2a2a2a;
+    }
+    
+    .footer{
+      min-width: 980px; font-size: 11px; 
+      background-color: #fafafa; border-top: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Roboto, Noto Sans CJK KR, Tahoma, 'Noto Sans KR', 'Gmarket Sans', sans-serif;
+    }
+    .box-list-utility{
+      margin-top: 15px; margin-bottom: 20px;
+      font-size: 14px; line-height: 20px;
+      letter-spacing: -1px; color: #5e636d;
+      text-decoration: none;
+    }
+    .item-utility{
+      color: #676767; 
+      display: inline-block; position: relative;
+      padding: 0 20px 0 40px;
+    }
+    .footer .link-utility{
+      font-size: 14px; line-height: 20px; letter-spacing: -1px;
+      color: #5e636d; text-decoration: none; list-style: none;
+    }
+
+    .footer-area{
+      width: 100% auto; margin: 10px auto;
+    }
+    .box-company-info{
+      border-top: 1px solid #ececec; padding: 9px 0 18px;
+      float: left; 
+    }
+    .company-title{
+      position: relative; display: inline-block;
+      padding-right: 19px; font-size: 14px; line-height: 20px;
+      font-weight: bold; letter-spacing: -1px; color: #5e636d;
+    }
+    .company-content{
+      margin-top: 5px; font-size: 13px; line-height: 23px;
+      letter-spacing: -0.5px; color: #757c8a;
+    }
+
+    .cscenter-info{
+      border-top: 1px solid #ececec; padding: 9px 0 18px;
+      float: left;
+    }
+    .cscenter-title{
+      position: relative; display: inline-block;
+      padding-right: 19px; font-size: 14px; line-height: 20px;
+      font-weight: bold; letter-spacing: -1px; color: #5e636d;
+    }
+    .cscenter-content{
+      margin-top: 5px; font-size: 13px; line-height: 23px;
+      letter-spacing: -0.5px; color: #757c8a;
+    }
+
+    .legal-info{
+      border-top: 1px solid #ececec; padding: 9px 0 18px;
+      float: right;
+    }
+    .legal-title{
+      position: relative; display: inline-block;
+      padding-right: 19px; font-size: 14px; line-height: 20px;
+      font-weight: bold; letter-spacing: -1px; color: #5e636d;
+    }
+    .legal-content{
+      margin-top: 5px; font-size: 13px; line-height: 23px;
+      letter-spacing: -0.5px; color: #757c8a;
+    }
+
+
+    .footer-notice{
+      border-top: 1px solid #ececec; padding: 16px 0 85px;
+       font-size: 11px; line-height: 20px; display: block; clear: both;
+    }
+    .notice-title{
+      position: relative; display: inline-block;
+      padding-right: 19px; font-size: 14px; line-height: 20px;
+      font-weight: bold; letter-spacing: -1px; color: #5e636d;
+    }
+    .text-notice{
+      font-size: 12px; line-height: 20px; letter-spacing: -1px;
+      color: #94989f; 
+    }
+    .text-copyright{
+      font-size: 12px; line-height: 20px; letter-spacing: -1px;
+      color: #94989f; 
+    }
+    
+
+
+
+
+    .body-test{
+      background-color: #ffff;
+      height: 400px;
+      width: 980px
+    }
+  </style>
+</head>
+<body>
+  <!-- product-detail-page 시작 -->
+  <div id="product-detail-page">
+    <!-- 상단 Navigation 구현 시작 -->
+    <div class="header">
+      <!-- 상단 container-header 구현 시작 -->
+      <div class="container-header">
+        <div class="header-layout-left">
+          <div class="box-head-search">
+            <div class="logo">
+              <i class="fa-thin fa-face-smile"></i>
+            </div>
+            <div class="item-search">
+              <form action="" class="form-search">
+                <div class="inner-search">
+                  <input type="text" class="input-search" placeholder="검색">
+                  <input type="submit" class="btn-search">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="header-layout-right">
+          <div class="user-menu">
+            <ul class="list-user-menu">
+              <li class="item-user-menu">
+                <a href="" class="link-user-menu">로그인</a>
+              </li>
+              <li class="item-user-menu">
+                <a href="" class="link-user-menu">회원가입</a>
+              </li>
+              <li class="item-user-menu">
+                <a href="" class="link-user-menu">장바구니</a>
+              </li>
+              <li class="item-user-menu">
+                <a href="" class="link-user-menu">마이옥션</a>
+              </li>
+              <li class="item-user-menu">
+                <a href="" class="link-user-menu">고객센터</a>
+              </li>
+              <li class="item-user-menu">
+                <a href="" class="link-user-menu">판매하기</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- 상단 container-header 구현 끝 -->
+      </div>
+      <!-- 상단 header-core 구현 시작 -->
+      <div class="header-core">
+        <div class="core-layout-left">
+          <div class="core-all-category"></div>
+          <div class="core-menu"></div>
+        </div>
+        <div class="core-layout-right">
+          <div class="core-latest"></div>
+        </div>
+      </div>
+      <!-- 상단 header-core 구현 끝 -->
+      <div class="location-navi">
+        <ul>
+          <li>
+            <a href="">홈</a>
+          </li>
+          <li>
+            <a href="">공구/안전/산업용품</a>
+          </li>
+          <li>
+            <a href="">수공구</a>
+          </li>
+          <li>
+            <a href="">드라이버</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 상단 Navigation 구현 끝 -->
+
+    <!-- 본문 페이지 구현 시작 -->
+    <div id="body">
+      <div class="content-area">
+        <!-- 상품 사진, 상품 가격 그 라인 -->
+        <div class="container-content">
+          <div class="content-layout-left">
+            <div class="product-simple">
+              <div class="info">
+                <div class="info-image">
+                  <img src="https://images.unsplash.com/photo-1676397030397-1dfae2fd850f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content-layout-right"></div>
+        </div>
+        <div class="product-info">
+          <ul class="list-product-navi">
+            <li class="item-product-tab">상품정보</li>
+            <li class="item-product-tab">판매자 후기</li>
+            <li class="item-product-tab">문의사항</li>
+          </ul>
+          <div class="box-notice-bar">
+            <div class="detail-notice"></div>
+          </div>
+          <div class="box-detail-view">
+            <div class="item-detail-content"></div>
+          </div>
+          <div class="box-product-simple"></div>
+        </div>
+      </div>
+    </div>
+    <!-- 본문 페이지 구현 끝 -->
+    
+    
+    <!-- 하단 페이지 구현 시작 -->
+    <div class="footer">
+      <div class="footer-area">
+        <div class="box-list-utility">
+          <ul class="list-utility">
+            <li class="item-utility">
+              <a href="" class="link-footer-utility">채용정보</a>
+            </li>
+            <li class="item-utility">
+              <a href="" class="link-footer-utility">이용약관</a>
+            </li>
+            <li class="item-utility">
+              <a href="" class="link-footer-utility">전자금융거래약관</a>
+            </li>
+            <li class="item-utility">
+              <a href="" class="link-footer-utility">개인정보 처리방침</a>
+            </li>
+            <li class="item-utility">
+              <a href="" class="link-footer-utility">브랜드 광고센터</a>
+            </li>
+            <li class="item-utility">
+              <a href="" class="link-footer-utility">판매자 광고센터</a>
+            </li>
+          </ul>
+        </div>
+        <div class="box-company-info">
+          <div class="company-detail-info">
+            <span class="company-title">주식회사 지마켓</span>
+            <p class="company-content">
+              서울특별시 강남구 테헤란로 152 (역삼동, GFC) 
+              <br>
+              사업자등록번호 : 220-81-83676
+              <a href="" class="link-business-info">사업자정보확인</a>
+              <br>
+              통신판매업신고 : 강남 10630호
+              <br>
+              대표이사 : 전항일
+            </p>
+          </div>
+          <div class="cscenter-info">
+            <span class="cscenter-title">고객센터</span>
+            <p class="cscenter-content">
+              경기도 부천시 부일로 223, 9층 (상동)
+              <br>
+              Tel : 
+              <em class="text-emphasis">1588-0184</em>
+              (평일 09:00 ~ 18:00)
+              <br>
+              Fax : 02-589-8829 | Mail :
+              <a href="" class="link-mail">infomation@corp.auction.co.kr</a>
+            </p>
+          </div>
+          <div class="legal-info">
+            <span class="legal-title">전자금융 분쟁처리</span>
+            <p class="legal-content">
+              Tel : 1588-0184
+              <br>
+              Fax : 02-589-8833
+              <br>
+              Mail : mediation@corp.auction.co.kr
+              <br>
+              <a href="" class="link-legal">전자상거래법상의 소비자분쟁해결기준</a>
+            </p>
+          </div>
+        </div>
+       
+        <div class="footer-notice">
+          <div class="box-notice">
+            <p class="text-notice">
+              옥션은 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 옥션은 상품·거래 정보 및 가격에 대하여 책임을 지지 않습니다.
+              <br>
+              본 사이트의 모든 정보, 콘텐츠, UI 등에 대한 무단 복제, 전송, 배포, 스크래핑 등의 행위는 관련 법령에 의하여 엄격히 금지됩니다. 
+              <a href="" class="link-notice">콘텐츠산업 진흥법에 따른 표시</a>
+            </p>
+            <p class="text-copyright">
+              Copyright Gmarket Inc. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    <!-- 하단 페이지 구현 끝 -->
+  </div>
+<!-- product-detail-page 끝 -->
+</body>
+</html>
