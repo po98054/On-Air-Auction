@@ -1,4 +1,542 @@
-<a href="./화면디자인/통합/대표 화면 디자인/MyPageByHSMVer01.html">마이페이지-구매</a>
-<a href="./화면디자인/통합/대표 화면 디자인/PurchaseVer03.html">상품 등록</a>
-<a href="./화면디자인/정태환/경매화면.html">경매 화면</a>
-<a href="./화면디자인/박사라/상품 페이지_박사라">상품 페이지</a>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>마이 폐이지_구매_하성민_Ver01</title>
+
+	<script src="./js/jquery.min.js"></script>
+
+	<style>
+
+		.lnb-container{
+
+			height: 40px; border-bottom: 1px solid black;
+
+		}
+
+		.lnb-container .usermsg{
+
+			margin-top: 13px; 
+
+			float: left;
+
+			margin-left: 25px; 
+
+			color: black;
+
+			line-height: 15px;
+
+		}
+
+		.lnb-container .usermsg a{
+
+			font-size: 11px; 
+
+			color:black;
+
+			text-decoration: none;
+
+		}
+		
+		.lnb-container .usermenu{
+
+			margin-top: 6px;
+
+			float: right;
+
+		}
+
+		.lnb-container .usermenu > ul {
+
+			margin: 0; 
+
+			padding: 0;
+
+		}
+
+		.lnb-container .usermenu > ul > li {
+
+			float: left; 
+
+			line-height: 15px;
+
+			list-style: none;
+
+		}
+
+		.lnb-container .usermenu > ul > li > a {
+
+			margin-top: 7px;
+
+			padding-right: 7px; 
+
+			padding: 0 6px 0 8px; 
+
+			color: black;
+
+			display: inline-block; 
+
+			text-decoration: none; 
+
+			font-size: 11px;
+
+		}
+
+		.body{
+
+			width: 100%;
+
+			height: 100%;
+
+		}
+
+		.body .nav{
+
+			float: left;
+
+			width: 200px;
+
+			height: 800px;
+
+			font: 12px/1.25 'Malgun Gothic','맑은고딕','나눔고딕',Tahoma;
+
+			border-right: 1px solid black;
+
+		}
+
+		.body .nav .body-left{
+
+			height: 780px;
+
+		}
+
+		.body .nav .body-left .nav-ul{
+
+			padding: 0;
+
+			margin-top: 20px;
+
+		}
+
+		.body .nav .body-left .nav-ul li{
+
+			width: 120px;
+
+			height: 42px;
+
+			margin-bottom: 60px;
+
+			list-style: none;
+
+		}
+
+		.body .nav .body-left .nav-ul li a{
+
+			text-decoration: none;
+
+			color: #666;
+
+		}
+
+		.body-middle{
+
+			width: 1600px;
+
+			height: 800px;
+
+			float: left;
+
+			border-right: 1px solid black;
+
+		}
+
+		.body-middle .middle{
+
+			height: 100px;
+
+		}
+
+		.body-middle .middle .beforeMonth{
+
+			float: left;
+
+			width: 400px;
+
+			height: 60px;
+
+			margin-top: 30px;
+
+			margin-left: 30px;
+
+		}
+
+		.body-middle .middle .beforeMonth .Month{
+
+			list-style: none;
+
+		}
+
+		.body-middle .middle .beforeMonth .month{
+
+			list-style: none;
+
+			text-decoration: none;
+
+			color: gray;
+
+			margin-left: 15px;
+
+		}
+
+		.body-middle .middle .TotalData{
+
+			float: right;
+
+		}
+
+		.body-middle .middle .TotalData .Total{
+
+			margin-top: 50px;
+
+			margin-right: 40px;
+
+			padding: 0;
+
+			list-style: none;
+
+			text-decoration: none;
+
+		}
+
+		.TotalData .totalNum{
+
+			list-style: none;
+
+			text-decoration: none;
+
+			color: gray;
+
+			margin-left: 50px;
+
+		}
+
+		.body-middle .resultSelect{
+
+			width: 722px;
+
+		}
+
+		.body-middle .resultSelect::after{
+
+			clear: both;
+
+			display: block;
+
+			content: '';
+
+		}
+
+		.body-middle .resultSelect .select-menu{
+
+			list-style: none;
+
+			margin-top: 30px;
+
+			margin-left: 220px;
+
+			padding: 0;
+
+			float: left;
+
+			width: 1100px;
+
+			height: 48px;
+
+			border: 1px solid black;
+
+		}
+
+		.body-middle .resultSelect .select-menu .item-menu{
+
+			float: left;
+
+			width: 200px;
+
+			height: 48px;
+
+			text-align: center;
+
+			line-height: 48px;
+
+			border-left: 1px solid black;
+
+		}
+
+		.item-menu ~ .item-menu{
+
+			margin-left: 20px;
+
+		}
+
+		.body-middle .resultSelect .select-menu .item-menu .link-menu{
+
+			height: 100%;
+
+			width: 100%;
+
+			display: block;
+
+			color: black;
+
+			text-decoration: none;
+
+			font: 13px/1.25 'Malgun Gothic','맑은고딕','나눔고딕',Tahoma;
+
+		}
+
+		.resultbox{
+
+			border: 1px solid black;
+
+			width: 1100px;
+
+			height: 600px;
+
+			margin-left: 220px;
+
+		}
+
+		.bottom{
+
+			width: 100%;
+
+			height: 100px;
+
+			border: 1px solid black;
+
+			margin-top: 800px;
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+	
+	<div class="core-lnb">
+
+		<div class="lnb-container">
+
+			<div class="usermsg">
+
+				<strong>
+
+					<a href="#">user</a>
+
+				</strong>님 환영합니다.
+
+			</div>
+
+			<div class="usermenu">
+
+				<ul class="user-ul">
+
+					<li>
+					
+						<a href="#">로그인</a>
+
+					</li>
+
+					<li>
+					
+						<a href="#">회원가입</a>
+
+					</li>
+
+					<li>
+					
+						<a href="#">경매</a>
+
+					</li>
+
+					<li>
+					
+						<a href="#">마이 페이지</a>
+
+					</li>
+
+					<li>
+					
+						<a href="#">판매하기</a>
+
+					</li>
+
+					<li>
+					
+						<a href="#">고객센터</a>
+
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	<div class="body">
+
+		<div class="nav">
+
+			<div class="body-left">
+
+				<ul class="nav-ul">
+
+					<li>
+
+						<a href="#">구매/판매/경매 내역</a>
+
+					</li>
+
+					<li>
+
+						<a href="#">후기 내역</a>
+
+					</li>
+
+					<li>
+
+						<a href="#">신고 내역</a>
+
+					</li>
+
+					<li>
+
+						<a href="#">문의사항 내역</a>
+
+					</li>
+
+					<li>
+
+						<a href="#">회원 정보 수정</a>
+
+					</li>
+
+					<li>
+
+						<a href="#">회원 탈퇴</a>
+
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="body-middle">
+
+			<div class="middle">
+
+				<div class="beforeMonth">
+
+					<ul class="Month">
+
+						<li>기간별 데이터 조회</li>
+
+					</ul>
+
+					<a href="#" class="month">1개월</a>
+
+					<a href="#" class="month">3개월</a>
+
+					<a href="#" class="month">6개월</a>
+
+					<a href="#" class="month">9개월</a>
+
+					<a href="#" class="month">1년</a>
+
+				</div>
+
+				<div class="TotalData">
+
+					<ul class="Total">
+
+						<li>한번에 볼 수 있는 데이터 건수</li>
+
+					</ul>
+
+					<a href="#" class="totalNum">10건</a>
+
+					<a href="#" class="totalNum">30건</a>
+
+
+				</div>
+
+			</div>
+
+			<div class="resultSelect">
+
+				<ul class="select-menu">
+
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">구매 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">구매 취소 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">판매 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">경매 개최 내역</a>
+		
+					</li>
+		
+					<li class="item-menu">
+		
+						<a href="#" class="link-menu">경매 참가 내역</a>
+		
+					</li>
+		
+				</ul>
+
+			</div>
+
+			<div class="resultbox">
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="bottom">
+
+
+
+	</div>
+
+	</div>
+
+</body>
+
+</html>
