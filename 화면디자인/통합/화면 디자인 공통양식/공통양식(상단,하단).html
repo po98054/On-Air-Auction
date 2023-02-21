@@ -29,7 +29,7 @@
     .comList ul li{
         float: left; margin-right: 10px; padding: 5px 0;
     }
-    .comList2{display: table-cell; vertical-align: middle;}
+    .comList2{display: table-cell; vertical-align: middle; float: right;}
     .comList2 ul{
         list-style: none; margin-bottom: 0; 
     }
@@ -42,6 +42,9 @@
     .clearFix::after{
         clear: both; content: ''; display: block;
     }
+    .clearFix p a{
+        color: #fff;
+    }
     .comList ul li p{
         float: left; margin: 0 0; padding: 0 12px;
     }
@@ -49,7 +52,7 @@
         content: '\26BF'; margin-right: 3px;
     }
     .comList2 ul li{
-        margin-left: 550px; float: left; padding: 5px 0;
+        float: left; padding: 5px 0;
     }
     .comList2 ul li p{
         background: none; float: left; margin: 0; padding: 0 12px;
@@ -95,7 +98,93 @@
     .containertoo::after{
         clear: both; display: block; content: '';
     }
+    .body{
+        height: 700px; border: 1px solid black; border-top: none;
+        border-bottom: none ;
+        margin-left: auto; margin-right: auto; text-align: center;
+        line-height: 700px
+        /*구현하신 페이지 <div class="body">에 넣고 여기 스타일 삭제
+            하시면 돼요*/
+    }
+    .bottomCustomer{
+        box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+        background: #f7f7f7; border-top: 1px solid black;
 
+    }
+    .bottomCustomer1{
+        padding: 25px 0; display: table; margin-left: auto; margin-right: auto;
+    }
+    .bottomCustomer1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer1-1{
+        width: 500px; display: table-cell; 
+    }
+    .bottomCustomer1-1 img{
+         text-align: center;
+    }
+    .bottomCustomer1-2{
+        display: table-cell; float: right;
+    }
+    .bottomCustomer1-2 a{
+        text-align: center; padding-top: 50px; margin-bottom: 15px;
+        color: #555; width: 84pt; display: inline-block; 
+    }
+    .bottomCustomer1-2 a:nth-child(1){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(2){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(3){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(4){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(5){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(6){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+    }
+    .bottomCensebar{
+        background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCensebar1{
+        margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+    }
+    .bottomCensebar1-1{
+        float: left;
+    }
+    .bottomCensebar1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCopy{
+        box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCopy1{
+        margin-left: auto; margin-right: auto; height: 57.2px;
+        background: #f7f7f7;
+        }
+    .bottomCopy1-1{
+         font-size: 14px; margin-left: 20px;
+        box-sizing: border-box; float: right;
+    }
+    .bottomCopy1-1 a{
+        color: #111; font-weight: bold;  font-size: 14px;
+        padding-right: 15px;  text-decoration: none; line-height: 54px;
+        text-align: center;
+        
+    }
+    .bottomCopy1::after{
+        clear: both; content: ''; display: block;
+    }
+    .okof::before{
+        content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+        text-align: center; 
+    }
+    
 </style>
 <body>
     <div class="containertoo">
@@ -209,10 +298,46 @@
         </ul>
     </div>
     <div class="body">
-
+        구현하신 페이지
+        여기에 넣으시면 됩니다.
     </div>
-    <div class="bottomtoo"></div>
-
-    
+    <div class="bottomtoo">
+        <div class="bottomCustomer">
+            <div class="bottomCustomer1">
+                <div class="bottomCustomer1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/foot-pc-custom.gif" alt="">
+                </div>
+                <div class="bottomCustomer1-2">
+                    <a href="#">구매안내</a>
+                    <a href="#">판매안내</a>
+                    <a href="#">채용안내</a>
+                    <a href="#">도난문화재</a>
+                    <a href="#">입금계좌안내</a>
+                    <a href="#">원격지원요청</a>
+                </div>
+            </div>
+        </div>
+        <div class="bottomCensebar">
+            <div class="bottomCensebar1">
+                <div class="bottomCensebar1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/footlLcense.gif" alt="">
+                </div>
+                <div class="bottomCensebar1-2"></div>
+            </div>
+        </div>
+        <div class="bottomCopy">
+            <div class="bottomCopy1">
+                <div class="bottomCopy1-1">
+                    <a href="#" class="okof">회사소개</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보취급방침</a>
+                    <a href="#">이메일무단수집거부</a>
+                    <a href="#">고객센터</a>
+                    <a href="#">앱소개</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 </body>
 </html>
