@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공통양식</title>
+</head>
+<style>
+   *{
+    font-family: Arial, Helvetica, sans-serif;
+        margin: 0; padding: 0; text-decoration: none;
+        font-size: inherit; border-collapse: collapse; line-height: inherit;
+        word-break: inherit; list-style: none;
+    }
+    .containertoo{
+        text-align: center; box-sizing: border-box; background:#464646;
+        color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+    }
+    
+    .list-unstyled{
+        margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+
+    }
+    .timer{
+        background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+        padding-left: 25px;
+    }
+    .comList ul li{
+        float: left; margin-right: 10px; padding: 5px 0;
+    }
+    .comList2{display: table-cell; vertical-align: middle;}
+    .comList2 ul{
+        list-style: none; margin-bottom: 0; 
+    }
+    .list-unstyled .timer span{
+        margin-left: 30px;
+    }
+    .clearFix{
+        margin-right: 0;
+    }
+    .clearFix::after{
+        clear: both; content: ''; display: block;
+    }
+    .comList ul li p{
+        float: left; margin: 0 0; padding: 0 12px;
+    }
+    .lock::before{
+        content: '\26BF'; margin-right: 3px;
+    }
+    .comList2 ul li{
+        margin-left: 550px; float: left; padding: 5px 0;
+    }
+    .comList2 ul li p{
+        background: none; float: left; margin: 0; padding: 0 12px;
+    }
+    .container-inner2{
+        margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+    }
+    .container2{
+        border-bottom: 1px solid black; margin: 0 20px 0 20px; position: relative;
+    }
+    .container2 div{
+        float:left;
+    }
+    .container2 ul{
+        position: absolute; left: 150px; height: 70px;
+    }
+    .container2 ul li{
+        list-style: none; float: left; margin-left: 5px; height: 70px;
+    }
+    .container2::after{clear: both; display: block; content: '';}
+    .container2 img{ width: 150px; height: 70px; object-fit: cover;}
+    .container2 li a{
+        height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+        text-decoration: none;
+    }
+    .addProduct{
+        margin-top: 25px; border-radius: 10px; background: #114da5;
+        color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+    }
+    .comList2 .list-unstyled .clearFix a{
+        text-decoration: none;
+    }
+    .smallList1 select{
+        margin: 30px 0 0 50px;
+    }
+    .smallList2 input{
+         margin-left: 5px;
+    }
+    .smallList2 button{
+        margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+        color: #fff;
+    }
+    .containertoo::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomtoo{
+        height: 900px; border: 1px solid black;
+    }
+</style>
+<body>
+    <div class="containertoo">
+        <div class="container-inner1">
+            <div class="comList">
+                <ul class="list-unstyled">
+                    <li class="timer">
+                        <span>2023. 2. 20. 19:58:35</span>
+                    </li>
+                    <li class="clearFix">
+                        <p>
+                            <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="comList2">
+                <ul class="list-unstyled">
+                    <li class="clearFix">
+                        <p>
+                            <a href="#">처음이신가요?</a>
+                        </p>
+                        <p>
+                            <a href="#">로그인</a>
+                        </p>
+                        <p>
+                            <a href="#">회원가입</a>
+                        </p>
+                        <p>
+                            <a href="#">마이페이지</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div>
+            <a href="#">
+                <img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/292372037_695387691625287_1346927503198505070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=gGM2yGZs_D4AX8YfthL&_nc_ht=scontent-ssn1-1.xx&oh=00_AfBbvmSlTo1P0953pBmRjhV41_r8XQc6qNCWtVBVJ0_FQQ&oe=63F7B71C" alt="">
+            </a>
+        </div>
+        <ul>
+            <li>
+                <a href="#">온라인경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전문쇼핑몰
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">삶의흔적경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">기획경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">고객센터
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전체메뉴
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <button class="addProduct">물품등록</button>
+            </li>
+            <li class="smallList1">
+                <select name="datafield" id="">
+                    <option value="">물품명</option>
+                    <option value="">판매자ID</option>
+                </select>
+            </li>
+            <li class="smallList2">
+                <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+                <button>검색</button>
+            </li>
+        </ul>
+    </div>
+    <div class="body">
+
+    </div>
+    <div class="bottomtoo">dd</div>
+
+    
+</body>
+</html>
