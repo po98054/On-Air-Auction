@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세미 파이널 - 마이 페이지 - 구매</title>
+</head>
+<style>
+   *{
+    font-family: Arial, Helvetica, sans-serif;
+        margin: 0; padding: 0; text-decoration: none;
+        font-size: inherit; border-collapse: collapse; line-height: inherit;
+        word-break: inherit; list-style: none;
+    }
+    .containertoo{
+        text-align: center; box-sizing: border-box; background:#464646;
+        color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+    }
+    
+    .list-unstyled{
+        margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+
+    }
+    .timer{
+        background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+        padding-left: 25px;
+    }
+    .comList ul li{
+        float: left; margin-right: 10px; padding: 5px 0;
+    }
+    .comList2{display: table-cell; vertical-align: middle; float: right;}
+    .comList2 ul{
+        list-style: none; margin-bottom: 0; 
+    }
+    .list-unstyled .timer span{
+        margin-left: 30px;
+    }
+    .clearFix{
+        margin-right: 0;
+    }
+    .clearFix::after{
+        clear: both; content: ''; display: block;
+    }
+    .clearFix p a{
+        color: #fff;
+    }
+    .comList ul li p{
+        float: left; margin: 0 0; padding: 0 12px;
+    }
+    .lock::before{
+        content: '\26BF'; margin-right: 3px;
+    }
+    .comList2 ul li{
+        float: left; padding: 5px 0;
+    }
+    .comList2 ul li p{
+        background: none; float: left; margin: 0; padding: 0 12px;
+    }
+    .container-inner2{
+        margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+    }
+    .container2{
+        border-bottom: 1px solid black; margin: 0 20px 0 20px; position: relative;
+    }
+    .container2 div{
+        float:left;
+    }
+    .container2 ul{
+        position: absolute; left: 150px; height: 70px;
+    }
+    .container2 ul li{
+        list-style: none; float: left; margin-left: 5px; height: 70px;
+    }
+    .container2::after{clear: both; display: block; content: '';}
+    .container2 img{ width: 150px; height: 70px; object-fit: cover;}
+    .container2 li a{
+        height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+        text-decoration: none;
+    }
+    .addProduct{
+        margin-top: 25px; border-radius: 10px; background: #114da5;
+        color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+    }
+    .comList2 .list-unstyled .clearFix a{
+        text-decoration: none;
+    }
+    .smallList1 select{
+        margin: 30px 0 0 50px;
+    }
+    .smallList2 input{
+         margin-left: 5px;
+    }
+    .smallList2 button{
+        margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+        color: #fff; cursor: pointer;
+    }
+    .containertoo::after{
+        clear: both; display: block; content: '';
+    }
+    .body{
+        height: 700px; 
+	}
+	.body .body-left{
+		float:left; width: 150px; height:700px; border-right: 1px solid black;
+	}
+	.body .body-left .nav-ul{
+		margin-top: 5px;
+	}
+	.body .body-left .nav-ul .list-li{
+		width: 150px; height: 110px; margin-bottom: 5px;
+	}
+	.body .body-left .nav-ul .list-li .item-a{
+		display: inline-block; padding-top: 4px; color:black;
+	}
+	.body .body-middle{
+		float:left; width: 1400px; height: 700px; border-right: 1px solid black;
+	}
+	.body .body-middle .middle{
+		width: 1400px; height: 50px; 
+	}
+	.body .body-middle .middle .beforeMonth{
+		float:left; width: 300px; height: 50px; 
+	}
+	.body .body-middle .middle .beforeMonth .Month{
+		margin-top: 10px; margin-bottom: 20px; margin-left: 70px;
+	}
+	.body .body-middle .middle .beforeMonth .data{
+		margin-left: 15px; color:black;
+	}
+	.body .body-middle .middle .search{
+		float: left; width: 350px;  height: 50px; margin-top: 30px; margin-left: 140px;
+	}
+	.body .body-middle .middle .TotalData{
+		float: right; width: 400px; height: 50px;
+	}
+	.body .body-middle .middle .TotalData .Total{
+		margin-top: 10px; margin-bottom: 20px; margin-left: 90px;
+	}
+	.body .body-middle .middle .TotalData .ten{
+		margin-left: 100px; color:black;
+	}
+	.body .body-middle .middle .TotalData .total-data{
+		margin-left: 90px; color:black;
+	}
+	.body .body-middle .Result-box{
+		width: 722px;
+	}
+	.body .body-middle .Result-box::after{
+		clear: both; display: block; content: '';
+	}
+	.body .body-middle .Result-box .list-menu{
+		list-style: none; margin-top: 1px; margin-left: 300px; padding: 0; float: left; width: 690px; height: 48px; border: 1px solid black;
+	}
+	.body .body-middle .Result-box .list-menu .item-menu{
+		float: left; width: 120px; height: 48px; text-align: center; line-height: 48px;
+	}
+	.item-menu ~ .item-menu{
+		border-left: 1px solid black; margin-left: -1[x];
+	}
+	.body .body-middle .Result-box .list-menu .item-menu .link-menu{
+		height: 100%; width: 100%; display: block; color: black; text-decoration: none;
+	}
+	.body .body-middle .Result-Data{
+		width: 690px; border: 1px solid black; height: 480px; margin-top: 5px; margin-left: 300px;
+	}
+	.body .body-middle table{
+		border: 1px solid black; border-collapse: collapse; width: 690px; height: 50px; text-align: center;
+	}
+	.body .body-middle table th{
+		border: 1px solid black;
+	}
+	
+    .bottomCustomer{
+        box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+        background: #f7f7f7; border-top: 1px solid black;
+
+    }
+    .bottomCustomer1{
+        padding: 25px 0; display: table; margin-left: auto; margin-right: auto;
+    }
+    .bottomCustomer1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer1-1{
+        width: 500px; display: table-cell; 
+    }
+    .bottomCustomer1-1 img{
+         text-align: center;
+    }
+    .bottomCustomer1-2{
+        display: table-cell; float: right;
+    }
+    .bottomCustomer1-2 a{
+        text-align: center; padding-top: 50px; margin-bottom: 15px;
+        color: #555; width: 84pt; display: inline-block; 
+    }
+    .bottomCustomer1-2 a:nth-child(1){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(2){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(3){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(4){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(5){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(6){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+    }
+    .bottomCensebar{
+        background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCensebar1{
+        margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+    }
+    .bottomCensebar1-1{
+        float: left;
+    }
+    .bottomCensebar1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCopy{
+        box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCopy1{
+        margin-left: auto; margin-right: auto; height: 57.2px;
+        background: #f7f7f7;
+        }
+    .bottomCopy1-1{
+         font-size: 14px; margin-left: 20px;
+        box-sizing: border-box; float: right;
+    }
+    .bottomCopy1-1 a{
+        color: #111; font-weight: bold;  font-size: 14px;
+        padding-right: 15px;  text-decoration: none; line-height: 54px;
+        text-align: center;
+        
+    }
+    .bottomCopy1::after{
+        clear: both; content: ''; display: block;
+    }
+    .okof::before{
+        content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+        text-align: center; 
+    }
+
+    
+</style>
+<body>
+    <div class="containertoo">
+        <div class="container-inner1">
+            <div class="comList">
+                <ul class="list-unstyled">
+                    <li class="timer">
+                        <span>2023. 2. 20. 19:58:35</span>
+                    </li>
+                    <li class="clearFix">
+                        <p>
+                            <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="comList2">
+                <ul class="list-unstyled">
+                    <li class="clearFix">
+                        <p>
+                            <a href="#">처음이신가요?</a>
+                        </p>
+                        <p>
+                            <a href="#">로그인</a>
+                        </p>
+                        <p>
+                            <a href="#">회원가입</a>
+                        </p>
+                        <p>
+                            <a href="#">마이페이지</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div>
+            <a href="#">
+                <img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/292372037_695387691625287_1346927503198505070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=gGM2yGZs_D4AX8YfthL&_nc_ht=scontent-ssn1-1.xx&oh=00_AfBbvmSlTo1P0953pBmRjhV41_r8XQc6qNCWtVBVJ0_FQQ&oe=63F7B71C" alt="">
+            </a>
+        </div>
+        <ul>
+            <li>
+                <a href="#">온라인경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전문쇼핑몰
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">삶의흔적경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">기획경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">고객센터
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전체메뉴
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <button class="addProduct">물품등록</button>
+            </li>
+            <li class="smallList1">
+                <select name="datafield" id="">
+                    <option value="">물품명</option>
+                    <option value="">판매자ID</option>
+                </select>
+            </li>
+            <li class="smallList2">
+                <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+                <button>검색</button>
+            </li>
+        </ul>
+    </div>
+    <div class="body">
+		<div class="body-left">		
+			<ul class="nav-ul">		
+				<li class="list-li">		
+					<a href="#" class="item-a">구매/판매/경매 내역</a>		
+				</li>
+				<li class="list-li">
+					<a href="#" class="item-a">후기 내역</a>
+				</li>	
+				<li class="list-li">	
+					<a href="#" class="item-a">신고 내역</a>	
+				</li>	
+				<li class="list-li">	
+					<a href="#" class="item-a">문의사항 내역</a>	
+				</li>	
+				<li class="list-li">	
+					<a href="#" class="item-a">회원 정보 수정</a>	
+				</li>	
+				<li class="list-li">
+					<a href="#" class="item-a">회원 탈퇴</a>	
+				</li>		
+			</ul>		
+		</div>
+		<div class="body-middle">
+			<div class="middle">	
+				<div class="beforeMonth">	
+					<ul class="Month">	
+						<li>기간별 데이터 조회</li>	
+					</ul>	
+					<a href="#" class="data">1개월</a>
+					<a href="#" class="data">3개월</a>	
+					<a href="#" class="data">6개월</a>	
+					<a href="#" class="data">9개월</a>	
+					<a href="#" class="data">1년</a>	
+				</div>	
+				<div class="search">	
+					<select name="select">	
+						<option value="">분류</option>	
+						<option value="item">판매물품명</option>	
+						<option value="person">판매자명</option>	
+				</select>	
+				<input type="text" id="select-word">	
+				<button>검색</button>	
+				</div>	
+				<div class="TotalData">	
+					<ul class="Total">	
+						<li>한번에 볼 수 있는 데이터 건수</li>	
+					</ul>	
+					<a href="#" class="ten">10건</a>	
+					<a href="#" class="total-data">30건</a>	
+				</div>	
+			</div>
+			<div class="Result-box">
+				<ul class="list-menu">
+					<li class="item-menu selected">
+						<a href="#" class="link-menu">구매 내역</a>		
+					</li>		
+					<li class="item-menu">		
+						<a href="#" class="link-menu">경매 참가 내역</a>		
+					</li>		
+					<li class="item-menu">		
+						<a href="#" class="link-menu">구매 취소 내역</a>	
+					</li>		
+					<li class="item-menu">		
+						<a href="#" class="link-menu">판매 내역</a>		
+					</li>		
+					<li class="item-menu">		
+						<a href="#" class="link-menu">경매 개최 내역</a>		
+					</li>
+				</ul>
+			</div>
+			<div class="Result-Data">
+				<table>
+					<thead>
+						<tr>
+							<th>상품 번호</th>
+							<th>상품명</th>
+							<th>낙찰가</th>
+							<th>구매 수량</th>
+							<th>구매일</th>
+							<th>결재 여부</th>
+							<th>배송일</th>
+							<th>배송 여부</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+    </div>
+    <div class="bottomtoo">
+        <div class="bottomCustomer">
+            <div class="bottomCustomer1">
+                <div class="bottomCustomer1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/foot-pc-custom.gif" alt="">
+                </div>
+                <div class="bottomCustomer1-2">
+                    <a href="#">구매안내</a>
+                    <a href="#">판매안내</a>
+                    <a href="#">채용안내</a>
+                    <a href="#">도난문화재</a>
+                    <a href="#">입금계좌안내</a>
+                    <a href="#">원격지원요청</a>
+                </div>
+            </div>
+        </div>
+        <div class="bottomCensebar">
+            <div class="bottomCensebar1">
+                <div class="bottomCensebar1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/footlLcense.gif" alt="">
+                </div>
+                <div class="bottomCensebar1-2"></div>
+            </div>
+        </div>
+        <div class="bottomCopy">
+            <div class="bottomCopy1">
+                <div class="bottomCopy1-1">
+                    <a href="#" class="okof">회사소개</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보취급방침</a>
+                    <a href="#">이메일무단수집거부</a>
+                    <a href="#">고객센터</a>
+                    <a href="#">앱소개</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
