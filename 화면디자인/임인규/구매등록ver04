@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공통양식</title>
+</head>
+<style>
+    
+   *{
+    font-family: Arial, Helvetica, sans-serif;
+        margin: 0; padding: 0; text-decoration: none;
+        font-size: inherit; border-collapse: collapse; line-height: inherit;
+        word-break: inherit; list-style: none;
+    }
+    .containertoo{
+        text-align: center; box-sizing: border-box; background:#464646;
+        color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+    } 
+    .list-unstyled{
+        margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+    }
+    .timer{
+        background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+        padding-left: 25px;
+    }
+    .comList ul li{
+        float: left; margin-right: 10px; padding: 5px 0;
+    }
+    .comList2{display: table-cell; vertical-align: middle; float: right;}
+    .comList2 ul{
+        list-style: none; margin-bottom: 0; 
+    }
+    .list-unstyled .timer span{
+        margin-left: 30px;
+    }
+    .clearFix{
+        margin-right: 0;
+    }
+    .clearFix::after{
+        clear: both; content: ''; display: block;
+    }
+    .clearFix p a{
+        color: #fff;
+    }
+    .comList ul li p{
+        float: left; margin: 0 0; padding: 0 12px;
+    }
+    .lock::before{
+        content: '\26BF'; margin-right: 3px;
+    }
+    .comList2 ul li{
+        float: left; padding: 5px 0;
+    }
+    .comList2 ul li p{
+        background: none; float: left; margin: 0; padding: 0 12px;
+    }
+    .container-inner2{
+        margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+    }
+    .container2{
+        border-bottom: 1px solid black; margin: 0 20px 0 20px; position: relative;
+    }
+    .container2 div{
+        float:left;
+    }
+    .container2 ul{
+        position: absolute; left: 150px; height: 70px;
+    }
+    .container2 ul li{
+        list-style: none; float: left; margin-left: 5px; height: 70px;
+    }
+    .container2::after{clear: both; display: block; content: '';}
+    .container2 img{ width: 150px; height: 70px; object-fit: cover;}
+    .container2 li a{
+        height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+        text-decoration: none;
+    }
+    .addProduct{
+        margin-top: 25px; border-radius: 10px; background: #114da5;
+        color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+    }
+    .comList2 .list-unstyled .clearFix a{
+        text-decoration: none;
+    }
+    .smallList1 select{
+        margin: 30px 0 0 50px;
+    }
+    .smallList2 input{
+         margin-left: 5px;
+    }
+    .smallList2 button{
+        margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+        color: #fff; cursor: pointer;
+    }
+    .containertoo::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer{
+        box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+        background: #f7f7f7; border-top: 1px solid black;
+    }
+    .bottomCustomer1{
+        padding: 25px 0; display: table; margin-left: auto; margin-right: auto;
+    }
+    .bottomCustomer1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer1-1{
+        width: 500px; display: table-cell; 
+    }
+    .bottomCustomer1-1 img{
+         text-align: center;
+    }
+    .bottomCustomer1-2{
+        display: table-cell; float: right;
+    }
+    .bottomCustomer1-2 a{
+        text-align: center; padding-top: 50px; margin-bottom: 15px;
+        color: #555; width: 84pt; display: inline-block; 
+    }
+    .bottomCustomer1-2 a:nth-child(1){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(2){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(3){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(4){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(5){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(6){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+    }
+    .bottomCensebar{
+        background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCensebar1{
+        margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+    }
+    .bottomCensebar1-1{
+        float: left;
+    }
+    .bottomCensebar1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCopy{
+        box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCopy1{
+        margin-left: auto; margin-right: auto; height: 57.2px;
+        background: #f7f7f7;
+        }
+    .bottomCopy1-1{
+         font-size: 14px; margin-left: 20px;
+        box-sizing: border-box; float: right;
+    }
+    .bottomCopy1-1 a{
+        color: #111; font-weight: bold;  font-size: 14px;
+        padding-right: 15px;  text-decoration: none; line-height: 54px;
+        text-align: center;
+        
+    }
+    .bottomCopy1::after{
+        clear: both; content: ''; display: block;
+    }
+    .okof::before{
+        content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+        text-align: center; 
+    }
+    /* 메인 */
+    .container3{
+        height: auto;
+    }
+    .container3-box1{
+        font-size: 13px; color: #555; margin: 30px 0 50px 0;
+    }
+    .container3-box1-box{
+        width: 1200px; margin-left: auto; margin-right: auto;
+    }
+    .container3-box1-row:first-child {
+        padding-left: 20px;
+    }
+    .fa-house{
+        margin-left: -20px; width: 20px;
+    }
+    .container3-box1-row > a{ 
+        color: #337ab7; text-decoration: none; background-color: transparent;
+    }
+    .fcBlue{
+        color: #114da5 !important;
+    }
+    strong{
+        font-weight: bold;
+    }
+    .container3-box1-title{
+        margin-top: 25px;
+    }
+    .container3-box1-title > h2{
+        margin-top: 25px; font-size: 30px; margin: 0;
+        font-weight: 500; line-height: 1.1;
+    }
+    .container3-box1-list{
+        margin-top: 40px !important; position: relative;
+        display: inline-block; vertical-align: middle;
+    }
+
+    .btn:first-child {
+        padding: 10px 150px 10px 10px; margin-left: 0;
+    }
+    .btn-done {
+        color: #fff; background-color: #114da5; border-color: #114da5;
+    }
+    .btn {
+        position: relative; float: left; height: 22px;
+        padding: 10px 140px 10px 28px; font-size: 15px;
+    }
+    .btn + .btn{
+        margin-left: -1px;
+    }
+    .btn-step {
+        color: #000; background-color: #ddd; border-color: #ddd;
+    }
+    .container3-box2::after{
+        clear: both; content: ''; display: block;
+    }
+    .container3-box2-box{
+        width: 1300px; margin-left: auto; margin-right: auto;
+    }
+    .containerbox2-category{
+        margin-top: 10px !important;
+    }
+    .container-box2-h3{
+        font-weight: bold; margin-top: 0;
+        margin-bottom: 30px; font-size: 24px;
+    }
+    .container-box2-list{
+        margin-left: -5px; margin-right: -5px; margin-top: 20px;
+    }
+    .container-box2-list > div{
+        float: left; width: 23%; padding: 0 10px;
+    }
+    .container-box2-list > div > select{
+        width: 100%; font-size: 14px; padding: 0;
+    }
+    .form-control{
+        display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px;
+        line-height: 1.42857143; color: #555; background-color: #fff; background-image: none;
+        border: 1px solid #dbdbdb; vertical-align: baseline;
+    }
+    .container-box2-list > div > select option{
+        padding: 10px 15px; word-break: break-all;
+    }
+    option {
+        font-weight: normal; display: block; white-space: nowrap; min-height: 1.2em; padding: 0px 2px 1px;
+    }
+    .container-box2-list::after{
+        clear: both; content: ''; display: block; 
+    }
+    /* 수수료 구현*/
+    .container-box2-money{
+        margin-top: 20px;
+    }
+    .container3-box3{
+        margin-top: 20px !important;
+    }
+    .container3-box3-box{
+        width: 1300px; margin-right: auto; margin-left: auto;
+    }
+    .btn-gray{
+        background: #eeeeee; color: #555555; border: 1px solid #e1e1e1; border-radius: 30px;
+    }
+    .btn-q{
+        padding: 3px 20px; margin: 2.5px 0; font-size: 14px; line-height: 1.5;
+    }
+    /* 박스-3 물품정보*/
+    .container3-box3-box{
+        margin-top: 40px !important;
+    }
+    .container3-box3-title > h3{
+        font-weight: bold; margin-bottom: 30px; margin-top: 0; font-size: 24px;
+    }
+    .container3-box3-title > h3 > span{
+        color: #114da5; font-size: 16px !important; float: right; font-weight: normal; margin-top: 10px;
+    }
+    .container3-th1::before, .container3-box-th2::before
+    {
+        content: "* "; color: #114da5;
+    }
+    table{
+        background-color: transparent;
+    }
+    table{
+        border-spacing: 0; border-collapse: collapse;
+    }
+    table{
+        display: table; border-collapse: separate; box-sizing: border-box;
+        text-indent: initial; border-spacing: 2px; border-color: grey;
+    }
+    colgroup {
+        display: table-column-group;
+    }
+    col{
+        display: table-column;
+    }
+    tbody {
+        display: table-row-group; vertical-align: middle; border-color: inherit;
+    }
+    tr{
+        display: table-row; vertical-align: inherit; border-color: inherit;
+    }
+    button, input, optgroup, select, textarea {
+        margin: 0; font: inherit; color: inherit;
+    }
+    * {
+        -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+    }
+    .container3-box3-th{
+        background: #f8f8f8; color: #444444; font-weight: bold; height: 45px;
+        text-align: center; width: 200px; padding: 7px 25px; vertical-align: middle; border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+    .container3-th1:first-child{
+        border-left: 0;
+    }
+    .container3-box3-td{
+        font-size: 14px; padding: 7px 25px; vertical-align: middle; border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd; height: 45px; width: 1000px;
+    }
+    .container3-box3-list > table{
+        width: 100%; border-top: 1px solid #111 !important;
+    }
+   .container3-textarea{
+        height: 300px; position: relative; margin: 0; padding: 0; width: 100%;
+   }
+   .ct{
+        text-align: center; 
+   }
+   .container3-box3-bts{
+    height: 30px; margin-top: 10px !important;
+   }
+   .container3-box3-bts > div::after{
+    clear: both; content: ''; display: block; 
+   }
+
+
+    
+
+</style>
+<body>
+    <script src="https://kit.fontawesome.com/e411ce92be.js" crossorigin="anonymous"></script>
+    
+    <div class="containertoo">
+        <div class="container-inner1">
+            <div class="comList">
+                <ul class="list-unstyled">
+                    <li class="timer">
+                        <span>2023. 2. 20. 19:58:35</span>
+                    </li>
+                    <li class="clearFix">
+                        <p>
+                            <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="comList2">
+                <ul class="list-unstyled">
+                    <li class="clearFix">
+                        <p>
+                            <a href="#">처음이신가요?</a>
+                        </p>
+                        <p>
+                            <a href="#">로그인</a>
+                        </p>
+                        <p>
+                            <a href="#">회원가입</a>
+                        </p>
+                        <p>
+                            <a href="#">마이페이지</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div>
+            <a href="#">
+                <img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/292372037_695387691625287_1346927503198505070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=gGM2yGZs_D4AX8YfthL&_nc_ht=scontent-ssn1-1.xx&oh=00_AfBbvmSlTo1P0953pBmRjhV41_r8XQc6qNCWtVBVJ0_FQQ&oe=63F7B71C" alt="">
+            </a>
+        </div>
+        <ul>
+            <li>
+                <a href="#">온라인경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전문쇼핑몰
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">삶의흔적경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">기획경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">고객센터
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전체메뉴
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <button class="addProduct">물품등록</button>
+            </li>
+            <li class="smallList1">
+                <select name="datafield" id="">
+                    <option value="">물품명</option>
+                    <option value="">판매자ID</option>
+                </select>
+            </li>
+            <li class="smallList2">
+                <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+                <button>검색</button>
+            </li>
+        </ul>
+    </div>
+    <div class="container3">
+        <div class="container3-box1">
+            <div class="container3-box1-box">
+							<div class="container3-box1-row">
+									<i class="fa-solid fa-house"></i>
+									<a href="/">홈</a> 
+									<i class="fa-solid fa-greater-than"></i>
+									<a href="#"> 물품등록 </a>
+									<i class="fa-solid fa-greater-than"></i>
+									<strong class="fcBlue">온라인 물품등록</strong>
+							</div>
+							<div class="container3-box1-title">
+									<h2>온라인 물품등록</h2>
+							</div>	
+            </div>
+        </div>	
+        <div class="container3-box2">
+            <div class="container3-box2-box">
+                <div class="container-box2-category">
+									<h3 class="container-box2-h3">카테고리 선택</h3>
+                </div>
+                <div class="container-box2-list">
+									<div>
+											<select class="box1 form-control" size="6" style="height:250px;">
+													<option value="">- 대분류 -</option>
+													<option value="01">미술품</option>
+													<option value="02">근현대생활사자료</option>
+													<option value="03">도서</option>
+													<option value="04">취미 / 수집</option>
+													<option value="05">중고생활용품</option>
+											</select>
+									</div>
+									<div>
+											<select class="box1-1 form-control" size="6" style="height:250px;">
+													<option value="">- 중분류 -</option>
+													<option value="0101">한국미술품</option>
+													<option value="0102">중국미술품</option>
+													<option value="0103">일본미술품</option>
+											</select>
+									</div>
+									<div>
+													<select class="box1-2 form-control" size="6" style="height: 250px;">
+															<option value="">- 소분류 -</option>
+															<option value="010103">고미술품</option>
+															<option value="010102">전통 근대 미술품</option>
+															<option value="010101">근현대 미술품</option>
+															<option value="010104">도록 및 문헌자료</option>
+													</select>
+									</div>
+									<div>
+													<select class="box1-3 form-control" size="6" style="height: 250px;">
+															<option value="">- 세분류 -</option>
+															<option value="01010301">도자기</option>
+															<option value="01010302">불교미술, 금속공예</option>
+															<option value="01010303">민예품</option>
+															<option value="01010304">목기류</option>
+															<option value="01010305">서화, 민화</option>
+															<option value="01010306">문인화</option>
+															<option value="01010307">기타</option>
+													</select>	
+									</div>
+
+                </div>	
+								<div class="container-box2-money">
+									<a href="#" class="btn-gray btn-q">판매 수수료 안내</a>
+									<div id="commDiv" class="row text-right" style="float: right;">
+									현재 적용된 판매 수수료 : 
+									<span id="commission" style="color: red"><b>5 %</b></span>
+									(부가세포함)
+									</div>
+								</div>
+            </div>
+        </div>	
+        <div class="container3-box3">
+            <div class="container3-box3-box">
+                <div class="container3-box3-title">
+                    <h3>물품 정보 <span>*표시는 필수 항목입니다.</span></h3>
+                </div>
+                <div class="container3-box3-list">
+                    <table>
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="container3-box3-th">물품제목</th>
+                                <td colspan="3" class="container3-box3-td">
+                                    <input type="text" class="form-control" placeholder="물품제목 입력시 아래 주의사항을 확인해 주세요!">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="container3-box3-th">물품설명</th>
+                                <td colspan="3" class="container3-box3-td">
+                                    <p class="contaiver3-td2-p1"><strong>※ 직거래를 유도하는 문구, 개인정보(휴대폰, e-mail등)나 html 태그는 사용할 수 없습니다.</strong></p>
+	                                <p class="contaiver3-td2-p2">&lt;코베이 약관 15조 ②항&gt; "직거래유도 문구사용(연락처 및 이메일 포함)”</p>
+	                                <p class="contaiver3-td2-p3">1건 : 경고 후 문구가 삭제되며, 문구 삭제가 불가능할 시는 물품을 삭제합니다.</p>
+	                                <p class="contaiver3-td2-p3">2건 : 회원 아이디(ID) 사용을 임의 정지할 수 있습니다.</p>
+	                                <p></p>
+                                    <textarea class="container3-textarea" cols="30" rows="10"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="container3-box3-th">원산지</th>
+                                <td colspan="3" class="container3-box3-td">
+                                    <select name="original" id="original" class="form-control">
+                                        <option value="">선택하세요</option>                               
+                                        <option value="한국">한국</option>
+                                        <option value="조선">조선</option>
+                                        <option value="중국">중국</option>
+                                        <option value="일본">일본</option>
+                                        <option value="유럽">유럽</option>
+                                        <option value="남미">남미</option>
+                                        <option value="북미">북미</option>
+                                        <option value="아시아">아시아</option>
+                                        <option value="기타">기타</option>                                    
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="container3-box3-th">물품크기</th>
+                                <td colspan="3" class="container3-box3-td">
+                                    <input type="text" class="form-control" placeholder="물품 크기 입력(50자 제한)">
+                                </td>
+                            </tr>
+                            <th class="container3-box3-th">이미지 설명</th>
+                                <td colspan="3" class="container3-box3-td">
+                                    <div>
+                                        <textarea class="container3-textarea ct" cols="30" rows="10">업로드할 파일을 여기에 놓습니다</textarea>
+                                    </div>
+                                    <div class="container3-box3-bts">
+                                        <div style="position: relative;">
+                                            <div style="float: left;">
+                                                <button type="button" class="AXButton Gray">파일첨부</button>
+                                                <button type="button" class="AXButton Gray">파일이동</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                        </tbody>
+                    </table>     
+                </div>     
+            </div>
+        </div> 
+    </div>
+    <div class="bottomtoo">
+        <div class="bottomCustomer">
+            <div class="bottomCustomer1">
+                <div class="bottomCustomer1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/foot-pc-custom.gif" alt="">
+                </div>
+                <div class="bottomCustomer1-2">
+                    <a href="#">구매안내</a>
+                    <a href="#">판매안내</a>
+                    <a href="#">채용안내</a>
+                    <a href="#">도난문화재</a>
+                    <a href="#">입금계좌안내</a>
+                    <a href="#">원격지원요청</a>
+                </div>
+            </div>
+        </div>
+        <div class="bottomCensebar">
+            <div class="bottomCensebar1">
+                <div class="bottomCensebar1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/footlLcense.gif" alt="">
+                </div>
+                <div class="bottomCensebar1-2"></div>
+            </div>
+        </div>
+        <div class="bottomCopy">
+            <div class="bottomCopy1">
+                <div class="bottomCopy1-1">
+                    <a href="#" class="okof">회사소개</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보취급방침</a>
+                    <a href="#">이메일무단수집거부</a>
+                    <a href="#">고객센터</a>
+                    <a href="#">앱소개</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
