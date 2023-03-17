@@ -164,42 +164,48 @@
 		margin-left: 90px; color:black;
 	}
 	.body .body-middle .Result-Data{
-		width: 900px; height: 500px; margin-top: 60px; margin-left: 80px; 
+		width: 900px; height: 500px; margin-top: 60px; margin-left: 5px; 
 	}
 	.body .body-middle .Result-Data table{
-		border: 1px solid black; border-collapse: collapse; width: 1200px; height: 50px;
+		border: 1px solid black; border-collapse: collapse; width: 1350px; height: 50px;
 	}
 	.body .body-middle table th{
 		border: 1px solid black; text-align: center;
 	}
 	.body .body-middle table th:nth-child(1){
-        width: 100px;
+        width: 110px;
     }
     .body .body-middle table th:nth-child(2){
-        width: 230px;
+        width: 280px;
     }
     .body .body-middle table th:nth-child(3){
-        width: 100px;
+        width: 130px;
     }
     .body .body-middle table th:nth-child(4){
-        width: 140px;
+        width: 250px;
     }
     .body .body-middle table th:nth-child(5){
-        width: 110px;
+        width: 130px;
     }
     .body .body-middle table th:nth-child(6){
         width: 250px;
     }
     .body .body-middle table th:nth-child(7){
-        width: 160px;
-    }
-    .body .body-middle table th:nth-child(8){
         width: 180px;
     }
+    .body .body-middle table th:nth-child(8){
+        width: 150px;
+    }
     .body .body-middle table th:nth-child(9){
-        width: 250px;
+        width: 150px;
     }
     .body .body-middle table th:nth-child(10){
+        width: 220px;
+    }
+    .body .body-middle table th:nth-child(11){
+        width: 250px;
+    }
+    .body .body-middle table th:nth-child(12){
         width: 250px;
     }
     .body .body-middle table td{
@@ -214,13 +220,17 @@
     .body .body-middle .search{
         margin-left: 500px; 
     }
+    .body .body-middle .search button{
+        border-radius: 10px; background: black;
+        color: #fff; cursor: pointer;
+    }
     .bottomCustomer{
         box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
         background: #f7f7f7; border-top: 1px solid black;
 
     }
     .bottomCustomer1{
-        padding: 25px 0; display: table; margin-left: auto; margin-right: 200px;
+        padding: 25px 0; display: table; margin-left: auto; margin-right: auto;
     }
     .bottomCustomer1::after{
         clear: both; display: block; content: '';
@@ -468,7 +478,7 @@
 						<li>한번에 볼 수 있는 데이터 건수</li>	
 					</ul>	
 					<a href="#" class="ten">10건</a>	
-					<a href="#" class="total-data">30건</a>	
+					<a href="#" class="total-data">15건</a>	
 				</div>	
 			</div>
 			<div class="Result-Data">
@@ -482,6 +492,8 @@
 							<th>최초 입찰가</th>
 							<th>경매 시작 시간</th>
 							<th>경매 상태</th>
+                            <th>낙찰 여부</th>
+                            <th>낙찰 가격</th>
 							<th>경매 참여 여부</th>
                             <th>신청 시작 시간</th>
                             <th>신청 마감 시간</th>
@@ -501,149 +513,7 @@
                             <td>2023-03-15 11:15:00</td>
                             <td>경매 진행 중</td>
                             <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
-                            <td>Y</td>
-                            <td>2023-03-10 12:00:00</td>
-                            <td>2023-03-11 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">1111</a>
-                            </td>
-                            <td>실시간 경매</td>
-                            <td>
-                                <a href="#" class="product">김국진</a>
-                            </td>
-                            <td>영덕 대게</td>
-                            <td>100,000원</td>
-                            <td>2023-03-15 11:15:00</td>
-                            <td>경매 진행 중</td>
+                            <td>300,000원</td>
                             <td>Y</td>
                             <td>2023-03-10 12:00:00</td>
                             <td>2023-03-11 12:00:00</td>
@@ -680,7 +550,7 @@
                     <a href="#">구매안내</a>
                     <a href="#">판매안내</a>
                     <a href="#">채용안내</a>
-                    <a href="#">도난문화재</a>
+                    <a href="#">신고안내</a>
                     <a href="#">입금계좌안내</a>
                     <a href="#">원격지원요청</a>
                 </div>
