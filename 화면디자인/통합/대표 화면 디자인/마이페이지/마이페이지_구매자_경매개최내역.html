@@ -510,7 +510,8 @@
             </select>	
             <input type="text" id="select-word">	
             <button>검색</button>
-            <button class="btn-cancle" data-toggle="modal" data-target="#myModal">취소</button>	
+            <button class="btn-cancle" data-toggle="modal" data-target="#myModal">취소</button>
+		    <button class="btn-update">수정</button>
             </div>
 						
 						<div class="modal fade" id="myModal" style="margin-top: 300px;">
@@ -588,8 +589,10 @@
          $("#check").change(function(){
         if($("#check").is(":checked")){
             $('.btn-cancle').show();
+            $('.btn-update').show();
         }else{
             $('.btn-cancle').hide();
+            $('.btn-update').hide();
         }})
     </script>
 </body>
