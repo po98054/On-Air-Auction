@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공통양식</title>
+</head>
+<style>
+   *{
+    font-family: Arial, Helvetica, sans-serif;
+        margin: 0; padding: 0; text-decoration: none;
+        font-size: inherit; border-collapse: collapse; line-height: inherit;
+        word-break: inherit; list-style: none;
+    }
+    .containertoo{
+        text-align: center; box-sizing: border-box; background:#464646;
+        color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+        width: 1900px; 
+    }
+    
+    .list-unstyled{
+        margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+
+    }
+    .timer{
+        background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+        padding-left: 25px;
+    }
+    .comList ul li{
+        float: left; margin-right: 10px; padding: 5px 0;
+    }
+    .comList2{display: table-cell; vertical-align: middle; float: right;}
+    .comList2 ul{
+        list-style: none; margin-bottom: 0; 
+    }
+    .list-unstyled .timer span{
+        margin-left: 30px;
+    }
+    .clearFix{
+        margin-right: 0;
+    }
+    .clearFix::after{
+        clear: both; content: ''; display: block;
+    }
+    .clearFix p a{
+        color: #fff;
+    }
+    .comList ul li p{
+        float: left; margin: 0 0; padding: 0 12px;
+    }
+    .lock::before{
+        content: '\26BF'; margin-right: 3px;
+    }
+    .comList2 ul li{
+        float: left; padding: 5px 0;
+    }
+    .comList2 ul li p{
+        background: none; float: left; margin: 0; padding: 0 12px;
+    }
+    .container-inner2{
+        margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+    }
+    .container2{
+        border-bottom: 1px solid black; position: relative;
+        width: 1900px; 
+    }
+    .container2 div{
+        float:left;
+    }
+    .container2 ul{
+        position: absolute; left: 150px; height: 70px;
+    }
+    .container2 ul li{
+        list-style: none; float: left; margin-left: 5px; height: 70px;
+    }
+    .container2::after{clear: both; display: block; content: '';}
+    .container2 img{ width: 150px; height: 70px; object-fit: cover;}
+    .container2 li a{
+        height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+        text-decoration: none;
+    }
+    .addProduct{
+        margin-top: 25px; border-radius: 10px; background: #114da5;
+        color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+    }
+    .comList2 .list-unstyled .clearFix a{
+        text-decoration: none;
+    }
+    .smallList1 select{
+        margin: 30px 0 0 50px;
+    }
+    .smallList2 input{
+         margin-left: 5px;
+    }
+    .smallList2 button{
+        margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+        color: #fff; cursor: pointer;
+    }
+    .containertoo::after{
+        clear: both; display: block; content: '';
+    }
+  
+    .bottomCustomer{
+        box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+        background: #f7f7f7; border-top: 1px solid black;
+
+    }
+    .bottomCustomer1{
+        padding: 25px 0; display: table; margin-left: auto; margin-right: auto;
+    }
+    .bottomCustomer1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer1-1{
+        width: 500px; display: table-cell; 
+    }
+    .bottomCustomer1-1 img{
+         text-align: center;
+    }
+    .bottomCustomer1-2{
+        display: table-cell; float: right;
+    }
+    .bottomCustomer1-2 a{
+        text-align: center; padding-top: 50px; margin-bottom: 15px;
+        color: #555; width: 84pt; display: inline-block; 
+    }
+    .bottomCustomer1-2 a:nth-child(1){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(2){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(3){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(4){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(5){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(6){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+    }
+    .bottomCensebar{
+        background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCensebar1{
+        margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+    }
+    .bottomCensebar1-1{
+        float: left;
+    }
+    .bottomCensebar1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCopy{
+        box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCopy1{
+        margin-left: auto; margin-right: auto; height: 57.2px;
+        background: #f7f7f7;
+        }
+    .bottomCopy1-1{
+         font-size: 14px; margin-left: 20px;
+        box-sizing: border-box; float: right;
+    }
+    .bottomCopy1-1 a{
+        color: #111; font-weight: bold;  font-size: 14px;
+        padding-right: 15px;  text-decoration: none; line-height: 54px;
+        text-align: center;
+        
+    }
+    .bottomCopy1::after{
+        clear: both; content: ''; display: block;
+    }
+    .okof::before{
+        content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+        text-align: center; 
+    }
+    @keyframes blink-effect {
+        50% {
+        opacity: 0.5;
+        }
+    }
+    .container2 li a sup font b{
+        animation: blink-effect 1s step-end infinite;
+    }
+    .bottomtoo{
+        width: 1900px; 
+    }
+		/* 메인 - 제목 */
+		.container3{
+        height: 1500px;
+    }
+    .container3-box1{
+        font-size: 13px; color: #555; margin: 30px 0 50px 0;
+    }
+    .container3-box1-box{
+        width: 1300px; margin-left: auto; margin-right: auto;
+    }
+    .container3-box1-row:first-child {
+        padding-left: 20px;
+    }
+    .fa-house{
+        margin-left: -20px; width: 20px;
+    }
+    .container3-box1-row > a{ 
+        color: #337ab7; text-decoration: none; background-color: transparent;
+    }
+    .fcBlue{
+        color: #114da5 !important;
+    }
+    strong{
+        font-weight: bold;
+    }
+    .container3-box1-title{
+        margin-top: 25px;
+    }
+    .container3-box1-title > h2{
+        margin-top: 25px; font-size: 30px; margin: 0;
+        font-weight: 500; line-height: 1.1;
+    }
+    .container3-box1-list{
+        margin-top: 40px !important; position: relative;
+        display: inline-block; vertical-align: middle;
+    }
+
+    .btn:first-child {
+        padding: 10px 150px 10px 10px; margin-left: 0;
+    }
+    .btn-done {
+        color: #fff; background-color: #114da5; border-color: #114da5;
+    }
+    .btn {
+        position: relative; float: left; height: 22px;
+        padding: 10px 140px 10px 28px; font-size: 15px;
+    }
+    .btn + .btn{
+        margin-left: -1px;
+    }
+    .btn-step {
+        color: #000; background-color: #ddd; border-color: #ddd;
+    }
+		/* 카테고리 선택 */
+		.container3-box2::after{
+        clear: both; content: ''; display: block;
+    }
+    .container3-box2-box{
+        width: 1300px; margin-left: auto; margin-right: auto;
+    }
+    .containerbox2-category{
+        margin-top: 10px !important;
+    }
+    .subTitle-h3{
+      background: url(https://www.kobay.co.kr/kobay/images/subTitle-bullet.png) no-repeat left center; background-size: auto 80% !important;
+    	padding-left: 24px; font-weight: bold; margin-bottom: 30px; margin-top: 0; margin-right: 10px;
+    }
+		h3{
+			font-size: 24px;
+		}
+    .container-box2-list{
+        margin-left: -5px; margin-right: -5px; margin-top: 20px;
+    }
+    .container-box2-list > div{
+        float: left; width: 23%; padding: 0 10px;
+    }
+    .container-box2-list > div > select{
+        width: 100%; font-size: 14px; padding: 0;
+    }
+    .form-control{
+        display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px;
+        line-height: 1.42857143; color: #555; background-color: #fff; background-image: none;
+        border: 1px solid #dbdbdb; vertical-align: baseline;
+    }
+    .container-box2-list > div > select option{
+        padding: 10px 15px; word-break: break-all;
+    }
+    option {
+        font-weight: normal; display: block; white-space: nowrap; min-height: 1.2em; padding: 0px 2px 1px;
+    }
+    .container-box2-list::after{
+        clear: both; content: ''; display: block; 
+    }
+		/* 수수료 구현*/
+		.container-box2-money{
+			margin-top: 20px;
+    }
+    .container3-box3{
+			margin-top: 20px !important;
+    }
+    .container3-box3-box{
+			width: 1300px; margin-right: auto; margin-left: auto;
+    }
+    .btn-gray{
+			background: #eeeeee; color: #555555; border: 1px solid #e1e1e1; border-radius: 30px;
+    }
+    .btn-q{
+			padding: 3px 20px; margin: 2.5px 0; font-size: 14px; line-height: 1.5;
+    }
+		 /* 물품정보 */
+		 .container3-box3-box{
+        margin-top: 40px !important;
+    }
+    .container3-box3-title > h3{
+        font-weight: bold; margin-bottom: 30px; margin-top: 0; font-size: 24px;
+    }
+    .container3-box3-title > h3 > span{
+        color: #114da5; font-size: 16px !important; float: right; font-weight: normal; margin-top: 10px;
+    }
+    table{
+        background-color: transparent;
+    }
+    table{
+        border-spacing: 0; border-collapse: collapse;
+    }
+    table{
+        display: table; border-collapse: separate; box-sizing: border-box;
+        text-indent: initial; border-spacing: 2px; border-color: grey;
+    }
+    colgroup {
+        display: table-column-group;
+    }
+    col{
+        display: table-column;
+    }
+    tbody {
+        display: table-row-group; vertical-align: middle; border-color: inherit;
+    }
+    tr{
+        display: table-row; vertical-align: inherit; border-color: inherit;
+    }
+    button, input, optgroup, select, textarea {
+        margin: 0; font: inherit; color: inherit;
+    }
+    * {
+        -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+    }
+    .container3-box3-th {
+        background: #f8f8f8; color: #444444; font-weight: bold; height: 45px;
+        text-align: center; width: 400px; padding: 7px 25px; vertical-align: middle; border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd; font-size: 15px;
+    }
+    .container3-box3-th::before, .container4-box4-th::before {
+        content: "* "; color: #114da5; 
+    }
+    .container3-box3-td{
+        font-size: 14px; padding: 7px 25px; vertical-align: middle; border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd; height: 45px; width: 1000px;
+    }
+    .container3-box3-th, .container3-box3-td
+    {
+			padding: 7px 25px; vertical-align: middle; border-bottom: 1px solid #ddd;
+			border-left: 1px solid #ddd; height: 45px;
+    }
+    .container3-box3-list > table{
+        width: 100%; border-top: 1px solid #111 !important;
+    }
+   .container3-textarea{
+        height: 300px; position: relative; margin: 0; padding: 0; width: 100%;
+   }
+   .ct{
+        text-align: center; 
+   }
+   .container3-box3-bts{
+        height: 30px; margin-top: 10px !important;
+   }
+   .container3-box3-bts > div::after{
+        clear: both; content: ''; display: block; 
+   }
+	 
+
+		
+</style>
+<body>
+	<script src="https://kit.fontawesome.com/e411ce92be.js" crossorigin="anonymous"></script>
+
+    <div class="containertoo">
+        <div class="container-inner1">
+            <div class="comList">
+                <ul class="list-unstyled">
+                    <li class="timer">
+                        <span>2023. 2. 20. 19:58:35</span>
+                    </li>
+                    <li class="clearFix">
+                        <p>
+                            <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="comList2">
+                <ul class="list-unstyled">
+                    <li class="clearFix">
+                        <p>
+                            <a href="#">처음이신가요?</a>
+                        </p>
+                        <p>
+                            <a href="#">로그인</a>
+                        </p>
+                        <p>
+                            <a href="#">회원가입</a>
+                        </p>
+                        <p>
+                            <a href="#">마이페이지</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div>
+            <a href="#">
+                <img src="data:image/jpeg;base64,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" alt="">
+            </a>
+        </div>
+        <ul>
+            <li>
+                <a href="#">온라인경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전문쇼핑몰
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">삶의흔적경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">기획경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">고객센터
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#">전체메뉴
+                    <sup>
+                        <font color="">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <button class="addProduct">물품등록</button>
+            </li>
+            <li class="smallList1">
+                <select name="datafield" id="">
+                    <option value="">물품명</option>
+                    <option value="">판매자ID</option>
+                </select>
+            </li>
+            <li class="smallList2">
+                <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+                <button>검색</button>
+            </li>
+        </ul>
+    </div>
+    <div class="container3">
+			<div class="container3-box1">
+				<div class="container3-box1-box">
+					<div class="container3-box1-row">
+							<i class="fa-solid fa-house"></i>
+							<a href="/">홈</a> 
+							<i class="fa-solid fa-greater-than"></i>
+							<a href="#"> 물품등록 </a>
+							<i class="fa-solid fa-greater-than"></i>
+							<strong class="fcBlue">온라인 물품등록</strong>
+					</div>
+					<div class="container3-box1-title">
+							<h2>온라인 물품등록</h2>
+					</div>	
+				</div>
+			</div>	
+			<div class="container3-box2">
+				<div class="container3-box2-box">
+					<div class="container-box2-category">
+						<h3 class="subTitle-h3">카테고리 선택</h3>
+					</div>
+					<div class="container-box2-list">
+						<div>
+							<select class="form-control category01" id="category1" size="6" style="height:250px;">
+								<option value="">대분류 선택</option>
+                                <option value="category1-1">대분류1</option>
+                                <option value="category1-2">대분류2</option>
+                                <option value="category1-3">대분류3</option>
+							</select>
+						</div>
+						<div>
+                            <select class="form-control category02" id="category2" size="6" style="height:250px; display: none;">
+                                <option value="">중분류 선택</option>
+                                <option value="category2-1" class="category1-1">중분류1</option>
+                                <option value="category2-2" class="category1-1">중분류2</option>
+                                <option value="category2-3" class="category1-2">중분류3</option>
+                                <option value="category2-4" class="category1-3">중분류4</option>
+                            </select>
+						</div>
+						<div>
+                            <select class="form-control" id="category3" size="6" style="height: 250px; display: none;">
+                                <option value="">소분류 선택</option>
+                                <option value="category3-1" class="category2-1">소분류1</option>
+                                <option value="category3-2" class="category2-1">소분류2</option>
+                                <option value="category3-3" class="category2-2">소분류3</option>
+                                <option value="category3-4" class="category2-3">소분류4</option>
+                                <option value="category3-5" class="category2-4">소분류5</option>
+                            </select>
+						</div>
+					</div>	
+					<div class="container-box2-money">
+							<a href="#" class="btn-gray btn-q">판매 수수료 안내</a>
+							<div id="commDiv" class="row text-right" style="float: right;">
+							현재 적용된 판매 수수료 : 
+									<span id="commission" style="color: red"><b>5 %</b></span>
+							(부가세포함)
+							</div>
+					</div>
+				</div>    
+			</div>
+			<div class="container3-box3">
+				<div class="container3-box3-box">
+					<div class="container3-box3-title">
+						<h3 class="subTitle-h3">물품 정보
+							<span>*표시는 필수 항목입니다.</span> 
+						</h3>
+					</div>
+					<div class="container3-box3-list">
+						<table>
+								<colgroup>
+										<col>
+										<col>
+										<col>
+										<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th class="container3-box3-th">물품제목</th>
+										<td colspan="3" class="container3-box3-td">
+												<input type="text" class="form-control" placeholder="물품제목 입력시 아래 주의사항을 확인해 주세요!">
+										</td>
+									</tr>
+									<tr>
+											<th class="container3-box3-th">물품설명</th>
+											<td colspan="3" class="container3-box3-td">
+												<textarea class="container3-textarea" cols="5" rows="5">
+													스프링할 때 썸머노트로 할 예정
+												</textarea>
+											</td>
+									</tr>
+									<tr>
+											<th class="container3-box3-th">원산지</th>
+											<td class="container3-box3-td">
+													<select name="original" id="original" class="form-control">
+															<option value="">선택하세요</option>                               
+															<option value="한국">한국</option>
+															<option value="조선">조선</option>
+															<option value="중국">중국</option>
+															<option value="일본">일본</option>
+															<option value="유럽">유럽</option>
+															<option value="남미">남미</option>
+															<option value="북미">북미</option>
+															<option value="아시아">아시아</option>
+															<option value="기타">기타</option>                                    
+													</select>
+											</td>
+											<th class="container3-box3-th">물품크기</th>
+											<td class="container3-box3-td">
+													<input type="text" class="form-control" placeholder="물품 크기 입력(50자 제한)">
+											</td>
+									</tr>
+									<tr>
+										<th class="container3-box3-th">이미지 설명</th>
+											<td colspan="3" class="container3-box3-td">
+												<div>
+													<textarea class="container3-textarea ct" cols="5" rows="5">업로드할 파일을 여기에 놓습니다</textarea>
+												</div>
+												<div class="container3-box3-bts">
+														<div style="position: relative;">
+																<div style="float: left;">
+																		<button type="button" class="AXButton Gray">파일첨부</button>
+																		<button type="button" class="AXButton Gray">파일이동</button>
+																</div>
+														</div>
+												</div>
+											</td>
+										</th>
+									</tr>
+								</tbody>
+						</table>     
+					</div>     
+				</div>
+			</div> 	
+    </div>
+    <div class="bottomtoo">
+        <div class="bottomCustomer">
+            <div class="bottomCustomer1">
+                <div class="bottomCustomer1-1">
+                    <img src="" alt="">
+                </div>
+                <div class="bottomCustomer1-2">
+                    <a href="#">구매안내</a>
+                    <a href="#">판매안내</a>
+                    <a href="#">채용안내</a>
+                    <a href="#">도난문화재</a>
+                    <a href="#">입금계좌안내</a>
+                    <a href="#">원격지원요청</a>
+                </div>
+            </div>
+        </div>
+        <div class="bottomCensebar">
+            <div class="bottomCensebar1">
+                <div class="bottomCensebar1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/footlLcense.gif" alt="">
+                </div>
+                <div class="bottomCensebar1-2"></div>
+            </div>
+        </div>
+        <div class="bottomCopy">
+            <div class="bottomCopy1">
+                <div class="bottomCopy1-1">
+                    <a href="#" class="okof">회사소개</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보취급방침</a>
+                    <a href="#">이메일무단수집거부</a>
+                    <a href="#">고객센터</a>
+                    <a href="#">앱소개</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var category1 = document.getElementById("category1");
+    var category2 = document.getElementById("category2");
+    var category3 = document.getElementById("category3");
+
+    category1.addEventListener("change", function() {
+    if (this.value == "") {
+        category2.style.display = "none";
+        category3.style.display = "none";
+    } else {
+        category2.style.display = "block";
+        category3.style.display = "none";
+        // 중분류의 옵션 중 선택한 대분류의 클래스와 일치하는 것만 보여줌
+        for (var i = 0; i < category2.options.length; i++) {
+        if (category2.options[i].classList.contains(this.value)) {
+            category2.options[i].style.display = "block";
+        } else {
+            category2.options[i].style.display = "none";
+        }
+        }
+    }
+    });
+
+    category2.addEventListener("change", function() {
+    if (this.value == "") {
+        category3.style.display = "none";
+    } else {
+        category3.style.display = "block";
+        // 소분류의 옵션 중 선택한 중분류의 클래스와 일치하는 것만 보여줌
+        for (var i = 0; i < category3.options.length; i++) {
+        if (category3.options[i].classList.contains(this.value)) {
+            category3.options[i].style.display = "block";
+        } else {
+            category3.options[i].style.display = "none";
+        }
+        }
+    }
+    });
+
+
+</script>
