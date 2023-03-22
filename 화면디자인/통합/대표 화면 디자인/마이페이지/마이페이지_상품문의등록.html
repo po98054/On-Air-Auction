@@ -107,7 +107,7 @@
         clear: both; display: block; content: '';
     }
     .body{
-        height: 700px; 
+        height: 700px; width: 1900px; 
 	}
 	.body .body-left{
 		float:left; width: 250px; height:700px; border-right: 1px solid black;
@@ -136,6 +136,9 @@
 	.body .body-left .nav-ul .list-li .item-a{
 		display: inline-block; padding-top: 2px; color:black; margin-top: 6px; font-weight: normal;
 	}
+    .body .body-middle{
+        float:left; width: 1150px; height:700px;
+    }
     .file-box{
 	width : 100px; height : 200px; border : 1px solid black; font-size : 50px; text-align: center; line-height: 200px; font-weight: bold;
 	border-radius: 5px; float: left; cursor: pointer;
@@ -385,8 +388,8 @@
 				</li>		
 			</ul>		
 		</div>
-        <div class="container">
-            <div>
+        <div class="body-middle">
+            <div class="box" style="margin-left: 50px">
                 <label for="type">카데고리:</label>
                 <select name="bo_bt_num" id="type">
                     <option value="0">카데고리을 선택하세요.</option>
@@ -399,17 +402,17 @@
                 <input type="text">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색</button>
             </div>
-            <div>
+            <div class="box2" style="margin-left: 180px">
                 <label for="title">제목:</label>
                 <input type="text" id="title" name="bo_title" style="width: 600px; margin-top: 10px;">
             </div>
-            <div id="common">
+            <div id="common" style="margin-left: 5px;">
                 <div style="margin-top: 20px;">
                     <label for="content">내용:</label>   
                 </div>
                 <textarea class="content" name="bo_content"></textarea>
             </div>
-            <div id="image">
+            <div id="image" style="margin-top: 5px; margin-left: 50px;">
                 <label>이미지:</label>
                 <div class="form-group mt-3">
                     <div>
@@ -427,7 +430,7 @@
                         <input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
                         <img class="preview" height="100" width="auto">
                     </div>
-                    <button class="btn btn-outline-success col-12 mt-3" style="margin-top: 150px;">신고 작성</button>
+                    <button class="btn btn-outline-success" style="margin-top: 210px; margin-left: 600px">문의 사항 작성</button>
                 </div>
             </div>
         </form>
