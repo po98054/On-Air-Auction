@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간경매화면</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+</head>
+<style>
+    *{
+    font-family: Arial, Helvetica, sans-serif;
+        margin: 0; padding: 0; text-decoration: none;
+        font-size: inherit; border-collapse: collapse; line-height: inherit;
+        word-break: inherit; list-style: none;
+    }
+    .containertoo{
+        text-align: center; box-sizing: border-box; background:#464646;
+        color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+        width: 1900px;
+    }
+    
+    .list-unstyled{
+        margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+    }
+    .timer{
+        background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+        padding-left: 25px;
+    }
+    .comList ul li{
+        float: left; margin-right: 10px; padding: 5px 0;
+    }
+    .comList2{display: table-cell; vertical-align: middle; float: right;}
+    .comList2 ul{
+        list-style: none; margin-bottom: 0; 
+    }
+    .list-unstyled .timer span{
+        margin-left: 30px;
+    }
+    .clearFix{
+        margin-right: 0;
+    }
+    .clearFix::after{
+        clear: both; content: ''; display: block;
+    }
+    .clearFix p a{
+        color: #fff;
+    }
+    .comList ul li p{
+        float: left; margin: 0 0; padding: 0 12px;
+    }
+    .lock::before{
+        content: '\26BF'; margin-right: 3px;
+    }
+    .comList2 ul li{
+        float: left; padding: 5px 0;
+    }
+    .comList2 ul li p{
+        background: none; float: left; margin: 0; padding: 0 12px;
+    }
+    .container-inner2{
+        margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+    }
+    .container2{
+        border-bottom: 1px solid black;  position: relative; width: 1900px; 
+        box-sizing: border-box;
+    }
+    .container2 div{
+        float:left;
+    }
+    .container2 ul{
+        position: absolute; left: 150px; height: 70px;
+    }
+    .container2 ul li{
+        list-style: none; float: left; margin-left: 5px; height: 70px;
+    }
+    .container2 ul li a:hover{
+        color: gray;
+    }
+    .container2::after{clear: both; display: block; content: '';}
+    .container2 img{ width: 150px; height: 70px; object-fit: cover;}
+    .container2 li a{
+        height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+        text-decoration: none;
+    }
+    .addProduct{
+        margin-top: 25px; border-radius: 10px; background: #114da5;
+        color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+    }
+    .comList2 .list-unstyled .clearFix a{
+        text-decoration: none;
+    }
+    .smallList1 select{
+        margin: 30px 0 0 50px;
+    }
+    .smallList2 input{
+         margin-left: 5px;
+    }
+    .smallList2 button{
+        margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+        color: #fff; cursor: pointer;
+    }
+    .containertoo::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer{
+        box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+        background: #f7f7f7; border-top: 1px solid black;
+
+    }
+    .bottomCustomer1{
+        padding: 25px 0; display: table; margin-left: auto; margin-right: 200px;
+    }
+    .bottomCustomer1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCustomer1-1{
+        width: 500px; display: table-cell; 
+    }
+    .bottomCustomer1-1 img{
+         text-align: center;
+    }
+    .bottomCustomer1-2{
+        display: table-cell; float: right;
+    }
+    .bottomCustomer1-2 a{
+        text-align: center; padding-top: 50px; margin-bottom: 15px;
+        color: #555; width: 84pt; display: inline-block; 
+    }
+    .bottomCustomer1-2 a:nth-child(1){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(2){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(3){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(4){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(5){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+    }
+    .bottomCustomer1-2 a:nth-child(6){
+        background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+    }
+    .bottomCensebar{
+        background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCensebar1{
+        margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+    }
+    .bottomCensebar1-1{
+        float: left;
+    }
+    .bottomCensebar1::after{
+        clear: both; display: block; content: '';
+    }
+    .bottomCopy{
+        box-sizing: border-box; line-height: 1.42857143;
+    }
+    .bottomCopy1{
+        margin-left: auto; margin-right: auto; height: 57.2px;
+        background: #f7f7f7;
+        }
+    .bottomCopy1-1{
+         font-size: 14px; margin-left: 20px;
+        box-sizing: border-box; float: right;
+    }
+    .bottomCopy1-1 a{
+        color: #111; font-weight: bold;  font-size: 14px;
+        padding-right: 15px;  text-decoration: none; line-height: 54px;
+        text-align: center;
+        
+    }
+    .bottomCopy1::after{
+        clear: both; content: ''; display: block;
+    }
+    .okof::before{
+        content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+        text-align: center; 
+    }
+        .body{
+			margin: 3px 0 3px 0; width: 1900px; 
+		}
+		.body::after{
+			content: ''; clear: both; display: block;
+		}
+		.box{
+			width: 33%; 
+			float: left; box-sizing: border-box; height: 650px;
+		}
+        .body .left{margin-left: 2px;}
+        .box .left .title{
+            font-size: 1.7rem; font-weight: 700; color: #080808;
+            padding: 0 0 7px; line-height: 29px;
+        }
+        .product-seller{
+            position: relative; margin-top: 10px; border: 1px solid #ddd;
+            border-radius: 18px; padding: 10px 10px 10px 10px; height: 127.56px;
+        }
+        .product-seller ul{
+            display: inline-block; vertical-align: top;
+        }
+        .product-seller li{
+            line-height: 26px; font-size: 13px; color: #666;
+        }
+        .product-seller li.id{
+            font-size: 16px; color:#000
+        }
+        .product-seller .id .seller{
+            width: 84px; display: inline-block; font-size: 13px;
+        }
+        .product-seller li strong{
+            font-size: 13px; font-weight: 600; color: #000;
+        }
+        .product-seller li.pay strong{
+            margin-left: 20px;
+        }
+        .product-seller li.recall strong{
+            font-size: 11px; color: #85b816; margin-left: 10px;
+         }
+         .product-seller li.recall strong.st{
+            display: block; padding-left: 75px; color: #000;
+         }
+         .product-seller a{
+            position: absolute; padding-left: 5px; display: block; text-align: left;
+            font-size: 11px; color: #444; width: 120px; height: 36px; border: 1px solid #ccc;
+            line-height: 32px; border-radius: 6px;
+         }
+         .product-seller .sel_btn{
+            top: 10px; right: 10px; margin-top: 5px; margin-right: -5px;
+         }
+         .product-seller a span{
+            position: absolute; height: 25px; width: 23px; right: 1px; top: 50%; transform: translateY(-50%);
+         }
+         .product-seller .sel_btn span{
+            background-position: -75px 0; height: 21px; display: inline-block;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+         }
+         .product-seller .sel_btn #heart1{
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all_sel2.png);
+            background-position: -115px -38px; height:21px; display:inline-block;
+         }
+         .product-seller .more_btn{
+            top: 52px; right: 10px; margin-top: 5px; margin-right: -5px;
+         }
+         .product-seller .more_btn span{
+            background-position: -257px 0; display: inline-block;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+         }
+         .add{
+            border: 1px solid #ccc; border-radius: 18px; height: 40px;
+            margin-top: 5px; font-size: 15px; text-align: center; line-height: 40px;
+            color: blue;
+        }
+        .mid{
+             border-radius: 18px; height: 650px; 
+            font-size: 15px; text-align: center; color: red;
+        }
+        .step{
+            padding: 10px 0 10px 0;
+            position: relative;
+            border-bottom: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .step::after{content: ''; display: block; clear: both;}
+        .step .itemid{
+            position: relative; line-height: 40px; margin-bottom: 10px;
+        }
+        .itemid strong{
+            position: relative; font-size: 15px; color: #9b9b9b; padding-right: 8px;
+            margin-right: 4px;
+        }
+        .itemid strong::before{
+            content: ''; position: absolute; top: 6px; right: 0; background: #bbb;
+            display: block;
+        }
+        .itemid span{
+            color: #262626; border-bottom: 1px solid #ccc; padding-bottom: 1px;
+        }
+        .itemid a{
+            width: 17px; height: 17px; vertical-align: middle; margin-left: 10px;
+            margin-top: -4px; background-position: -154px 0;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+            display: inline-block;
+        }
+        .step01 button{
+            width: 36px; height: 36px; border: 1px solid #d7d7d7; position: absolute;
+            top: 0; border-radius: 20px;
+        }
+        .step01 .share_btn{
+            right: 45px; cursor: pointer;
+        }
+        .share_btn span{
+            background-position: -52px 0; border-bottom: 0;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .step01 button span{
+            width: 17px; height: 18px; display: block; margin: 0 auto;
+        }
+        .step01 .like_btn{
+            right: 0; cursor: pointer; margin-right: 2px;
+        }
+        .step01 .like_btn span{
+            background-position: -75px 0; border-bottom: 0;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .step01 .like_btn #heart2{
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all_sel2.png);
+            background-position: -115px -38px; border-bottom: 0;
+        }
+        .list_ul li{
+            padding-bottom: 11px;
+        }
+        .step dt{
+            color: #666; display: inline-block; font-size: 1.0rem;
+        }
+        .list_ul li:first-child dd{
+            width: 230px; text-align: right;
+        }
+        .step dd{
+            position: relative; float: right; font-size: 1.0rem; color: #666;
+        }
+        .step01 dd > span{
+            position: relative; cursor: pointer; border-right: 1px solid #ddd;
+            margin-right: 8px; vertical-align: middle;
+        }
+        .pr0{padding-right: 0px;}
+        .list_ul .pr0 img{
+            width: 20px; margin-bottom: 4px;
+        }
+        .list_ul li .warehouseInfo{
+            border: 1px solid #398439; color: #398439;
+            background-color: #fff; padding: 3px 6px; border-radius: 6px;
+            font-size: 0.95rem; cursor: pointer; margin-right: 2px;
+        }
+        .step01 .list_ul li:last-child{
+            padding-bottom: 10px;
+        }
+        .dd1 font{
+            font-size: 10px;
+        }
+        .step li.current{
+            line-height: 27px;
+        }
+        .f18{font-weight: 600; }
+        .step li.currnent .history_btn{
+            width: 111px; margin-top: -5px; height: 27px; border: 1px solid #ccc;
+            font-size: 12px; color: #666; vertical-align: middle; margin-left: 5px;
+            line-height: 24px; border-radius: 6px; cursor: pointer; margin-right: 2px;
+        }
+        .step li.currnent .history_btn span{
+            background-position: -175px 0; margin-left: 10px; width: 11px; height: 9px;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png); display: inline-block;
+        }
+        .step li.est{
+            padding: 0;
+        }
+        .step .pb5{ padding-bottom: 5px;}
+        .est_view{
+            width: 100px; height: 27px; border: 1px solid #ccc;
+            line-height: 23px; font-size: 13px; color: #666; margin-left: 10px;
+            border-radius: 6px; vertical-align: middle; cursor: pointer;
+        }
+        .est_view span{
+            width: 12px; height: 12px; background-position: -190px 0; margin-left: 3px;
+            display: inline-block; background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+            cursor: pointer;
+        }
+        .est_ok{
+            width: 130px; margin-right: 2px; height: 48px; background: #0053a0;
+            color: #fff; font-size: 18px; border-radius: 24px; line-height: 48px;
+            cursor: pointer; border: 0;
+        }
+        .est_ok span{
+            width: 23px; height: 18px; background-position: -207px 0; margin-top: -5px;
+            margin-left: 1px; display: inline-block; margin-right: 5px;
+            background-image: url(//static.itrcomm.com/img/sub/view_icon_all.png);
+        }
+        .amount{font-size: 15px; font-weight: bold;}
+        .add2{
+            border: 1px solid #ccc; border-radius: 18px; height: 339px;
+            margin-top: 2px; font-size: 15px; text-align: center; line-height: 339px;
+            color: blue; box-sizing: border-box;
+        }
+		.box~.box{margin-left: 3px;}
+        .bottom{border: 1px solid black; height: 50px; line-height: 50px;
+            text-align: center;}
+        .step .dd1{font-size: 7px; padding-top: 5px;}
+        .step .dt1{font-size: 15px;}
+        .step01{
+            height: 205px;
+        }
+        .dt123{
+            margin-top: 12px;
+        }
+        @keyframes blink-effect {
+        50% {
+        opacity: 0.5;
+        }
+        }
+        .chat-top{
+            height: 77px;  box-sizing: border-box; line-height: 80px;
+            border: 1px solid red; border-radius: 18px;
+            margin-bottom: 3px;
+            animation: blink-effect 1s step-end infinite;
+        }
+        .container2 li a sup font b{
+            animation: blink-effect 1s step-end infinite;
+        }
+        .chat-bottom{
+            height: 150px;box-sizing: border-box;
+            
+        }
+        .chat-mid{
+            height: 417px; box-sizing: border-box;
+            color: green; border: 1px solid #ccc;
+            line-height: 420px; margin-bottom: 2px;
+            border-radius: 18px; 
+        }
+        .chat-bottom input{
+            height: 100%; box-sizing: border-box; border: 1px solid #ccc;
+            float: left; border-radius: 18px; width: 80%;
+        }
+        .chat-bottom button{
+            height: 100%; box-sizing: border-box; border: 1px solid #ccc;
+            float: right; border-radius: 18px; width: 20%;cursor: pointer;
+        }
+        .chat-bottom::after{
+            display: block; clear: both; content: '';
+        }
+        .body .left{
+            width: 400px; margin-left: 200px;
+        }
+        .body .mid{
+            width: 660px;
+        }
+        .body .right{
+            width: 400px; margin-right: 200px;
+        }
+        .bottomtoo{
+            width: 1900px; 
+        }
+        .container2 ul .smallList1{
+            margin-left: 250px;
+        }
+        .swiper-body {
+            position: relative;
+            height: 396px; width: 400px; margin-top: 10px; border-radius: 20px; overflow: hidden;
+        }
+        .swiper {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #000;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .swiper {
+            width: 100%;
+            height: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+        .mySwiper2 {
+            height: 80%;
+            width: 100%;
+        }
+        .mySwiper {
+            height: 20%;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+        .mySwiper .swiper-slide {
+            width: 25%;
+            height: 100%;
+            opacity: 0.4;
+        }
+        .mySwiper .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index:2;
+        }
+        .modal_content .box{ 
+			width: 100%;  margin: 10px; 
+            height: 70%;
+            border: 1px solid gray;
+		}
+        .modal_content .box img{
+            width: 100%; height: 100%;
+        }
+        #modal button {
+            border-radius: 20px;
+        }
+        #modal #modal_close_btn{
+            position: absolute; border: none;
+            width:150px; padding: 5px;
+            bottom: 40px; right: 25px; font-weight: bold;
+        }
+        #modal #modal_copy_btn{
+            position: absolute; border: none;
+            width:150px; padding: 5px;
+            bottom: 40px; left: 25px; font-weight: bold;
+        }
+        #modal .modal_content {
+            display: flex;
+            width:600px;
+            height: 500px;
+            background:#fff;
+            border:1px solid #666;
+            padding: 30px;
+            border-radius: 20px;
+        }
+        .modal_layer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background:rgba(0, 0, 0, 0.5);
+            z-index:1;
+        }
+        #modal #modal_close_btn1{
+            position: absolute; border: none;
+            width:150px; padding: 5px;
+            bottom: 40px; left: 115px;
+        }
+        #modal #modal_confirm_btn1{
+            position: absolute; border: none;
+            width:150px; padding: 5px;
+            bottom: 40px; right: 115px;
+        }
+        #modal .modal_content1 {
+            display: block;
+            width:600px;
+            height: 300px;
+            background:#fff;
+            border:1px solid #666;
+            padding: 30px;
+            padding-top: 90px;
+            box-sizing: border-box;
+            border-radius: 20px;
+        }
+        .modal_layer1 .modal_content1{
+            font-weight: bold; text-align: center; font-size: 25px;
+        
+        }
+        .modal_layer1 button{
+            font-weight: bold;
+        }
+        #modal .close_btn{
+            position: absolute; border: none;
+            width:150px; padding: 5px;
+            bottom: 40px; right: 55px; font-weight: bold;
+        }
+</style>
+<body>
+    <div class="containertoo">
+        <div class="container-inner1">
+            <div class="comList">
+                <ul class="list-unstyled">
+                    <li class="timer">
+                        <span>2023. 2. 20. 19:58:35</span>
+                    </li>
+                    <li class="clearFix">
+                        <p>
+                            <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="comList2">
+                <ul class="list-unstyled">
+                    <li class="clearFix">
+                        <p>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">처음이신가요?</a>
+                        </p>
+                        <p>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">로그인</a>
+                        </p>
+                        <p>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">회원가입</a>
+                        </p>
+                        <p>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">마이페이지</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div>
+            <a href="#">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0ODw0NDQ0NDQ0NDQ8NDQ0NDQ8NDQ0NFREWFxURFRUYHighGBomGxgXIT0hJSkrLjIwGB8zODM4NyguOisBCgoKDQwFDgUPGjcgHyUtNys3NzU1ODI3Ny03NzQ3NSszNzcwLC8vKzQzNzc3Nys3ODUrNy81Kys4LTU1Kys4K//AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEAAwEBAQEBAAAAAAAAAAAABgcIBQQDAgH/xABMEAACAgECAwIICAkKBQUAAAAAAQIDBAURBxIhBkEIExQxNVFhcSIydIGRobGzF0J1gpSytMHTFTM0UlNVcnOT0mLD0eHwFhgjJFT/xAAXAQEBAQEAAAAAAAAAAAAAAAAABAUD/8QAHhEBAAICAwADAAAAAAAAAAAAAAEDAgQFESExkaH/2gAMAwEAAhEDEQA/ALwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB877o1xc5yUYx87ZHMvX7bJcmNFx38z5eeyXuXmQEm3P6RRYOo2fCcrF7JXcv1J9D8yeo4/wm7HFefdq6Pz+fYCWg4ula7G1qFqUJvomn8Cb9S9TO0AAAAAAAAAAAAA8upahRi1WZGTbCmmpc07LJcsYr/r7APUCudI4qYup5lmBg028kcbIu8rtar61x3XLXs3s/W2vceHS+2WXj4uo5uRKWYsTHqtjTOUalJu1RfwlF7dH6n5jjndGGzhqz8ypr1c7NC7kYnzHr9WoCF9iOJWm6w/E1ylj5W2/k1/KpTS8/i5LpP7fYTQ7JgAAAAAAAAA4fartXgaTUrs27kUt1XXFc91sl3Qj3+/zL1gdwFJ5vhAVqTWPpc5w7pXZUapP82MJL6zqdneOenZE415uPbguT2VvOsiiL3/GkkpL38oEz1+N919dCi1B/zf8AVk9usn7v/POeycsfT60kuayS/Pm/W33ROrRbCyMbK5RnCcVOE4tSjKLXRprzo4eZpFluUpWPmpl1bXTlil8T/v7WB5HreZY26obJd0KnPb3vqfXF7RWRly5EOnmbjFxnH3rvIt294s0aPkeQY+H5VbVGLu/+VU1Vcy3UFtFty2afd515zv8AZ3XMXtBgeV0QddsJSrlXLZzpuik+TdfGi009/b6wPbrWmQnDynH283PJR+LKP9ZepnT0Oy2VMXcmpLpFvzzh3Nn40HDspq5bX8Z8yh5+Tfzrc6YAAAAAAAAAAADNXHPtbZm588Cub8kwJ8nKn0sytvhzf+HdxXq2l6zSpirWrnZlZVkusrMm6cn627G2BOeBuJbPUMi6NcpVU6fkq2xL4EHOG0E363s/ofqJXVh236ZrdNFcrbZYVbjXBbzly3KT2Xe9k+hJ+CWnRWgQdaSszJZUpy9c1OVUd/YlFHc7GdmL8Cy6ds6pKyuMF4tybTUt+u6I7q8p5Oi6I8jtpa11eHAberlPs9dfbKOJk2U2QupnKu2qanXZB7ShNPdNM112A7Rfypp2LmvZWTg4XpdEr4Plnsu5Nrf3NGZ+J2BXjazqVNSUYLJdkYrzR8ZFWNL2byZcPg4Wt6Zlwb6R1CTj7N6a9/sLGatkEU7e9u8LRaoyv3tyLU3Ri1tKyz/ib/Fh7fo3KS1bjZrl0peTyx8OG/wY1Uwtml6nKzm3+hAaYBmHTuNGv1S3tuoyo79Y3Y1cOnqTqUWXNw64kYmtRlVy+TZtceaePKXMpw751y/GXs23X1gTgAAfxv19Pb6jIPEDtNZquoZGVKTdPO68WD3ShjRfwFt3N/GftbNV9qL5VYGfbH41eFk2R98aZNfYYxAk3ZTsHqmrRnbhY6lTCXJK6yyNVfPtvypvzvr3HO7R9ns3TLvJ86mVNvLzx6xlGcN2lKMl0a6GnuEmLCrRNNUFtz0O2XtnOcpN/WQXwlMaDp0y7b4cbrqt/wDgcYy2+lAeXwee1djndo90nKtVyyMPd/Eaa8ZWvY91JL2S9ZeZlHg5Y467prXfZbF+1SosT+01cBTvE3hHlajmzz8C+iMshQ8fVkSnDacYqPPGUU900l02X1k24adjv5FwvJpWq6622V99kU1DncVFRjv12Sivf1ZUPb/iVruHqmfi42c66Kb3CqHk2LPljsum8oNv52WBwQ7T5+qY2bZqGR5ROrIhCt+Kqq5YuG7W0Irfr6wLKBE+3/bvE0SmMrk7si1PyfFg0p2bfjSf4sPb9CZSWq8bNcuk/ESx8OG/wVVRC2SXqcrebd/MgNMgyr+FztJ/eT/RMP8Ahl38G9fzNS02WTnXePuWXbUp+Lrr+BGMGltBJd77u8CdgAAAAAAAGJdR/nrv86z9Zm2jEuo/z13+dZ+swNP8EPQOB/iyv2q0nZBOCHoHA/xZX7VaTsDJ/GH07qf+bV9xWWn4N7207O3/AP3f8mBVnGH07qf+bV9xWWb4Pr20nU2vOsmxr9HgBT3bnXZ6jqOXlzk5RnbKNK33UMeL5a4r1dEn7233nc4d8NMvW1ZcrY4uJXLxfj5wdkrLOjcYQTW+ya3ba868/XaCmqeCUEtA09pfGeS37X5Vav3ICm+IPCfK0ijyyu+OZixko2yVfirKeZ7Rbju9479N0+9dCE6Dq1uDlY+ZQ9rMe2Nkeu3Ml8aD9jW69zNYcRoKWj6smt15BkS6+tVtp/SkZAA27i3xtrrth1hbCNkH64ySa+pn1IA+1cdI7O6TnTplkLyLT6nCM1CTcsePwt2n6iLf+4DH/uu79Jh/tAtDtl6M1P8AJ2Z9xMxqalw+1kdZ0HVcyFEseMcbPo5JTVjfLjN826S/rfUZaAnmi8WtYwsejEoeN4nHrVdfPRzS5V63v1OZ2w7fajrFdNWa6HGmbsh4qrxb5mtnv1Jd2a4K25+Hi5sdRrqWTVG1VvGlJw37t+fqe3L4A5cYSdOo49liT5YTonVGT9XMm9voAr3h7q1GDqmDmZLlGim1uyUYubjFwlHfZdX5+411h5VV9cLqbI21WxU67IPmhODXRpmLdSwLsW63GyIOq6icq7IS88ZJ/Wvb3l4+DhrdllObp85bxx5QyKE3vyxsclZFepcyT98mBV/FT03qnyqX6qLV8Gz+h6j8qr+7Kq4qem9U+VS/VRaXg5P/AOjqfyiP3QFTcRdcnqGqZuRJtwV0qaFvuo0Vtxgl6t9t/fJn77CdiczWrp1YzhXXSoyvvs35K1LflWy6uT2fT2MjMm2231be7frZpLwesSMNInYvjX5tspP2RjCKX1N/OBG4+D7Lbrq63+Qv+IWXw87JPRcN4TyPKd77L/GKrxPxlFcvLzP+r59+8lAAAAAAAAAAGKdXqcMnJg/PDIti/eptG1jLnGnszPA1S65Qaxs+UsmmaXwfGP8AnYe9SbfukgLh4EZULNDxoRacqLsiqxd8Zu6ViT/NnF/OWEZG7C9us3RbJyx+S2m7bx2Nbv4ubXmkmusZe1fP3Ex1zjrn30zqxcSrDnOLi7/GyvnFNbbwTSSfte4EP4p5cL9a1OytqUfKPFprzN1wjB/XFlreD/B/yPqcu55VqXvWNXv9qKB6yffKUn7XKUn9rNWcPuz89N0SvGtjy3yotyL49N422Rb5X7Yrlj+aBlE1VwU9Aab7sn9qtMqmquCnoDTfdk/tVoHX4heiNW/J2V91Ix8bB4heiNW/J2V91Ix8BoXtnp+Rk9ktKqxaLsm3ybTJeLoqndZyqhbvlim9il//AEbrX90ap+gZP+01R2D9E6R+TMP7iB3QKi4eadk4vZfVqsrHvxrXDUZ+LyKp0zcHiraXLJJ7dH19hno2V2y9Gan+Tsz7iZjUDXXC/wBC6V8kh+8lBF+F/oXSvkkP3koAzP4QOLCvWeaKSd+HRbPbvnvOG/0QR6vBzsa1bIjv0lptu67m1dTt+8/HhE+l6fydT99cPB29L3fk6772kCM8VPTeqfKpfqotLwc/6DqnyiP3RVvFT03qnyqX6qLS8HP+g6p8oj90BQRpvgF6Er+VZH2ozIab4BehK/lWR9qAscAAAAAAAAAADl9otAxNSoli5tStql1XdOE15pwkusZe06gAoXW+AeQpSen59U4N/BrzIyrnFepzgpKT/NRy6eBGsOSU8jT4R36yVt02l7F4vr9KNHACtuwnCHB0yyGVkWPOy4NSrlKCropl3SjDd7y9rftSRYeXW512QjtvOucVv5t3Fo+wAzb+ArW/7XT/APXt/hl3cOtDv03S8TByXW7qPHc7qk5VvnvnNbNpPzSXcSQAcrtXp9mXgZ2JVyq3JxLqK3NtQU5wcU20nsupQX4Ctb/tdO/17f4ZpIAczsxgWYuBgYtvK7cbDx8exwbcHOuqMW0351ujpgAc7tFhzyMLNxquXxmRiZFFfO3GHPOqUY8zSey3a7jP34Ctb/tdO/17f4ZpIAcTsXpduDp2Fh3uDtx6I1WOuTlByW/mbS6fMdsACoeLHDXUdYz68vEnixqhiV0NX2zhPnjZZJvZQfTaSHCfhpqWj59mXlzxJVSxLKEqLbJz55TrkujgunwWW8AKI7a8INWz9Rzc2mzCjVkXOytWXWRmo7JdUoNJ/OTXhL2LzNHxs2jLlRKeRbGdbonKcdlDl67xW3UsIAZt/AVrf9rp/wDr2/wy5OF3ZvJ0nTo4WU6pWxvts3plKcOWTW3VpdfmJcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/9k=" alt="">
+            </a>
+        </div>
+        <ul>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">일반경매
+                    <sup>
+                        <font color="red">
+                            <b>New</b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">실시간경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">역경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">직거래경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">인원제한경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">VIP경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">전체메뉴
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <button class="addProduct" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">물품등록</button>
+            </li>
+            <li class="smallList1">
+                <select name="datafield" id="">
+                    <option value="">물품명</option>
+                    <option value="">판매자ID</option>
+                </select>
+            </li>
+            <li class="smallList2">
+                <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+                <button onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">검색</button>
+            </li>
+        </ul>
+    </div>
+    <div class="body">
+        <div class="box left">
+            <h1 class="title">Bonhams auction catalogue Gipsy Moth III Brochure 1981 Sale
+            </h1>
+            <div class="swiper-body">
+                <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+                    </div>
+                  </div>
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+                </div>
+                <div thumbsSlider="" class="swiper mySwiper">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="product-seller">
+                <ul>
+                    <li class="id">
+                        <div class="seller">판매자</div>
+                        <strong>PowerLeseller</strong>
+                    </li>
+                    <li class="pay">구매만족도
+                        <strong>100%</strong>
+                       
+                        <font>(2,365)
+                            <span class="grade"></span>
+                            
+                        </font>
+                    </li>
+                    <li class="recall">
+                        반품수용여부
+                        <strong>ReturnAccepted</strong>
+                        <strong class="st">30 days returns.</strong>
+                    </li>
+                </ul>
+                <a href="#" class="sel_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매자 찜
+                    <span class="all_icon"></span>
+                </a>
+                <a href="#" class="more_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매자 상품 보기
+                    <span class="all_icon"></span>
+                </a>
+            </div>
+            <div class="add"> 기능버튼 추가예정</div>
+        </div>
+        <div class="box mid">
+            <div class="chat-top">현재 입찰자: Buyer 입찰가격: 10,000원  입찰시간: 2023/02/27 16:30:41</div>
+            <div class="chat-mid">채팅내용</div>
+            <div class="chat-bottom">
+                <input type="text" placeholder="내용을 입력해주세요.">
+                <button onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">전송</button>
+            </div>
+        </div>
+        <div class="box right">
+            <div class="step step01">
+                <div class="itemid">
+                    <strong>Item ID</strong>
+                    <span>304798106833</span>
+                    <a href="https://www.ebay.com/itm/304798106833?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5338569225&customid=&toolid=10001&mkevt=1" class="all_icon"></a>
+                    <button class="share_btn" id="modal_open_btn">
+                        <span class="all_icon"></span>
+                    </button>
+                    <button class="like_btn">
+                        <span class="all_icon"></span>
+                    </button>
+                </div>
+                <ul class="list_ul">
+                    <li>
+                        <dl>
+                            <dt>상품상태</dt>
+                            <dd>
+                                <span class="pr0">
+                                    <img src="//static.itrcomm.com/img/sub/item_status_ico_1.png" alt="">
+                                </span>
+                                중고상품 (좋은 상태)
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>상품위치</dt>
+                            <dd>
+                                <font class="warehouse">Clevedon, GB</font>
+                                <label class="warehouseInfo">영국 물류센터 경유</label>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>판매종료시간</dt>
+                            <dd class="korEndTime">
+                                <font class="leftTime"></font>
+                                (02월 16일 04시 46분 20초)
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt class="dt1">물류센터 도착 예정일</dt>
+                            <dd class="dd1">
+                                미국시간
+                                <font class="fw 500">
+                                    02월 18일(토)~02월 21일(화)
+                                </font>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="step step02">
+                <ul class="list_ul">
+                    <li class="currnent">
+                        <dl>
+                            <dt class="c_000">현재 입찰가</dt>
+                            <dd>
+                                <font class="f18">￡ 0.99</font>
+                                <button class="history_btn" id="modal_open_btn3" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">
+                                    <span class="all_icon"></span>
+                                    입찰내역보기
+                                </button>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="est pd5">
+                        <dl>
+                            <dt class="dt123">입찰 견적가</dt>
+                            <dd>
+                                <strong>
+                                    <font class="amount">28,980원</font>
+                                </strong>
+                                <button class="est_view" id="modal_open_btn2" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">
+                                    자세히보기
+                                    <span class="all_icon"></span>
+                                </button>
+                                <button class="est_ok" id="modal_open_btn1" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">
+                                    입찰신청
+                                    <span class="all_icon"></span>
+                                </button>
+                            </dd>
+                        </dl>
+                    </li>
+                   
+                </ul>
+            </div>
+            <div class="add2"> 기능버튼 및 정보 추가예정</div>
+        </div>
+    </div>
+    <div class="bottomtoo">
+        <div class="bottomCustomer">
+            <div class="bottomCustomer1">
+                <div class="bottomCustomer1-1">
+                    <img src="" alt="">
+                </div>
+                <div class="bottomCustomer1-2">
+                    <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">구매안내</a>
+                    <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매안내</a>
+                    <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">채용안내</a>
+                    <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">신고안내</a>
+                    <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">입금계좌안내</a>
+                    <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">원격지원요청</a>
+                </div>
+            </div>
+        </div>
+        <div class="bottomCensebar">
+            <div class="bottomCensebar1">
+                <div class="bottomCensebar1-1">
+                    <img src="http://www.kobay.co.kr/kobay/images/common/footlLcense.gif" alt="">
+                </div>
+                <div class="bottomCensebar1-2"></div>
+            </div>
+        </div>
+        <div class="bottomCopy">
+            <div class="bottomCopy1">
+                <div class="bottomCopy1-1">
+                    <a href="#" class="okof" onmouseover="mouseOver2(this)" onmouseout="mouseOut2(this)">회사소개</a>
+                    <a href="#" onmouseover="mouseOver2(this)" onmouseout="mouseOut2(this)">이용약관</a>
+                    <a href="#" onmouseover="mouseOver2(this)" onmouseout="mouseOut2(this)">개인정보취급방침</a>
+                    <a href="#" onmouseover="mouseOver2(this)" onmouseout="mouseOut2(this)">이메일무단수집거부</a>
+                    <a href="#" onmouseover="mouseOver2(this)" onmouseout="mouseOut2(this)">고객센터</a>
+                    <a href="#" onmouseover="mouseOver2(this)" onmouseout="mouseOut2(this)">앱소개</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal_layer">
+        <div id="modal">
+            <div class="modal_content">
+              <div class="box box1">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MjBfMjU2%2FMDAxNjU4Mjc5MzYwNjcw.5MVjAvre4v-ACGC7cXELJOcBA0x20xDAcxHRHJOnJY8g.8kbITvud_Ao-IhT6bEtBv95FpwSbTkZb4GiDDKukKzgg.PNG.smcho2002%2F1.png&type=sc960_832" alt="">
+                <a href="#"></a>
+              </div>
+              <div class="box box2">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA1MzFfNjYg%2FMDAxNjIyNDY0NjMwMzg4.hY-FUGvamGoj-AcXRHGKyhdQKYehRu7Bx-nYcIlibd4g.tTMZBZsCS1nfVFlz6-uyb7u656Gf06y4mYhGzlzOwusg.PNG.futurara%2F5.png&type=sc960_832" alt="">
+                <a href="#"></a>
+              </div>
+              <div class="box box3">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA0MjVfMjgx%2FMDAxNTI0NjMzMTk5MTg5.LPGkH3KNG5zS5J3abfWHuCu8EXoA24cbNAcexLuWmgMg.9OJE4qEVGIG7PhfciJSB-pWbbbHHjkja-vzrxb5qfl4g.PNG.dc-club%2F%25C0%25CE%25BD%25BA%25C5%25B8%25B1%25D7%25B7%25A5.png&type=sc960_832" alt="">
+                <a href="#"></a>
+              </div>
+              <div class="box box4">
+                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F293%2F2018%2F11%2F30%2F0000023210_001_20181130102430310.jpg&type=sc960_832" alt="">
+                <a href="#"></a>
+              </div>
+            </div>
+            <button type="submit" id="modal_copy_btn">링크 복사하기</button>
+            <button type="button" id="modal_close_btn">공유 취소하기</button>
+        </div>
+    </div>
+
+    <div class="modal_layer modal_layer1">
+        <div id="modal">
+            <div class="modal_content1">
+                회원님의 입찰신청 가격은 : 28,980원 입니다. <br>
+                입찰하시겠습니까?
+            </div>
+            <button type="button" id="modal_close_btn1">입찰 취소</button>
+            <button type="submit" id="modal_confirm_btn1">입찰 확인</button>
+        </div>
+    </div>
+
+    <div class="modal_layer modal_layer2">
+        <div id="modal">
+            <div class="modal_content1">
+                견적가보기
+            </div>
+            <button type="button" id="modal_close_btn2" class="close_btn">닫기</button>
+        </div>
+    </div>
+    <div class="modal_layer modal_layer3">
+        <div id="modal">
+            <div class="modal_content1">
+                입찰내역보기
+            </div>
+            <button type="button" id="modal_close_btn3" class="close_btn">닫기</button>
+        </div>
+    </div>
+
+    
+
+    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+        });
+    </script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script><!--제이쿼리를 쓰기 위해 스크립트 참조-->
+    
+    <script>
+        function mouseOver(obj){ //css에서 :hover를 이용해서 표현할 수도 있음.
+            obj.style.fontSize = "20px"
+            obj.style.fontWeight = "bold"
+        }
+        function mouseOut(obj){
+            obj.style.fontSize =""
+            obj.style.fontWeight =""
+        }
+        function mouseOver1(obj){
+            obj.style.fontWeight = "bold"
+        }
+        function mouseOut1(obj){
+            obj.style.fontWeight =""
+        }
+        function mouseOver2(obj){
+            obj.style.color = "grey"
+        }
+        function mouseOut2(obj){
+            obj.style.color =""
+        }
+    </script>
+    <script>
+    $(document).ready(function(){ 
+    
+        $('.product-seller .sel_btn').click(function(){
+        let identify;
+        if($('.sel_btn span').prop('id') === ''){
+            identify = true;
+        }else{ 
+            identify = false;
+        }
+        console.log(identify);
+        
+        if(identify){
+            $('.sel_btn span').prop('id','heart1');
+        }else{
+            $('.sel_btn span').prop('id','');
+        }
+        console.log($('.sel_btn span').prop('id'));
+        });
+        $('.itemid .like_btn').click(function(){
+        let identify;
+        if($('.like_btn span').attr('id') === undefined){
+            identify = true;
+        }else{ 
+            identify = false;
+        }
+        console.log(identify);
+        
+        if(identify){
+            $('.like_btn span').attr('id','heart2');
+        }else{
+            $('.like_btn span').removeAttr('id');
+        }
+        });
+    });
+    $(function(){
+        const modal1 = document.querySelector('.modal_layer')
+        function modalOn() {
+        modal1.style.display = "flex"
+        }
+        function modalOff() {
+        modal1.style.display = "none"
+        }
+        
+        const btnModal = document.getElementById("modal_open_btn")
+        btnModal.addEventListener("click", e => {
+            modalOn()
+        })
+        const closeBtn = modal1.querySelector("#modal_close_btn")
+        closeBtn.addEventListener("click", e => {
+            modalOff()
+        })
+    })
+    $(function(){
+        const modal1 = document.querySelector('.modal_layer1')
+        function modalOn() {
+        modal1.style.display = "flex"
+        }
+        function modalOff1() {
+        modal1.style.display = "none"
+        }
+        
+        const btnModal = document.getElementById("modal_open_btn1")
+        btnModal.addEventListener("click", e => {
+            modalOn()
+        })
+        const closeBtn = modal1.querySelector("#modal_close_btn1")
+        closeBtn.addEventListener("click", e => {
+            modalOff1()
+        })
+    })
+    $(function(){
+        const modal1 = document.querySelector('.modal_layer2')
+        function modalOn() {
+        modal1.style.display = "flex"
+        }
+        function modalOff1() {
+        modal1.style.display = "none"
+        }
+        
+        const btnModal = document.getElementById("modal_open_btn2")
+        btnModal.addEventListener("click", e => {
+            modalOn()
+        })
+        const closeBtn = modal1.querySelector("#modal_close_btn2")
+        closeBtn.addEventListener("click", e => {
+            modalOff1()
+        })
+    })
+    $(function(){
+        const modal1 = document.querySelector('.modal_layer3')
+        function modalOn() {
+        modal1.style.display = "flex"
+        }
+        function modalOff1() {
+        modal1.style.display = "none"
+        }
+        
+        const btnModal = document.getElementById("modal_open_btn3")
+        btnModal.addEventListener("click", e => {
+            modalOn()
+        })
+        const closeBtn = modal1.querySelector("#modal_close_btn3")
+        closeBtn.addEventListener("click", e => {
+            modalOff1()
+        })
+    })
+    </script>
+</body>
+</html>
