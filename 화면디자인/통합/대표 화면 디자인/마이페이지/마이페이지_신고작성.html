@@ -107,7 +107,7 @@
         clear: both; display: block; content: '';
     }
     .body{
-        height: 700px; 
+        height: 1000px; 
 	}
 	.body .body-left{
 		float:left; width: 250px; height:700px; border-right: 1px solid black;
@@ -136,6 +136,12 @@
 	.body .body-left .nav-ul .list-li .item-a{
 		display: inline-block; padding-top: 2px; color:black; margin-top: 6px; font-weight: normal;
 	}
+    .body .body-middle{
+        float: right;
+    }
+    .body::after{
+        clear: both; content: ''; display: block;
+    }
     .file-box{
 	width : 100px; height : 200px; border : 1px solid black; font-size : 50px; text-align: center; line-height: 200px; font-weight: bold;
 	border-radius: 5px; float: left; cursor: pointer;
@@ -385,7 +391,7 @@
 				</li>		
 			</ul>		
 		</div>
-        <div class="container">
+        <div class="body-middle">
             <div>
                 <label for="type">카데고리:</label>
                 <select name="bo_bt_num" id="type">
