@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 상세페이지</title>
+  <script src="/JS/js/jquery.min.js"></script>
+  <script src="/JS/js/jquery.validate.min.js"></script>
+  <script src="/JS/js/addtional-methods.min.js"></script>
+  <script src="../project/product-detail.js"></script>
+  <link rel="stylesheet" href="product-detail.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<style>
+  @charset "utf-8";
+/* 공통양식 시작 */
+*{
+  font-family: Arial, Helvetica, sans-serif;
+      margin: 0; padding: 0; text-decoration: none;
+      font-size: inherit; border-collapse: collapse; line-height: inherit;
+      word-break: inherit; list-style: none;
+  }
+  .containertoo{
+      text-align: center; box-sizing: border-box; background:#464646;
+      color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+      width: 1500px; 
+  }
+  
+  .list-unstyled{
+      margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+
+  }
+  .timer{
+      background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+      padding-left: 25px;
+  }
+  .comList ul li{
+      float: left; margin-right: 10px; padding: 5px 0;
+  }
+  .comList2{display: table-cell; vertical-align: middle; float: right;}
+  .comList2 ul{
+      list-style: none; margin-bottom: 0; 
+  }
+  .list-unstyled .timer span{
+      margin-left: 30px;
+  }
+  .clearFix{
+      margin-right: 0;
+  }
+  .clearFix::after{
+      clear: both; content: ''; display: block;
+  }
+  .clearFix p a{
+      color: #fff;
+  }
+  .comList ul li p{
+      float: left; margin: 0 0; padding: 0 12px;
+  }
+  .lock::before{
+      content: '\26BF'; margin-right: 3px;
+  }
+  .comList2 ul li{
+      float: left; padding: 5px 0;
+  }
+  .comList2 ul li p{
+      background: none; float: left; margin: 0; padding: 0 12px;
+  }
+  .container-inner2{
+      margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+  }
+  .container2{
+      border-bottom: 1px solid black; position: relative;
+      width: 1500px; 
+  }
+  .container2 div{
+      float:left;
+  }
+  .container2 ul{
+      position: absolute; left: 150px; height: 70px;
+  }
+  .container2 ul li{
+      list-style: none; float: left; margin-left: 5px; height: 70px;
+  }
+  .container2::after{clear: both; display: block; content: '';}
+  .container2 img{ width: 150px; height: 70px; object-fit: cover;}
+  .container2 li a{
+      height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+      text-decoration: none;
+  }
+  .addProduct{
+      margin-top: 25px; border-radius: 10px; background: #114da5;
+      color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+  }
+  .comList2 .list-unstyled .clearFix a{
+      text-decoration: none;
+  }
+  .smallList1 select{
+      margin: 30px 0 0 50px;
+  }
+  .smallList2 input{
+       margin-left: 5px;
+  }
+  .smallList2 button{
+      margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+      color: #fff; cursor: pointer;
+  }
+  .containertoo::after{
+      clear: both; display: block; content: '';
+  }
+  .bottomCustomer{
+      box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+      background: #f7f7f7; border-top: 1px solid black;
+  }
+  .bottomCustomer1{
+      padding: 25px 0; display: table; margin-left: auto; margin-right: 200px;
+  }
+  .bottomCustomer1::after{
+      clear: both; display: block; content: '';
+  }
+  .bottomCustomer1-1{
+      width: 500px; display: table-cell; 
+  }
+  .bottomCustomer1-1 img{
+       text-align: center;
+  }
+  .bottomCustomer1-2{
+      display: table-cell; float: right;
+  }
+  .bottomCustomer1-2 a{
+      text-align: center; padding-top: 50px; margin-bottom: 15px;
+      color: #555; width: 84pt; display: inline-block; 
+  }
+  .bottomCustomer1-2 a:nth-child(1){
+      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+  }
+  .bottomCustomer1-2 a:nth-child(2){
+      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+  }
+  .bottomCustomer1-2 a:nth-child(3){
+      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+  }
+  .bottomCustomer1-2 a:nth-child(4){
+      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+  }
+  .bottomCustomer1-2 a:nth-child(5){
+      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+  }
+  .bottomCustomer1-2 a:nth-child(6){
+      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+  }
+  .bottomCensebar{
+      background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+  }
+  .bottomCensebar1{
+      margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+  }
+  .bottomCensebar1-1{
+      float: left;
+  }
+  .bottomCensebar1::after{
+      clear: both; display: block; content: '';
+  }
+  .bottomCopy{
+      box-sizing: border-box; line-height: 1.42857143;
+  }
+  .bottomCopy1{
+      margin-left: auto; margin-right: auto; height: 57.2px;
+      background: #f7f7f7;
+      }
+  .bottomCopy1-1{
+       font-size: 14px; margin-left: 20px;
+      box-sizing: border-box; float: right;
+  }
+  .bottomCopy1-1 a{
+      color: #111; font-weight: bold;  font-size: 14px;
+      padding-right: 15px;  text-decoration: none; line-height: 54px;
+      text-align: center;
+      
+  }
+  .bottomCopy1::after{
+      clear: both; content: ''; display: block;
+  }
+  .okof::before{
+      content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+      text-align: center; 
+  }
+  @keyframes blink-effect {
+      50% {
+      opacity: 0.5;
+      }
+  }
+  .container2 li a sup font b{
+      animation: blink-effect 1s step-end infinite;
+  }
+  .bottomtoo{
+      width: 1500px; 
+  }
+/* 공통양식 끝 */
+/* 
+*{
+  margin: 0; padding: 0;
+  text-decoration: none; 
+  font-weight: inherit; font-style: normal;
+  border-collapse: collapse;
+  border: 0; list-style: none; line-height: inherit;
+  outline: none; font-family: 'Noto Sans KR', sans-serif;
+}
+*/
+/* 상품 상세페이지 구현*/
+.content-view{
+  width: 1249px; padding: 0 0 60px; margin: 0 auto;
+}
+.product-category{
+  margin-left: 10px;
+  width: 100%; display: table;
+  font-size: 0; margin: 4px 0 0 0;
+}
+.product-category ul{
+  display: table-cell; vertical-align: middle;
+  height: 36px; line-height: 36px;
+}
+.product-category li{
+  display: inline-block; vertical-align: top;
+  font-family: Helvetica, 'Apple SD Gothic Neo', sans-serif;
+}
+.product-category a{
+  display: inline-block; font-size: 0.87rem; color: #777; line-height: 36px;
+  text-decoration: none;
+}
+.product-category span{
+  display: inline-block; padding-left: 17px;;
+  background-image: url(http://static.itrcomm.com/img/sub/home_ico.gif);
+  background-position: 0 center; background-repeat: no-repeat;
+}
+.product-category i{
+  padding: 0 10px;
+  display: inline-block; width: 4px; height: 36px;
+  background-image: url(http://static.itrcomm.com/img/sub/dot_arrow.gif);
+  background-position: center; background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.content-view .product-name{
+  font-size: 1.7rem; font-weight: 700; color: #080808;
+  padding: 0 0 7px; line-height: 29px; font-family: Arial, Helvetica, sans-serif;
+  display: block; 
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.content-view .product-subname{
+  font-size: 1.2rem; color: #666;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+/* product-simple-area 시작 */
+.product-simple-area{
+  margin-top: 10px; font-family: Arial, Helvetica, sans-serif;
+}
+/* 상품 정보 상단 왼쪽 썸네일 시작 */
+.simple-layout-left{
+  width: 557px; display: inline-block;
+}
+.simple-layout-left .thumnail-area{
+  width: 557px; display: inline-block;
+}
+.thumnail-area .box-thumnail{
+  position: relative;
+}
+.thumnail-area .inner-thumnail{
+  position: relative; width: 100%; height: 0; padding-top: 100%;
+  overflow: hidden; border: 1px solid #ccc;
+}
+.item-thumnail .zoo-item{
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden; transition: all 150ms linear;
+  display: flex; align-items: center; justify-content: center;
+}
+.item-thumnail .zoo-img{
+  background-image: url(https://i.ebayimg.com/00/s/MTQ5NVgxNjAw/z/lOIAAOSw7npiMlXw/$_57.JPG?set_id=880000500F);
+  cursor: pointer; 
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+  background-repeat: no-repeat; background-position: center;
+  background-size: contain; transition: transform 0.5s ease-out;
+}
+.item-thumnail .zoo-img:hover{
+  transform: scale(2);
+}
+.box-thumnail .zoombox{
+  position: absolute; color: #5a5a5a;
+  font-size: 1em; background: #fff; width: 228px; height: 49px;
+  left: 50%; transform: translateX(-50%); 
+  bottom: -24px; text-align: center; line-height: 49px;
+  cursor: pointer; border: 0; padding: 0;
+}
+.zoombox span{
+  position: relative; top: 9px; width: 17px; height: 28px;
+  background-position: -54px -23px; margin-right: 15px;
+}
+.mouse-icon{
+  background-repeat: no-repeat; 
+  background-image: url(http://static.itrcomm.com/img/sub/view_icon_all.png);
+  display: inline-block;
+}
+.thumnail-area .mini-thumnail{
+  position: relative; height: 85px; margin-top: 50px;
+  overflow: hidden; list-style: none;
+  padding: 0; z-index: 1;
+
+}
+.thumnail-swiper-wrapper{
+  transition-duration: 0ms; transform: translate3d(15px, 0px, 0px);
+  position: absolute; top: 0; left: 0; text-align: center;
+  margin: 0 auto; width: 100%; height: 100%; z-index: 1;
+  display: flex; box-sizing: content-box;
+}
+.swiper-slide-img{
+  width: 99.4px; margin-right: 15px;
+  height: 100%; position: relative;
+}
+.swiper-slide-img img{
+  border: 1px solid #e1e1e1;
+  vertical-align: top; margin: 0 7px; position: relative;
+  width: 85px; height: 85px; border-radius: 0;
+  background: #fff; opacity: 1; box-sizing: border-box;
+  background-position: left top; background-size: 85px 85px; cursor: pointer;
+}
+.control-wrap button{
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 99; width: 25px; height: 80px; background-color: #fff;
+  opacity: 0.9;
+  cursor: pointer; border: 0; padding: 0;
+  background-repeat: no-repeat; 
+  background-image: url(http://static.itrcomm.com/img/sub/view_icon_all.png);
+}
+.control-wrap .prev-btn{
+  left: 0; background-position: -97px 0;
+  display: block; width: 15px; height: 29px; ;
+}
+.control-wrap .next-btn{
+  right: 0; background-position: -119px 0;
+  display: block; width: 15px; height: 29px;
+}
+/* 상품 정보 상단 왼쪽 썸네일 끝 */
+/* simple-layout-right 시작 */
+.simple-layout-right{
+ width: 635px; float: right; border-top: 1px solid #ccc;
+}
+.product-info .info-step01{
+  padding: 10px 0 10px 0;
+  position: relative; border-bottom: 1px solid #ccc;
+}
+/* info-stop01 시작 */
+.info-step01 .product-id{
+  position: relative; line-height: 40px; margin-bottom: 20px;
+  text-align: left; padding-inline-start: 40px;
+}
+.info-step01 .product-id strong{
+  position: relative; font-size: 15px; color: #9b9b9b;
+  padding-right: 8px; margin-right: 4px;
+}
+.info-step01 .product-id strong::before{
+  content: ''; position: absolute; top: 6px;
+  right: 0; width: 1px; height: 12px; background: #bbb;
+  display: block;
+}
+.info-step01 .product-id button{
+  width: 36px; height: 36px; border: 1px solid #d7d7d7;
+  position: absolute; top: 0; border-radius: 20px;
+  cursor: pointer; background-color: #fff;
+}
+.info-step01 .product-id i{
+  width: 17px; height: 18px; display: inline-block;
+  margin: 0 auto;
+  background-image: url(http://static.itrcomm.com/img/sub/view_icon_all.png);
+  background-repeat: no-repeat;
+}
+.info-step01 .product-id .btn-share{
+  right: 45px;
+}
+.info-step01 .product-id .share-icon{
+  background-position: -52px 0; border-bottom: 0;
+}
+.info-step01 .product-id .btn-like{
+  right: 0px;
+}
+.info-step01 .product-id .like-icon{
+  background-position: -75px 0; border-bottom: 0;
+}
+.info-step01 .box-share{
+  display: none;
+  position: absolute; padding: 20px 30px;
+  border: 1px solid #a6a6a6; background-color: #fff;
+  right: 45px; height: 89px; top: 50px; z-index: 10;
+}
+.info-step01 .box-share ul{
+  display: block; list-style: none;
+}
+.info-step01 .box-share li{
+  display: inline-block; margin-right: 12px; vertical-align: top;
+  list-style: none;
+}
+.info-step01 .box-share a{
+  width: 48px; height: 48px; display: block;
+  background-image: url(http://static.itrcomm.com/img/sub/sns_ico.png);
+  background-repeat: no-repeat; background-position: 0 0;
+  margin-left: 10px; margin-top: -4px;
+}
+.info-step01 .box-share .btn-twitter{
+  background-position: -60px 0;
+}
+.info-step01 .box-share .btn-kakao{
+  background-position: -180px 0; margin-right: 24px;
+}
+.info-step01 .box-share .box-share_close{
+  display: block; width: 23px; height: 23px;
+  background-image: url(http://static.itrcomm.com/img/sub/sns_ico.png);
+  background-repeat: no-repeat; background-position: -253px -12px;
+  top: 50%; transform: translateY(-50%);
+  border: 1px solid #d7d7d7; position: absolute;
+  border-radius: 20px
+  ;
+}
+
+
+
+.info-step01 .btn-deadline,.btn-bidlist{
+  background-color: #6d6e71; color: #fff; border: 1px solid #6d6e71;
+  display: inline-block; padding: 6px 12px; margin-bottom: 0; 
+  font-size: 14px; line-height: 1.5; text-align: center; white-space: nowrap;
+  vertical-align: middle; cursor: pointer; touch-action: manipulation;
+  margin-top: 5px; margin-left: 10px;
+}
+.info-step01 .deadline-icon,.bidlist-icon{
+  color: #c5b799; display: inline-block; font: normal 14px;
+  font-size: inherit; text-rendering: auto;
+}
+.info-step01 span{
+  color: #262626; padding-bottom: 1px; 
+  height: 17px; height: 18px; display: block; margin: 0 auto;
+}
+.info-step01 ul{
+  list-style: none; display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.info-step01 li{
+  padding-bottom: 16px; list-style: none; display: list-item; 
+}
+.info-step01 dl{
+  display: block;
+  margin-block-start: 1em; margin-block-end: 1em;
+  margin-inline-start: 0px; margin-inline-end: 0px;
+  text-align: left;
+}
+.info-step01 dt{
+  color: #666; display: inline-block; font-size: 14px;
+}
+.info-step01 dd{
+  width: 420px; text-align: right;
+  position: relative; float: right;
+  font-size: 14px; color: #666;
+  display: block; margin-inline-start: 40px;
+}
+/* info-stop01 끝 */
+/* info-step02 시작 */
+.info-step02 ul{
+  list-style: none; display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.info-step02 li{
+  padding-bottom: 16px; list-style: none; display: list-item; 
+}
+.info-step02 dl{
+  display: block;
+  margin-block-start: 1em; margin-block-end: 1em;
+  margin-inline-start: 0px; margin-inline-end: 0px;
+  text-align: left;
+}
+.info-step02 dt{
+  color: #666; display: inline-block; font-size: 14px;
+}
+.info-step02 dd{
+  width: 420px; text-align: right;
+  position: relative; float: right;
+  font-size: 14px; color: #666;
+  display: block; margin-inline-start: 40px;
+}
+.info-step02 .start-price{
+  font-weight: 600; font-size: 18px; color: #000;
+}
+.info-step02 .current-price{
+  font-weight: 600; font-size: 18px; color: #eb000a;
+}
+/* info-step02 끝 */
+/* product-info-btn-area 시작 */
+.product-info-btn-area{
+  padding-top: 15px; text-align: right; clear: both; ;
+}
+.product-info-btn-area button{
+  display: inline-block; text-align: center;
+  cursor: pointer; border: 0; padding: 0;
+  width: 205px; height: 48px;
+  color: #fff; font-size: 18px; border-radius: 24px;
+  line-height: 48px; 
+}
+.product-info-btn-area span{
+  vertical-align: middle; background-repeat: no-repeat;
+  background-image: url(http://static.itrcomm.com/img/sub/view_icon_all.png);
+  display: inline-block;
+}
+.product-info-btn-area .btn-favorite{
+  margin-left: 10px; background: #247fd2;
+}
+.product-info-btn-area .favorite-icon{
+  width: 23px; height: 20px; background-position: -75px 0;
+  margin-top: -3px; margin-left: 13px;
+}
+.product-info-btn-area .btn-bid{
+  background: #0053a0; display: inline-block;
+  text-align: center; margin-left: 10px
+}
+.product-info-btn-area .bid-icon{
+  width: 26px; height: 20px; background-position: -207px 0px;
+  margin-top: -3px; margin-left: 13px;
+}
+/* product-info-btn-area 끝 */
+/* seller-info-area 시작 */
+.seller-info-area{
+  position: relative; margin-top: 10px; border: 1px solid #ddd;
+  border-radius: 18px; padding: 15px 10px 15px 10px;
+}
+.seller-info-area .seller-img{
+  display: inline-block; width: 60px; height: 60px;
+  border: 1px solid #ccc; background-image: url(http://static.itrcomm.com/img/sub/medal.png);
+  background-position: center; background-repeat: no-repeat;
+  border-radius: 40px; margin-right: 8px;
+}
+.seller-info-area ul{
+  display: inline-block; vertical-align: top;
+  margin-block-start: 5px; margin-block-end: 5px;
+  margin-inline-start: 0px; margin-inline-end: 0px;
+}
+.seller-info-area .seller-id{
+  font-size: 15px; color: #000;
+}
+.seller-info-area li{
+  line-height: 26px; font-size: 13px; color: #666;
+}
+.seller-info-area .seller{
+  font-size: 13px;
+}
+.seller-info-area strong{
+  font-size: 18px; font-weight: 600; color: #000;
+}
+.seller-info-area .buy-satisfaction strong{
+  margin-left: 20px;
+}
+.seller-info-area a{
+  position: absolute; padding-left: 17px; display: block;
+  text-align: left; font-size: 14px; color: #444;
+  width: 170px; height: 36px; border: 1px solid #ccc;
+  line-height: 32px; border-radius: 6px; text-decoration: none;
+}
+.seller-info-area a span{
+  position: absolute; width: 23px; right: 12px; top: 50%;
+  transform: translateY(-50%);
+  background-repeat: no-repeat; 
+  background-image: url(http://static.itrcomm.com/img/sub/view_icon_all.png);
+  display: inline-block;
+}
+.seller-info-area .btn-seller-favorite{
+  top: 10px; right: 10px;
+}
+.seller-info-area .seller-favorite-icon{
+  background-position: -75px 0; height: 21px;
+}
+.seller-info-area .btn-seller-favorite-sel{
+  top: 10px; right: 10px;
+}
+.seller-info-area .seller-favorite-icon-sel{
+  background-position: -115px -38px; height: 21px;
+}
+.seller-info-area .btn-store-more{
+  top: 52px; right: 10px;
+}
+.seller-info-area .store-icon{
+  background-position: -257px 0; height: 25px;
+}
+/* seller-info-area 끝 */
+/* simple-layout-right 끝 */
+.product-tab-wrap{
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%; margin: 0 auto; padding: 50px 0 0 0;
+}
+.product-tab-wrap .tab-area{
+  font-size: 0; margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+}
+.tab-area ul{
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.tab-area li{
+  color: #171717; border: 1px solid #707070;
+  border-bottom: 0; border-top: 2px solid #000;
+  width: 33%; display: inline-block;
+  text-align: center; height: 54px; line-height: 54px;
+  border-right: 1px solid #dfdfdf;
+  border-bottom: 1px solid #707070;
+}
+.tab-area a{
+  color: #343434; font-weight: 500;
+  font-size: 15px; display: block;
+  text-decoration: none; cursor: pointer;
+}
+
+.tab-area .product-description-tab{
+  border-bottom: 0; 
+}
+
+.tab-area .product-review-tab{
+  border-bottom: 0; 
+}
+
+.tab-area .product-inquiry-tab{
+  border-bottom: 0; 
+}
+
+.product-img01{
+  width: inherit; max-width: 100%; height: auto; vertical-align: top;
+  border-style: none; padding-top: 40px 
+}
+.product-img02{
+  width: inherit; max-width: 100%; height: auto; vertical-align: top;
+  border-style: none; padding-bottom: 70px;
+}
+
+
+
+.product-review-area{
+  display: table; table-layout: fixed; width: 100%;
+}
+.product-review-area .feedback-table{
+  box-sizing: border-box; text-indent: initial;
+  border-color: grey; 
+}
+.product-review-area .colgroup{
+  display: table-caption; 
+}
+
+
+
+.product-review-area .review-layout-left{
+  display: table-cell; width: 250px; padding: 60px 0 20px 0;
+  text-align: center; cursor: default; 
+  float: left; 
+   
+}
+.product-review-area h4{
+  font-size: 12px; color: #808991; font-weight: 700;
+  display: block; 
+  margin-block-start: 11px;
+  margin-block-end: 11px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;;
+}
+.product-review-area .buyer-score{
+  display: inline-block; margin-top: 15px;
+}
+.product-review-area .buyer-star-score{
+  margin-top: 11px; 
+}
+.product-review-area .score{
+  display: block; margin-top: 10px; font-size: 35px; 
+  color: #212529; font-weight: 700;
+}
+.product-review-area .buyer-star-score{
+  margin-top: 11px;
+}
+.product-review-area .score-star-rate{
+  color: #999; font-size: 16px; line-height: 16px;
+}
+.product-review-area .star-rate-box{
+  position: relative; margin-top: -1px; margin-right: 1px;
+  width: 75px; height: 15px; vertical-align: -11%;
+  display: inline-block; text-indent: -444px; 
+  font-size: 0; overflow: hidden; 
+  background: url(data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2050%2010%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20fill%3D%22%23d1d5d9%22%3E%3Cpath%20d%3D%22M8.089,9.755L5,8.308L1.91,9.755l0.423-3.387L0,3.876l3.352-0.645L5,0.245l1.647,2.987L10,3.876L7.666,6.368L8.089,9.755z%20M28.09,9.755L25,8.308l-3.09,1.447l0.423-3.387L20,3.876l3.352-0.645L25,0.245l1.647,2.987L30,3.876l-2.334,2.492L28.09,9.755z%20M18.09,9.755L15,8.308l-3.09,1.447l0.423-3.387L10,3.876l3.352-0.645L15,0.245l1.647,2.987L20,3.876l-2.334,2.492L18.09,9.755z%20M38.09,9.755L35,8.308l-3.09,1.447l0.422-3.387L30,3.876l3.352-0.645L35,0.245l1.647,2.987L40,3.876l-2.334,2.492L38.09,9.755z%20M48.09,9.755L45,8.308l-3.09,1.447l0.422-3.387L40,3.876l3.352-0.645L45,0.245l1.647,2.987L50,3.876l-2.334,2.492L48.09,9.755z%22/%3E%3C/svg%3E);
+  background-size: 100% 100%;
+}
+.product-review-area .star-rate-fill{
+  width: 80%;
+  display: block; position: relative; overflow: hidden;
+  height: 15px;
+}
+.product-review-area .star-rate-fill::after{
+  text-indent: -444px; font-size: 0; overflow: hidden;
+  background: url(data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2050%2010%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20fill%3D%22%23fa722e%22%3E%3Cpath%20d%3D%22M8.089,9.755L5,8.308L1.91,9.755l0.423-3.387L0,3.876l3.352-0.645L5,0.245l1.647,2.987L10,3.876L7.666,6.368L8.089,9.755z%20M28.09,9.755L25,8.308l-3.09,1.447l0.423-3.387L20,3.876l3.352-0.645L25,0.245l1.647,2.987L30,3.876l-2.334,2.492L28.09,9.755z%20M18.09,9.755L15,8.308l-3.09,1.447l0.423-3.387L10,3.876l3.352-0.645L15,0.245l1.647,2.987L20,3.876l-2.334,2.492L18.09,9.755z%20M38.09,9.755L35,8.308l-3.09,1.447l0.422-3.387L30,3.876l3.352-0.645L35,0.245l1.647,2.987L40,3.876l-2.334,2.492L38.09,9.755z%20M48.09,9.755L45,8.308l-3.09,1.447l0.422-3.387L40,3.876l3.352-0.645L45,0.245l1.647,2.987L50,3.876l-2.334,2.492L48.09,9.755z%22/%3E%3C/svg%3E);
+  background-size: 100% 100%; display: block; position: absolute;
+  left: 0; top: 0; width: 75px; height: 15px; content: '';
+}
+.product-review-area .score-people-num{
+  width: 94px; margin: 0 auto; padding-top: 8px;
+  border-top: 1px solid #e5e5e5; font-size: 14px;
+  color: #94a2b8; letter-spacing: 0.5px;
+}
+.product-review-area .score-people-num strong{
+  font-weight: bold;
+}
+
+.review-layout-left p{
+  margin-block-start: 16px;
+  margin-block-end: 16px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+
+.review-layout-right{
+  position: relative;
+  display: inline-block; 
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.review-layout-right .review-area{
+  display: inline-block; line-height: 18px;
+  box-sizing: border-box; text-indent: initial; border-color: grey;
+}
+.review-layout-right colgroup{
+  display: table-column-group;
+}
+.review-layout-right thead{
+  display: table-header-group; vertical-align: middle; 
+  border-color: inherit;
+}
+.review-layout-right tr{
+  display: table-row; vertical-align: inherit; border-color: inherit;
+}
+.review-layout-right th{
+  padding: 0; text-align: left;
+  border-top: none;
+  border-bottom: 1px solid rgb(204, 204, 204);
+  background-color: rgb(247, 245, 245);
+  font: 11px; display: table-cell; vertical-align: inherit;
+}
+.review-layout-right tbody{
+  display: table-row-group; vertical-align: middle; border-color: inherit;
+
+}
+.review-layout-right td{
+  border-bottom: 1px solid #dbdbdb;
+  padding: 20px 0; display: table-cell;
+  text-align: center; vertical-align: middle;
+}
+.review-layout-right .badge-icon{
+  text-align: center;
+}
+.review-layout-right .box-feedback-star-rate{
+  line-height: 26px;
+}
+.review-layout-right .star-image{
+  margin: 3px 0 0 0; vertical-align: top; width: 18px;
+}
+.review-layout-right .box-rating{
+  display: inline-block; font-size: 20px; color: #999; line-height: 26px;
+}
+.review-layout-right .star-current{
+  color: #333;  
+}
+
+.review-layout-right .box-coment{
+  display: inline-block; position: relative; width: 100%; 
+  border-right: 1px solid #e2e2e2; 
+  text-align: left;
+}
+.review-layout-right .coment-title{
+  padding-right: 21px;
+}
+.review-layout-right .box-coment strong{
+  margin-bottom: 3px; display: inline-block; width: 100%; font-weight: bold;
+}
+.review-layout-right .box-coment a{
+  color: #4d90fe
+}
+.review-layout-right .box-coment p{
+  padding-top: 0; padding-right: 21px;
+  min-height: 30px; max-height: 195px; overflow: hidden;
+}
+.review-layout-right .coment-user tr{
+  display: table-row; vertical-align: inherit; border-color: inherit;
+}
+.review-layout-right .coment-user td{
+  border-bottom: 1px solid #dbdbdb;
+}
+
+
+
+.review-layout-right .coment-user ul{
+  padding-left: 21px; color: #999; line-height: 18px; list-style: none;
+  display: block;
+  margin-block-start: 16px;
+  margin-block-end: 16px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.review-layout-right .coment-user li{
+  display: list-item; 
+}
+.review-layout-right .coment-user strong{
+  color: #666; 
+}
+
+.review-pagination{
+  position: relative; clear: both; padding: 13px 0 13px 0;
+  border-bottom: 2px solid #cecece;
+  color: #333; background-color: #f2f2f2; text-align: center;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.review-pagination a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+
+  margin-left: -5px; padding: 6px 9px 5px 10px;
+  border: 1px solid #c3c3c3;
+  border-right-color: #929292;
+  border-bottom-color: #838383;
+  border-left-color: #b7b7b7;
+  background-color: #ffff;
+  box-shadow: 1px 1px 2px #d7d7d7;
+  text-decoration-line: none;
+  color: #000;
+}
+
+.review-pagination a.active {
+  background-color: #929292;
+  color: white;
+  border: 1px solid #929292;
+}
+
+.review-pagination a:hover:not(.active) {background-color: #ddd;}
+
+.review-pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.review-pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
+
+.product-qna-area .qna-layout-right{
+  float: right; padding: 10px 5px 15px 0;
+}
+.product-qna-area .qna-layout-right a{
+  padding: 7px 20px 7px 20px; border: 1px solid #9ba0a8; border-radius: 2px;
+  line-height: 30px; height: 30px; 
+  font-size: 13px; font-weight: bold; color: #fff;
+  background: #a4a9b0; text-align: center; margin-left: 12px;
+}
+.product-qna-area table{
+  table-layout: fixed; width: 100%; border-collapse: collapse;
+  border-top: 1px solid #a4a9b0; border-bottom: 1px solid #ececec;
+}
+.product-qna-area thead{
+  display: table-header-group; vertical-align: middle; border-color: inherit;
+}
+.product-qna-area tr{
+  display: table-row; vertical-align: inherit; border-color: inherit;
+}
+.product-qna-area th{
+  padding: 13px 0; text-align: center; font-size: 14px; line-height: 20px;
+  color: #222; background-color: #f8f9fa;
+}
+.product-qna-area tbody{
+  display: table-row-group; vertical-align: middle; border-color: inherit;
+}
+.product-qna-area td{
+  padding: 16px 0 16px 12px; border-top: 1px solid #ececec;
+  font-size: 14px; line-height: 14px; color: #5e636d;
+  word-wrap: break-word;
+}
+.product-qna-area tr th{
+  padding-left: 10px; 
+}
+.product-qna-area a{
+  text-decoration: none;
+  color: #000;
+}
+.product-qna-area tr .htit{
+  padding-right: 15px;
+}
+
+
+.product-qna-area tbody .ing{
+  color: #94989f; padding-right: 18px;
+}
+.product-qna-area tbody .done{
+  color: #2e8de5; padding-right: 18px;
+}
+.product-qna-area .qna-title a{
+  position: relative; color: #222; float: left; margin-left: 30px;
+}
+.product-qna-area .qna-title span{
+  background: url(http://pics.gmarket.co.kr/pc/ko/item/vip/sp_vipgroup.png?v=20220427);
+  background-size: 1000px 1000px; background-position: -252px 0;
+  width: 10px; height: 13px; display: inline-block;
+  font-size: 0; 
+  margin-left: 5px; margin-bottom: -1px; padding-top: 6px;
+}
+.qna-pagination{
+  position: relative; clear: both; padding: 13px 0 13px 0;
+  border-bottom: 2px solid #cecece;
+  color: #333; background-color: #f2f2f2; text-align: center;
+  font-size: 14px; margin-top: 20px; margin-bottom: 10px;
+}
+.qna-pagination a {
+  color: black; padding: 8px 16px; text-decoration: none; border: 1px solid #ddd;
+  margin-left: -5px; padding: 6px 9px 5px 10px; border: 1px solid #c3c3c3;
+  border-right-color: #929292; border-bottom-color: #838383;
+  border-left-color: #b7b7b7; background-color: #ffff;
+  box-shadow: 1px 1px 2px #d7d7d7; text-decoration-line: none; color: #000;
+}
+.qna-pagination a.active {
+  background-color: #929292;
+  color: white;
+  border: 1px solid #929292;
+}
+.qna-pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+.qna-pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.qna-pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.content-top{
+  position: fixed; right: 24px; bottom: 20px; z-index: 100;
+  border: 1px solid #ccc; outline: none;
+  width: 50px; height: 50px; border-radius: 100%;
+  text-align: center; line-height: 50px;
+  text-decoration: none; font-size: 25px;
+  background-color: #fff; cursor: pointer;
+  color: black; opacity: 85%;
+}
+
+/* 마감연장 모달창 시작 */
+#deadline-modal {
+  position: fixed; display: none;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%);
+  z-index:2;
+}
+#deadline-modal h2 {
+  margin:0;   
+}
+#deadline-modal button {
+  display: block; cursor: pointer;
+  width: 50px; height: 30px; float: right;
+  background-color: #fff;
+  border: 0
+}
+#deadline-modal .deadline-content {
+  width:300px;
+  margin:100px auto;
+  padding:20px 10px;
+  background:#fff;
+  border:2px solid #666;
+}
+#deadline-modal .modal_layer {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0, 0, 0, 0.5);
+  z-index:-1;
+}   
+/* 마감연장 모달창 끝 */
+/* 경매기록 모달창 시작 */
+#bidlist-modal {
+  position: fixed; display: none;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%);
+  z-index:2;
+}
+#bidlist-modal h2 {
+  margin:0;   
+}
+#bidlist-modal button {
+  display: block; cursor: pointer;
+  width: 50px; height: 30px; float: right;
+  background-color: #fff;
+  border: 0
+}
+#bidlist-modal .bidlist-content {
+  width:400px; margin:100px auto; padding:20px 10px;
+  background:#fff; border:2px solid #666;
+  top: 50%; left: 50%;
+}
+#bidlist-modal .bidlist-content .product-table{
+  font-size: 13px; text-align: center; margin-bottom: 5px;
+  width: 100%; border: solid 1px #e6e6e6; color: #666;
+}
+#bidlist-modal .bidlist-content .product-table th{
+  background-color: #f8f8f8; border-bottom: solid 1px #e6e6e6;
+  padding: 7px 0 5px 10px;
+}
+#bidlist-modal .bidlist-content .product-table td{
+  padding: 8px 0 6px 10px; border-bottom: solid 1px #e6e6e6;
+}
+#bidlist-modal .bidlist-content .h1{
+  font-size: 16px; color: #000; font-weight: bold;
+}
+#bidlist-modal .bidlist-content .bid{
+  padding: 0 0 0 10px; font-size: 13px; color: #000;  
+}
+#bidlist-modal .bidlist-content .bidlist-table{
+  font-size: 13px; text-align: center;
+  border-top: solid 2px #cbcbcb; border-bottom: solid 2px #cbcbcb; 
+  color: #737373; font-size: 11px;
+}
+#bidlist-modal .bidlist-content .bidlist-table th{
+  background-color: #efefef; 
+  border-bottom: solid 1px #e6e6e6; border-right: solid 1px #e6e6e6; 
+  padding: 10px 0 8px 3px;
+}
+#bidlist-modal .bidlist-content .bidlist-table td{
+  padding: 10px 0 8px 3px;
+  border-bottom: solid 1px #e6e6e6; border-right: solid 1px #e6e6e6;
+  text-align: center;
+}
+#bidlist-modal .bid-text{
+  margin-top: 12px; text-align: right; font-size: 12px;
+}
+#bidlist-modal .bidlist-content .bid-text .org{
+  color: #ff6600;
+}
+#bidlist-modal .bidlist-content .bid-text .blue{
+  color: #004eff;
+}
+#bidlist-modal .modal_layer {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0, 0, 0, 0.5);
+  z-index:-1;
+} 
+/* 경매기록 모달창 끝 */
+/* 문의하기 모달창 시작 */
+#qna-modal {
+  position: fixed; display: none;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%);
+  z-index:2;
+}
+#qna-modal h2 {
+  margin:0;   
+}
+#qna-modal button {
+  display: block; cursor: pointer;
+  width: 50px; height: 30px; float: right;
+  background-color: #fff;
+  border: 0
+}
+#qna-modal .qna-content {
+  width:600px;
+  margin:100px auto; padding:20px 10px;
+  background:#fff;
+  border:2px solid #666;
+}
+#qna-modal .modal_layer {
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background:rgba(0, 0, 0, 0.5);
+  z-index:-1;
+}
+#qna-modal .qna-table{
+  table-layout: fixed;
+  width: 100%; border-collapse: collapse;
+  border-top: 1px solid #ececec;
+   line-height: 20px; color: #5e636d;
+}
+#qna-modal .qna-table th{
+  padding: 13px 0 13px 20px;
+  text-align: left; vertical-align: middle;
+  color: #222; font-weight: 400;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ececec;
+  width: 80px;
+}
+#qna-modal .qna-table span{
+  margin-right: 30px;
+}
+#qna-modal .qna-table .title{
+  width: 450px;
+  padding: 7px 18px 5px 12px; height: 18px;
+  border: 1px solid #d6d7d8; border-radius: 2px; color: #000;
+  font-size: 12px;
+}
+#qna-modal .qna-table .content{
+  width: 450px; height: 118px;
+  padding: 6px 18px 6px 12px; border: 1px solid #d6d7d8;
+  border-radius: 2px; font-size: 12px;
+  text-transform: none; display: inline-block; text-align: start;
+  cursor: text;
+}
+#qna-modal .qna-table .check-secret{
+  display: block; position: absolute; 
+  top: 0; right: 0; width: 100%; height: 100%; 
+}
+#qna-modal span{
+  display: inline-block; vertical-align: middle;
+  padding-left: 1px; font-size: 14px;
+}
+#qna-modal .bottom-btns{
+  margin-top: 15px; text-align: center;
+}
+#qna-modal .bottom-btns a{
+  display: inline-block; width: 50px; height: 30px;
+}
+#qna-modal .bottom-btns span{
+  display: inline-block; vertical-align: middle;
+  padding-left: 1px; font-size: 14px;
+  line-height: 8px; padding: 11px 0;
+}
+#qna-modal .bottom-btns .btn-confirm{
+  border: 1px solid #2383dc; background-color: #2e8de5;
+  border-radius: 5px; 
+}
+#qna-modal .bottom-btns .btn-cancel{
+  margin-left: 8px;
+  border: 1px solid #a4a9b0; background-color: #a4a9b0;
+  border-radius: 5px;
+  position: relative;
+}
+
+/* 문의하기 모달창 끝 */
+</style>
+<body>
+  <div class="containertoo">
+    <div class="container-inner1">
+        <div class="comList">
+            <ul class="list-unstyled">
+                <li class="timer">
+                    <span>2023. 2. 20. 19:58:35</span>
+                </li>
+                <li class="clearFix">
+                    <p>
+                        <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="comList2">
+            <ul class="list-unstyled">
+                <li class="clearFix">
+                    <p>
+                        <a href="#">처음이신가요?</a>
+                    </p>
+                    <p>
+                        <a href="#">로그인</a>
+                    </p>
+                    <p>
+                        <a href="#">회원가입</a>
+                    </p>
+                    <p>
+                        <a href="#">마이페이지</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container2">
+    <div>
+        <a href="#">
+            <img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/292372037_695387691625287_1346927503198505070_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=gGM2yGZs_D4AX8YfthL&_nc_ht=scontent-ssn1-1.xx&oh=00_AfBbvmSlTo1P0953pBmRjhV41_r8XQc6qNCWtVBVJ0_FQQ&oe=63F7B71C" alt="">
+        </a>
+    </div>
+    <ul>
+        <li>
+            <a href="#">온라인경매
+                <sup>
+                    <font color="red">
+                        <b>New</b>
+                    </font>
+                </sup>
+            </a>
+        </li>
+        <li>
+            <a href="#">전문쇼핑몰
+                <sup>
+                    <font color="red">
+                        <b></b>
+                    </font>
+                </sup>
+            </a>
+        </li>
+        <li>
+            <a href="#">삶의흔적경매
+                <sup>
+                    <font color="red">
+                        <b>New</b>
+                    </font>
+                </sup>
+            </a>
+        </li>
+        <li>
+            <a href="#">기획경매
+                <sup>
+                    <font color="red">
+                        <b></b>
+                    </font>
+                </sup>
+            </a>
+        </li>
+        <li>
+            <a href="#">고객센터
+                <sup>
+                    <font color="">
+                        <b></b>
+                    </font>
+                </sup>
+            </a>
+        </li>
+        <li>
+            <a href="#">전체메뉴
+                <sup>
+                    <font color="">
+                        <b></b>
+                    </font>
+                </sup>
+            </a>
+        </li>
+        <li>
+            <button class="addProduct">물품등록</button>
+        </li>
+        <li class="smallList1">
+            <select name="datafield" id="">
+                <option value="">물품명</option>
+                <option value="">판매자ID</option>
+            </select>
+        </li>
+        <li class="smallList2">
+            <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+            <button>검색</button>
+        </li>
+    </ul>
+</div>
+<div class="body">
+  <!-- 상품 상세페이지 구현 시작-->
+    <div class="content-view">
+      <!-- 상단 상품 카테고리 위치 표시 시작 -->
+      <div class="product-category">
+        <ul>
+          <li>
+            <a href="">
+              <span>On-Air 쇼핑</span>
+            </a>
+          </li>
+          <li>
+            <i></i>
+          </li>
+          <li>
+            <a href="">컴퓨터 & 태블릿</a>
+          </li>
+          <li>
+            <i></i>
+          </li>
+          <li>
+            <a href="">모니터, 프로젝터, 액세서리</a>
+          </li>
+          <li>
+            <i></i>
+          </li>
+          <li>
+            <a href="">모니터</a>
+          </li>
+        </ul>
+      <!-- 상단 상품 카테고리 위치 표시 끝 -->
+      </div>
+        <h1 class="product-name">
+          LG 27GP950-B 27" UltraGear 4K UHD Nano IPS 1ms 144Hz G-Sync Gaming Monitor
+        </h1>
+        <h2 class="product-subname">
+          LG Warranty | Quick Shipping from #1 US Seller!
+        </h2>
+      <!-- product-simple-area 시작 -->
+      <div class="product-simple-area">
+        <!-- 상품 정보 상단 왼쪽 썸네일 시작 -->
+        <div class="simple-layout-left">
+          <div class="thumnail-area">
+            <div class="box-thumnail">
+              <div class="inner-thumnail">
+                <div class="item-thumnail">
+                  <figure class="zoo-item">
+                    <img src="http://static.itrcomm.com/img/common/loading_360.png" id="loading_image" style="display: none;">
+                    <div class="zoo-img"></div>
+                  </figure>
+                </div>
+              </div>
+              <button type="button" class="zoombox">
+                <span class="mouse-icon"></span>
+                Mouse over to Zoom
+              </button>
+            </div>
+            <div class="mini-thumnail">
+              <div class="thumnail-swiper-wrapper">
+                <div class="swiper-slide-img">
+                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/KVEAAOSwbd5ibBYd/$_0.JPG?set_id=880000500F" id="1">
+                </div>
+                <div class="swiper-slide-img">
+                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/SAgAAOSwVOpix2EB/$_0.JPG?set_id=880000500F" id="2">
+                </div>
+                <div class="swiper-slide-img">
+                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/MiQAAOSwv41ix2EB/$_0.JPG?set_id=880000500F" id="3">
+                </div>
+                <div class="swiper-slide-img">
+                  <img src="https://i.ebayimg.com/00/s/MTQwMFgxNDAw/z/QcsAAOSw6TVix2EC/$_0.JPG?set_id=880000500F" id="4">
+                </div>
+                <div class="swiper-slide-img">
+                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/awAAAOSwlptix2EB/$_0.JPG?set_id=880000500F" id="5">
+                </div>
+                <div class="swiper-slide-img">
+                  <img src="https://i.ebayimg.com/00/s/MTMwMFgxMzAw/z/8o0AAOSwA5Fix2EB/$_0.JPG?set_id=880000500F" id="6">
+                </div>
+              </div>
+              <div class="control-wrap">
+                <div class="swiper-control">
+                  <button type="button" class="prev-btn">
+                    <span class="prev-icon"></span>
+                  </button>
+                  <button type="button" class="next-btn">
+                    <span class="next-icon"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 상품 정보 상단 왼쪽 썸네일 끝 -->
+        <!-- simple-layout-right 시작 -->
+        <div class="simple-layout-right">
+          <div class="product-info">
+            <!-- info-step01 시작 -->
+            <div class="info-step01">
+              <div class="product-id">
+                <strong>Item ID</strong>
+                  313977345620
+                  <button type="button" class="btn-share" id="btn-share">
+                    <i class="share-icon"></i>
+                  </button>
+                  <button type="button" class="btn-like" onclick="btnLike()">
+                    <i class="like-icon"></i>
+                  </button>
+                  <div class="box-share" id="box-share">
+                    <ul>
+                      <li>
+                        <a href="" class="btn-facebook"></a>
+                      </li>
+                      <li>
+                        <a href="" class="btn-twitter"></a>
+                      </li>
+                      <li>
+                        <a href="" class="btn-kakao"></a>
+                      </li>
+                      <li>
+                        <button class="box-share_close" id="box-share_close"></button>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+              <ul class="list-info">
+                <li>
+                  <dl>
+                    <dt>
+                      입찰수
+                    </dt>
+                    <dd>
+                      5회
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      판매종료시간
+                    </dt>
+                    <dd>
+                      5일 2시간 34분 47초 남음 (03월 07일 11시 26분 28초)
+                      <a href="javascript:void(0)" class="btn-deadline" id="btn-modal-deadline_open">
+                        <i class="deadline-icon"></i>
+                        마감연장
+                      </a>
+                      <a href="javascript:void(0)" class="btn-bidlist" id="btn-modal-bidlist_open">
+                        <i class="bidlist-icon"></i>
+                        경매기록보기 >
+                      </a>
+                    </dd>
+                  </dl>
+                </li>
+              </ul>
+            </div>
+            <!-- 마감연장 모달창 시작 -->
+            <div id="deadline-modal">
+              <div class="deadline-content">
+                <button type="button" id="btn-modal-deadline-close">X</button> 
+                <h2>마감연장 창</h2>
+                <p>마감연장 모달 창 입니다. <br>
+                   추후 구현 예정입니다.</p>
+              </div>
+              <div class="modal_layer"></div>
+            </div>
+          </div>
+          <!-- 마감연장 모달창 끝 -->
+          <!-- 경매기록 모달창 시작 -->
+            <div id="bidlist-modal">
+              <div class="bidlist-content">
+                <button type="button" id="btn-modal-bidlist_close">X</button> 
+                <h1>경매기록</h1>
+                <br>
+                  <table border="1" style="width:400px" class="product-table">
+                    <h2 class="bid">입찰상품</h2>
+                    <tr>
+                      <th>상품명</th>
+                      <td>LG UltraGear 4K UHD Nano IPS 1ms 144Hz G-Sync Gaming Monitor</td>
+                    </tr>
+                    <tr>
+                      <th width="100px">경매마감일자</th>
+                      <td>2023-03-24 오후 9:00:00</td>
+                    </tr>
+                    <tr>
+                      <th>판매지역</th>
+                      <td>전국</td>
+                    </tr>
+                  </table>
+                  <div class="bid-text">
+                    구분: 
+                    <strong class="org">● 낙찰자</strong>
+                    <strong class="blue">● 낙찰가능자</strong>
+                  </div>
+                  <table border="1" style="width:400px" class="bidlist-table">
+                    <tr>
+                      <th>입찰자ID</th>
+                      <th>입찰일자</th>
+                      <th>입찰가격</th>
+                    </tr>
+                    <tr>
+                      <td>kuinmo0***</td>
+                      <td>2023-03-20 18:37:53.060</td>
+                      <td>100,000 원</td>
+                    </tr>
+                    <tr>
+                      <td>hana***</td>
+                      <td>2023-03-20 13:25:49.910</td>
+                      <td>23,000 원</td>
+                    </tr>
+                    <tr>
+                      <td>sehae0***</td>
+                      <td>2023-03-19 23:30:23.127</td>
+                      <td>15,000 원</td>
+                    </tr>
+                    <tr>
+                      <td>ssb198***</td>
+                      <td>2023-03-19 22:32:06.887</td>
+                      <td>6,000 원</td>
+                    </tr>
+                    <tr>
+                      <td>dong5***</td>
+                      <td>2023-03-19 21:01:07.940	</td>
+                      <td>2,600 원</td>
+                    </tr>
+                    <tr>
+                      <td>302dragon***</td>
+                      <td>2023-03-19 15:54:47.510</td>
+                      <td>2,000 원</td>
+                    </tr>
+                  </table>
+                  <br>
+              </div>
+              <div class="modal_layer"></div>
+            </div>
+            <!-- 경매기록 모달창 끝 -->
+            <!-- info-step01 끝 -->
+            <!-- info-step02 시작--> 
+            <div class="info-step02">
+              <ul class="list-price">
+                <li>
+                  <dl>
+                    <dt>시작가</dt>
+                    <dd class="start-price">
+                      1,000,000원
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>현재가</dt>
+                    <dd class="current-price">
+                      1,250,000원
+                    </dd>
+                  </dl>
+                </li>
+              </ul>
+            </div>
+            <!-- info-step02 끝--> 
+            <!-- product-info-btn-area 시작--> 
+            <div class="product-info-btn-area">
+              <button type="button" class="btn-favorite" onclick="btnProdFavorite()">관심상품
+                <span class="favorite-icon"></span>
+              <button type="button" class="btn-bid" onclick="btnBid()">입찰하기
+                <span class="bid-icon"></span>
+              </button>
+            </div>
+            <!-- product-info-btn-area 끝 -->
+            <!-- seller-info-area 시작 -->
+            <div class="seller-info-area">
+              <div class="seller-img"></div>
+              <ul>
+                <li class="seller-id">
+                  <div class="seller" style="width: 84px; display: inline-block;">판매자</div>
+                  <strong>sample-ID</strong>
+                </li>
+                <li class="buy-satisfaction">
+                  구매만족도
+                  <strong>99.6</strong>% 
+                  <font class="buyer-number">
+                    (246)
+                  </font>
+                </li>
+              </ul>
+              <a href="#" class="btn-seller-favorite" onclick="changeHeart()">
+                판매자 찜
+                <span class="seller-favorite-icon"></span>
+              </a>
+              <!-- 
+                <a href="#" class="btn-seller-favorite-sel" onclick="btnSellerFavoriteSel()">
+                  <span class="seller-favorite-icon-sel"></span>
+                </a>
+              -->
+              <a href="#" class="btn-store-more">
+                판매자 상품보기
+                <span class="store-icon"></span>
+              </a>
+            </div>
+            <!-- seller-info-area 끝 -->
+            <!-- product-info-step03 끝--> 
+          </div>
+        <!-- simple-layout-right 끝 -->
+      </div>
+      <!-- product-simple-area 끝-->
+      <!-- 상품 세부 설명 시작 -->
+      <div class="product-tab-wrap">
+        <div class="tab-area">
+          <ul>
+            <li class="product-description-tab">
+              <a href="#">상품설명</a></li>
+            <li>
+              <a href="#">구매후기</a></li>
+            <li>
+              <a href="#">상품문의</a></li>
+          </ul>
+        </div>
+        <!-- 상품 설명 시작 -->
+        <div class="product-img-area">
+          <img src="https://www.lge.co.kr/kr/images/monitors/md08922028/usp/usp_0101.jpg" alt="" class="product-img01">
+          <img src="https://www.lge.co.kr/kr/images/monitors/md08922028/usp/usp_0201.jpg" alt="" class="product-img02">
+        </div>
+        <!-- 상품 설명 끝 -->
+        <!-- 구매 후기 시작 -->
+        <div class="tab-area">
+          <ul>
+            <li>
+              <a href="#">상품설명</a></li>
+            <li class="product-review-tab">
+              <a href="#">구매후기</a></li>
+            <li>
+              <a href="#">상품문의</a></li>
+          </ul>
+        </div>
+        <div class="product-review-area">
+          <div class="review-layout-left">
+            <h4>구매자 별점</h4>
+            <p class="buyer-score">
+              <span class="score">4.0</span>
+            </p>
+            <p class="buyer-star-score">
+              <span class="score-star-rate">
+                <span class="star-rate-box">
+                  <span class="star-rate-fill"></span>
+                </span>
+              </span>
+            </p>
+            <p class="score-people-num">
+              <strong>(246)</strong>
+            </p>
+          </div>
+          <div class="review-layout-right">
+            <table class="feedback-table">
+              <div class="review-area">
+                <colgroup>
+                  <col style="width: 148px">
+                  <col style="width: 694px">
+                  <col style="width: 138px">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th colspan="3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="badge-icon">
+                      <span class="box-feedback-star-rate">
+                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" alt class="star-image">
+                        <span class="box-rating">
+                          <span class="star-current">4 </span>/
+                          <span class="star-max">5</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <div class="box-coment">
+                        <div class="coment-title">
+                          <strong>
+                            <a href="">[구매상품] USB 3.0 백업용 외장하드 디스크 500GB</a>
+                          </strong>
+                        </div>
+                        <p class="coment-detail">감사합니다</p>
+                      </div>
+                    </td>
+                    <td class="coment-user">
+                      <ul>
+                        <li class="id">
+                          <strong>kh112***</strong>
+                        </li>
+                        <li class="date">2023-02-18</li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="badge-icon">
+                      <span class="box-feedback-star-rate">
+                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" alt class="star-image">
+                        <span class="box-rating">
+                          <span class="star-current">4 </span>/
+                          <span class="star-max">5</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <div class="box-coment">
+                        <div class="coment-title">
+                          <strong>
+                            <a href="#">[구매상품] 아이패드 프로11(M2) wifi 256GB</a>
+                          </strong>
+                        </div>
+                        <p class="coment-detail">좋은 가격에 구매했습니다. 감사합니다.</p>
+                      </div>
+                    </td>
+                    <td class="coment-user">
+                      <ul>
+                        <li class="id">
+                          <strong>kh132***</strong>
+                        </li>
+                        <li class="date">2023-02-18</li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="badge-icon">
+                      <span class="box-feedback-star-rate">
+                        <img src="" alt="">
+                        <span class="box-rating">
+                          <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" alt class="star-image">
+                          <span class="star-current">2 </span>/
+                          <span class="star-max">5</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <div class="box-coment">
+                        <div class="coment-title">
+                          <strong>
+                            <a href="#">[구매상품] 애플 펜슬 2세대</a>
+                          </strong>
+                        </div>
+                        <p class="coment-detail">포장 상태 좋아요. 잘 받았습니다.</p>
+                      </div>
+                    </td>
+                    <td class="coment-user">
+                      <ul>
+                        <li class="id">
+                          <strong>k71g2***</strong>
+                        </li>
+                        <li class="date">2023-02-18</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </div>
+            </table>
+          </div>
+          <div class="review-pagination">
+            <a href="#">&laquo;</a>
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&raquo;</a>
+          </div>
+        </div>
+        <!-- 구매 후기 끝 -->
+        <!-- 상품 문의 시작 -->
+        <div class="tab-area">
+          <ul>
+            <li>
+              <a href="#">상품설명</a></li>
+            <li>
+              <a href="#">구매후기</a></li>
+            <li class="product-inquiry-tab">
+              <a href="#">상품문의</a></li>
+          </ul>
+        </div>
+        <div class="product-qna-area">
+          <div class="box-qna-area">
+            <div class="qna-layout-right">
+              <a href="javascript:void(0)" id="btn-modal-qna_open">문의하기</a>
+              <div id="qna-modal">
+                <div class="qna-content">
+                  <button type="button" id="btn-modal-qna_close">X</button> 
+                  <h1>판매자에게 문의하기</h1>
+                  <br>
+                  <form action="" method="post">
+                    <table class="qna-table">
+                      <tr>
+                        <th>문의유형</th>
+                        <td>
+                          <div class="qna-category">
+                            <input type="radio" name="qna-kind" value="product" checked>
+                              <span>상품</span>
+                            <input type="radio" name="qna-kind" value="delivery">
+                              <span>배송</span>
+                            <input type="radio" name="qna-kind" value="etc">
+                              <span>기타</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>제목</th>
+                        <td>
+                          <input type="text" class="title">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>내용</th>
+                        <td>
+                          <input type="text" class="content">
+                        </td>
+                      </tr>
+                    </table>
+                    <input type="checkbox" class="check-secret">
+                      <span>비밀글로 문의하기</span>
+                    <div class="bottom-btns">
+                      <a href="javascript:void(0)" class="btn-confirm">
+                        <span>등록</span>
+                      </a>
+                      <a href="javascript:void(0)" class="btn-cancel" id="btn-cancel">
+                        <span>취소</span>
+                      </a>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal_layer"></div>
+              </div>
+            </div>
+            <div class="list-qna">
+              <table class="table-qna">
+                <colgroup>
+                  <col style="width: 80px">
+                  <col style="width: 120px">
+                  <col style="width: 120px">
+                  <col>
+                  <col style="width: 200px">
+                  <col style="width: 150px;">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="hnum">
+                      <a href="#">번호</a>
+                    </th>
+                    <th class="htype">
+                      <a href="#">문의종류</a>
+                    </th>
+                    <th class="htit">
+                      <a href="#">답변상태</a>
+                    </th>
+                    <th>제목</th>
+                    <th>문의자</th>
+                    <th>등록일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>23</td>
+                    <td>상품</td>
+                    <td class="ing">답변대기</td>
+                    <td class="qna-title">
+                      <a href="#">상품 문의입니다.
+                        <span class="lock-icon">비밀글</span>
+                      </a>
+                    </td>
+                    <td>qwe*****</td>
+                    <td>2023-02-21</td>
+                  </tr>
+                  <tr>
+                    <td>22</td>
+                    <td>상품</td>
+                    <td class="done">답변완료</td>
+                    <td class="qna-title">
+                      <a href="#">상품 문의입니다.
+                        <span class="lock-icon">비밀글</span>
+                      </a>
+                    </td>
+                    <td>wog***</td>
+                    <td>2023-02-15</td>
+                  </tr>
+                  <tr>
+                    <td>21</td>
+                    <td>배송</td>
+                    <td class="done">답변완료</td>
+                    <td class="qna-title">
+                      <a href="#">배송 문의입니다.
+                      </a>
+                    </td>
+                    <td>dog****</td>
+                    <td>2023-02-01</td>
+                  </tr>
+                  <tr>
+                    <td>20</td>
+                    <td>상품</td>
+                    <td class="done">답변완료</td>
+                    <td class="qna-title">
+                      <a href="#">상품 문의입니다.
+                        <span class="lock-icon">비밀글</span>
+                      </a>
+                    </td>
+                    <td>qc1d****</td>
+                    <td>2023-01-28</td>
+                  </tr>
+                  <tr>
+                    <td>19</td>
+                    <td>상품</td>
+                    <td class="done">답변완료</td>
+                    <td class="qna-title">
+                      <a href="#">상품 문의입니다.
+                        <span class="lock-icon">비밀글</span>
+                      </a>
+                    </td>
+                    <td>cat2***</td>
+                    <td>2023-01-24</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="qna-pagination">
+                <a href="#">&laquo;</a>
+                <a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">&raquo;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 상품 문의 끝 -->
+      </div>
+      <!-- 상품 세부 설명 끝 -->
+    </div>
+    <a href="#" class="content-top">↑</a>
+  </div>
+  <!-- 상품 상세페이지 구현 끝 -->
+<div class="bottomtoo">
+    <div class="bottomCustomer">
+        <div class="bottomCustomer1">
+            <div class="bottomCustomer1-1">
+                <img src="http://www.kobay.co.kr/kobay/images/common/foot-pc-custom.gif" alt="">
+            </div>
+            <div class="bottomCustomer1-2">
+                <a href="#">구매안내</a>
+                <a href="#">판매안내</a>
+                <a href="#">채용안내</a>
+                <a href="#">도난문화재</a>
+                <a href="#">입금계좌안내</a>
+                <a href="#">원격지원요청</a>
+            </div>
+        </div>
+    </div>
+    <div class="bottomCensebar">
+        <div class="bottomCensebar1">
+            <div class="bottomCensebar1-1">
+                <img src="http://www.kobay.co.kr/kobay/images/common/footlLcense.gif" alt="">
+            </div>
+            <div class="bottomCensebar1-2"></div>
+        </div>
+    </div>
+    <div class="bottomCopy">
+        <div class="bottomCopy1">
+            <div class="bottomCopy1-1">
+                <a href="#" class="okof">회사소개</a>
+                <a href="#">이용약관</a>
+                <a href="#">개인정보취급방침</a>
+                <a href="#">이메일무단수집거부</a>
+                <a href="#">고객센터</a>
+                <a href="#">앱소개</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+  function topBtn() {
+  alert('상단으로 이동 기능 구현 예정')
+  /* window.scrollTo({top:0, left:0, behavior:'smooth'}); */
+}
+function btnProdFavorite(){
+  if(!confirm('관심상품이 등록되었습니다. \n관심상품 페이지로 이동하시겠습니까?'))
+  return false;
+}
+function btnSellerFavorite(){
+  alert('판매자찜이 등록되었습니다.')
+}
+function btnLike(){
+  alert('삭제 고민중....')
+}
+function btnBid(){
+  alert('입찰하기 기능 구현 예정')
+}
+$('.btn-bidlist').click(function(e){
+  e.preventDefault();
+});
+$('.btn-confirm').click(function(e){
+  e.preventDefault();
+});
+
+/*
+// 판매자찜 버튼
+function changeHeart(){
+  var heartChange = document.getElementsByClassName('.seller-favorite-icon')
+  heartChange.class='.seller-favorite-icon-sel'
+}
+*/
+
+// 공유하기
+$(function(){
+  const modal = document.getElementById("box-share")
+  function modalOn() {
+    modal.style.display = "flex"
+  }
+  function modalOff() {
+    modal.style.display = "none"
+  }
+  const btnModal = document.getElementById("btn-share")
+  btnModal.addEventListener("click", e => {
+      modalOn()
+  })
+  const closeBtn = modal.querySelector("#box-share_close")
+  closeBtn.addEventListener("click", e => {
+      modalOff()
+  })
+})
+
+
+// 마감연장 모달창
+$(function(){
+  const modal = document.getElementById("deadline-modal")
+  function modalOn() {
+    modal.style.display = "flex"
+  }
+  function modalOff() {
+    modal.style.display = "none"
+  }
+  const btnModal = document.getElementById("btn-modal-deadline_open")
+  btnModal.addEventListener("click", e => {
+      modalOn()
+  })
+  const closeBtn = modal.querySelector("#btn-modal-deadline-close")
+  closeBtn.addEventListener("click", e => {
+      modalOff()
+  })
+})
+
+// 경매기록 모달창
+$(function(){
+  const modal = document.getElementById("bidlist-modal")
+  function modalOn() {
+    modal.style.display = "flex"
+  }
+  function modalOff() {
+    modal.style.display = "none"
+  }
+  const btnModal = document.getElementById("btn-modal-bidlist_open")
+  btnModal.addEventListener("click", e => {
+      modalOn()
+  })
+  const closeBtn = modal.querySelector("#btn-modal-bidlist_close")
+  closeBtn.addEventListener("click", e => {
+      modalOff()
+  })
+})
+// 문의하기 모달창
+$(function(){
+  const modal = document.getElementById("qna-modal")
+  function modalOn() {
+    modal.style.display = "flex"
+  }
+  function modalOff() {
+    modal.style.display = "none"
+  }
+  const btnModal = document.getElementById("btn-modal-qna_open")
+  btnModal.addEventListener("click", e => {
+      modalOn()
+  })
+  const closeBtn = modal.querySelector("#btn-modal-qna_close")
+  closeBtn.addEventListener("click", e => {
+      modalOff()
+  })
+  const cancelBtn = modal.querySelector("#btn-cancel")
+  cancelBtn.addEventListener("click", e => {
+      modalOff()
+  })
+})
+</script>
+</html>
