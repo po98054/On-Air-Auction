@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<style>
+	* {
+		margin: 0; padding: 0; text-decoration: none; color: inherit; box-sizing: border-box; font-size: inherit; font-weight: inherit; font-style: normal;
+		border-collapse: collapse; border: 0; list-style: none; line-height: inherit; outline: none; word-break: inherit;
+	}	
+	.list-main{
+		height: 1500px;
+	}
+	.container-main {
+		width: 1248px; margin: 0 auto; position: relative; height: auto;
+	}
+	/* 제목*/
+	.page_loca {
+    width: 100%; display: table; font-size: 0.87rem; margin: 4px 0 0 0;
+	margin-left: 10px; 
+	/* 삭제 예정*/
+	margin-bottom: 10px; margin-top: 10px;
+	}
+	.page_loca ul {
+    display: table-cell; vertical-align: middle; height: 36px; line-height: 36px;
+	}
+	.page_loca li {
+    display: inline-block; vertical-align: top;
+  }
+	.page_loca li a {
+    display: inline-block; font-size: 0.87rem; color: #777; line-height: 36px;
+	}
+	a{
+		text-decoration: none; color: #333333;
+	}
+	/* 메인 왼쪽*/
+	.container1-left{
+    width: 15%; min-width: 138px; display: inline-block;
+	}
+	.tit_box {
+    padding: 10px 4px; position: relative; border: 1px solid #ddd; width: 100%;
+	}
+	.tit_box h2 {
+    font-size: 1.15rem; color: #333; font-weight: 500;
+	}
+	.my10{
+		margin-top: 10px;
+	}
+	.con_box {
+    padding: 10px 4px;; border: 1px solid #ddd; border-top: 0;
+	}
+	ul, li, ol {
+    list-style: none;
+	}	
+	.con_box > ul > li > a {
+    font-size: 0.9rem; line-height: 20px; display: block;
+	}
+	.con_box > ul > li {
+    padding-bottom: 6px;
+	}
+	.container1-right {
+    display: inline-block; vertical-align: top; width: 1000px; padding-bottom: 120px;
+    margin-left: 21px; min-height: 520px;
+	}
+	.container1-right-h2{
+		font-size: 20px; color: #000; padding-top: 30px; padding-bottom: 16px;
+    border-bottom: 2px solid #1b1b1b;
+	}
+	.list-sub{
+	  display: none; padding-top: 8px; padding-left: 8px;
+    margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;
+	}
+	.hidden{
+		display: none;
+	}
+	.item-sub{
+		padding-bottom: 6px;
+	}
+	.link-sub{
+		font-size: 13px; color: #444; letter-spacing: -0.7px;
+	}
+	.container-artwork-list{
+		font-size: 0; border-left: 1px solid #ddd;
+	}
+	.container-artwork-list li{
+		display: inline-block; width: 25%; text-align: center;
+    border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;
+	}
+	.container-artwork-list li a{
+		color: #333; font-size: 0.95rem; display: block; padding: 12px 0;
+	}
+	.container-artwork-slide{
+		padding: 20px 0 20px 0; border-top: 0; font-size: 0;
+	}
+	.container-artwork-category{
+		display: inline-block; width: 18%; padding-left: 30px;
+		color: #333; vertical-align: top;
+	}
+	.container-artwork-category h2{
+		font-size: 1.2rem; font-weight: 400; padding-top: 22px;
+	}
+	.container-artwork-category p{
+		font-size: 14px; padding-top: 10px; color: #888;
+	}
+	.direct_btn{
+		font-size: 14px; display: block; margin-top: 30px; color: #7f7f7f;
+    padding-left: 15px; width: 117px; height: 36px; border: 1px solid #d2d2d2;
+    line-height: 34px; border-radius: 6px;
+	}
+	.container-artwork-swiper{
+		display: inline-block; width: 82%;
+	}
+	.container-artwork-swiper-box{
+		margin: 0 30px; height: 170px;
+	} 
+    /* 스와이퍼 */
+    .swiper {
+     width: auto; height: auto; position: relative;
+    }
+    .swiper .swiper-slide {
+        height: 168px; display: flex; justify-content: center;
+        align-items: center; font-size: 24px; font-weight: bold;
+		border: 1px solid black;
+    }
+    .swiper-button-next{
+        background-position: -26px 0; right: 0; height: 42px; width: 26px; background-image: url(http://static.itrcomm.com/img/sub/swiper_arrow.png);
+        background-repeat: no-repeat; background-size: auto; left: auto; position: absolute; top: 50%;
+		--swiper-navigation-color: transparent;
+
+    }
+     .swiper-button-prev{
+        background-position: 0 0; left: 0; height: 42px; width: 26px; background-image: url(http://static.itrcomm.com/img/sub/swiper_arrow.png);
+        background-repeat: no-repeat; background-size: auto; right: auto; position: absolute; top: 50%;
+		--swiper-navigation-color: transparent;
+
+    }
+
+	</style>
+</head>
+<body>
+	<script src="https://kit.fontawesome.com/e411ce92be.js" crossorigin="anonymous"></script>
+
+	<div class="list-main">
+		<div class="container-main">
+			<div class="page_loca">
+				<ul>
+						<i class="fa-solid fa-house"></i>
+						<li>
+							<a href="#"><span>ebay 쇼핑</span></a>
+						</li>
+						<i class="fa-solid fa-greater-than"></i>
+						<li>
+							<a href="#">수집 &amp; 예술</a>
+						</li>
+				</ul>
+			</div>
+			<div class="container1-left">
+				<div class="tit_box">
+					<h2>수집 &amp; 예술</h2>
+				</div>
+				<div class="tit_box mt10">
+					<h3>전체 카테고리</h3>
+				</div>
+				<div class="con_box">
+					<ul id="list-menu">
+						<li class="item-menu menu1">
+							<a href="#" class="link-menu">예술품</a>
+							<ul class="list-sub">
+								<li class="item-sub"><a href="#" class="link-sub">아트 프린트</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">그림 (물감채색)</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">그림 (소묘, 데생)</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">예술조각품 &amp; 단순조각품</a></li>
+							</ul>
+						</li>
+						<li class="item-menu menu2">
+							<a href="#" class="link-menu">수집품</a>
+							<ul class="list-sub">									
+								<li class="item-sub"><a href="#" class="link-sub">광고 수집품</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">코믹스</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">재봉용품</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">엽서</a></li>
+							</ul>
+						</li>
+						<li class="item-menu menu3">
+							<a href="#" class="link-menu">인형 &amp; 곰인형</a>
+							<ul class="list-sub">									
+								<li class="item-sub"><a href="#" class="link-sub">인형</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">인형의 집</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">곰, 의류 및 액세서리</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">종이인형</a></li>
+							</ul>
+						</li>
+						<li class="item-menu menu4">
+							<a href="#" class="link-menu">동전 &amp; 지폐</a>
+							<ul class="list-sub">										
+								<li class="item-sub"><a href="#" class="link-sub">동전(미국)</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">동전(세계)</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">동전(캐나다)</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">세계 지폐</a></li>
+							</ul>
+						</li>
+						<li class="item-menu menu5">
+							<a href="#" class="link-menu">엔터테인먼트 기념품</a>
+							<ul class="list-sub">	
+								<li class="item-sub"><a href="#" class="link-sub">싸인-원본</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">영화</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">TV 기념물</a></li>
+								<li class="item-sub"><a href="#" class="link-sub">음악 기념품</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="container1-right">
+				<div>
+					<h2 class="container1-right-h2" style="clear:both">예술품</h2>
+				</div>
+				<div class="container-artwork">
+					<ul class="container-artwork-list">
+						<li><a href="#">아트 프린트</a></li>
+						<li><a href="#">그림 (물감채색)</a></li>
+						<li><a href="#">그림 (소묘, 데생)</a></li>
+						<li><a href="#">예술조각품 &amp; 단순조각품</a></li>
+						<li><a href="#">혼합매체 &amp; 콜라주</a></li>
+						<li><a href="#">아트 사진</a></li>
+						<li><a href="#">기타</a></li>
+						<li><a href="#">아트 포스터</a></li>
+						<li><a href="#">텍스타일 아트</a></li>
+				</ul>
+				</div>
+				<div class="container-artwork-slide">
+					<div class="container-artwork-category">
+							<h2>예술품</h2>
+							<p>카테고리 인기상품</p>
+							<a href="#" class="direct_btn">전체보기<span></span></a>
+					</div>
+					<div class="container-artwork-swiper">
+						<div class="container-artwork-swiper-box">
+                            <div class="swiper" style="--swiper-navigation-color: none;"  >
+                                <div class="swiper-wrapper">
+                                  <div class="swiper-slide">Slide 1</div>
+                                  <div class="swiper-slide">Slide 2</div>
+                                  <div class="swiper-slide">Slide 3</div>
+                                  <div class="swiper-slide">Slide 4</div>
+                                  <div class="swiper-slide">Slide 5</div>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                   				<div class="swiper-button-prev"></div>
+                            </div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+</body>
+</html>
+<script>
+	$('.link-menu').click((e)=>e.preventDefault());
+	$('.item-menu').click(function(){
+		$(this).children('.list-sub').toggle();
+	});
+
+	$(document).ready(function(){
+		$(".link-menu").on("click", function(){
+				$(this).next().toggleClass("hidden")
+		})
+	})
+</script>
+<script>
+    new Swiper('.swiper', {
+  autoplay: {
+    delay: 5000
+  },
+  loop: true,
+  slidesPerView: 3,
+  spaceBetween: 10,
+  centeredSlides: true,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true
+  },
+  navigation: {
+    prevEl: '.swiper-button-prev',
+    nextEl: '.swiper-button-next'
+  }
+})
+  </script>
+  
