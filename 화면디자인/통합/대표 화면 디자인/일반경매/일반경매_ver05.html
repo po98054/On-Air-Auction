@@ -5,189 +5,189 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>일반경매</title>
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <style>
 @charset "utf-8";
 /* 공통양식 시작 */
 *{
   font-family: Arial, Helvetica, sans-serif;
-      margin: 0; padding: 0; text-decoration: none;
-      font-size: inherit; border-collapse: collapse; line-height: inherit;
-      word-break: inherit; list-style: none;
-  }
-  .containertoo{
-      text-align: center; box-sizing: border-box; background:#464646;
-      color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
-      width: 1500px; 
-  }
-  .list-unstyled{
-      margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
-  }
-  .timer{
-      background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
-      padding-left: 25px;
-  }
-  .comList ul li{
-      float: left; margin-right: 10px; padding: 5px 0;
-  }
-  .comList2{display: table-cell; vertical-align: middle; float: right;}
-  .comList2 ul{
-      list-style: none; margin-bottom: 0; 
-  }
-  .list-unstyled .timer span{
-      margin-left: 30px;
-  }
-  .clearFix{
-      margin-right: 0;
-  }
-  .clearFix::after{
-      clear: both; content: ''; display: block;
-  }
-  .clearFix p a{
-      color: #fff;
-  }
-  .comList ul li p{
-      float: left; margin: 0 0; padding: 0 12px;
-  }
-  .lock::before{
-      content: '\26BF'; margin-right: 3px;
-  }
-  .comList2 ul li{
-      float: left; padding: 5px 0;
-  }
-  .comList2 ul li p{
-      background: none; float: left; margin: 0; padding: 0 12px;
-  }
-  .container-inner2{
-      margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
-  }
-  .container2{
-      border-bottom: 1px solid black; position: relative;
-      width: 1500px; 
-  }
-  .container2 div{
-      float:left;
-  }
-  .container2 ul{
-      position: absolute; left: 150px; height: 70px;
-  }
-  .container2 ul li{
-      list-style: none; float: left; margin-left: 5px; height: 70px;
-  }
-  .container2::after{clear: both; display: block; content: '';}
-  .container2 img{ width: 150px; height: 70px; object-fit: cover;}
-  .container2 li a{
-      height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
-      text-decoration: none;
-  }
-  .addProduct{
-      margin-top: 25px; border-radius: 10px; background: #114da5;
-      color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
-  }
-  .comList2 .list-unstyled .clearFix a{
-      text-decoration: none;
-  }
-  .smallList1 select{
-      margin: 30px 0 0 50px;
-  }
-  .smallList2 input{
-       margin-left: 5px;
-  }
-  .smallList2 button{
-      margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
-      color: #fff; cursor: pointer;
-  }
-  .containertoo::after{
-      clear: both; display: block; content: '';
-  }
-  .bottomCustomer{
-      box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
-      background: #f7f7f7; border-top: 1px solid black;
-  }
-  .bottomCustomer1{
-      padding: 25px 0; display: table; margin-left: auto; margin-right: 200px;
-  }
-  .bottomCustomer1::after{
-      clear: both; display: block; content: '';
-  }
-  .bottomCustomer1-1{
-      width: 500px; display: table-cell; 
-  }
-  .bottomCustomer1-1 img{
-       text-align: center;
-  }
-  .bottomCustomer1-2{
-      display: table-cell; float: right;
-  }
-  .bottomCustomer1-2 a{
-      text-align: center; padding-top: 50px; margin-bottom: 15px;
-      color: #555; width: 84pt; display: inline-block; 
-  }
-  .bottomCustomer1-2 a:nth-child(1){
-      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
-  }
-  .bottomCustomer1-2 a:nth-child(2){
-      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
-  }
-  .bottomCustomer1-2 a:nth-child(3){
-      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
-  }
-  .bottomCustomer1-2 a:nth-child(4){
-      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
-  }
-  .bottomCustomer1-2 a:nth-child(5){
-      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
-  }
-  .bottomCustomer1-2 a:nth-child(6){
-      background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
-  }
-  .bottomCensebar{
-      background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
-  }
-  .bottomCensebar1{
-      margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
-  }
-  .bottomCensebar1-1{
-      float: left;
-  }
-  .bottomCensebar1::after{
-      clear: both; display: block; content: '';
-  }
-  .bottomCopy{
-      box-sizing: border-box; line-height: 1.42857143;
-  }
-  .bottomCopy1{
-      margin-left: auto; margin-right: auto; height: 57.2px;
-      background: #f7f7f7;
-      }
-  .bottomCopy1-1{
-       font-size: 14px; margin-left: 20px;
-      box-sizing: border-box; float: right;
-  }
-  .bottomCopy1-1 a{
-      color: #111; font-weight: bold;  font-size: 14px;
-      padding-right: 15px;  text-decoration: none; line-height: 54px;
+  margin: 0; padding: 0; text-decoration: none;
+  font-size: inherit; border-collapse: collapse; line-height: inherit;
+  word-break: inherit; list-style: none;
+}
+.containertoo{
+    text-align: center; box-sizing: border-box; background:#464646;
+    color: #fff; font-size: 13px; padding: 8px; line-height: 1.42857143;
+    width: 1500px; 
+}
+.list-unstyled{
+    margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
+}
+.timer{
+    background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
+    padding-left: 25px;
+}
+.comList ul li{
+    float: left; margin-right: 10px; padding: 5px 0;
+}
+.comList2{display: table-cell; vertical-align: middle; float: right;}
+.comList2 ul{
+    list-style: none; margin-bottom: 0; 
+}
+.list-unstyled .timer span{
+    margin-left: 30px;
+}
+.clearFix{
+    margin-right: 0;
+}
+.clearFix::after{
+    clear: both; content: ''; display: block;
+}
+.clearFix p a{
+    color: #fff;
+}
+.comList ul li p{
+    float: left; margin: 0 0; padding: 0 12px;
+}
+.lock::before{
+    content: '\26BF'; margin-right: 3px;
+}
+.comList2 ul li{
+    float: left; padding: 5px 0;
+}
+.comList2 ul li p{
+    background: none; float: left; margin: 0; padding: 0 12px;
+}
+.container-inner2{
+    margin: 0 20px 0 20px; height: 20px; border: 1px solid blanchedalmond;
+}
+.container2{
+    border-bottom: 1px solid black; position: relative;
+    width: 1500px; 
+}
+.container2 div{
+    float:left;
+}
+.container2 ul{
+    position: absolute; left: 150px; height: 70px;
+}
+.container2 ul li{
+    list-style: none; float: left; margin-left: 5px; height: 70px;
+}
+.container2::after{clear: both; display: block; content: '';}
+.container2 img{ width: 150px; height: 70px; object-fit: cover;}
+.container2 li a{
+    height: 70px; line-height: 70px; padding: 0 15px; font-size: 16px; font-weight: 500; color: #111; 
+    text-decoration: none;
+}
+.addProduct{
+    margin-top: 25px; border-radius: 10px; background: #114da5;
+    color: #fff; padding: 4px 8px; cursor: pointer; border: 0;
+}
+.comList2 .list-unstyled .clearFix a{
+    text-decoration: none;
+}
+.smallList1 select{
+    margin: 30px 0 0 50px;
+}
+.smallList2 input{
+      margin-left: 5px;
+}
+.smallList2 button{
+    margin-top: 22px; padding: 5px 10px; border-radius: 10px; background: black;
+    color: #fff; cursor: pointer;
+}
+.containertoo::after{
+    clear: both; display: block; content: '';
+}
+.bottomCustomer{
+    box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
+    background: #f7f7f7; border-top: 1px solid black;
+}
+.bottomCustomer1{
+    padding: 25px 0; display: table; margin-left: auto; margin-right: 200px;
+}
+.bottomCustomer1::after{
+    clear: both; display: block; content: '';
+}
+.bottomCustomer1-1{
+    width: 500px; display: table-cell; 
+}
+.bottomCustomer1-1 img{
       text-align: center;
-  }
-  .bottomCopy1::after{
-      clear: both; content: ''; display: block;
-  }
-  .okof::before{
-      content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
-      text-align: center; 
-  }
-  @keyframes blink-effect {
-      50% {
-      opacity: 0.5;
-      }
-  }
-  .container2 li a sup font b{
-      animation: blink-effect 1s step-end infinite;
-  }
-  .bottomtoo{
-      width: 1500px; 
-  }
+}
+.bottomCustomer1-2{
+    display: table-cell; float: right;
+}
+.bottomCustomer1-2 a{
+    text-align: center; padding-top: 50px; margin-bottom: 15px;
+    color: #555; width: 84pt; display: inline-block; 
+}
+.bottomCustomer1-2 a:nth-child(1){
+    background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion1.gif) no-repeat center top;
+}
+.bottomCustomer1-2 a:nth-child(2){
+    background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion3.gif) no-repeat center top;
+}
+.bottomCustomer1-2 a:nth-child(3){
+    background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion2.gif) no-repeat center top;
+}
+.bottomCustomer1-2 a:nth-child(4){
+    background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion4.gif) no-repeat center top;
+}
+.bottomCustomer1-2 a:nth-child(5){
+    background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion5.gif) no-repeat center top;
+}
+.bottomCustomer1-2 a:nth-child(6){
+    background: url(http://www.kobay.co.kr/kobay/images/common/foot-quick-cion6.gif) no-repeat center top;
+}
+.bottomCensebar{
+    background: #e6e6e6; box-sizing: border-box; line-height: 1.42857143;
+}
+.bottomCensebar1{
+    margin-left: auto; margin-right: auto; height: 63px; background: #e6e6e6;
+}
+.bottomCensebar1-1{
+    float: left;
+}
+.bottomCensebar1::after{
+    clear: both; display: block; content: '';
+}
+.bottomCopy{
+    box-sizing: border-box; line-height: 1.42857143;
+}
+.bottomCopy1{
+    margin-left: auto; margin-right: auto; height: 57.2px;
+    background: #f7f7f7;
+    }
+.bottomCopy1-1{
+      font-size: 14px; margin-left: 20px;
+    box-sizing: border-box; float: right;
+}
+.bottomCopy1-1 a{
+    color: #111; font-weight: bold;  font-size: 14px;
+    padding-right: 15px;  text-decoration: none; line-height: 54px;
+    text-align: center;
+}
+.bottomCopy1::after{
+    clear: both; content: ''; display: block;
+}
+.okof::before{
+    content: '\26F5'; margin-right: 8px; font-size: 30px; line-height: 50px;
+    text-align: center; 
+}
+@keyframes blink-effect {
+    50% {
+    opacity: 0.5;
+    }
+}
+.container2 li a sup font b{
+    animation: blink-effect 1s step-end infinite;
+}
+.bottomtoo{
+    width: 1500px; 
+}
 /* 공통양식 끝 */
 /* 상품 상세페이지 구현*/
 .content-view{
@@ -1094,7 +1094,7 @@
 #bid-modal .bid-content li{
   clear: both; font-size: 15px; color: #333;
   vertical-align: middle; padding-bottom: 8px;
-  list-style: none;
+  list-style: none; margin-bottom: 10px;
 }
 #bid-modal .bid-content dt{
   display: inline-block; line-height: 26px; font-size: 15px;
@@ -1107,7 +1107,16 @@
   text-align: right;
 }
 #bid-modal .bid-content .label{
-  text-align: right; color: #0064d2; font-size: 13px;
+  text-align: center; color: #ff0000; font-size: 14px; padding: 5px 0 13px;
+}
+#bid-modal .bid-content .bid-btn{
+  cursor: pointer;
+}
+#bid-modal .bid-content .bid-btn a{
+  margin-top: 15px; background-color: #0053a0;
+  color: #fff; border-radius: 6px; display: block;
+  font-size: 15px; height: 62px; width: 100%; line-height: 62px;
+  text-align: center;
 }
 #bid-modal .bid-content .btn-area{
   clear: both;
@@ -1609,15 +1618,18 @@
                   </li>
                   <li>
                     <dl>
-                      <dt>입찰 희망가</dt>
+                      <dt>즉시구매 희망가</dt>
                       <dd>
-                        <input type="number" min="1210000" step="1000">
+                        <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                         <b>원</b>
-                        <div class="label">1,210,000 이상으로 입찰이 가능합니다.</div>
                       </dd>
                     </dl>
                   </li>
                 </ul>
+                <div class="bid-btn">
+                  <a onclick="bidSuccess();">입찰하기</a>
+                  <div class="label">경매 입찰에 성공할 경우 낙찰된 상품은 반드시 구매해 주셔야 합니다.</div>
+                </div>
                 <div class="btn-area">
                   <ul>
                     <li>
@@ -1668,31 +1680,31 @@
         <div class="tab-area">
           <ul>
             <li>
-              <a id="btn-tab-product">상품설명</a></li>
+              <a class="tab" id="btn-tab-product" data-target="#tab1" >상품설명</a></li>
             <li>
-              <a id="btn-tab-review">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
             <li>
-              <a id="btn-tab-qna">상품문의</a></li>
+              <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
           </ul>
         </div>
         <!-- 상품 설명 시작 -->
-        <div class="product-img-area" id="tab-product">
+        <div class="product-img-area" id="tab1">
           <img src="https://www.lge.co.kr/kr/images/monitors/md08922028/usp/usp_0101.jpg" alt="" class="product-img01">
           <img src="https://www.lge.co.kr/kr/images/monitors/md08922028/usp/usp_0201.jpg" alt="" class="product-img02">
         </div>
         <!-- 상품 설명 끝 -->
         <!-- 구매 후기 시작 -->
-        <div class="tab-area" id="tab-review">
+        <div class="tab-area">
           <ul>
             <li>
-              <a id="btn-tab-product">상품설명</a></li>
+              <a class="tab" id="btn-tab-product" data-target="#tab1">상품설명</a></li>
             <li>
-              <a id="btn-tab-review">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
             <li>
-              <a id="btn-tab-qna">상품문의</a></li>
+              <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
           </ul>
         </div>
-        <div class="product-review-area">
+        <div class="product-review-area" id="tab2">
           <div class="review-layout-left">
             <h4>구매자 별점</h4>
             <p class="buyer-score">
@@ -1842,17 +1854,17 @@
         </div>
         <!-- 구매 후기 끝 -->
         <!-- 상품 문의 시작 -->
-        <div class="tab-area" id="tab-qna">
+        <div class="tab-area">
           <ul>
             <li>
-              <a id="btn-tab-product">상품설명</a></li>
+              <a class="tab" id="btn-tab-product" data-target="#tab1">상품설명</a></li>
             <li>
-              <a id="btn-tab-review">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
             <li>
-              <a id="btn-tab-qna">상품문의</a></li>
+              <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
           </ul>
         </div>
-        <div class="product-qna-area">
+        <div class="product-qna-area" id="tab3">
           <div class="box-qna-area">
             <div class="qna-layout-right">
               <a href="javascript:void(0)" id="btn-modal-qna_open">문의하기</a>
@@ -2054,40 +2066,30 @@
 function topBtn() {
   document.body.scrollIntoView({behavior : 'smooth'});
 }
-// 특정위치 스크롤(상품설명)
+// 탭 클릭 시 해당 특정 위치로 스크롤
 $(function(){
-  document.querySelector('#btn-tab-product').addEventListener('click', function() {
-  document.querySelector('#tab-product').scrollIntoView({ behavior: 'smooth' });
-  })
+  const tabs = document.querySelectorAll('.tab');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetId = tab.dataset.target;
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      setTimeout(() => {
+        targetElement.scrollIntoView({ behavior: 'smooth'});
+      }, 100);
+    }
+  });
 });
-// 특정위치 스크롤(구매후기)
-$(function(){
-document.querySelector('#btn-tab-review').addEventListener('click', function() {
-  document.querySelector('#tab-review').scrollIntoView({ behavior: 'smooth' });
-  })
-});
-// 특정위치 스크롤(상품문의)
-$(function(){
-  document.querySelector('#btn-tab-qna').addEventListener('click', function() {
-  document.querySelector('#tab-qna').scrollIntoView({ behavior: 'smooth' });
-  })
-});
-
-
-/*
-function btnProdFavorite(){
-  if(!confirm('관심상품이 등록되었습니다. \n관심상품 페이지로 이동하시겠습니까?'))
-  return false;
-}
-*/
+})
 
 function btnStoreMore(){
   alert('<페이지 이동 구현후 알림창 삭제 예정>\n판매자 상품보기 페이지로 이동합니다.')
 }
 
-
-
-
+function bidSuccess(){
+  alert('입찰에 성공했습니다.')
+  document.getElementById("bid-modal").style.display = "none";
+}
 $('.btn-bidlist').click(function(e){
   e.preventDefault();
 });
@@ -2132,9 +2134,8 @@ $(document).ready(function(){
   });
 });
 
-// 마우스 어쩌구
+// 마우스 상품 이미지 확대 기능
 $(function(){
-
   var img = document.getElementById("zoo-item");
   
   img.addEventListener("mousemove", function(event) {
@@ -2147,26 +2148,16 @@ $(function(){
     var offsetX = mouseX - imageX;
     var offsetY = mouseY - imageY;
     
-    var width = img.offsetWidth;
-    var height = img.offsetHeight;
-    
     var zoom = 2;
     
-    img.style.width = (width * zoom) + "px";
-    img.style.height = (height * zoom) + "px";
-    img.style.left = (imageX - (offsetX * (zoom - 1))) + "px";
-    img.style.top = (imageY - (offsetY * (zoom - 1))) + "px";
+    img.style.transform = "scale(" + zoom + ")";
+    img.style.transformOrigin = offsetX + "px " + offsetY + "px";
   });
+  
   img.addEventListener("mouseleave", function(event) {
-    img.style.width = "300px";
-    img.style.height = "200px";
-    img.style.left = "100px";
-    img.style.top = "100px";
+    img.style.transform = "none";
   });
 })
-  
-  
-
 
 // 상품 찜버튼
 $(function(){
@@ -2196,18 +2187,6 @@ $(function(){
     }
   })
 });
-
-
-// 특정 페이지 스크롤 이동
-$(function(event){
-  const scrollBtn = document.getElementById('#btn-tab-review');
-  const section = document.getElementById('#tab-review')
-
-  event.preventDefault();
-  scrollBtn.addEventListener('click', () => {
-    section.scrollIntoView({ behavior: 'smooth' });
-  })
-})
 
 // 공유하기
 $(function(){
@@ -2266,7 +2245,6 @@ $(function(){
       modalOff()
   })
 })
-
 // 입찰하기 모달창
 $(function(){
   const modal = document.getElementById("bid-modal")
