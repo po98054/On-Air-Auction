@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kr.OnAirAuction.DAO.MyPageDAO">
+
+	<select id="selectPartAuctList" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
+	
+		select ac_num, ac_ac_name, me_name, pr_name, pr_startprice, ac_startdate, ac_state, ar_bidprice
+		
+		from auction join member on ac_me_id = me_id join product on pr_code = ac_pr_code
+		
+		join auction_record on ac_num = ar_ac_num
+		
+		where (pr_name like concat('%', #{criteria.search}, '%') or me_name like concat('%', #{criteria.search}, '%'))
+		
+		order by ac_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<select id="selectPartAuctTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from auction join member on ac_me_id = me_id join product on pr_code = ac_pr_code
+		
+		join auction_record on ac_num = ar_ac_num
+	
+	</select>
+
+</mapper>
