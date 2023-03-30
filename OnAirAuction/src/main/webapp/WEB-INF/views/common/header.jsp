@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="containertoo">
+    <div class="containertoo">
         <div class="container-inner1">
             <div class="comList">
                 <ul class="list-unstyled">
@@ -19,16 +19,16 @@
                 <ul class="list-unstyled">
                     <li class="clearFix">
                         <p>
-                            <a href="#">처음이신가요?</a>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">처음이신가요?</a>
                         </p>
                         <p>
-                            <a href="#">로그인</a>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">로그인</a>
                         </p>
                         <p>
-                            <a href="#">회원가입</a>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">회원가입</a>
                         </p>
                         <p>
-                            <a href="#">마이페이지</a>
+                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">마이페이지</a>
                         </p>
                     </li>
                 </ul>
@@ -43,7 +43,7 @@
         </div>
         <ul>
             <li>
-                <a href="#">온라인경매
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">일반경매
                     <sup>
                         <font color="red">
                             <b>New</b>
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">전문쇼핑몰
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">실시간경매
                     <sup>
                         <font color="red">
                             <b></b>
@@ -61,16 +61,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">삶의흔적경매
-                    <sup>
-                        <font color="red">
-                            <b>New</b>
-                        </font>
-                    </sup>
-                </a>
-            </li>
-            <li>
-                <a href="#">기획경매
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">역경매
                     <sup>
                         <font color="red">
                             <b></b>
@@ -79,7 +70,34 @@
                 </a>
             </li>
             <li>
-                <a href="#">고객센터
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">직거래경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">인원제한경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">VIP경매
+                    <sup>
+                        <font color="red">
+                            <b></b>
+                        </font>
+                    </sup>
+                </a>
+            </li>
+            <li>
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">전체메뉴
                     <sup>
                         <font color="">
                             <b></b>
@@ -88,16 +106,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">전체메뉴
-                    <sup>
-                        <font color="">
-                            <b></b>
-                        </font>
-                    </sup>
-                </a>
-            </li>
-            <li>
-                <button class="addProduct">물품등록</button>
+                <button class="addProduct" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">물품등록</button>
             </li>
             <li class="smallList1">
                 <select name="datafield" id="">
@@ -107,7 +116,7 @@
             </li>
             <li class="smallList2">
                 <input type="text" class="search" placeholder="검색어를 입력해주세요.">
-                <button>검색</button>
+                <button onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">검색</button>
             </li>
         </ul>
     </div>

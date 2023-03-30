@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -11,10 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>On Air Auction</title>
-    <link rel="stylesheet" href="/OnAirAuction/resources/css/bootstrap.min.css">
-	<script src="/OnAirAuction/resources/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="/OnAirAuction/resources/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
    *{
@@ -199,6 +196,9 @@
     .bottomtoo{
         width: 1900px; 
     }
+    .container2 ul .smallList1{
+            margin-left: 250px;
+        }
   
 </style>
 
@@ -206,14 +206,36 @@
 
 	<tiles:insertAttribute name="header"/>
          
-    <div class="body">
     
-    	<tiles:insertAttribute name="body"/>
     
-    </div>
+    <tiles:insertAttribute name="body"/>
+    
+   
         
     <tiles:insertAttribute name="footer" />
     
+    <script>
+        function mouseOver(obj){ //css에서 :hover를 이용해서 표현할 수도 있음.
+            obj.style.fontSize = "20px"
+            obj.style.fontWeight = "bold"
+        }
+        function mouseOut(obj){
+            obj.style.fontSize =""
+            obj.style.fontWeight =""
+        }
+        function mouseOver1(obj){
+            obj.style.fontWeight = "bold"
+        }
+        function mouseOut1(obj){
+            obj.style.fontWeight =""
+        }
+        function mouseOver2(obj){
+            obj.style.color = "grey"
+        }
+        function mouseOut2(obj){
+            obj.style.color =""
+        }
+     </script>
 </body>
 
 </html>
