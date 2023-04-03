@@ -4,15 +4,9 @@
 
 <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css'></c:url>">
 
-<link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'></c:url>">
-
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
 <script src="<c:url value='/resources/js/bootstrap.bundle.min.js'></c:url>"></script>
-
-<script src="<c:url value='/resources/js/jquery-ui.min.js'></c:url>"></script>
 
 <!-- 경매 참가 내역 (일반/실시간 경매 화면) -->
 
@@ -142,6 +136,8 @@
 
 </style>
 
+<link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.css'></c:url>">
+
 <div class="body">
 		<div class="body-left">		
 			<ul class="nav-ul">		
@@ -182,8 +178,8 @@
 						<li style="text-align: center;">기간별 데이터 조회</li>	
 					</ul>
 					<form name="searchFrm" style="width:350px; height:30px; margin-left: 65px;">
-						<input type="date" class="fromDate" name="fromDate" id="fromDate" style="width: 120px;" value="${pm.criteria.fromDate}"> ~ &nbsp;
-						<input type="date" class="toDate" name="toDate" id="toDate" style="width: 120px; value="${pm.criteria.toDate}">
+						<input type="text" class="fromDate" name="fromDate" id="fromDate" style="width: 120px;" value="${pm.criteria.fromDate_str}"> ~ &nbsp;
+						<input type="text" class="toDate" name="toDate" id="toDate" style="width: 120px;" value="${pm.criteria.toDate_str}">
 						<button type="submit" class="btn-success" id="btnSearch">검색</button>
 					</form>
 				</div>	
@@ -296,6 +292,8 @@
             </div>
 		</div>
     </div>
+    
+    <script src="<c:url value='/resources/js/jquery-ui.js'></c:url>"></script>
     
     <script>
     
