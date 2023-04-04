@@ -10,6 +10,8 @@ import kr.kr.OnAirAuction.DAO.MyPageDAO;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
+import kr.kr.OnAirAuction.VO.AuctionCancleVO;
+
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
@@ -35,7 +37,7 @@ public class MyPageServiceImp implements MyPageService{
 		
 	}
 	
-	// 경매 참가 내역 조회 서비스
+	// 경매 개최 내역 조회 서비스
 
 	@Override
 	public int getPartAuctTotalCount(Criteria criteria) {
@@ -65,21 +67,22 @@ public class MyPageServiceImp implements MyPageService{
 	}
 
 	@Override
-	public ArrayList<ParticipateAuctionVO> getPartAuctList2(Criteria criteria) {
+	public ArrayList<HeldAuctionVO> getHeldList(int ac_num) {
 		
-		if(criteria == null) {
-			
-			criteria = new Criteria();
-			
-		}
+		return myPageDao.selectHeldList(ac_num);
 		
-		return myPageDao.selectPartAuctList2(criteria);
 	}
 
 	@Override
-	public HeldAuctionVO getHeldAuct() {
+	public boolean insertAuctionCancle(AuctionCancleVO auctionCancle) {
 		
-		return myPageDao.selectHeldAuct();
+		if(auctionCancle == null) {
+			
+			return false;
+			
+		}
+		
+		return myPageDao.insertAuctionCancle(auctionCancle) != 0;
 		
 	}
 	

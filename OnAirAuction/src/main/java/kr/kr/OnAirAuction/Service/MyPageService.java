@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
+import kr.kr.OnAirAuction.VO.AuctionCancleVO;
+
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
@@ -15,15 +17,13 @@ public interface MyPageService {
 	ArrayList<ParticipateAuctionVO> getPartAuctList(Criteria criteria);
 
 	int getPartAuctTotalCount(Criteria criteria);
-	
-	//
 
 	ArrayList<HeldAuctionVO> getHeldAuctList(Criteria criteria);
 
 	int getHeldAuctTotalCount(Criteria criteria);
 
-	ArrayList<ParticipateAuctionVO> getPartAuctList2(Criteria criteria);
+	ArrayList<HeldAuctionVO> getHeldList(int ac_num);
 
-	HeldAuctionVO getHeldAuct();
-
+	boolean insertAuctionCancle(AuctionCancleVO auctionCancle);
+	
 }

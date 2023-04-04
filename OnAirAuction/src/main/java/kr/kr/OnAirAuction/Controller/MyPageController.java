@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -41,6 +39,8 @@ public class MyPageController {
 	@Autowired
 	MyPageService myPageService;
 	
+	// 구매자 -> 경매 참가 내역 (일반/실시간 경매)
+	
 	@RequestMapping(value = "/MyPage/participateAuctionList")
 	public ModelAndView ParticipateAuctionList(ModelAndView mv, Criteria criteria) {
 		
@@ -60,24 +60,7 @@ public class MyPageController {
 		
 	}
 	
-	@RequestMapping(value = "/MyPage/ParticipateAuctionList2")
-	public ModelAndView PartipateAuctionList2(ModelAndView mv, Criteria criteria) {
-		
-		ArrayList<ParticipateAuctionVO> list = myPageService.getPartAuctList2(criteria);
-		
-		int totalCount = myPageService.getPartAuctTotalCount(criteria);
-		
-		PageMaker pm = new PageMaker(totalCount, 1, criteria);
-		
-		mv.addObject("pm", pm);
-		
-		mv.addObject("list", list);
-		
-		mv.setViewName("/MyPage/ParticipateAuctionList2");
-		
-		return mv;
-		
-	}
+	// 구매자 -> 경매 개최 내역
 	
 	@RequestMapping(value = "/MyPage/heldAuctionList")
 	public ModelAndView HeldAcutionList(ModelAndView mv, Criteria criteria) {
@@ -87,6 +70,8 @@ public class MyPageController {
 		int totalCount = myPageService.getHeldAuctTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		System.out.println(list);
 		
 		mv.addObject("pm", pm);
 		
@@ -99,15 +84,15 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/AuctionCancle/insert", method = RequestMethod.POST)
-	public Map<String, Object> AuctionCancleInsert(@RequestBody AuctionCancleVO auctionCancle, HttpSession session){
+	public Map<String, Object> AuctionCancleInsert(@RequestBody AuctionCancleVO auctionCancle, HeldAuctionVO held){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		HeldAuctionVO heldAuction = myPageService.getHeldAuct();
+		boolean res = myPageService.insertAuctionCancle(auctionCancle);
+
+		map.put("result", res);
 		
-		System.out.println(heldAuction);
-		
-		map.put("heldAuction", heldAuction);
+		System.out.println(res);
 		
 		return map;
 		

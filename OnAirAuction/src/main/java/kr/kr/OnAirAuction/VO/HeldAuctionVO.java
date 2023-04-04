@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class HeldAuctionVO {
 	
-	int ac_num;
+	int ac_num2; // 경매 취소 번호
 	
 	String pr_name;
 	
@@ -21,14 +21,16 @@ public class HeldAuctionVO {
 	
 	String ac_state;
 	
+	int ac_num; // 경매 번호
+	
 	int ac_immediate;
 
 	@Override
 	public String toString() {
 		
-		return " 경매 번호 : " + ac_num + " 경매 물품명 : " + pr_name + " 최초 입찰가 : " + pr_startprice + " 경매 시작 시간 : " + ac_startdate + " 경매 종료 시간 : " + ac_finaldate
+		return " 경매 취소 번호 : " + ac_num2 + " 경매 물품명 : " + pr_name + " 최초 입찰가 : " + pr_startprice + " 경매 시작 시간 : " + ac_startdate + " 경매 종료 시간 : " + ac_finaldate
 				
-				+ " 경매 상태" + ac_state + " 즉시 가격 : " + ac_immediate;
+				+ " 경매 상태" + ac_state + " 즉시 가격 : " + ac_immediate + " 경매 번호 : " + ac_num;
 		
 	}
 	
