@@ -1,0 +1,14 @@
+package kr.kh.onAirAuction.dao;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.kh.onAirAuction.vo.FileVO;
+import kr.kh.onAirAuction.vo.ProductVO;
+
+public interface ProductDAO {
+
+	public void insertBoard(@Param("p")ProductVO vo);
+
+	public void insertFile(@Param("file")FileVO fileVo);
+
+}
