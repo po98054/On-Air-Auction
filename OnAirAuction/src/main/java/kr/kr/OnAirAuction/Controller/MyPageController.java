@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
@@ -31,6 +33,8 @@ import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
+
+import kr.kr.OnAirAuction.VO.ReviewVO;
 
 @Controller
 @RestController
@@ -95,6 +99,67 @@ public class MyPageController {
 		System.out.println(res);
 		
 		return map;
+		
+	}
+	
+	// 후기 등록
+	
+	@RequestMapping(value = "/MyPage/ReviewInsert", method = RequestMethod.GET)
+	public ModelAndView ReviewInsert(ModelAndView mv, Integer re_ar_num) {
+		
+		System.out.println(re_ar_num);
+		
+		re_ar_num = re_ar_num == null ? 0 : re_ar_num;
+		
+		ParticipateAuctionVO pate = myPageService.getPate(re_ar_num);
+		
+		mv.addObject("re_ar_num", re_ar_num);
+		
+		mv.setViewName("/MyPage/ReviewInsert");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReviewInsert", method=RequestMethod.POST)
+	
+	public ModelAndView ReviewInsertPost(ModelAndView mv, ReviewVO review, MultipartFile []files) {
+		
+		if(myPageService.insertReview(review, files)) {
+			
+			System.out.println("게시글 등록 성공 !!");
+			
+		} else {
+			
+			System.out.println("게시글 등록 실패 !!");
+			
+		}
+		
+		mv.setViewName("/MyPage/ReviewInsert");
+		
+		return mv;
+		
+	}
+	
+	// 후기 조회
+	
+	@RequestMapping(value = "/MyPage/ReviewList", method = RequestMethod.GET)
+	
+	public ModelAndView ReviewList(ModelAndView mv, Criteria criteria) {
+		
+		ArrayList<ReviewVO> list = myPageService.getReviewList(criteria);
+		
+		int totalCount = myPageService.getHeldAuctTotalCount(criteria);
+		
+		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("list",list);
+		
+		mv.addObject("pm", pm);
+		
+		mv.setViewName("/MyPage/ReviewList");
+		
+		return mv;
 		
 	}
 	

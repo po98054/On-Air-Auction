@@ -73,5 +73,41 @@
   		from auction_cancel
   		
   	</insert>
+  	
+  	<!-- 후기 등록 -->
+  	
+  	<insert id="insertReview" useGeneratedKeys="true" keyProperty="review.re_num">
+  	
+  		insert into review(re_num, re_title, re_content, re_level)
+  		
+  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_level}
+  		
+  		from review
+  	
+  	</insert>
+  	
+  	<select id="selectAuction" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
+  	
+  		select ar_num from auction_record where ar_num = #{re_ar_num} 
+  		
+  	</select>
+  	
+  	<!-- 첨부 파일 -->
+  	
+  	<insert id="insertFile">
+  	
+  		insert into file(fi_name, fi_savename)
+  		
+  		values(#{fileVO.fi_name},#{fileVO.fi_savename})
+  	
+  	</insert>
+  	
+  	<!-- 후기 조회 -->
+  	
+  	<select id="selectReviewList" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
+  		
+  		select * from Review order by re_num desc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		
+  	</select>
 
 </mapper>
