@@ -49,5 +49,21 @@ public interface MyPageDAO {
 	ReviewVO selectReview(@Param("re_num")int re_num);
 
 	ArrayList<FileVO> selectFileList(@Param("re_num")int re_num);
+	
+	// 후기 수정
+
+	int updateReview(@Param("review")ReviewVO review);
+	
+	// 첨부 파일 삭제
+
+	void deleteFile(@Param("file")FileVO file);
+	
+	// 첨부 파일 찾기
+
+	FileVO selectFile(@Param("fi_num")int fileNum);
+	
+	// 후기 삭제
+
+	int deleteReview(@Param("re_num")int re_num);
 
 }

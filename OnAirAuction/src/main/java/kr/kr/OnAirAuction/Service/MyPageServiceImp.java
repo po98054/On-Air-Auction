@@ -186,6 +186,8 @@ public class MyPageServiceImp implements MyPageService{
 		return myPageDao.selectReviewList(criteria);
 		
 	}
+	
+	// 후기 수정
 
 	@Override
 	public ReviewVO getReview(int re_num) {
@@ -198,6 +200,106 @@ public class MyPageServiceImp implements MyPageService{
 	public ArrayList<FileVO> getFileList(int re_num) {
 		
 		return myPageDao.selectFileList(re_num);
+		
+	}
+	
+	// 리뷰 수정
+
+	@Override
+	public boolean updateReview(ReviewVO review, MultipartFile[] files, int[] fileNums) {
+		
+		if(review == null || review.getRe_num()<=0) {
+			
+			return false;
+			
+		}
+		
+		ReviewVO dbReview = myPageDao.selectReview(review.getRe_num());
+		
+		if(dbReview == null) {
+			
+			return false;
+			
+		}
+		
+		if(myPageDao.updateReview(review) == 0) {
+			
+			return false;
+			
+		}
+		
+		uploadFiles(files, review.getRe_num());
+		
+		if(fileNums == null || fileNums.length == 0) {
+			
+			return true;
+			
+		}
+
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		for(int fileNum : fileNums) {
+			
+			FileVO fileVo = myPageDao.selectFile(fileNum);
+			
+			if(fileVo != null) {
+				
+				fileList.add(fileVo);
+				
+			}
+			
+		}
+		
+		deleteFileList(fileList);
+			
+		return true;
+		
+	}
+	
+	// 첨부 파일 삭제
+	
+	private void deleteFileList(ArrayList<FileVO> fileList) {
+		
+		if(fileList == null || fileList.size() == 0) {
+			
+			return;
+			
+		}
+		
+		for(FileVO file : fileList) {
+			
+			if(file == null) {
+				
+				continue;
+				
+			}
+			
+			UploadFileUtils.removeFile(uploadPath, file.getFi_savename());
+			
+			myPageDao.deleteFile(file);
+			
+		}
+		
+	}
+	
+	// 후기 삭제
+
+	@Override
+	public boolean deleteReview(int re_num) {
+		
+		ReviewVO review = myPageDao.selectReview(re_num);
+		
+		if(review == null) {
+			
+			return false;
+			
+		}
+		
+		ArrayList<FileVO> fileList = myPageDao.selectFileList(re_num);
+		
+		deleteFileList(fileList);
+		
+		return myPageDao.deleteReview(re_num) != 0;
 		
 	}
 	

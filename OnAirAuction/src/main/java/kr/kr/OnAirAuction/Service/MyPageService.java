@@ -7,7 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
+
 import kr.kr.OnAirAuction.VO.FileVO;
+
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
@@ -41,9 +43,17 @@ public interface MyPageService {
 	// 후기 조회
 
 	ArrayList<ReviewVO> getReviewList(Criteria criteria);
+	
+	// 후기 수정
 
 	ReviewVO getReview(int re_num);
 
 	ArrayList<FileVO> getFileList(int re_num);
+
+	boolean updateReview(ReviewVO review, MultipartFile[] files, int[] fileNums);
+	
+	// 후기 삭제
+
+	boolean deleteReview(int re_num);
 	
 }

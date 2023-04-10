@@ -123,5 +123,37 @@
 		select * from file where fi_tablenum = #{re_num}
 	
 	</select>
+	
+	<!-- 후기 수정 -->
+	
+	<update id="updateReview">
+	
+		update review set re_title = #{review.re_title}, re_content = #{review.re_content}, re_level = #{review.re_level}, re_modify = now()
+		
+		where re_num = #{review.re_num}
+	
+	</update>
+	
+	<!-- 첨부 파일 삭제 -->
+	
+	<delete id="deleteFile">
+	
+		delete from file where fi_num = #{file.fi_num}
+	
+	</delete>
+	
+	<select id="selectFile" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_num = #{fi_num}
+	
+	</select>
+	
+	<!-- 후기 삭제 -->
+	
+	<delete id="deleteReview">
+	
+		delete from review where re_num = #{re_num}
+	
+	</delete>
 
 </mapper>

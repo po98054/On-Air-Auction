@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,8 @@ import kr.kr.OnAirAuction.Pagination.Criteria;
 import kr.kr.OnAirAuction.Pagination.PageMaker;
 
 import kr.kr.OnAirAuction.Service.MyPageService;
+
+import kr.kr.OnAirAuction.Utils.MessageUtils;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 
@@ -206,6 +210,48 @@ public class MyPageController {
 		mv.addObject("files", files);
 		
 		mv.setViewName("/MyPage/ReviewUpdate");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReviewUpdate/{re_num}", method = RequestMethod.POST)
+	
+	public ModelAndView ReviewUpdatePOST(ModelAndView mv, @PathVariable("re_num") int re_num, ReviewVO review, MultipartFile []files, int [] fileNums,
+			
+			HttpServletResponse response) {
+		
+		if(myPageService.updateReview(review, files, fileNums)) {
+			
+			MessageUtils.alertAndMovePage(response, "리뷰 수정에 성공했습니다..", "OnAirAuction", "/MyPage/ReviewUpdate/"+re_num);
+			
+		} else {
+			
+			System.out.println("리뷰 수정 실패!!!!");
+			
+		}
+		
+		return mv;
+		
+	}
+	
+	// 후기 삭제
+	
+	@RequestMapping(value = "/MyPage/ReviewDelete/{re_num}", method = RequestMethod.GET)
+	
+	public ModelAndView ReviewDelete(ModelAndView mv, @PathVariable("re_num") int re_num) {
+		
+		if(myPageService.deleteReview(re_num)) {
+			
+			System.out.println("리뷰 삭제 성공");
+			
+		} else {
+			
+			System.out.println("리뷰 삭제 실패");
+			
+		}
+		
+		mv.setViewName("redirect:/MyPage/ReviewList");
 		
 		return mv;
 		

@@ -145,7 +145,7 @@
 			<a href="#">
 				<button class="btn btn-outline-primary btn-update">수정</button>
 			</a>
-			<a href="#">
+			<a href="<c:url value='/MyPage/ReviewDelete/${review.re_num}'></c:url>">
 				<button class="btn btn-outline-primary btn-delete">삭제</button>
 			</a>
 		</div>
