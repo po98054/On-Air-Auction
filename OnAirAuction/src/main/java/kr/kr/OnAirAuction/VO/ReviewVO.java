@@ -34,7 +34,7 @@ public class ReviewVO {
 				
 	}
 	
-	public String getRe_registration() {
+	public String getRe_registration_str() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		

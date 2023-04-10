@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
-
+import kr.kr.OnAirAuction.VO.FileVO;
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
@@ -41,5 +41,9 @@ public interface MyPageService {
 	// 후기 조회
 
 	ArrayList<ReviewVO> getReviewList(Criteria criteria);
+
+	ReviewVO getReview(int re_num);
+
+	ArrayList<FileVO> getFileList(int re_num);
 	
 }

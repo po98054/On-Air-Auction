@@ -4,6 +4,8 @@
 
 <mapper namespace="kr.kr.OnAirAuction.DAO.MyPageDAO">
 
+	
+
 	<!-- 경매 참가 내역 조회 쿼리 -->
 
 	<select id="selectPartAuctList" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
@@ -78,9 +80,9 @@
   	
   	<insert id="insertReview" useGeneratedKeys="true" keyProperty="review.re_num">
   	
-  		insert into review(re_num, re_title, re_content, re_level)
+  		insert into review(re_num, re_title, re_content, re_level, re_registration)
   		
-  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_level}
+  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_level}, now()
   		
   		from review
   	
@@ -96,9 +98,9 @@
   	
   	<insert id="insertFile">
   	
-  		insert into file(fi_name, fi_savename)
+  		insert into file(fi_name, fi_savename, fi_tablename, fi_tablenum)
   		
-  		values(#{fileVO.fi_name},#{fileVO.fi_savename})
+  		values(#{fileVO.fi_name},#{fileVO.fi_savename}, '후기', #{re_num})
   	
   	</insert>
   	
@@ -106,8 +108,20 @@
   	
   	<select id="selectReviewList" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
   		
-  		select * from Review order by re_num desc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		select * from Review order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
   		
   	</select>
+  	
+	<select id="selectReview" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
+	
+		select * from review where re_num = #{re_num}
+		
+	</select>
+	
+	<select id="selectFileList" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_tablenum = #{re_num}
+	
+	</select>
 
 </mapper>

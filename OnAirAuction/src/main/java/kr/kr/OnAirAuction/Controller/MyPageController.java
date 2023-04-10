@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,8 @@ import kr.kr.OnAirAuction.Pagination.PageMaker;
 import kr.kr.OnAirAuction.Service.MyPageService;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
+
+import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
@@ -158,6 +162,50 @@ public class MyPageController {
 		mv.addObject("pm", pm);
 		
 		mv.setViewName("/MyPage/ReviewList");
+		
+		return mv;
+		
+	}
+	
+	// 후기 상세 보기
+	
+	@RequestMapping(value = "/MyPage/ReviewDetail/{re_num}", method=RequestMethod.GET)
+	
+	public ModelAndView ReviewDetail(ModelAndView mv, @PathVariable("re_num") int re_num) {
+		
+		ReviewVO review = myPageService.getReview(re_num);
+		
+		ArrayList<FileVO> files = myPageService.getFileList(re_num);
+		
+		System.out.println(files);
+		
+		mv.addObject("review", review);
+		
+		mv.addObject("files", files);
+		
+		mv.setViewName("/MyPage/ReviewDetail");
+		
+		return mv;
+		
+	}
+	
+	// 후기 수정
+	
+	@RequestMapping(value = "/MyPage/ReviewUpdate/{re_num}", method = RequestMethod.GET)
+	
+	public ModelAndView ReviewUpdate(ModelAndView mv, @PathVariable("re_num") int re_num) {
+		
+		ReviewVO review = myPageService.getReview(re_num);
+		
+		ArrayList<FileVO> files = myPageService.getFileList(re_num);
+		
+		System.out.println(files);
+		
+		mv.addObject("review", review);
+		
+		mv.addObject("files", files);
+		
+		mv.setViewName("/MyPage/ReviewUpdate");
 		
 		return mv;
 		

@@ -156,8 +156,10 @@ public class MyPageServiceImp implements MyPageService{
 			//첨부파일 객체를 생성
 			FileVO fileVo = new FileVO(file.getOriginalFilename(), fileName, re_num);
 			
+			System.out.println(re_num);
+			
 			//다오에게서 첨부파일 정보를 주면서 추가하라고 요청
-			myPageDao.insertFile(fileVo);
+			myPageDao.insertFile(fileVo, re_num);
 		}
 	}
 
@@ -182,6 +184,20 @@ public class MyPageServiceImp implements MyPageService{
 		}
 		
 		return myPageDao.selectReviewList(criteria);
+		
+	}
+
+	@Override
+	public ReviewVO getReview(int re_num) {
+		
+		return myPageDao.selectReview(re_num);
+		
+	}
+
+	@Override
+	public ArrayList<FileVO> getFileList(int re_num) {
+		
+		return myPageDao.selectFileList(re_num);
 		
 	}
 	

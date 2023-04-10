@@ -163,6 +163,7 @@
                         <th>후기 번호</th>
                         <th>제목</th>
                         <th>별점</th>
+                        <th>등록 일자</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -179,6 +180,7 @@
                         	<c:if test="${pa.re_level == 4}">★★★★☆</c:if>
                         	<c:if test="${pa.re_level == 5}">★★★★★</c:if>
                         </td>
+                        <td>${pa.re_registration_str}</td>
                     </tr>
                     </c:forEach>
                 </tbody>

@@ -155,6 +155,7 @@
 
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.css'></c:url>">
 
+${list}
 
  <div class="body">
 		<div class="body-left">		

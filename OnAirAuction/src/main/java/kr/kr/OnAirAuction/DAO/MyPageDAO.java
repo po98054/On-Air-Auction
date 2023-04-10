@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
+
 import kr.kr.OnAirAuction.VO.FileVO;
+
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
@@ -38,10 +40,14 @@ public interface MyPageDAO {
 
 	ParticipateAuctionVO selectAuction(@Param("re_ar_num")Integer re_ar_num);
 
-	void insertFile(@Param("fileVO")FileVO fileVo);
+	void insertFile(@Param("fileVO")FileVO fileVo, @Param("re_num")int re_num);
 	
 	// 후기 조회
 
 	ArrayList<ReviewVO> selectReviewList(@Param("criteria")Criteria criteria);
+
+	ReviewVO selectReview(@Param("re_num")int re_num);
+
+	ArrayList<FileVO> selectFileList(@Param("re_num")int re_num);
 
 }
