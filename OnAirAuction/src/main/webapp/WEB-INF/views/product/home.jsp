@@ -505,7 +505,7 @@ $('form').submit(function(){
 		$('[name=pr_size]').focus();
 		return false;
 	}
-	
+	//이미지 파일 1개 이상인지 
 	const images = image.querySelectorAll('input[type=file]');
 	  let imageSelected = false;
 	  
