@@ -40,7 +40,21 @@ import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
+import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
+
+import kr.kr.OnAirAuction.VO.InquiryVO;
+
+import kr.kr.OnAirAuction.VO.ParticipateAuction2VO;
+
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
+
+import kr.kr.OnAirAuction.VO.ProductSearchVO;
+
+import kr.kr.OnAirAuction.VO.ReportCategoryVO;
+
+import kr.kr.OnAirAuction.VO.ReportPersonVO;
+
+import kr.kr.OnAirAuction.VO.ReportVO;
 
 import kr.kr.OnAirAuction.VO.ReviewVO;
 
@@ -58,6 +72,8 @@ public class MyPageController {
 		
 		ArrayList<ParticipateAuctionVO> list = myPageService.getPartAuctList(criteria);
 		
+		System.out.println(list);
+		
 		int totalCount = myPageService.getPartAuctTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
@@ -67,6 +83,27 @@ public class MyPageController {
 		mv.addObject("list", list);
 		
 		mv.setViewName("/MyPage/participateAuctionList");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/participateAuctionList2")
+	public ModelAndView ParticipateAuctionList2(ModelAndView mv, Criteria criteria) {
+		
+		ArrayList<ParticipateAuction2VO> list = myPageService.getPartAuctList2(criteria);
+		
+		System.out.println(list);
+		
+		int totalCount = myPageService.getPartAuctTotalCount2(criteria);
+		
+		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("pm", pm);
+		
+		mv.addObject("list", list);
+		
+		mv.setViewName("/MyPage/participateAuctionList2");
 		
 		return mv;
 		
@@ -83,8 +120,6 @@ public class MyPageController {
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
 		
-		System.out.println(list);
-		
 		mv.addObject("pm", pm);
 		
 		mv.addObject("list", list);
@@ -96,13 +131,30 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/AuctionCancle/insert", method = RequestMethod.POST)
-	public Map<String, Object> AuctionCancleInsert(@RequestBody AuctionCancleVO auctionCancle, HeldAuctionVO held){
+	public Map<String, Object> AuctionCancleInsert(@RequestBody AuctionCancleVO auctionCancle){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		boolean res = myPageService.insertAuctionCancle(auctionCancle);
-
+		
 		map.put("result", res);
+		
+		System.out.println(res);
+		
+		return map;
+		
+	}
+	
+	@RequestMapping(value = "/Auction/update", method = RequestMethod.GET)
+	public Map<String, Object> AuctionUpdate(@RequestBody HeldAuctionVO held){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		System.out.println(held);
+		
+		boolean res = myPageService.updateHeld(held);
+		
+		map.put("res", res);
 		
 		System.out.println(res);
 		
@@ -252,6 +304,252 @@ public class MyPageController {
 		}
 		
 		mv.setViewName("redirect:/MyPage/ReviewList");
+		
+		return mv;
+		
+	}
+	
+	// 문의 사항 등록
+	
+	@RequestMapping(value = "/MyPage/InquiryInsert", method = RequestMethod.GET)
+	
+	public ModelAndView InquiryInsert(ModelAndView mv) {
+		
+		ArrayList<InquiryCategoryVO> inquiryCategory = myPageService.getInquiryCategory();
+		
+		mv.addObject("inquiryCategory", inquiryCategory);
+		
+		mv.setViewName("/MyPage/InquiryInsert");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/InquiryInsert", method = RequestMethod.POST)
+	
+	public ModelAndView InquiryInsertPost(ModelAndView mv, InquiryVO inquiry, MultipartFile []files) {
+		
+		if(myPageService.insertInquiry(inquiry, files)) {
+			
+			System.out.println("문의 사항 등록 성공 !!");
+			
+		} else {
+			
+			System.out.println("문의 사항 등록 실패 !!");
+			
+		}
+		
+		mv.setViewName("/MyPage/InquiryInsert");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/ProductList", method = RequestMethod.POST)
+	
+	public Map<String, Object> ProductList(@RequestBody Criteria criteria){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ProductSearchVO> product = myPageService.getProduct(criteria);
+		
+		map.put("product", product);
+		
+		return map;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ProductSelect", method = RequestMethod.POST)
+	
+	public Map<String, Object> ProductSelect(@RequestBody ProductSearchVO product){
+		
+		System.out.println(product);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ProductSearchVO> result = myPageService.SelectProduct(product);
+		
+		System.out.println(result);
+		
+		map.put("result", result);
+		
+		return map;
+		
+	}
+	
+	// 문의 사항 조회
+	
+	@RequestMapping(value = "/MyPage/InquiryList", method = RequestMethod.GET)
+	
+	public ModelAndView InquiryList(ModelAndView mv, Criteria criteria) {
+		
+		ArrayList<InquiryVO> list = myPageService.getInquiryList(criteria);
+		
+		int totalCount = myPageService.getInquiryTotalCount(criteria);
+		
+		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("list",list);
+		
+		mv.addObject("pm", pm);
+		
+		mv.setViewName("/MyPage/InquiryList");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/InquiryDetail/{in_num}", method=RequestMethod.GET)
+	
+	public ModelAndView InquiryDetail(ModelAndView mv, @PathVariable("in_num") int in_num) {
+		
+		InquiryVO inquiry = myPageService.getInquiry(in_num);
+		
+		//ArrayList<FileVO> files = myPageService.getFileList(re_num);
+		
+		//System.out.println(files);
+		
+		mv.addObject("inquiry", inquiry);
+		
+		//mv.addObject("files", files);
+		
+		mv.setViewName("/MyPage/InquiryDetail");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/InquiryDelete/{in_num}", method = RequestMethod.GET)
+	
+	public ModelAndView InquiryDelete(ModelAndView mv, @PathVariable("in_num") int in_num) {
+		
+		if(myPageService.deleteInquiry(in_num)) {
+			
+			System.out.println("문의 사항 삭제 성공");
+			
+		} else {
+			
+			System.out.println("문의 사항 삭제 실패");
+			
+		}
+		
+		mv.setViewName("redirect:/MyPage/InquiryList");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "MyPage/ReportInsert", method = RequestMethod.GET)
+	
+	public ModelAndView ReportInsert(ModelAndView mv) {
+		
+		ArrayList<ReportCategoryVO> ReportCategory = myPageService.getReportCategory();
+		
+		mv.addObject("ReportCategory", ReportCategory);
+		
+		mv.setViewName("/MyPage/ReportInsert");
+		
+		return mv;
+		
+	}
+	
+	/*@RequestMapping(value = "MyPage/InquiryInsert", method = RequestMethod.POST)
+	
+	public ModelAndView InquiryInsertPost(ModelAndView mv) {
+		
+		return mv;
+		
+	}*/
+	
+	@RequestMapping(value = "/ReportPerson", method = RequestMethod.POST)
+	
+	public Map<String, Object> ReportPerson(@RequestBody Criteria criteria){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ReportPersonVO> Person = myPageService.getPerson(criteria);
+		
+		System.out.println(Person);
+		
+		map.put("Person", Person);
+		
+		return map;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReportInsert", method = RequestMethod.POST)
+	
+	public Map<String, Object> PersonSelect(@RequestBody ReportPersonVO Person){
+		
+		System.out.println(Person);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ReportPersonVO> result = myPageService.SelectReport(Person);
+		
+		System.out.println(result);
+		
+		map.put("result", result);
+		
+		return map;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReportList", method = RequestMethod.GET)
+	
+	public ModelAndView ReportList(ModelAndView mv, Criteria criteria) {
+		
+		ArrayList<ReportVO> list = myPageService.getReportList(criteria);
+		
+		int totalCount = myPageService.getReportTotalCount(criteria);
+		
+		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("list",list);
+		
+		mv.addObject("pm", pm);
+		
+		mv.setViewName("/MyPage/ReportList");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReportDetail/{re_num}", method=RequestMethod.GET)
+	
+	public ModelAndView ReportDetail(ModelAndView mv, @PathVariable("re_num") int re_num) {
+		
+		ReportVO report = myPageService.getReport(re_num);
+		
+		//ArrayList<FileVO> files = myPageService.getFileList(re_num);
+		
+		//System.out.println(files);
+		
+		mv.addObject("report", report);
+		
+		//mv.addObject("files", files);
+		
+		mv.setViewName("/MyPage/ReportDetail");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReportDelete/{re_num}", method = RequestMethod.GET)
+	
+	public ModelAndView ReportDelete(ModelAndView mv, @PathVariable("re_num") int re_num) {
+		
+		if(myPageService.deleteReport(re_num)) {
+			
+			System.out.println("신고 내역 삭제 성공");
+			
+		} else {
+			
+			System.out.println("신고 내역 삭제 실패");
+			
+		}
+		
+		mv.setViewName("redirect:/MyPage/ReportList");
 		
 		return mv;
 		

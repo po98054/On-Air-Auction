@@ -35,7 +35,7 @@ public class Criteria {
 	@Override
 	public String toString() {
 		
-		return " 현재 페이지 : " + page + " 한 페이지당 컨텐츠 갯수 : " + perPageNum + " 시작 일자 : " + fromDate + " 종료 일자 : " + toDate;
+		return " 현재 페이지 : " + page + " 한 페이지당 컨텐츠 갯수 : " + perPageNum + " 시작 일자 : " + fromDate + " 종료 일자 : " + toDate + " 검색어 : " + search;
 		
 	}
 	
