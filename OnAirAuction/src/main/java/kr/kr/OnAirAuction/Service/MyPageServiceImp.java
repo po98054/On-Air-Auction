@@ -20,7 +20,21 @@ import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
+import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
+
+import kr.kr.OnAirAuction.VO.InquiryVO;
+
+import kr.kr.OnAirAuction.VO.ParticipateAuction2VO;
+
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
+
+import kr.kr.OnAirAuction.VO.ProductSearchVO;
+
+import kr.kr.OnAirAuction.VO.ReportCategoryVO;
+
+import kr.kr.OnAirAuction.VO.ReportPersonVO;
+
+import kr.kr.OnAirAuction.VO.ReportVO;
 
 import kr.kr.OnAirAuction.VO.ReviewVO;
 
@@ -302,5 +316,338 @@ public class MyPageServiceImp implements MyPageService{
 		return myPageDao.deleteReview(re_num) != 0;
 		
 	}
+
+	@Override
+	public boolean updateHeldAuction(ArrayList<HeldAuctionVO> held) {
+		
+		System.out.println(held);
+		
+		return false;
+	}
+
+	@Override
+	public HeldAuctionVO getHeld(int ac_num) {
+		// TODO Auto-generated method stub
+		
+		System.out.println(ac_num);
+		
+		return myPageDao.selectHeld(ac_num);
+	}
+
+	@Override
+	public boolean updateHeld(HeldAuctionVO held) {
+		
+		System.out.println(held);
+		
+		if(held == null) {
+			
+			return false;
+			
+		}
+		
+		return myPageDao.updateHeld(held) != 0;
+	}
+
+	@Override
+	public ArrayList<ProductSearchVO> getProduct(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectProduct(criteria);
+		
+	}
+
+	@Override
+	public ArrayList<ProductSearchVO> SelectProduct(ProductSearchVO product) {
+		
+		return myPageDao.selectProductName(product);
+		
+	}
+
+	// 문의 사항 등록
 	
+	@Override
+	public ArrayList<InquiryCategoryVO> getInquiryCategory() {
+		
+		return myPageDao.selectAllInquiryCategory();
+		
+	}
+
+	@Override
+	public boolean insertInquiry(InquiryVO inquiry, MultipartFile[] files) {
+		
+		System.out.println(files);
+		
+		if(inquiry == null || inquiry.getIn_title() == null || inquiry.getIn_title().trim().length() == 0 ||
+				
+				inquiry.getIn_content() == null) {
+			
+			return false;
+			
+		}
+		
+		myPageDao.insertInquiry(inquiry);
+		
+		uploadFilesByInquiry(files, inquiry.getIn_num());
+		
+		return true;
+		
+	}
+	
+	// 문의 사항 수정 시 첨부 파일 조회
+	
+	private void uploadFilesByInquiry(MultipartFile [] files, int in_num) {
+		
+		if(files == null || files.length == 0)
+			
+			return ;
+		
+		//반복문
+		for(MultipartFile file : files) {
+			
+			if(file == null || file.getOriginalFilename().length() == 0)
+				
+				continue;
+			
+			String fileName = "";
+			
+			//첨부파일 서버에 업로드
+			
+			try {
+				
+				fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()); 
+						
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				
+			} 
+			
+			System.out.println(fileName);
+			
+			//첨부파일 객체를 생성
+			FileVO fileVo = new FileVO(file.getOriginalFilename(), fileName, in_num);
+			
+			System.out.println(in_num);
+			
+			//다오에게서 첨부파일 정보를 주면서 추가하라고 요청
+			myPageDao.insertFileByInquiry(fileVo, in_num);
+		}
+	}
+
+	// 문의 사항 조회
+	
+	@Override
+	public ArrayList<InquiryVO> getInquiryList(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectInquiryList(criteria);
+		
+	}
+
+	@Override
+	public int getInquiryTotalCount(Criteria criteria) {
+		
+		return myPageDao.selectInquiryTotalCount(criteria);
+		
+	}
+	
+	// 문의 사항 상세 보기
+
+	@Override
+	public InquiryVO getInquiry(int in_num) {
+	
+		return myPageDao.selectInquiry(in_num);
+			
+	}
+
+	// 문의 사항 삭제
+	
+	@Override
+	public boolean deleteInquiry(int in_num) {
+		
+		System.out.println(in_num);
+		
+		InquiryVO inquiry = myPageDao.selectInquiry(in_num);
+		
+		if(inquiry == null) {
+			
+			return false;
+			
+		}
+		
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		deleteFileList(fileList);
+		
+		return myPageDao.deleteInquiry(in_num) != 0;
+	}
+
+	@Override
+	public ArrayList<ReportCategoryVO> getReportCategory() {
+		
+		return myPageDao.selectAllReportCategory();
+		
+	}
+
+	@Override
+	public ArrayList<ReportPersonVO> getPerson(Criteria criteria) {
+		
+		System.out.println(criteria);
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectPerson(criteria);
+		
+	}
+
+	@Override
+	public ArrayList<ReportPersonVO> SelectReport(ReportPersonVO person) {
+		
+		System.out.println(person);
+		
+		return myPageDao.selectPersonName(person);
+		
+	}
+
+	@Override
+	public ArrayList<ReportVO> getReportList(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectReportList(criteria);
+		
+	}
+
+	@Override
+	public int getReportTotalCount(Criteria criteria) {
+		
+		return myPageDao.selectReportTotalCount(criteria);
+		
+	}
+
+	@Override
+	public ReportVO getReport(int re_num) {
+		
+		return myPageDao.selectReport(re_num);
+		
+	}
+
+	@Override
+	public boolean deleteReport(int re_num) {
+		
+		ReportVO report = myPageDao.selectReport(re_num);
+		
+		if(report == null) {
+			
+			return false;
+			
+		}
+		
+		
+		return myPageDao.deleteReport(re_num) != 0;
+		
+	}
+
+	@Override
+	public ArrayList<ParticipateAuction2VO> getPartAuctList2(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectPartAuctList2(criteria);
+	}
+	
+	@Override
+	public int getPartAuctTotalCount2(Criteria criteria) {
+
+		return myPageDao.selectPartAuctTotalCount2(criteria);
+		
+	}
+
+	@Override
+	public ArrayList<FileVO> getFileListByInquiry(int in_num) {
+		
+		return myPageDao.selectFileListByInquiry(in_num);
+		
+	}
+	
+	@Override
+	public boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums) {
+		
+		System.out.println(files);
+		
+		System.out.println(fileNums);
+		
+		if(inquiry == null || inquiry.getIn_num() <= 0) {
+			
+			return false;
+			
+		}
+		
+		/*InquiryVO dbInquiry = myPageDao.selectInquiry(inquiry.getIn_num());
+		
+		if(dbInquiry == null) {
+			
+			return false;
+			
+		}*/
+		
+		if(myPageDao.updateInquiry(inquiry) == 0) {
+			
+			return false;
+			
+		}
+		
+		uploadFilesByInquiry(files, inquiry.getIn_num());
+		
+		if(fileNums == null || fileNums.length == 0) {
+			
+			return true;
+			
+		}
+
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		System.out.println(fileList);
+		
+		for(int fileNum : fileNums) {
+			
+			FileVO fileVo = myPageDao.selectFile(fileNum);
+			
+			System.out.println(fileVo);
+			
+			if(fileVo != null) {
+				
+				fileList.add(fileVo);
+				
+			}
+			
+		}
+		
+		deleteFileList(fileList);
+			
+		return true;
+	}
+
 }

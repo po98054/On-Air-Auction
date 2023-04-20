@@ -87,16 +87,24 @@ public interface MyPageDAO {
 	ArrayList<ProductSearchVO> selectProduct(@Param("criteria")Criteria criteria);
 
 	ArrayList<ProductSearchVO> selectProductName(@Param("product")ProductSearchVO product);
+	
+	// 문의 사항 등록
 
 	ArrayList<InquiryCategoryVO> selectAllInquiryCategory();
 
 	void insertInquiry(@Param("inquiry")InquiryVO inquiry);
+	
+	// 문의 사항 조회
 
 	ArrayList<InquiryVO> selectInquiryList(@Param("criteria")Criteria criteria);
 
 	int selectInquiryTotalCount(@Param("criteria")Criteria criteria);
+	
+	// 문의 사항 상세 보기
 
 	InquiryVO selectInquiry(@Param("in_num")int in_num);
+	
+	// 문의 사항 삭제
 
 	int deleteInquiry(@Param("in_num")int in_num);
 
@@ -117,5 +125,11 @@ public interface MyPageDAO {
 	ArrayList<ParticipateAuction2VO> selectPartAuctList2(@Param("criteria")Criteria criteria);
 	
 	int selectPartAuctTotalCount2(@Param("criteria")Criteria criteria);
+
+	void insertFileByInquiry(@Param("file")FileVO fileVo, @Param("in_num")int in_num);
+
+	ArrayList<FileVO> selectFileListByInquiry(@Param("in_num")int in_num);
+
+	int updateInquiry(@Param("inquiry")InquiryVO inquiry);
 
 }

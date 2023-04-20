@@ -1,5 +1,8 @@
 package kr.kr.OnAirAuction.VO;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import java.util.Date;
 
 import lombok.Data;
@@ -30,6 +33,14 @@ public class AuctionCancleVO {
 		this.ac_ac_num = ac_ac_num;
 		
 		this.ac_reason = ac_reason;
+		
+	}
+	
+	public String getAc_date() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return sdf.format(ac_date);
 		
 	}
 	

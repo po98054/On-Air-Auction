@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kr.OnAirAuction.VO.ParticipateAuction2VO;
+
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
@@ -12,7 +14,19 @@ import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 
+import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
+
+import kr.kr.OnAirAuction.VO.InquiryVO;
+
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
+
+import kr.kr.OnAirAuction.VO.ProductSearchVO;
+
+import kr.kr.OnAirAuction.VO.ReportCategoryVO;
+
+import kr.kr.OnAirAuction.VO.ReportPersonVO;
+
+import kr.kr.OnAirAuction.VO.ReportVO;
 
 import kr.kr.OnAirAuction.VO.ReviewVO;
 
@@ -55,5 +69,57 @@ public interface MyPageService {
 	// 후기 삭제
 
 	boolean deleteReview(int re_num);
+
+	boolean updateHeldAuction(ArrayList<HeldAuctionVO> held);
+
+	HeldAuctionVO getHeld(int ac_num);
+
+	boolean updateHeld(HeldAuctionVO held);
+
+	ArrayList<ProductSearchVO> getProduct(Criteria criteria);
+
+	ArrayList<ProductSearchVO> SelectProduct(ProductSearchVO product);
+	
+	// 문의 사항 등록
+
+	ArrayList<InquiryCategoryVO> getInquiryCategory();
+
+	boolean insertInquiry(InquiryVO inquiry, MultipartFile[] files);
+	
+	// 문의 사항 조회
+
+	ArrayList<InquiryVO> getInquiryList(Criteria criteria);
+
+	int getInquiryTotalCount(Criteria criteria);
+	
+	// 문의 사항 상세 보기
+
+	InquiryVO getInquiry(int in_num);
+	
+	// 문의 사항 삭제
+
+	boolean deleteInquiry(int in_num);
+
+	ArrayList<ReportCategoryVO> getReportCategory();
+
+	ArrayList<ReportPersonVO> getPerson(Criteria criteria);
+
+	ArrayList<ReportPersonVO> SelectReport(ReportPersonVO person);
+
+	ArrayList<ReportVO> getReportList(Criteria criteria);
+
+	int getReportTotalCount(Criteria criteria);
+
+	ReportVO getReport(int re_num);
+
+	boolean deleteReport(int re_num);
+
+	ArrayList<ParticipateAuction2VO> getPartAuctList2(Criteria criteria);
+
+	int getPartAuctTotalCount2(Criteria criteria);
+
+	ArrayList<FileVO> getFileListByInquiry(int in_num);
+
+	boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums);
 	
 }

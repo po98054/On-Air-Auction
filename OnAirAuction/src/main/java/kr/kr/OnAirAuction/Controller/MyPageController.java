@@ -345,6 +345,8 @@ public class MyPageController {
 		
 	}
 	
+	// ajax를 통한 제품 조회
+	
 	@RequestMapping(value = "/ProductList", method = RequestMethod.POST)
 	
 	public Map<String, Object> ProductList(@RequestBody Criteria criteria){
@@ -358,6 +360,8 @@ public class MyPageController {
 		return map;
 		
 	}
+	
+	// ajax를 통한 제품명을 누르면 화면에서 제품명 출력
 	
 	@RequestMapping(value = "/MyPage/ProductSelect", method = RequestMethod.POST)
 	
@@ -374,6 +378,62 @@ public class MyPageController {
 		map.put("result", result);
 		
 		return map;
+		
+	}
+	
+	// 문의 사항 수정
+	
+	@RequestMapping(value = "/MyPage/InquiryUpdate/{in_num}", method = RequestMethod.GET)
+	
+	public ModelAndView InquiryUpdate(ModelAndView mv, @PathVariable("in_num") int in_num) {
+		
+		System.out.println(in_num);
+		
+		InquiryVO inquiry = myPageService.getInquiry(in_num);
+		
+		ArrayList<InquiryCategoryVO> inquiryCategory = myPageService.getInquiryCategory();
+		
+		ArrayList<FileVO> files = myPageService.getFileListByInquiry(in_num);
+		
+		System.out.println(inquiryCategory);
+		
+		System.out.println(files);
+		
+		mv.addObject("inquiry", inquiry);
+		
+		mv.addObject("files", files);
+		
+		mv.addObject("inquiryCategory", inquiryCategory);
+		
+		mv.setViewName("/MyPage/InquiryUpdate");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/InquiryUpdate/{in_num}", method = RequestMethod.POST)
+	
+	public ModelAndView InquiryUpdatePost(ModelAndView mv, @PathVariable("in_num") int in_num, InquiryVO inquiry, MultipartFile []files, int [] fileNums,
+			
+			HttpServletResponse response) {
+		
+		System.out.println(in_num);
+		
+		System.out.println(files);
+		
+		System.out.println(fileNums);
+		
+		if(myPageService.UpdateInquiry(inquiry, files, fileNums)) {
+			
+			MessageUtils.alertAndMovePage(response, "문의 사항 수정에 성공했습니다..", "OnAirAuction", "/MyPage/InquiryUpdate/"+in_num);
+			
+		} else {
+			
+			System.out.println("문의 사항 수정 실패!!!!");
+			
+		}
+		
+		return mv;
 		
 	}
 	
@@ -399,25 +459,29 @@ public class MyPageController {
 		
 	}
 	
+	// 문의 사항 상세 보기
+	
 	@RequestMapping(value = "/MyPage/InquiryDetail/{in_num}", method=RequestMethod.GET)
 	
 	public ModelAndView InquiryDetail(ModelAndView mv, @PathVariable("in_num") int in_num) {
 		
+		System.out.println(in_num);
+		
 		InquiryVO inquiry = myPageService.getInquiry(in_num);
 		
-		//ArrayList<FileVO> files = myPageService.getFileList(re_num);
-		
-		//System.out.println(files);
+		ArrayList<FileVO> files = myPageService.getFileListByInquiry(in_num);
 		
 		mv.addObject("inquiry", inquiry);
 		
-		//mv.addObject("files", files);
+		mv.addObject("files", files);
 		
 		mv.setViewName("/MyPage/InquiryDetail");
 		
 		return mv;
 		
 	}
+	
+	// 문의 사항 삭제
 	
 	@RequestMapping(value = "/MyPage/InquiryDelete/{in_num}", method = RequestMethod.GET)
 	
