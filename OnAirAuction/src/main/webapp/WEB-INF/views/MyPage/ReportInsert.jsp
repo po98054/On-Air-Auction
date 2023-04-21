@@ -4,36 +4,30 @@
 
 <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css'></c:url>">
 
-<link href="<c:url value='/resources/css/star-rating.css'></c:url>" media="all" rel="stylesheet" type="text/css" />
-
 <link href="<c:url value='/resources/css/summernote-bs4.css'></c:url>" rel="stylesheet">
 
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
-
-<script src="<c:url value='/resources/js/jquery-3.3.1.slim.min.js'></c:url>"></script>
 
 <script src="<c:url value='/resources/js/bootstrap.bundle.min.js'></c:url>"></script>
 
 <script src="<c:url value='/resources/js/summernote-bs4.js'></c:url>"></script>
 
-<script src="<c:url value='/resources/js/star-rating.js'></c:url>" type="text/javascript"></script>
-
 <style>
 
 	.body{
-        height: 700px; width: 1900px;
+        height: 780px; width: 1900px;
 	}
 	.body .body-left{
-		float:left; width: 250px; height:700px; border-right: 1px solid black;
+		float:left; width: 250px; height:780px; border-right: 1px solid black;
 	}
 	.body .body-left .nav-ul{
 		margin-top: 5px;
 	}
     .body .body-left .nav-ul .list-li:nth-child(1){
-        width: 250px; height: 180px; margin-bottom: 3px; font-weight: bold; border-bottom: 1px solid black;
+        width: 250px; height: 200px; margin-bottom: 3px; font-weight: bold; border-bottom: 1px solid black;
     }
     .body .body-left .nav-ul .list-li:nth-child(2){
-        width: 250px; height: 120px; margin-bottom: 3px; font-weight: bold; border-bottom: 1px solid black;
+        width: 250px; height: 140px; margin-bottom: 3px; font-weight: bold; border-bottom: 1px solid black;
     }
     .body .body-left .nav-ul .list-li:nth-child(3){
         width: 250px; height: 90px; margin-bottom: 3px; font-weight: bold; border-bottom: 1px solid black;
@@ -50,25 +44,9 @@
 	.body .body-left .nav-ul .list-li .item-a{
 		display: inline-block; padding-top: 2px; color:black; margin-top: 6px; font-weight: normal;
 	}
-    .star_rating {
-        font-size:0; letter-spacing:-4px;
-    }
-    .star_rating a {
-        font-size:22px;
-        letter-spacing:0;
-        display:inline-block;
-        margin-left:5px;
-        color:#ccc;
-        text-decoration:none;
-    }
-    .star_rating a:first-child {
-        margin-left:25px;
-    }
-    .star_rating a.on {
-        color:#777;
-    }
-    .body .body-middle{
-        float:left; width: 1150px; height:700px;
+	
+	.body .body-middle{
+        float:left; width: 1150px; height:780px;
     }
     .file-box{
 	width : 100px;
@@ -106,10 +84,10 @@
 	
 	margin-right : 20px;
 	}
-
+	
 </style>
 
-<!-- 후기 등록 -->
+<!-- 신고 등록 -->
 
 <div class="body">
 		<div class="body-left">		
@@ -143,41 +121,38 @@
 				</li>		
 			</ul>		
 		</div>
-        <div class="body-middle">
-        
-           <form action="<c:url value='/MyPage/ReviewInsert'></c:url>" method="post" enctype="multipart/form-data">
-           
-           	<input type="hidden" name="re_ar_num" value="${re_ar_num}">
-           
-           	 <div class="form-group" style="margin-left: 10px">
 		
-				<label for="title">제목:</label>
+		<div class="body-middle">
+        
+           <form action="<c:url value='/MyPage/ReportInsert'></c:url>" method="post" enctype="multipart/form-data">
+           
+           	<div class="form-group">
+		
+			<label for="type">게시판:</label>
 			
-				<input type="text" class="form-control" id="title" name="re_title">
+			<select class="form-control" name="re_rc_num" id="type">
 			
-			 </div>
-			 
-			 <div class="form-group">
-			
-				<select class="form-control" name="re_level" id="type">
-			
-					<option value="0">평점을 선택하세요.</option>
+				<option value="0">문의 사항 카데고리를 선택하세요.</option>
 				
-					<option value="1">★☆☆☆☆</option>
-					
-					<option value="2">★★☆☆☆</option>
-					
-					<option value="3">★★★☆☆</option>
-					
-					<option value="4">★★★★☆</option>
-					
-					<option value="5">★★★★★</option>
+				<c:forEach items="${reportCategory}" var="reca">
 				
-				</select>
+					<option value="${reca.rc_num}">${reca.rc_name}</option>
+				
+				</c:forEach>
+				
+			</select>
 			
 			</div>
 			
-			<div id="common" style="margin-left: 10px">
+			<div class="PrName" style="width:120px; height: 40px;">
+			
+			<label for="person" id="pr_name">유저</label>
+			
+			 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색</button>
+			 
+			</div>
+			 
+			 <div id="common" style="margin-left: 10px">
 		
 				<div class="form-group" style="margin-left: 10px">
 			
@@ -229,47 +204,69 @@
 			
 		</div>
 		
-		<button class="btn btn-outline-success col-12 mb-2" style="margin-left: 10px">후기 등록</button>
+		<button class="btn btn-outline-success col-12 mb-2" style="margin-left: 10px">신고 등록</button>
+			 
+		</form>
 		
-       </form>
-       
-     </div>
-     
-   </div>
-   
-   <script>
-   
-	$('#content').summernote({
+		 <!-- The Modal -->
+      <div class="modal" id="myModal" style="margin-top: 150px;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+            	
+                <label>유저</label>
+            		
+            	<input type="text" class="form-control" placeholder="Search" name="search" value="${pm.criteria.search}">
+            	
+            	<div class="input-group-append">
+            		
+            		<button class="btn btn-success" type="submit" id="btn-search">검색</button>
+            			
+            	</div>
+            	
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body dream">
+              
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+	</div>
+	</div>
 	
-		placeholder: '내용을 입력하세요.',
-	
-		tabsize: 2,
-	
-		height: 120
-	
+	<script>
+    $('#content').summernote({
+        placeholder: '내용을 입력하세요.',
+        tabsize: 2,
+        height: 140
+    });
+
+    $('.file-box,.preview').click(function(){
+	$(this).siblings('input').click();
 	});
-	
+    
 	$('form').submit(function(){
 		
-		let re_level = $('[name=re_level]').val();
+		let re_num = $('[name=re_num]').val();
 		
-		if(re_level  == 0){
+		if(rc_num  == 0){
 			
-			alert('별점을 선택하세요.');
+			alert('신고 카데고리를 선택하세요.');
 			
-			$('[name=re_level]').focus();
-			
-			return false;
-			
-		}
-		
-		let re_title = $('[name=re_title]').val();
-		
-		if(re_title.trim().length  == 0){
-			
-			alert('제목을 입력하세요.');
-			
-			$('[name=re_title]').focus();
+			$('[name=re_rc_num]').focus();
 			
 			return false;
 			
@@ -314,35 +311,140 @@
 		
 	});
 	
-	$('.file-box,.preview').click(function(){
-		
-		$(this).siblings('input').click();
-		
-	});
+function readURL(input){
 	
-	function readURL(input){
+	if(!input.files || !input.files[0]){
+		input.nextElementSibling.src ='';
+		input.previousElementSibling.style.display = 'block';
+		return;
+	}
+	let reader = new FileReader();
+	reader.onload = function(e){
+		input.previousElementSibling.style.display = 'none';
+		input.nextElementSibling.src = e.target.result;
+	}
+	reader.readAsDataURL(input.files[0]);
+}
+
+$('#btn-search').click(function(){
+	
+	let search = $('[name=search]').val();
+	
+	console.log(search);
+	
+	let Person = {
+			
+			search : search
+			
+	};
+	
+	select(Person)
+    
+})
+
+function select(Person){
+	
+	ajax('POST', Person, '<c:url value="/PersonList"></c:url>', function(data){
 		
-		if(!input.files || !input.files[0]){
+			if(data.person){
+				
+				let str = '';
+				
+				let person = data.person;
+				
+				for(i = 0; i < person.length; i++){
+					
+				str +=
+					
+				'<table class="table table-striped">' + '<thead>' + '<tr>' + '<th>아이디</th>' + 
+				
+				'<th>이름</th>' + '<th hidden></th>' + '</tr>' + '</thead>';
+				
+				str +=
+					
+				'<tbody>' + '<tr>'+ '<td>' + '<a href="#" class="sport">' + person[i].me_id + '</a>' + '</td>' +
+				
+				'<td>' + person[i].me_name + '</td>';
+				
+				str +=
+					
+				'</tr>' + '</tbody>' + '</table>';
+				
+				}
+				
+				$('.dream').html(str);
+				
+			}
 			
-			input.nextElementSibling.src ='';
+		});
+	
+	let id = $('.sport').text();
+	
+	let PrName = {
 			
-			input.previousElementSibling.style.display = 'block';
+			me_id : id
 			
-			return;
-			
-		}
+	};
+	
+	console.log(PrName);
+	
+	$('.sport').click(function(){
 		
-		let reader = new FileReader();
+		selectPrName(PrName);
 		
-		reader.onload = function(e){
-			
-			input.previousElementSibling.style.display = 'none';
-			
-			input.nextElementSibling.src = e.target.result;
-			
-		}
+	})
+	
+	}
+	
+function selectPrName(PrName){
+	
+	ajax('POST', PrName, '<c:url value='/MyPage/MemberSelect'></c:url>', function(data){
 		
-		reader.readAsDataURL(input.files[0]);
+		if(data.result){
+			
+			let str2 = '';
+			
+			let result = data.result;
+			
+			for(i = 0; i < result.length; i++){
+				
+				console.log(result[i].me_id);
+			
+			str2 +=
+				
+				'<label for="person" id="me_id" name="re_report_id">' + result[i].me_id + '</label>' +
+				
+				'<button type="button" class="searchButton" data-toggle="modal" data-target="#myModal">검색</button>';
+				
+			}
+				
+			$('.PrName').html(str2);
+			
+	}
+	
+})
+
+}
+		
+function ajax(method, obj, url, successFunc, errorFunc){
+	
+	$.ajax({
+		
+			async:false,
+			
+			type: method,
+			
+			data: JSON.stringify(obj),
+			
+			url: url,
+			
+			dataType:"json",
+			
+			contentType:"application/json; charset=UTF-8",
+			
+			success : successFunc
+			
+		});
 		
 	}
 

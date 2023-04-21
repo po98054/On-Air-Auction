@@ -22,22 +22,6 @@
 	
 	</select>
 	
-	<select id="selectPartAuctList2" resultType="kr.kr.OnAirAuction.VO.ParticipateAuction2VO">
-	
-		select ac_num, ac_ac_name, me_name, pr_name, pr_startprice, ac_startDate, ac_state, ar_bidprice
-		
-		from auction join member on ac_me_id = me_id join product on pr_code = ac_pr_code
-		
-		join auction_record on ac_num = ar_ac_num
-		
-		where (pr_name like concat('%', #{criteria.search}, '%') or me_name like concat('%', #{criteria.search}, '%'))
-		
-		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
-		
-		order by ac_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
-	
-	</select>
-	
 	<!-- 경매 개최 내역 관련 쿼리 -->
 	
 	<select id="selectPartAuctTotalCount" resultType="int">
@@ -278,6 +262,22 @@
 	
 	</select>
 	
+	<select id="selectFileListByInquiry" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_tablenum = #{in_num} and fi_tablename = '문의 사항'
+	
+	</select>
+	
+	<!-- 문의 사항 수정 -->
+	
+	<update id="updateInquiry">
+	
+		update inquiry set in_title = #{inquiry.in_title}, in_content = #{inquiry.in_content}, in_ic_num = #{inquiry.in_ic_num}, in_modifyDate = now()
+		
+		where in_num = #{inquiry.in_num}
+	
+	</update>
+	
 	<!-- 문의 사항 삭제 -->
 	
 	<delete id="deleteInquiry">
@@ -286,27 +286,65 @@
 	
 	</delete>
 	
+	<!-- 신고 등록 -->
+	
 	<select id="selectAllReportCategory" resultType="kr.kr.OnAirAuction.VO.ReportCategoryVO">
 	
 		select * from report_category
 	
 	</select>
 	
-	<select id="selectPerson" resultType="kr.kr.OnAirAuction.VO.ReportPersonVO">
+	<select id="selectPerson" resultType="kr.kr.OnAirAuction.VO.PersonSearchVO">
 	
 		select me_name, me_id from member where (me_id like concat('%', #{criteria.search}, '%')) 
 	
 	</select>
 	
-	<select id="selectPersonName" resultType="kr.kr.OnAirAuction.VO.ReportPersonVO">
+	<select id="selectPersonName" resultType="kr.kr.OnAirAuction.VO.PersonSearchVO">
 	
-		select me_name from member where me_name = #{member.me_name}
+		select me_id from member where me_id = #{person.me_id}
 	
 	</select>
 	
+	<insert id="insertReport" useGeneratedKeys="true" keyProperty="report.re_num">
+	
+    	<if test="report.re_rc_num != 2">
+	
+			insert into report(re_num, re_content, re_date, re_rc_num)
+		
+			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
+			
+			#{report.re_content}, now(), #{report.re_rc_num} from report
+			
+		</if>
+		
+		<if test="report.re_rc_num == 2">
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_report_id)
+		
+			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
+			
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_report_id} from report
+			
+		</if>
+		
+	</insert>
+	
+	<!-- 신고 등록시 첨부 파일 등록 -->
+	
+	<insert id="insertFileByReport">
+  	
+  		insert into file(fi_name, fi_savename, fi_tablename, fi_tablenum)
+  		
+  		values(#{file.fi_name},#{file.fi_savename}, '신고', #{re_num})
+  	
+  	</insert>
+  	
+  	<!-- 신고 조회 -->
+	
 	<select id="selectReportList" resultType="kr.kr.OnAirAuction.VO.ReportVO">
   		
-  		select * from report order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		select * from report join report_category on re_rc_num = rc_num order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
   		
   	</select>
   	
@@ -316,30 +354,36 @@
 	
 	</select>
 	
+	<!-- 신고 상세 보기 -->
+	
 	<select id="selectReport" resultType="kr.kr.OnAirAuction.VO.ReportVO">
 	
-		select * from report where re_num = #{re_num}
-		
+		select * from report left join member on me_id = re_me_id where re_num = #{re_num}
+	
 	</select>
+	
+	<select id="selectFileListByReport" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_tablenum = #{re_num} and fi_tablename = '신고'
+	
+	</select>
+	
+	<!-- 신고 수정 -->
+	
+	<update id="updateReport">
+	
+		update report set re_content = #{report.re_content}, re_rc_num = #{report.re_rc_num}
+		
+		where re_num = #{report.re_num}
+	
+	</update>
+	
+	<!-- 신고 삭제 -->
 	
 	<delete id="deleteReport">
 	
 		delete from report where re_num = #{re_num}
 	
 	</delete>
-	
-	<select id="selectFileListByInquiry" resultType="kr.kr.OnAirAuction.VO.FileVO">
-	
-		select * from file where fi_tablenum = #{in_num} and fi_tablename = '문의 사항'
-	
-	</select>
-	
-	<update id="updateInquiry">
-	
-		update inquiry set in_title = #{inquiry.in_title}, in_content = #{inquiry.in_content}, in_ic_num = #{inquiry.in_ic_num}, in_modifyDate = now()
-		
-		where in_num = #{inquiry.in_num}
-	
-	</update>
 
 </mapper>

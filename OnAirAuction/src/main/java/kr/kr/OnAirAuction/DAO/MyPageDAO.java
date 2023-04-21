@@ -16,18 +16,14 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
-import kr.kr.OnAirAuction.VO.ParticipateAuction2VO;
-
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
+
+import kr.kr.OnAirAuction.VO.PersonSearchVO;
 
 import kr.kr.OnAirAuction.VO.ProductSearchVO;
 
 import kr.kr.OnAirAuction.VO.ReportCategoryVO;
-
-import kr.kr.OnAirAuction.VO.ReportPersonVO;
-
 import kr.kr.OnAirAuction.VO.ReportVO;
-
 import kr.kr.OnAirAuction.VO.ReviewVO;
 
 public interface MyPageDAO {
@@ -104,32 +100,50 @@ public interface MyPageDAO {
 
 	InquiryVO selectInquiry(@Param("in_num")int in_num);
 	
+	ArrayList<FileVO> selectFileListByInquiry(@Param("in_num")int in_num);
+	
+	// 문의 사항 수정
+	
+	int updateInquiry(@Param("inquiry")InquiryVO inquiry);
+
+	void insertFileByInquiry(@Param("file")FileVO fileVo, @Param("in_num")int in_num);
+	
 	// 문의 사항 삭제
 
 	int deleteInquiry(@Param("in_num")int in_num);
+	
+	// 신고 등록
 
 	ArrayList<ReportCategoryVO> selectAllReportCategory();
+	
+	void insertReport(@Param("report")ReportVO report);
 
-	ArrayList<ReportPersonVO> selectPerson(@Param("criteria")Criteria criteria);
+	// ajax를 통한 아이디 조회
+	
+	ArrayList<PersonSearchVO> selectPerson(@Param("criteria")Criteria criteria);
 
-	ArrayList<ReportPersonVO> selectPersonName(@Param("member")ReportPersonVO person);
+	ArrayList<PersonSearchVO> selectPersonName(@Param("person")PersonSearchVO person);
+
+	void insertFileByReport(@Param("file")FileVO fileVo, @Param("re_num")int re_num);
+	
+	// 신고 조회
 
 	ArrayList<ReportVO> selectReportList(@Param("criteria")Criteria criteria);
 
 	int selectReportTotalCount(@Param("criteria")Criteria criteria);
+	
+	// 신고 상세 보기
 
 	ReportVO selectReport(@Param("re_num")int re_num);
 
-	int deleteReport(@Param("re_num")int re_num);
-
-	ArrayList<ParticipateAuction2VO> selectPartAuctList2(@Param("criteria")Criteria criteria);
+	ArrayList<FileVO> selectFileListByReport(@Param("re_num")int re_num);
 	
-	int selectPartAuctTotalCount2(@Param("criteria")Criteria criteria);
+	// 신고 수정
 
-	void insertFileByInquiry(@Param("file")FileVO fileVo, @Param("in_num")int in_num);
+	int updateReport(@Param("report")ReportVO report);
+	
+	// 신고 삭제
 
-	ArrayList<FileVO> selectFileListByInquiry(@Param("in_num")int in_num);
-
-	int updateInquiry(@Param("inquiry")InquiryVO inquiry);
+	int deleteReport(@Param("re_num")int re_num);
 
 }

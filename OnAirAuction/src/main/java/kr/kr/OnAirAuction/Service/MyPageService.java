@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.kr.OnAirAuction.VO.ParticipateAuction2VO;
-
 import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
@@ -24,11 +22,11 @@ import kr.kr.OnAirAuction.VO.ProductSearchVO;
 
 import kr.kr.OnAirAuction.VO.ReportCategoryVO;
 
-import kr.kr.OnAirAuction.VO.ReportPersonVO;
-
 import kr.kr.OnAirAuction.VO.ReportVO;
 
 import kr.kr.OnAirAuction.VO.ReviewVO;
+
+import kr.kr.OnAirAuction.VO.PersonSearchVO;
 
 public interface MyPageService {
 	
@@ -96,30 +94,46 @@ public interface MyPageService {
 
 	InquiryVO getInquiry(int in_num);
 	
+	ArrayList<FileVO> getFileListByInquiry(int in_num);
+	
+	// 문의 사항 수정
+	
+	boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums);
+	
 	// 문의 사항 삭제
 
 	boolean deleteInquiry(int in_num);
+	
+	// 신고 등록
 
 	ArrayList<ReportCategoryVO> getReportCategory();
+	
+	boolean insertReport(ReportVO report, MultipartFile[] files);
+	
+	// ajax를 통한 아이디 조회
 
-	ArrayList<ReportPersonVO> getPerson(Criteria criteria);
+	ArrayList<PersonSearchVO> getPerson(Criteria criteria);
 
-	ArrayList<ReportPersonVO> SelectReport(ReportPersonVO person);
+	ArrayList<PersonSearchVO> SelectPerson(PersonSearchVO person);
+	
+	// 신고 조회
 
 	ArrayList<ReportVO> getReportList(Criteria criteria);
 
 	int getReportTotalCount(Criteria criteria);
+	
+	// 신고 상세 보기
 
 	ReportVO getReport(int re_num);
 
+	ArrayList<FileVO> getFileListByReport(int re_num);
+	
+	// 신고 수정
+
+	boolean UpdateReport(ReportVO report, MultipartFile[] files, int[] fileNums);
+	
+	// 신고 삭제
+
 	boolean deleteReport(int re_num);
 
-	ArrayList<ParticipateAuction2VO> getPartAuctList2(Criteria criteria);
-
-	int getPartAuctTotalCount2(Criteria criteria);
-
-	ArrayList<FileVO> getFileListByInquiry(int in_num);
-
-	boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums);
-	
 }

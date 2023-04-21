@@ -155,7 +155,6 @@
 
 <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.css'></c:url>">
 
-${list}
 
  <div class="body">
 		<div class="body-left">		
@@ -224,7 +223,9 @@ ${list}
           		<c:forEach items="${list}" var="pa">
             		<tr>
 					<td>
-                		<input type="radio" name="radio" value="${pa.ac_num}">
+						<c:if test = "${pa.ac_state ne '경매 취소'}">
+                			<input type="radio" name="radio" value="${pa.ac_num}">
+                		</c:if>
             		</td>
               		<td>
                 		<a href="#" class="auction">${pa.ac_num}</a>
@@ -267,6 +268,7 @@ ${list}
 					 <div class="modal_layer modal_layer5">
         		<div id="modal">
             <div class="modal_content3">
+            		<input type="hidden" name="ac_state" value="경매 취소">
                     <div class="textarea_container">
                         <textarea name="ac_reason" id="" cols="30" rows="10" style="border: none; width: 100%; height: 100%; border-radius: 20px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc;" placeholder="내용을 입력해주세요."></textarea>
                     </div>
@@ -274,6 +276,7 @@ ${list}
             </div>
             <button type="button" id="modal_close_btn5" class="close_btn2">닫기</button>
             <button type="submit" id="modal_confirm_btn5" class="confirm_btn2">취소 확정</button>
+           
         </div>
     	</div>
             <div class="container" style="margin-top: 10px;">
@@ -369,7 +372,11 @@ ${list}
     	
     	const acnum = $("input[name='radio']:checked").val();
     	
+    	let ac_state = $("input[name='ac_state']").val();
+    	
     	console.log(acnum);
+    	
+    	console.log(ac_state);
     	
     	$('.confirm_btn2').click(function(){
     		
@@ -391,7 +398,17 @@ ${list}
     				
     			}
     		
+    		let update = {
+    				
+    				ac_state : ac_state,
+    				
+    				ac_num : acnum
+    				
+    		}
+    		
     		insertCancle(cancle);
+    		
+    		updateAuction(update);
     		
     	})
     	
@@ -405,6 +422,8 @@ ${list}
 				
 				alert('해당 경매를 취소했습니다.');
 				
+				
+				
 			}else{
 				
 				alert('해당 경매 취소에 실패했습니다.');
@@ -414,6 +433,21 @@ ${list}
 		});
 	
 	}
+    	
+    function updateAuction(update){
+    		
+    	ajax('POST', update, '<c:url value="/Auction/update"></c:url>', function(data){
+    		
+    		if(data.res){
+    			location.href = '<c:url value="/MyPage/heldAuctionList"></c:url>';
+    		
+    		} else{
+    			
+    		}
+    		
+    	});
+    		
+    	}
     	
     function ajax(method, obj, url, successFunc, errorFunc){
     		
@@ -438,6 +472,4 @@ ${list}
     	}
     
     </script>
-    
-    ${ac_num}
     

@@ -24,15 +24,13 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
-import kr.kr.OnAirAuction.VO.ParticipateAuction2VO;
-
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
+
+import kr.kr.OnAirAuction.VO.PersonSearchVO;
 
 import kr.kr.OnAirAuction.VO.ProductSearchVO;
 
 import kr.kr.OnAirAuction.VO.ReportCategoryVO;
-
-import kr.kr.OnAirAuction.VO.ReportPersonVO;
 
 import kr.kr.OnAirAuction.VO.ReportVO;
 
@@ -469,128 +467,15 @@ public class MyPageServiceImp implements MyPageService{
 		return myPageDao.selectInquiry(in_num);
 			
 	}
-
-	// 문의 사항 삭제
 	
-	@Override
-	public boolean deleteInquiry(int in_num) {
-		
-		System.out.println(in_num);
-		
-		InquiryVO inquiry = myPageDao.selectInquiry(in_num);
-		
-		if(inquiry == null) {
-			
-			return false;
-			
-		}
-		
-		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
-		
-		deleteFileList(fileList);
-		
-		return myPageDao.deleteInquiry(in_num) != 0;
-	}
-
-	@Override
-	public ArrayList<ReportCategoryVO> getReportCategory() {
-		
-		return myPageDao.selectAllReportCategory();
-		
-	}
-
-	@Override
-	public ArrayList<ReportPersonVO> getPerson(Criteria criteria) {
-		
-		System.out.println(criteria);
-		
-		if(criteria == null) {
-			
-			criteria = new Criteria();
-			
-		}
-		
-		return myPageDao.selectPerson(criteria);
-		
-	}
-
-	@Override
-	public ArrayList<ReportPersonVO> SelectReport(ReportPersonVO person) {
-		
-		System.out.println(person);
-		
-		return myPageDao.selectPersonName(person);
-		
-	}
-
-	@Override
-	public ArrayList<ReportVO> getReportList(Criteria criteria) {
-		
-		if(criteria == null) {
-			
-			criteria = new Criteria();
-			
-		}
-		
-		return myPageDao.selectReportList(criteria);
-		
-	}
-
-	@Override
-	public int getReportTotalCount(Criteria criteria) {
-		
-		return myPageDao.selectReportTotalCount(criteria);
-		
-	}
-
-	@Override
-	public ReportVO getReport(int re_num) {
-		
-		return myPageDao.selectReport(re_num);
-		
-	}
-
-	@Override
-	public boolean deleteReport(int re_num) {
-		
-		ReportVO report = myPageDao.selectReport(re_num);
-		
-		if(report == null) {
-			
-			return false;
-			
-		}
-		
-		
-		return myPageDao.deleteReport(re_num) != 0;
-		
-	}
-
-	@Override
-	public ArrayList<ParticipateAuction2VO> getPartAuctList2(Criteria criteria) {
-		
-		if(criteria == null) {
-			
-			criteria = new Criteria();
-			
-		}
-		
-		return myPageDao.selectPartAuctList2(criteria);
-	}
-	
-	@Override
-	public int getPartAuctTotalCount2(Criteria criteria) {
-
-		return myPageDao.selectPartAuctTotalCount2(criteria);
-		
-	}
-
 	@Override
 	public ArrayList<FileVO> getFileListByInquiry(int in_num) {
 		
 		return myPageDao.selectFileListByInquiry(in_num);
 		
 	}
+	
+	// 문의 사항 수정
 	
 	@Override
 	public boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums) {
@@ -605,13 +490,13 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		/*InquiryVO dbInquiry = myPageDao.selectInquiry(inquiry.getIn_num());
+		InquiryVO dbInquiry = myPageDao.selectInquiry(inquiry.getIn_num());
 		
 		if(dbInquiry == null) {
 			
 			return false;
 			
-		}*/
+		}
 		
 		if(myPageDao.updateInquiry(inquiry) == 0) {
 			
@@ -648,6 +533,241 @@ public class MyPageServiceImp implements MyPageService{
 		deleteFileList(fileList);
 			
 		return true;
+		
 	}
 
+	// 문의 사항 삭제
+	
+	@Override
+	public boolean deleteInquiry(int in_num) {
+		
+		System.out.println(in_num);
+		
+		InquiryVO inquiry = myPageDao.selectInquiry(in_num);
+		
+		if(inquiry == null) {
+			
+			return false;
+			
+		}
+		
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		deleteFileList(fileList);
+		
+		return myPageDao.deleteInquiry(in_num) != 0;
+	}
+
+	// 신고 등록
+	
+	@Override
+	public ArrayList<ReportCategoryVO> getReportCategory() {
+		
+		
+		return myPageDao.selectAllReportCategory();
+		
+	}
+
+	// ajax를 통한 아이디 조회
+	
+	@Override
+	public ArrayList<PersonSearchVO> getPerson(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectPerson(criteria);
+		
+	}
+
+	@Override
+	public ArrayList<PersonSearchVO> SelectPerson(PersonSearchVO person) {
+		
+		return myPageDao.selectPersonName(person);
+		
+	}
+
+	@Override
+	public boolean insertReport(ReportVO report, MultipartFile[] files) {
+		
+		System.out.println(files);
+		
+		if(report == null || report.getRe_content() == null) {
+			
+			return false;
+			
+		}
+		
+		myPageDao.insertReport(report);
+		
+		uploadFilesByReport(files, report.getRe_num());
+		
+		return true;
+		
+	}
+	
+	// 신고 등록시 첨부파일 등록
+	
+	private void uploadFilesByReport(MultipartFile [] files, int re_num) {
+		
+		if(files == null || files.length == 0)
+			
+			return ;
+		
+		//반복문
+		for(MultipartFile file : files) {
+			
+			if(file == null || file.getOriginalFilename().length() == 0)
+				
+				continue;
+			
+			String fileName = "";
+			
+			//첨부파일 서버에 업로드
+			
+			try {
+				
+				fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()); 
+						
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				
+			} 
+			
+			System.out.println(fileName);
+			
+			//첨부파일 객체를 생성
+			FileVO fileVo = new FileVO(file.getOriginalFilename(), fileName, re_num);
+			
+			System.out.println(re_num);
+			
+			//다오에게서 첨부파일 정보를 주면서 추가하라고 요청
+			myPageDao.insertFileByReport(fileVo, re_num);
+			
+		}
+	}
+
+	// 신고 조회
+	
+	@Override
+	public ArrayList<ReportVO> getReportList(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectReportList(criteria);
+		
+	}
+
+	@Override
+	public int getReportTotalCount(Criteria criteria) {
+		
+		return myPageDao.selectReportTotalCount(criteria);
+		
+	}
+	
+	// 신고 상세 보기
+
+	@Override
+	public ReportVO getReport(int re_num) {
+		
+		return myPageDao.selectReport(re_num);
+		
+	}
+
+	@Override
+	public ArrayList<FileVO> getFileListByReport(int re_num) {
+		
+		return myPageDao.selectFileListByReport(re_num);
+		
+	}
+
+	@Override
+	public boolean UpdateReport(ReportVO report, MultipartFile[] files, int[] fileNums) {
+		
+		System.out.println(files);
+		
+		System.out.println(fileNums);
+		
+		if(report == null || report.getRe_num() <= 0) {
+			
+			return false;
+			
+		}
+		
+		ReportVO dbreport = myPageDao.selectReport(report.getRe_num());
+		
+		if(dbreport == null) {
+			
+			return false;
+			
+		}
+		
+		if(myPageDao.updateReport(report) == 0) {
+			
+			return false;
+			
+		}
+		
+		uploadFilesByReport(files, report.getRe_num());
+		
+		if(fileNums == null || fileNums.length == 0) {
+			
+			return true;
+			
+		}
+
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		System.out.println(fileList);
+		
+		for(int fileNum : fileNums) {
+			
+			FileVO fileVo = myPageDao.selectFile(fileNum);
+			
+			System.out.println(fileVo);
+			
+			if(fileVo != null) {
+				
+				fileList.add(fileVo);
+				
+			}
+			
+		}
+		
+		deleteFileList(fileList);
+			
+		return true;
+	}
+	
+	// 신고 삭제
+
+	@Override
+	public boolean deleteReport(int re_num) {
+		
+		System.out.println(re_num);
+		
+		ReportVO report = myPageDao.selectReport(re_num);
+		
+		if(report == null) {
+			
+			return false;
+			
+		}
+		
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		deleteFileList(fileList);
+		
+		return myPageDao.deleteReport(re_num) != 0;
+		
+	}
+	
 }
