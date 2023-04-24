@@ -28,13 +28,16 @@
 		line-height: 27px; font-size: 20px; border-radius: 5px; cursor: pointer;
 	}
 	.container{
-		height: 1100px;
+		height: 1400px;
 	}
  	.container-box{
  		width: 800px; margin-left: auto; margin-right: auto; margin-top: 40px !important;
  	}
 	.container-h1{
  		margin-top: 40px; margin-bottom: 30px;
+ 	}
+ 	.find-btn{
+ 		 text-align: center;
  	}
 
 </style>
@@ -75,6 +78,24 @@
 			    </div>
 			</div>
 			<div class="form-group">
+				<label>반품수용여부</label>
+				<div class="form-control">
+				    <input type="text" id="refund_ok" name="pr_refund_ok" value="${vo.pr_refund_ok }" style="border:none">
+			    </div>
+			</div>
+			<div class="form-group">
+				<label>반품수용기간</label>
+				<div class="form-control">
+				    <input type="text" id="refunddate" name="pr_refunddate" value="${vo.pr_refunddate }" style="border:none">
+			    </div>
+			</div>
+			<div class="form-group">
+				<label>환불가능조건</label>
+				<div class="form-control">
+				    <input type="text" id="refundreason" name="pr_refundreason" value="${vo.pr_refundreason }" style="border:none">
+			    </div>
+			</div>
+			<div class="form-group">
 			    <label for="startprice">경매시작가격</label>
 			    <div class="form-control">
 				    <input type="text" id="startprice" name="pr_startprice" value="${vo.pr_startprice }" style="border:none">
@@ -112,7 +133,9 @@
 					</c:forEach>
 				</div>
 			</div>
-			<button class="btn-outline-success" type="submit">수정</button>
+			<div class="find-btn">
+				<button class="btn btn-outline-primary">수정</button>
+			</div>
 		</form>
 	</div>
 </div>
@@ -147,6 +170,24 @@ $('form').submit(function(){
 	if(pr_location.trim().length  == 0){
 		alert('상품위치를 입력하세요.');
 		$('[name=pr_location]').focus();
+		return false;
+	}
+	let pr_refund_ok = $('[name=pr_refund_ok]').val();
+	if(pr_refund_ok.trim().length  == 0){
+		alert('반품수용여부를 입력하세요.');
+		$('[name=pr_refund_ok]').focus();
+		return false;
+	}
+	let pr_refunddate = $('[name=pr_refunddate]').val();
+	if(pr_refunddate.trim().length  == 0){
+		alert('반품수용기간을 입력하세요.');
+		$('[name=pr_refunddate]').focus();
+		return false;
+	}
+	let pr_refundreason = $('[name=pr_refundreason]').val();
+	if(pr_refundreason.trim().length  == 0){
+		alert('환불가능조건을 입력하세요.');
+		$('[name=pr_refundreason]').focus();
 		return false;
 	}
 	let pr_startprice = $('[name=pr_startprice]').val();

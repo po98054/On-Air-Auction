@@ -7,11 +7,17 @@
  
 <style>
  	.container{
- 		height: 800px;
+ 		height: 1500px;
  	}
  	.container-h1{
  		margin-top: 40px; margin-bottom: 30px;
  	}
+ 	.container-table{
+ 		width: 1200px; height: 500px;
+	}
+	.product{
+		 text-align: center;
+	}
 </style>       
 <div class="container">
 	<div class="container-h1">
@@ -21,25 +27,24 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>선택</th>
 					<th>상품번호</th>
 					<th>상품명</th>
 					<th>상품소개</th>
 					<th>상품상태</th>
 					<th>상세정보</th>
 					<th>상품위치</th>
+					<th>반품수용여부</th>
+					<th>반품수용기간</th>
+					<th>환불가능조건</th>
 					<th>경매시작가격</th>
 					<th>원산지</th>
 					<th>물품크기</th>
+					
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="product">
 				<c:forEach items="${list}" var="vo">
 					<tr>
-						<tr>
-							<td>
-		                		<input type="radio" name="radio" value="${vo.pr_code}">
-		            		</td>
 	              		<td>
 	                		<a href="<c:url value='/product/detail/${vo.pr_code}'></c:url>" class="auction">${vo.pr_code}</a>
 	                	</td>
@@ -48,7 +53,10 @@
 						<td>${vo.pr_condition }</td>
 						<td>${vo.pr_detail }</td>
 						<td>${vo.pr_location }</td>
-						<td>${vo.pr_startprice }</td>
+						<td>${vo.pr_refund_ok }</td>
+						<td>${vo.pr_refunddate }</td>
+						<td>${vo.pr_refundreason }</td>
+						<td>${vo.pr_startprice } <span>원</span></td>
 						<td>${vo.pr_origin }</td>
 						<td>${vo.pr_size }</td>
 					</tr>

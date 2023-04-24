@@ -19,14 +19,18 @@
 	.swiper-slide2 img {
 	  display: block; width: 100%; height: 100%; object-fit: cover;
 	}
+	
 	.container{
-		height: 1100px;
+		height: 1400px;
 	}
 	.container-box{
  		width: 800px; margin-left: auto; margin-right: auto; margin-top: 40px !important;
  	}
 	.container-h1{
  		margin-top: 40px; margin-bottom: 30px;
+ 	}
+ 	.find-btn{
+ 		 text-align: center;
  	}
  	
 
@@ -58,6 +62,18 @@
 			<div class="form-control">${vo.pr_location }</div>
 		</div>
 		<div class="form-group">
+			<label>반품수용여부</label>
+			<div class="form-control">${vo.pr_refund_ok}</div>
+		</div>
+		<div class="form-group">
+			<label>반품수용기간</label>
+			<div class="form-control">${vo.pr_refunddate }</div>
+		</div>
+		<div class="form-group">
+			<label>환불가능조건</label>
+			<div class="form-control">${vo.pr_refundreason }</div>
+		</div>
+		<div class="form-group">
 			<label>상품시작가격</label>
 			<div class="form-control">${vo.pr_startprice}</div>
 		</div>
@@ -86,7 +102,7 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div class="find-btn">
 			<a href="<c:url value='/product/update/${vo.pr_code}'></c:url>">
 				<button class="btn btn-outline-primary btn-update">수정</button>
 			</a>
