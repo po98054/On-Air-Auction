@@ -4,11 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.onAirAuction.dao.ProductDAO">
 	<insert id="insertCategory">
-		insert into product_large_category(plc_num) values(#{pc.plc_num})
+		insert into product_category(pc_name) values(#{pc.pc_name})
 	</insert>
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="p.pr_code">
-		insert into product(pr_code, pr_name, pr_intro, pr_condition, pr_detail, pr_location, pr_startprice, pr_origin, pr_size)
-  		select ifnull(max(pr_code),0)+1, #{p.pr_name}, #{p.pr_intro}, #{p.pr_condition}, #{p.pr_detail}, #{p.pr_location}, #{p.pr_startprice}, #{p.pr_origin}, #{p.pr_size}
+		insert into product(pr_code, pr_name, pr_intro, pr_condition, pr_detail, pr_location, pr_refund_ok, 
+					pr_refunddate, pr_refundreason, pr_startprice, pr_origin, pr_size)
+  		select ifnull(max(pr_code),0)+1, #{p.pr_name}, #{p.pr_intro}, #{p.pr_condition}, #{p.pr_detail}, #{p.pr_location}, #{p.pr_refund_ok}, 
+  					#{p.pr_refunddate}, #{p.pr_refundreason}, #{p.pr_startprice}, #{p.pr_origin}, #{p.pr_size}
   		from product
 	</insert>
 	<insert id="insertFile">
@@ -36,7 +38,8 @@
 	<update id="updateProduct">
 		update product 
 		set pr_name = #{vo.pr_name}, pr_intro = #{vo.pr_intro}, pr_condition = #{vo.pr_condition}, pr_detail = #{vo.pr_detail}, 
-			pr_location = #{vo.pr_location}, pr_startprice = #{vo.pr_startprice}, pr_origin = #{vo.pr_origin}, pr_size = #{vo.pr_size}
+			pr_location = #{vo.pr_location}, pr_refund_ok = #{vo.pr_refund_ok}, pr_refunddate = #{vo.pr_refunddate},
+			pr_refundreason = #{vo.pr_refundreason}, pr_startprice = #{vo.pr_startprice}, pr_origin = #{vo.pr_origin}, pr_size = #{vo.pr_size}
 		where pr_code = #{vo.pr_code}
 	</update>
 	<select id="selectFile" resultType="kr.kh.onAirAuction.vo.FileVO">
