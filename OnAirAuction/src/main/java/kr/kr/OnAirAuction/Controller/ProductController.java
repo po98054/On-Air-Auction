@@ -26,15 +26,15 @@ public class ProductController {
 
 	@Autowired
     private ProductService productService;
-    
+	
+	@RequestMapping(value = "/product")
+	public ModelAndView product(ModelAndView mv) {		
+		mv.setViewName("/product/insert");	
+		return mv;
+	}
+	
 	// 상품 등록
-    @RequestMapping("/registerform")
-    public String showPurchaseForm(Model model) {
-        model.addAttribute("vo", new ProductVO());
-        return "registerform";
-    }
-    
-    @RequestMapping(value="/savePurchase", method=RequestMethod.POST)
+    @RequestMapping(value="/product/insert", method=RequestMethod.POST)
 	public String insert(ProductCategoryVO pc, ProductVO vo, MultipartFile []files){
 		productService.insert(pc, vo, files);
 		return "redirect:/product/list";
