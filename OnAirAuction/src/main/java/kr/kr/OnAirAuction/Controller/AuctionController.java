@@ -19,14 +19,21 @@ public class AuctionController {
 	
 	@Autowired
 	private AuctionService auctionservice;
-	//∞Ê∏≈ µÓ∑œ
-    @RequestMapping(value="/auction", method=RequestMethod.POST)
+	
+	@RequestMapping(value = "/auction")
+	public ModelAndView product(ModelAndView mv) {		
+		mv.setViewName("/auction/insert");	
+		return mv;
+	}
+	
+	//Í≤ΩÎß§ Îì±Î°ù
+    @RequestMapping(value="/auction/insert", method=RequestMethod.POST)
 	public String insertAuction(AuctionVO auction){
     	auctionservice.insertAuction(auction);
 		return "redirect:/auction/list";
 	}
     
-    // ªÛ«∞ ∏ÆΩ∫∆Æ
+    // ÏÉÅÌíà Î¶¨Ïä§Ìä∏
     @RequestMapping(value="/auction/list", method=RequestMethod.GET)
     public ModelAndView auctionList(ModelAndView mv, Criteria cri, AuctionTypeVO ac_name) {
     	ArrayList<AuctionVO> list = auctionservice.getAuctionList(cri);
