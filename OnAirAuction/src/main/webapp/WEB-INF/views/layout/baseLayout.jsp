@@ -28,7 +28,6 @@
     
     .list-unstyled{
         margin-top: 0; margin-bottom: 0; padding-left: 0; list-style: none; 
-
     }
     .timer{
         background:url(	https://www.kobay.co.kr/kobay/images/common/icon-timer.gif) no-repeat 0px center;
@@ -110,7 +109,6 @@
     .bottomCustomer{
         box-sizing: border-box; line-height: 1.42857143; font-size: 14px;
         background: #f7f7f7; border-top: 1px solid black;
-
     }
     .bottomCustomer1{
         padding: 25px 0; display: table; margin-left: auto; margin-right: 200px;
@@ -206,11 +204,7 @@
 
 	<tiles:insertAttribute name="header"/>
          
-    
-    
-    <tiles:insertAttribute name="body"/>
-    
-   
+    <tiles:insertAttribute name="body" />
         
     <tiles:insertAttribute name="footer" />
     
