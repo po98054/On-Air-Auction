@@ -16,6 +16,8 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
+import kr.kr.OnAirAuction.VO.MemberVO;
+
 import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
@@ -86,7 +88,7 @@ public interface MyPageService {
 
 	ArrayList<InquiryCategoryVO> getInquiryCategory();
 
-	boolean insertInquiry(InquiryVO inquiry, MultipartFile[] files);
+	boolean insertInquiry(InquiryVO inquiry, MultipartFile[] files, MemberVO user);
 	
 	// 문의 사항 조회
 
@@ -96,17 +98,17 @@ public interface MyPageService {
 	
 	// 문의 사항 상세 보기
 
-	InquiryVO getInquiry(int in_num);
+	InquiryVO getInquiry(int in_num, MemberVO user);
 	
 	ArrayList<FileVO> getFileListByInquiry(int in_num);
 	
 	// 문의 사항 수정
 	
-	boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums);
+	boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums, MemberVO user);
 	
 	// 문의 사항 삭제
 
-	boolean deleteInquiry(int in_num);
+	boolean deleteInquiry(int in_num, MemberVO user);
 	
 	// 신고 등록
 

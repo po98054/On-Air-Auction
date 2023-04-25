@@ -24,6 +24,8 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
+import kr.kr.OnAirAuction.VO.MemberVO;
+
 import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
@@ -380,7 +382,13 @@ public class MyPageServiceImp implements MyPageService{
 	}
 
 	@Override
-	public boolean insertInquiry(InquiryVO inquiry, MultipartFile[] files) {
+	public boolean insertInquiry(InquiryVO inquiry, MultipartFile[] files, MemberVO user) {
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
 		
 		System.out.println(files);
 		
@@ -391,6 +399,8 @@ public class MyPageServiceImp implements MyPageService{
 			return false;
 			
 		}
+		
+		inquiry.setIn_me_id(user.getMe_id());
 		
 		myPageDao.insertInquiry(inquiry);
 		
@@ -466,7 +476,13 @@ public class MyPageServiceImp implements MyPageService{
 	// 문의 사항 상세 보기
 
 	@Override
-	public InquiryVO getInquiry(int in_num) {
+	public InquiryVO getInquiry(int in_num, MemberVO user) {
+		
+		if(user == null) {
+			
+			return null;
+			
+		}
 	
 		return myPageDao.selectInquiry(in_num);
 			
@@ -482,7 +498,7 @@ public class MyPageServiceImp implements MyPageService{
 	// 문의 사항 수정
 	
 	@Override
-	public boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums) {
+	public boolean UpdateInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums, MemberVO user) {
 		
 		System.out.println(files);
 		
@@ -494,9 +510,21 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
+		if(user == null) {
+			
+			return false;
+			
+		}
+		
 		InquiryVO dbInquiry = myPageDao.selectInquiry(inquiry.getIn_num());
 		
 		if(dbInquiry == null) {
+			
+			return false;
+			
+		}
+		
+		if(!dbInquiry.getIn_me_id().equals(user.getMe_id())) {
 			
 			return false;
 			
@@ -543,13 +571,25 @@ public class MyPageServiceImp implements MyPageService{
 	// 문의 사항 삭제
 	
 	@Override
-	public boolean deleteInquiry(int in_num) {
+	public boolean deleteInquiry(int in_num, MemberVO user) {
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
 		
 		System.out.println(in_num);
 		
 		InquiryVO inquiry = myPageDao.selectInquiry(in_num);
 		
 		if(inquiry == null) {
+			
+			return false;
+			
+		}
+		
+		if(!inquiry.getIn_me_id().equals(user.getMe_id())) {
 			
 			return false;
 			

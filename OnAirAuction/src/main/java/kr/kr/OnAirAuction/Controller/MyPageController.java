@@ -6,7 +6,11 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,6 +47,8 @@ import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
+
+import kr.kr.OnAirAuction.VO.MemberVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
@@ -365,9 +371,11 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/InquiryInsert", method = RequestMethod.POST)
 	
-	public ModelAndView InquiryInsertPost(ModelAndView mv, InquiryVO inquiry, MultipartFile []files) {
+	public ModelAndView InquiryInsertPost(ModelAndView mv, InquiryVO inquiry, MultipartFile []files, HttpSession session) {
 		
-		if(myPageService.insertInquiry(inquiry, files)) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(myPageService.insertInquiry(inquiry, files, user)) {
 			
 			System.out.println("문의 사항 등록 성공 !!");
 			
@@ -423,11 +431,13 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/InquiryUpdate/{in_num}", method = RequestMethod.GET)
 	
-	public ModelAndView InquiryUpdate(ModelAndView mv, @PathVariable("in_num") int in_num) {
+	public ModelAndView InquiryUpdate(ModelAndView mv, @PathVariable("in_num") int in_num, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		System.out.println(in_num);
 		
-		InquiryVO inquiry = myPageService.getInquiry(in_num);
+		InquiryVO inquiry = myPageService.getInquiry(in_num, user);
 		
 		ArrayList<InquiryCategoryVO> inquiryCategory = myPageService.getInquiryCategory();
 		
@@ -453,7 +463,9 @@ public class MyPageController {
 	
 	public ModelAndView InquiryUpdatePost(ModelAndView mv, @PathVariable("in_num") int in_num, InquiryVO inquiry, MultipartFile []files, int [] fileNums,
 			
-			HttpServletResponse response) {
+			HttpServletResponse response, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		System.out.println(in_num);
 		
@@ -461,7 +473,7 @@ public class MyPageController {
 		
 		System.out.println(fileNums);
 		
-		if(myPageService.UpdateInquiry(inquiry, files, fileNums)) {
+		if(myPageService.UpdateInquiry(inquiry, files, fileNums, user)) {
 			
 			MessageUtils.alertAndMovePage(response, "문의 사항 수정에 성공했습니다..", "OnAirAuction", "/MyPage/InquiryUpdate/"+in_num);
 			
@@ -501,11 +513,13 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/InquiryDetail/{in_num}", method=RequestMethod.GET)
 	
-	public ModelAndView InquiryDetail(ModelAndView mv, @PathVariable("in_num") int in_num) {
+	public ModelAndView InquiryDetail(ModelAndView mv, @PathVariable("in_num") int in_num, HttpSession session) {
 		
 		System.out.println(in_num);
 		
-		InquiryVO inquiry = myPageService.getInquiry(in_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		InquiryVO inquiry = myPageService.getInquiry(in_num, user);
 		
 		ArrayList<FileVO> files = myPageService.getFileListByInquiry(in_num);
 		
@@ -523,9 +537,11 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/InquiryDelete/{in_num}", method = RequestMethod.GET)
 	
-	public ModelAndView InquiryDelete(ModelAndView mv, @PathVariable("in_num") int in_num) {
+	public ModelAndView InquiryDelete(ModelAndView mv, @PathVariable("in_num") int in_num, HttpSession session) {
 		
-		if(myPageService.deleteInquiry(in_num)) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(myPageService.deleteInquiry(in_num, user)) {
 			
 			System.out.println("문의 사항 삭제 성공");
 			

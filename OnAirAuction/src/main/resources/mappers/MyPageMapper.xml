@@ -84,6 +84,68 @@
   		
   	</insert>
   	
+  	<!-- 구매자 주문 내역 조회 -->
+  	
+  	<select id="selectOrderAuctList" resultType="kr.kr.OnAirAuction.VO.OrderAuctionVO">
+	
+		select pr_name, me_name, ar_bidprice, re_progress, ac_deliveryway, de_state, de_startdate, de_completedate, or_num
+		
+		from product join auction on pr_code = ac_pr_code join auction_record on ac_num = ar_ac_num join member on ac_me_id = me_id 
+		
+		join `order` on me_id = or_me_id left join refund on or_num = re_or_num join delivery on or_num = de_or_num
+		
+		where (pr_name like concat('%', #{criteria.search}, '%') or me_name like concat('%', #{criteria.search}, '%'))
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		 order by ac_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<select id="selectOrderAuctTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from product join auction on pr_code = ac_pr_code join auction_record on ac_num = ar_ac_num join member on ac_me_id = me_id 
+		
+		join `order` on me_id = or_me_id left join refund on or_num = re_or_num join delivery on or_num = de_or_num
+	
+	</select>
+	
+	<insert id="insertOrderCancle">
+  	
+  		insert into refund(re_num, re_applydate, re_reason, re_or_num)
+  			
+  		select ifnull(max(re_num), 0) + 1, now(), #{refund.re_reason}, #{refund.re_or_num}
+		
+  		from refund
+  		
+  	</insert>
+  	
+  	<!-- 환불 조회 -->
+  	
+  	<select id="selectRefundList" resultType="kr.kr.OnAirAuction.VO.OrderCancleVO">
+	
+		select pr_name, re_progress, re_applydate, re_confirmdate
+		
+		from product join auction on pr_code = ac_pr_code join `order` on ac_num = or_ac_num left join refund on or_num = re_or_num
+		
+		where (pr_name like concat('%', #{criteria.search}, '%'))
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		 order by pr_name asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<select id="selectRefundTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from product join auction on pr_code = ac_pr_code join `order` on ac_num = or_ac_num left join refund on or_num = re_or_num
+	
+	</select>
+  	
   	<!-- 후기 등록 -->
   	
   	<insert id="insertReview" useGeneratedKeys="true" keyProperty="review.re_num">
@@ -202,25 +264,49 @@
 	
 	<insert id="insertInquiry" useGeneratedKeys="true" keyProperty="inquiry.in_num">
 	
-    	<if test="inquiry.in_ic_num != 1">
+		<choose>
+		
+		<when test="inquiry.in_ic_num == 1">
+		
+			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			
+		</when>
+		
+		<when test="inquiry.in_ic_num == 2">
+		
+			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			
+		</when>
+		
+		<when test="inquiry.in_ic_num == 3">
+		
+			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code}  from inquiry
+			
+		</when>
+		
+		<otherwise>
 	
-			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num)
+			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
-			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num} from inquiry
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id} from inquiry
 			
-		</if>
+		</otherwise>
 		
-		<if test="inquiry.in_ic_num == 1">
-		
-			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_pr_code)
-		
-			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
-			
-			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_pr_code} from inquiry
-			
-		</if>
+		</choose>
 		
 	</insert>
 	
