@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
 	`me_id`	varchar(20)	NOT NULL,
-	`me_pw`	varchar(30)	NOT NULL,
+	`me_pw`	varchar(255)	NOT NULL,
 	`me_email`	varchar(50)	NOT NULL,
 	`me_board`	varchar(100) NOT NULL,
 	`me_phone`	varchar(20)	NOT NULL,
@@ -16,11 +16,11 @@ CREATE TABLE `member` (
 	`me_birthday`	date	NOT NULL,
 	`me_certification`	int default 0	NULL,
 	`me_authority`	int default 0	NULL,
-	`me_account`	varchar(30)	NOT NULL,
+	`me_account`	varchar(30)	 NULL,
 	`me_join_time`	datetime	NULL,
-	`me_region`	varchar(100) NOT NULL,
+	`me_region`	varchar(100)  NULL,
 	`me_customer_certification`	int	NULL,
-	`me_ml_name`	varchar(20)	NOT NULL
+	`me_ml_name`	varchar(20)	 NULL
 );
 
 DROP TABLE IF EXISTS `product`;
@@ -334,7 +334,8 @@ CREATE TABLE `charge` (
 DROP TABLE IF EXISTS `note_box`;
 
 CREATE TABLE `note_box` (
-	`nb_num`	int auto_increment	NOT NULL primary key,
+	`nb_me_id` varchar(20) NOT NULL,
+	`nb_num`	int NOT NULL,
 	`nb_sendtime`	datetime NOT NULL,
 	`nb_readtime`	datetime	NULL,
 	`nb_sendid`	varchar(20)	NOT NULL,
@@ -353,6 +354,10 @@ CREATE TABLE `certification` (
 
 ALTER TABLE `member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
 	`me_id`
+);
+
+ALTER TABLE `note_box` ADD CONSTRAINT `PK_NOTE_BOX` PRIMARY KEY (
+	`nb_me_id`
 );
 
 ALTER TABLE `virtual_account` ADD CONSTRAINT `PK_VIRTUAL_ACCOUNT` PRIMARY KEY (
@@ -594,6 +599,13 @@ REFERENCES `auction` (
 
 ALTER TABLE `virtual_account` ADD CONSTRAINT `FK_member_TO_virtual_account_1` FOREIGN KEY (
 	`va_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `note_box` ADD CONSTRAINT `FK_member_TO_note_box_1` FOREIGN KEY (
+	`nb_me_id`
 )
 REFERENCES `member` (
 	`me_id`
