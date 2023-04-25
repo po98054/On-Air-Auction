@@ -16,6 +16,10 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
+import kr.kr.OnAirAuction.VO.OrderAuctionVO;
+
+import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
 import kr.kr.OnAirAuction.VO.ProductSearchVO;
@@ -135,5 +139,19 @@ public interface MyPageService {
 	// 신고 삭제
 
 	boolean deleteReport(int re_num);
+	
+	// 구매자 주문 내역 조회
+
+	ArrayList<OrderAuctionVO> getOrderAuctList(Criteria criteria);
+
+	int getOrderAuctTotalCount(Criteria criteria);
+
+	boolean insertOrderCancle(OrderCancleVO orderCancle);
+	
+	// 환불 내역 조회
+
+	ArrayList<OrderCancleVO> getRefundList(Criteria criteria);
+
+	int getRefundTotalCount(Criteria criteria);
 
 }

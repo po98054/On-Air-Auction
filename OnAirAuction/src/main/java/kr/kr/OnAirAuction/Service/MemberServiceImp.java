@@ -89,7 +89,7 @@ public class MemberServiceImp implements MemberService{
 		
 		String content = "다음 링크를 클릭해서 이메일 인증을 완료하세요.<br>" + 
 		
-			"<a href='http://localhost:8080/OnAirAuction/email?mo_num="+str+"&mo_me_id="+me_id+"'>이메일 인증하기</a>";
+			"<a href='http://localhost:8080/OnAirAuction/email?ce_certificationnumber="+str+"&ce_me_id="+me_id+"'>이메일 인증하기</a>";
 		
 		//이메일 전송
 		sendEmail(title, content, me_email);
@@ -182,7 +182,7 @@ public class MemberServiceImp implements MemberService{
 			memberDao.deleteMemberOK(mok);
 			
 			//member테이블에서 해당 회원의 권한을 1로 등급업
-			memberDao.updateCertification(mok.getMo_me_id(), 1);
+			memberDao.updateCertification(mok.getCe_me_id(), 1);
 			
 			return true;
 			
@@ -204,9 +204,49 @@ public class MemberServiceImp implements MemberService{
 			return null;
 			
 		}
+		
+		MemberVO dbMember = memberDao.selectMemberById(member.getMe_id());
+		
+		if(dbMember == null) {
 			
+			return null;
+			
+		}
+		
+		if(passwordEncoder.matches(member.getMe_pw(), dbMember.getMe_pw())) {
+			
+			return dbMember;
+			
+		}
+		
 		return memberDao.selectMemberById(member.getMe_id());
 			
+	}
+	
+	// 자동 로그인
+
+	@Override
+	public MemberVO getMemberBySession(String me_session_id) {
+		
+		System.out.println(me_session_id);
+		
+		return memberDao.selectMemberBySession(me_session_id);
+		
+	}
+
+	@Override
+	public void updateMemberBySession(MemberVO user) {
+		
+		System.out.println(user);
+		
+		if(user == null) {
+			
+			return;
+			
+		}
+		
+		memberDao.updateSession(user);
+		
 	}
 
 }

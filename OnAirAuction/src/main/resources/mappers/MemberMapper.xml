@@ -20,19 +20,21 @@
 
 <insert id="insertMemberOK">
 
-  		insert into member_ok(mo_me_id, mo_num, mo_valid_time) values(#{mok.mo_me_id},#{mok.mo_num}, date_add(#{mok.mo_valid_time},interval 1 hour))
+  		insert into certification(ce_me_id, ce_certificationnumber, ce_time) 
+  		
+  		values(#{mok.ce_me_id},#{mok.ce_certificationnumber}, date_add(#{mok.ce_time},interval 1 hour))
   		
 </insert>
 
 <select id="selectMemberOK" resultType="kr.kr.OnAirAuction.VO.MemberOKVO">
 
-  		select * from member_ok where mo_me_id = #{mok.mo_me_id} and mo_num = #{mok.mo_num} and mo_valid_time >= now()
+  		select * from certification where ce_me_id = #{mok.ce_me_id} and ce_certificationnumber = #{mok.ce_certificationnumber} and ce_time >= now()
   		
 </select>
 
 <delete id="deleteMemberOK">
 
-  		delete from member_ok where mo_me_id = #{mok.mo_me_id} and mo_num = #{mok.mo_num}
+  		delete from certification where ce_me_id = #{mok.ce_me_id} and ce_certificationnumber = #{mok.ce_certificationnumber}
   		
 </delete>
 
@@ -49,5 +51,19 @@
 	select * from member where me_id = #{me_id}
 
 </select>
+
+<!-- 자동 로그인 쿼리 -->
+
+<select id="selectMemberBySession" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+
+  		select * from member where me_session_id = #{me_session_id} and me_session_limit > now()
+  		
+</select>
+
+<update id="updateSession">
+
+  		update member set me_session_id = #{member.me_session_id}, me_session_limit = #{member.me_session_limit} where me_id = #{member.me_id}
+  		
+</update>
 
 </mapper>

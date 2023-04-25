@@ -33,6 +33,12 @@ public class MemberVO {
 	
 	Date me_join_time;
 	
+	boolean autoLogin;
+	
+	String me_session_id;
+	
+	Date me_session_limit;
+	
 	/*public String getMe_birth() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,6 +52,14 @@ public class MemberVO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		return sdf.format(me_join_time);
+		
+	}
+	
+	public String getMe_session_limit() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return sdf.format(me_session_limit);
 		
 	}
 

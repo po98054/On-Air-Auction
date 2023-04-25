@@ -21,12 +21,19 @@
                         <p>
                             <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">처음이신가요?</a>
                         </p>
+                        <c:if test="${user == null}">
                         <p>
-                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">로그인</a>
+                            <a href="<c:url value='/Login'></c:url>">로그인</a>
                         </p>
                         <p>
-                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">회원가입</a>
+                            <a href="<c:url value='/signup'></c:url>">회원가입</a>
                         </p>
+                        </c:if>
+                        <c:if test="${user != null }">
+							<li class="nav-item">
+								<a href="<c:url value='/logout'></c:url>">로그아웃</a>
+							</li>
+						</c:if>
                         <p>
                             <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">마이페이지</a>
                         </p>

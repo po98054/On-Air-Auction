@@ -23,5 +23,11 @@ public interface MemberService {
 	// 로그인
 
 	MemberVO login(MemberVO member);
+	
+	// 자동 로그인
+
+	MemberVO getMemberBySession(String me_session_id);
+
+	void updateMemberBySession(MemberVO user);
 
 }

@@ -16,6 +16,10 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
+import kr.kr.OnAirAuction.VO.OrderAuctionVO;
+
+import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
 import kr.kr.OnAirAuction.VO.PersonSearchVO;
@@ -23,7 +27,9 @@ import kr.kr.OnAirAuction.VO.PersonSearchVO;
 import kr.kr.OnAirAuction.VO.ProductSearchVO;
 
 import kr.kr.OnAirAuction.VO.ReportCategoryVO;
+
 import kr.kr.OnAirAuction.VO.ReportVO;
+
 import kr.kr.OnAirAuction.VO.ReviewVO;
 
 public interface MyPageDAO {
@@ -145,5 +151,19 @@ public interface MyPageDAO {
 	// 신고 삭제
 
 	int deleteReport(@Param("re_num")int re_num);
+	
+	// 구매자 주문 내역 조회
+
+	ArrayList<OrderAuctionVO> selectOrderAuctList(@Param("criteria")Criteria criteria);
+
+	int selectOrderAuctTotalCount(@Param("criteria")Criteria criteria);
+
+	int insertOrderCancle(@Param("refund")OrderCancleVO orderCancle);
+	
+	// 환불 내역 조회
+
+	ArrayList<OrderCancleVO> selectRefundList(@Param("criteria")Criteria criteria);
+
+	int selectRefundTotalCount(@Param("criteria")Criteria criteria);
 
 }

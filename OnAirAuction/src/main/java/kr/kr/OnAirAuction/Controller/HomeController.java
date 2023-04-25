@@ -1,8 +1,16 @@
 package kr.kr.OnAirAuction.Controller;
 
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
 import java.util.HashMap;
 
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -133,15 +141,15 @@ public class HomeController {
 	
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
 		
-		System.out.println(member);
-		
 		MemberVO user = memberService.login(member);
 		
-		System.out.println(user);
+		mv.addObject("user", user);
 		
 		if(user != null) {
 			
 			mv.setViewName("redirect:/");
+			
+			user.setAutoLogin(member.isAutoLogin());
 			
 			System.out.println("로그인 성공");
 			
@@ -154,6 +162,41 @@ public class HomeController {
 		}
 		
 		return mv;
+	}
+	
+	// 로그아웃
+	
+	@RequestMapping(value = "/logout", method=RequestMethod.GET)
+	
+	public ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		System.out.println(user);
+		
+		if(user != null) {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>alert('로그아웃 되었습니다.');location.href='/OnAirAuction/'</script>");
+			
+			out.flush();
+			
+		}
+		
+		//세션에 있는 회원 정보를 삭제
+		session.removeAttribute("user");
+		
+		user.setMe_session_limit(null);
+		
+		memberService.updateMemberBySession(user);
+		
+		mv.setViewName("redirect:/");
+		
+		return mv;
+		
 	}
 	
 }

@@ -24,6 +24,10 @@ import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
 
+import kr.kr.OnAirAuction.VO.OrderAuctionVO;
+
+import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
 import kr.kr.OnAirAuction.VO.PersonSearchVO;
@@ -767,6 +771,63 @@ public class MyPageServiceImp implements MyPageService{
 		deleteFileList(fileList);
 		
 		return myPageDao.deleteReport(re_num) != 0;
+		
+	}
+	
+	// 구매자 주문 내역 조회
+
+	@Override
+	public ArrayList<OrderAuctionVO> getOrderAuctList(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectOrderAuctList(criteria);
+		
+	}
+
+	@Override
+	public int getOrderAuctTotalCount(Criteria criteria) {
+		
+		return myPageDao.selectOrderAuctTotalCount(criteria);
+		
+	}
+
+	@Override
+	public boolean insertOrderCancle(OrderCancleVO orderCancle) {
+		
+		if(orderCancle == null) {
+			
+			return false;
+			
+		}
+		
+		return myPageDao.insertOrderCancle(orderCancle) != 0;
+		
+	}
+	
+	// 환불 내역 조회
+
+	@Override
+	public ArrayList<OrderCancleVO> getRefundList(Criteria criteria) {
+		
+		if(criteria == null) {
+			
+			criteria = new Criteria();
+			
+		}
+		
+		return myPageDao.selectRefundList(criteria);
+		
+	}
+
+	@Override
+	public int getRefundTotalCount(Criteria criteria) {
+		
+		return myPageDao.selectRefundTotalCount(criteria);
 		
 	}
 	

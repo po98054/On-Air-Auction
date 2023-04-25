@@ -10,26 +10,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberOKVO {
 	
-	String mo_me_id;
+	String ce_me_id;
 	
-	String mo_num;
+	String ce_certificationnumber;
 	
-	Date mo_valid_time;
+	Date ce_time;
 
 	@Override
 	public String toString() {
 		
-		return "회원 인증 아이디 : " + mo_me_id + " 회원 인증 번호 : " + mo_num + " 회원 인증 시간 : " +  mo_valid_time;
+		return "회원 인증 아이디 : " + ce_me_id + " 회원 인증 번호 : " + ce_certificationnumber + " 회원 인증 시간 : " +  ce_time;
 		
 	}
 	
-	public MemberOKVO(String mo_me_id, String mo_num) {
+	public MemberOKVO(String ce_me_id, String ce_certificationnumber) {
 		
-		this.mo_me_id = mo_me_id;
+		this.ce_me_id = ce_me_id;
 		
-		this.mo_num = mo_num;
+		this.ce_certificationnumber = ce_certificationnumber;
 		
-		this.mo_valid_time = new Date();
+		this.ce_time = new Date();
 		
 	}
 

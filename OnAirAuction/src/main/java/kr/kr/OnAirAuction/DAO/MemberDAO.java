@@ -20,10 +20,16 @@ public interface MemberDAO {
 	
 	void deleteMemberOK(@Param("mok")MemberOKVO mok);
 	
-	void updateCertification(@Param("me_id")String mo_me_id, @Param("me_certification")int me_certification);
+	void updateCertification(@Param("me_id")String ce_me_id, @Param("me_certification")int me_certification);
 	
 	// 로그인
 
 	MemberVO selectMemberById(@Param("me_id")String me_id);
+	
+	// 자동 로그인
+
+	MemberVO selectMemberBySession(@Param("me_session_id")String me_session_id);
+
+	void updateSession(@Param("member")MemberVO user);
 	
 }

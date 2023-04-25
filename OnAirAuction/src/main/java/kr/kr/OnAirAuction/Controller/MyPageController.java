@@ -56,6 +56,10 @@ import kr.kr.OnAirAuction.VO.ReportVO;
 
 import kr.kr.OnAirAuction.VO.ReviewVO;
 
+import kr.kr.OnAirAuction.VO.OrderAuctionVO;
+
+import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
 @Controller
 @RestController
 public class MyPageController {
@@ -136,6 +140,63 @@ public class MyPageController {
 		System.out.println(res);
 		
 		return map;
+		
+	}
+	
+	// 구매자 주문 내역 조회
+	
+	@RequestMapping(value = "/MyPage/OrderAuctionList")
+	public ModelAndView OrderAuctionList(ModelAndView mv, Criteria criteria) {
+		
+		ArrayList<OrderAuctionVO> list = myPageService.getOrderAuctList(criteria);
+		
+		int totalCount = myPageService.getOrderAuctTotalCount(criteria);
+		
+		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("pm", pm);
+		
+		mv.addObject("list", list);
+		
+		mv.setViewName("/MyPage/OrderAuctionList");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/OrderCancle/insert", method = RequestMethod.POST)
+	public Map<String, Object> OrderCancleInsert(@RequestBody OrderCancleVO OrderCancle){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean res = myPageService.insertOrderCancle(OrderCancle);
+		
+		map.put("result", res);
+		
+		System.out.println(res);
+		
+		return map;
+		
+	}
+	
+	// 환불 내역
+	
+	@RequestMapping(value = "/MyPage/RefundList")
+	public ModelAndView RefundList(ModelAndView mv, Criteria criteria) {
+		
+		ArrayList<OrderCancleVO> list = myPageService.getRefundList(criteria);
+		
+		int totalCount = myPageService.getRefundTotalCount(criteria);
+		
+		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("pm", pm);
+		
+		mv.addObject("list", list);
+		
+		mv.setViewName("/MyPage/RefundList");
+		
+		return mv;
 		
 	}
 	

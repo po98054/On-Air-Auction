@@ -83,6 +83,7 @@
                 <div class="box__login-save">
                     <input name="checkboxKIDBase" type="checkbox" id="checkboxKIDBase" class="form__checkbox">
                     <label for="checkboxKIDBase" class="text__label sprite__login--before">아이디 저장</label>
+                    <input type="checkbox" name="autoLogin" value="true"> 자동로그인
                 </div>
                 <div class="box__login-link">
                     <a href="http://through.auction.co.kr/Common/SafeRedirect.aspx?cc=0C42&amp;next=https%3a%2f%2fmemberssl.auction.co.kr%2fmembership%2fIDPW%2fFindID.aspx%3furl%3dhttp%253a%252f%252fes.auction.co.kr%252f%253fgclid%253dCj0KCQjwlPWgBhDHARIsAH2xdNfhKlKwqbmDrOdXOuegYRC-YKiQgJZM7pgQMEKwP13t2K06Pmw0CpoaAjUjEALw_wcB" target="_blank" class="link__login">아이디 찾기</a>
@@ -95,3 +96,4 @@
     </div>
 </div>
 </div>
+
