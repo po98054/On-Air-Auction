@@ -15,7 +15,7 @@ import kr.kr.OnAirAuction.VO.HeldAuctionVO;
 import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 
 import kr.kr.OnAirAuction.VO.InquiryVO;
-
+import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
@@ -165,5 +165,11 @@ public interface MyPageDAO {
 	ArrayList<OrderCancleVO> selectRefundList(@Param("criteria")Criteria criteria);
 
 	int selectRefundTotalCount(@Param("criteria")Criteria criteria);
+	
+	// 회원 정보 수정
+
+	MemberVO selectMember(@Param("me_id")String me_id);
+
+	int updateMember(@Param("member")MemberVO member);
 
 }

@@ -155,5 +155,11 @@ public interface MyPageService {
 	ArrayList<OrderCancleVO> getRefundList(Criteria criteria);
 
 	int getRefundTotalCount(Criteria criteria);
+	
+	// 회원 정보 수정
+
+	MemberVO getMember(String me_id, MemberVO user);
+
+	boolean UpdateMember(MemberVO member);
 
 }

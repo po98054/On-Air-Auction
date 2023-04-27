@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kr.OnAirAuction.DAO.AddressBookDAO">
+
+<select id="selectAddressBook" resultType="kr.kr.OnAirAuction.VO.AddressBookVO">
+
+	select * from board_list join member on me_id = bl_me_id where bl_me_id = #{user.me_id}
+
+</select>
+
+<insert id="insertAddressBook">
+
+	insert board_list(bl_name, bl_board, bl_me_id)
+	
+	select #{ab.bl_name}, concat(#{ab.addr2}, #{ab.addr3}), #{ab.bl_me_id}
+
+</insert>
+
+<update id="updateAddressBook">
+
+	update board_list set bl_name = #{ab.bl_name}, bl_board = #{ab.bl_board} where bl_num = #{ab.bl_num}
+
+</update>
+
+<delete id="deleteAddressBook">
+
+	delete from board_list where bl_num = #{bl_num}
+
+</delete>
+
+</mapper>

@@ -471,5 +471,21 @@
 		delete from report where re_num = #{re_num}
 	
 	</delete>
+	
+	<!-- 회원 정보 수정 -->
+	
+	<select id="selectMember" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+	
+		select * from member where me_id = #{me_id}
+	
+	</select>
+	
+	<update id="updateMember">
+	
+		update member set me_pw = #{member.me_pw}, me_email = #{member.me_email}, me_phone = #{member.me_phone}, me_board = concat(#{member.addr2}, #{member.addr3})
+		
+		where me_id = #{member.me_id}
+	
+	</update>
 
 </mapper>

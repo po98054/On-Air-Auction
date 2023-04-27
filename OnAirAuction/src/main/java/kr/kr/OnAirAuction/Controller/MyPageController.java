@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.HttpSession;
@@ -749,6 +747,48 @@ public class MyPageController {
 			
 		return mv;
 			
+	}
+	
+	// 회원 정보 수정
+	
+	@RequestMapping(value = "/MyPage/MemberUpdate/{me_id}", method = RequestMethod.GET)
+	
+	public ModelAndView MemberUpdate(ModelAndView mv, @PathVariable("me_id") String me_id, HttpSession session) {
+		
+		System.out.println(me_id);
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		System.out.println(user);
+		
+		user = myPageService.getMember(me_id, user);
+		
+		mv.addObject("user", user);
+		
+		mv.setViewName("/MyPage/MemberUpdate");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/MemberUpdate/{me_id}", method = RequestMethod.POST)
+	
+	public ModelAndView MemberUpdatePost(ModelAndView mv, @PathVariable("me_id") String me_id, MemberVO user, HttpSession session, HttpServletResponse response) {
+		
+		if(myPageService.UpdateMember(user)) {
+			
+			System.out.println("회원 정보 수정 성공");
+			
+			MessageUtils.alertAndMovePage(response, "회원 정보를 수정했습니다.", "OnAirAuction", "/MyPage/MemberUpdate/"+ me_id);
+			
+		} else {
+			
+			System.out.println("회원 정보 수정 실패!!!!");
+			
+		}
+		
+		return mv;
+		
 	}
 	
 }

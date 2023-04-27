@@ -871,4 +871,40 @@ public class MyPageServiceImp implements MyPageService{
 		
 	}
 	
+	// 회원 정보 수정
+
+	@Override
+	public MemberVO getMember(String me_id, MemberVO user) {
+		
+		if(user == null) {
+			
+			return null;
+			
+		}
+	
+		return myPageDao.selectMember(me_id);
+		
+	}
+
+	@Override
+	public boolean UpdateMember(MemberVO member) {
+		
+		if(member == null) {
+			
+			return false;
+			
+		}
+		
+		MemberVO dbMember = myPageDao.selectMember(member.getMe_id());
+		
+		if(dbMember == null) {
+			
+			return false;
+			
+		}
+		
+		return myPageDao.updateMember(member) != 0;
+		
+	}
+	
 }
