@@ -8,18 +8,20 @@ DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
 	`me_id`	varchar(20)	NOT NULL,
-	`me_pw`	varchar(255)	NOT NULL,
-	`me_email`	varchar(50)	NOT NULL,
+	`me_pw`	varchar(255) NOT NULL,
+	`me_email`	varchar(50) NOT NULL,
 	`me_board`	varchar(100) NOT NULL,
 	`me_phone`	varchar(20)	NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
-	`me_birthday`	date	NOT NULL,
-	`me_certification`	int default 0	NULL,
-	`me_authority`	int default 0	NULL,
-	`me_account`	varchar(30)	 NULL,
+	`me_birth`	date NOT NULL,
+	`me_certification`	int default 0 NULL,
+	`me_authority`	int default 0 NULL,
+	`me_account`	varchar(30)	NULL,
 	`me_join_time`	datetime	NULL,
-	`me_region`	varchar(100)  NULL,
+	`me_region`	varchar(100)	NULL,
 	`me_customer_certification`	int	NULL,
+	`me_session_id`	varchar(30)	NULL,
+	`me_session_limit`	datetime	NULL,
 	`me_ml_name`	varchar(20)	 NULL
 );
 
@@ -33,10 +35,10 @@ CREATE TABLE `product` (
 	`pr_detail`	longtext NOT NULL,
 	`pr_location`	varchar(100) NOT NULL,
 	`pr_refund_ok`	varchar(100) NOT NULL,
-	`pr_refunddate`	varchar(100) NOT NULL,
-	`pr_refundreason`	longtext NOT NULL,
+	`pr_refund_date`	varchar(100) NOT NULL,
+	`pr_refund_reason`	longtext NOT NULL,
 	`pr_state`	varchar(20) default '시작전'	NULL,
-	`pr_startprice`	int	NOT NULL,
+	`pr_start_price`	int	NOT NULL,
 	`pr_origin`	varchar(50)	NOT NULL,
 	`pr_size`	int	NOT NULL,
 	`pr_st_num`	int	NOT NULL,
@@ -48,14 +50,14 @@ DROP TABLE IF EXISTS `auction`;
 CREATE TABLE `auction` (
 	`au_num`	int auto_increment	NOT NULL primary key,
 	`au_calculation`	int	NOT NULL,
-	`au_limitbidtime`	int default 0	NULL,
-	`au_startdate`	datetime NOT NULL,
-	`au_finaldate`	datetime NOT NULL,
+	`au_limit_bid_time`	int default 0	NULL,
+	`au_start_date`	datetime NOT NULL,
+	`au_final_date`	datetime NOT NULL,
 	`au_extension`	int default 0	NULL,
 	`au_faild`	int default 0	NULL,
 	`au_immediate`	int	NULL,
-	`au_limitlevel`	int default 0	NULL,
-	`au_deliveryway`	varchar(20)	NOT NULL,
+	`au_limit_level`	int default 0	NULL,
+	`au_delivery_way`	varchar(20)	NOT NULL,
 	`au_pr_code`	int	NOT NULL,
 	`au_me_id`	varchar(20)	NOT NULL,
 	`au_ac_num`	int	NOT NULL
@@ -132,8 +134,8 @@ DROP TABLE IF EXISTS `delivery`;
 CREATE TABLE `delivery` (
 	`de_num`	int auto_increment	NOT NULL primary key,
 	`de_state`	varchar(20)	default '배송전' NULL,
-	`de_startdate`	datetime NOT NULL,
-	`de_completedate`	datetime NOT NULL,
+	`de_start_date`	datetime NOT NULL,
+	`de_complete_date`	datetime NOT NULL,
 	`de_or_num`	int	NOT NULL,
 	`de_bl_num`	int	NOT NULL
 );
@@ -144,10 +146,10 @@ CREATE TABLE `inquiry` (
 	`in_num`	int auto_increment	NOT NULL primary key,
 	`in_title`	varchar(100) NOT NULL,
 	`in_content`	longtext NOT NULL,
-	`in_registerdate`	datetime NOT NULL,
-	`in_modifydate`	datetime	NULL,
-	`in_answerdate`	datetime	NULL,
-	`in_answercontent`	longtext	NULL,
+	`in_register_date`	datetime NOT NULL,
+	`in_modify_date`	datetime	NULL,
+	`in_answer_date`	datetime	NULL,
+	`in_answer_content`	longtext	NULL,
 	`in_me_id`	varchar(20)	NOT NULL,
 	`in_pr_code`	int	NOT NULL,
 	`in_ic_num`	int	NOT NULL
@@ -198,10 +200,10 @@ DROP TABLE IF EXISTS `refund`;
 
 CREATE TABLE `refund` (
 	`re_num`	int auto_increment	NOT NULL primary key,
-	`re_applydate`	datetime NOT NULL,
+	`re_apply_date`	datetime NOT NULL,
 	`re_reason`	longtext NOT NULL,
-	`re_confirmdate`	datetime	NULL,
-	`re_progress`	varchar(20)	default '심사중' NULL,
+	`re_confirm_date`	datetime	NULL,
+	`re_progress`	varchar(20) default '심사중' NULL,
 	`re_or_num`	int	NOT NULL
 );
 
@@ -229,8 +231,8 @@ CREATE TABLE `report` (
 	`re_content`	longtext NOT NULL,
 	`re_date`	datetime NOT NULL,
 	`re_result`	varchar(10) default '처리전'	NULL,
-	`re_reportId`	varchar(20)	NULL,
-	`re_reportProduct`	int	NULL,
+	`re_report_id`	varchar(20)	NULL,
+	`re_report_product`	int	NULL,
 	`re_me_id`	varchar(20)	NOT NULL,
 	`re_rc_num`	int	NOT NULL
 );
@@ -239,9 +241,9 @@ DROP TABLE IF EXISTS `limited_auction`;
 
 CREATE TABLE `limited_auction` (
 	`la_num`	int auto_increment	NOT NULL primary key,
-	`la_limitednumber`	int	NOT NULL,
-	`la_applystarttime`	datetime NOT NULL,
-	`la_applyfinaltime`	datetime NOT NULL,
+	`la_limited_number`	int	NOT NULL,
+	`la_apply_start_time`	datetime NOT NULL,
+	`la_apply_final_time`	datetime NOT NULL,
 	`la_au_num`	int	NOT NULL
 );
 
@@ -249,19 +251,18 @@ DROP TABLE IF EXISTS `virtual_account`;
 
 CREATE TABLE `virtual_account` (
 	`va_me_id`	varchar(20)	NOT NULL,
-	`va_holdingamount`	int	default "0" NULL,
-    `va_withdrawamonut` int NOT NULL,
-	`va_withdrawdate`	datetime NOT NULL,
+	`va_holding_amount`	int	default 0 NULL,
 	`va_pw`	varchar(50)	NOT NULL,
-	`va_ch_num`	int	NOT NULL
+	`va_ch_num`	int	NOT NULL,
+    `va_wi_num` int NOT NULL
 );
 
 DROP TABLE IF EXISTS `auction_record`;
 
 CREATE TABLE `auction_record` (
 	`ar_num`	int auto_increment	NOT NULL primary key,
-	`ar_bidtime`	datetime NOT NULL,
-	`ar_bidprice`	int	NOT NULL,
+	`ar_bid_time`	datetime NOT NULL,
+	`ar_bid_price`	int	NOT NULL,
 	`ar_me_id`	varchar(20)	NOT NULL,
 	`ar_au_num`	int	NOT NULL
 );
@@ -285,9 +286,9 @@ DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file` (
 	`fi_num`	int auto_increment	NOT NULL primary key,
 	`fi_name`	varchar(255) NOT NULL,
-	`fi_savename`	varchar(255) NOT NULL,
-	`fi_tablename`	varchar(50)	NOT NULL,
-	`fi_tablenum`	int	NOT NULL
+	`fi_save_name`	varchar(255) NOT NULL,
+	`fi_table_name`	varchar(50)	NOT NULL,
+	`fi_table_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `seller_like`;
@@ -302,8 +303,8 @@ DROP TABLE IF EXISTS `rating_standard`;
 
 CREATE TABLE `rating_standard` (
 	`rs_ml_name`	varchar(20)	NOT NULL,
-	`rs_complationnumber`	int default 0	NULL,
-	`rs_reportnumber`	int default 0	NULL
+	`rs_complation_number`	int default 0	NULL,
+	`rs_report_number`	int default 0	NULL
 );
 
 DROP TABLE IF EXISTS `board_list`;
@@ -328,45 +329,59 @@ CREATE TABLE `charge` (
 	`ch_num`	int auto_increment	NOT NULL primary key,
 	`ch_method`	varchar(30)	NOT NULL,
 	`ch_amount`	int	NOT NULL,
-    `ch_chargedate` datetime NOT NULL
+	`ch_charge_date`	datetime NOT NULL
 );
 
-DROP TABLE IF EXISTS `note_box`;
+DROP TABLE IF EXISTS `withdraw`;
 
-CREATE TABLE `note_box` (
-	`nb_me_id` varchar(20) NOT NULL,
-	`nb_num`	int NOT NULL,
-	`nb_sendtime`	datetime NOT NULL,
-	`nb_readtime`	datetime	NULL,
-	`nb_sendid`	varchar(20)	NOT NULL,
-	`nb_receiveid`	varchar(20)	NOT NULL,
-	`nb_title`	varchar(50)	NOT NULL,
-	`nb_content`	longtext NOT NULL
+CREATE TABLE `withdraw` (
+	`wi_num`	int auto_increment	NOT NULL primary key,
+	`wi_amount`	int NOT NULL,
+	`wi_withdraw_date`	int	NOT NULL,
+	`wi_withdraw_reason`	datetime NOT NULL
+);
+
+DROP TABLE IF EXISTS `message`;
+
+CREATE TABLE `message` (
+	`me_num`	int auto_increment	NOT NULL primary key,
+	`me_time`	datetime NOT NULL,
+	`me_read_time`	datetime	NULL,
+	`me_send_id`	varchar(20)	NOT NULL,
+	`me_receive_id`	varchar(20)	NOT NULL,
+	`me_title`	varchar(50)	NOT NULL,
+	`me_content`	longtext NOT NULL
 );
 
 DROP TABLE IF EXISTS `certification`;
 
 CREATE TABLE `certification` (
 	`ce_me_id`	varchar(20)	NOT NULL,
-	`ce_certificationnumber`	varchar(10)	NOT NULL,
+	`ce_certification_number`	varchar(10)	NULL,
 	`ce_time`	datetime	NULL
+);
+
+DROP TABLE IF EXISTS `message_box`;
+
+CREATE TABLE `message_box` (
+	`mb_me_id`	varchar(20)	NOT NULL,
+	`mb_me_num`	int	NOT NULL
 );
 
 ALTER TABLE `member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
 	`me_id`
 );
 
-ALTER TABLE `note_box` ADD CONSTRAINT `PK_NOTE_BOX` PRIMARY KEY (
-	`nb_me_id`
-);
 
 ALTER TABLE `virtual_account` ADD CONSTRAINT `PK_VIRTUAL_ACCOUNT` PRIMARY KEY (
 	`va_me_id`
 );
 
+
 ALTER TABLE `membership_level` ADD CONSTRAINT `PK_MEMBERSHIP_LEVEL` PRIMARY KEY (
 	`ml_name`
 );
+
 
 ALTER TABLE `rating_standard` ADD CONSTRAINT `PK_RATING_STANDARD` PRIMARY KEY (
 	`rs_ml_name`
@@ -375,6 +390,7 @@ ALTER TABLE `rating_standard` ADD CONSTRAINT `PK_RATING_STANDARD` PRIMARY KEY (
 ALTER TABLE `bidding_unit` ADD CONSTRAINT `PK_BIDDING_UNIT` PRIMARY KEY (
 	`bu_unit`
 );
+
 
 ALTER TABLE `certification` ADD CONSTRAINT `PK_CERTIFICATION` PRIMARY KEY (
 	`ce_me_id`
@@ -604,18 +620,18 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `note_box` ADD CONSTRAINT `FK_member_TO_note_box_1` FOREIGN KEY (
-	`nb_me_id`
-)
-REFERENCES `member` (
-	`me_id`
-);
-
 ALTER TABLE `virtual_account` ADD CONSTRAINT `FK_charge_TO_virtual_account_1` FOREIGN KEY (
 	`va_ch_num`
 )
 REFERENCES `charge` (
 	`ch_num`
+);
+
+ALTER TABLE `virtual_account` ADD CONSTRAINT `FK_withdraw_TO_virtual_account_1` FOREIGN KEY (
+	`va_wi_num`
+)
+REFERENCES `withdraw` (
+	`wi_num`
 );
 
 ALTER TABLE `auction_record` ADD CONSTRAINT `FK_member_TO_auction_record_1` FOREIGN KEY (
@@ -680,3 +696,18 @@ ALTER TABLE `certification` ADD CONSTRAINT `FK_member_TO_certification_1` FOREIG
 REFERENCES `member` (
 	`me_id`
 );
+
+ALTER TABLE `message_box` ADD CONSTRAINT `FK_member_TO_message_box_1` FOREIGN KEY (
+	`mb_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `message_box` ADD CONSTRAINT `FK_message_TO_message_box_1` FOREIGN KEY (
+	`mb_me_num`
+)
+REFERENCES `message` (
+	`me_num`
+);
+
