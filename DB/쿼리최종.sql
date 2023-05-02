@@ -332,7 +332,7 @@ CREATE TABLE `charge` (
 	`ch_method`	varchar(30)	NOT NULL,
 	`ch_amount`	int	NOT NULL,
 	`ch_charge_date`	datetime NOT NULL,
-    `ch_va_me_id`	varchar(20)	NOT NULL
+    	`ch_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `withdraw`;
@@ -340,9 +340,9 @@ DROP TABLE IF EXISTS `withdraw`;
 CREATE TABLE `withdraw` (
 	`wi_num`	int auto_increment	NOT NULL primary key,
 	`wi_amount`	int NOT NULL,
-	`wi_withdraw_date`	int	NOT NULL,
-	`wi_withdraw_reason`	datetime NOT NULL,
-    `wi_va_me_id`	varchar(20)	NOT NULL
+	`wi_withdraw_date`	datetime NOT NULL,
+	`wi_withdraw_reason`	varchar(50) NOT NULL,
+    	`wi_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `message`;
