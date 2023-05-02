@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.onAirAuction.dao.ChargeDAO">
+	<insert id="chargeInsert" parameterType="kr.kh.onAirAuction.vo.ChargeVO">
+		insert into charge(ch_amount, ch_method) values(#{ch_amount}, #{ch_method})
+	</insert>
+	<select id="chargeSelect" resultType="kr.kh.onAirAuction.vo.ChargeVO">
+  		select ch_amount from charge 
+	</select> 
+</mapper>
+
