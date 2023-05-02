@@ -42,7 +42,7 @@ CREATE TABLE `product` (
 	`pr_state`	varchar(20) default '시작전'	NULL,
 	`pr_start_price`	int	NOT NULL,
 	`pr_origin`	varchar(50)	NOT NULL,
-	`pr_size`	int	NOT NULL,
+	`pr_size`	varchar(100)	NOT NULL,
 	`pr_st_num`	int	NOT NULL,
 	`pr_pc_num`	int	NOT NULL
 );
