@@ -10,9 +10,9 @@ CREATE TABLE `member` (
 	`me_id`	varchar(20)	NOT NULL,
 	`me_pw`	varchar(255) NOT NULL,
 	`me_email`	varchar(50) NOT NULL,
-    	`me_post_num` varchar(70) NOT NULL,
-    	`me_road_name` varchar(70) NOT NULL,
-    	`me_detail_address` varchar(70) NOT NULL,
+    `me_post_num` varchar(70) NOT NULL,
+    `me_road_name` varchar(70) NOT NULL,
+    `me_detail_address` varchar(70) NOT NULL,
 	`me_phone`	varchar(20)	NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
 	`me_birth`	date NOT NULL,
@@ -254,9 +254,7 @@ DROP TABLE IF EXISTS `virtual_account`;
 CREATE TABLE `virtual_account` (
 	`va_me_id`	varchar(20)	NOT NULL,
 	`va_holding_amount`	int	default 0 NULL,
-	`va_pw`	varchar(50)	NOT NULL,
-	`va_ch_num`	int	NOT NULL,
-    `va_wi_num` int NOT NULL
+	`va_pw`	varchar(50)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `auction_record`;
@@ -315,8 +313,8 @@ CREATE TABLE `board_list` (
 	`bl_num`	int auto_increment	NOT NULL primary key,
 	`bl_name`	varchar(30)	NOT NULL,
 	`bl_post_num` varchar(70) NOT NULL,
-    	`bl_road_name` varchar(70) NOT NULL,
-    	`bl_detail_address` varchar(70) NOT NULL,
+    `bl_road_name` varchar(70) NOT NULL,
+    `bl_detail_address` varchar(70) NOT NULL,
 	`bl_me_id`	varchar(20)	NOT NULL
 );
 
@@ -333,7 +331,8 @@ CREATE TABLE `charge` (
 	`ch_num`	int auto_increment	NOT NULL primary key,
 	`ch_method`	varchar(30)	NOT NULL,
 	`ch_amount`	int	NOT NULL,
-	`ch_charge_date`	datetime NOT NULL
+	`ch_charge_date`	datetime NOT NULL,
+    `ch_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `withdraw`;
@@ -342,7 +341,8 @@ CREATE TABLE `withdraw` (
 	`wi_num`	int auto_increment	NOT NULL primary key,
 	`wi_amount`	int NOT NULL,
 	`wi_withdraw_date`	int	NOT NULL,
-	`wi_withdraw_reason`	datetime NOT NULL
+	`wi_withdraw_reason`	datetime NOT NULL,
+    `wi_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `message`;
@@ -624,19 +624,20 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `virtual_account` ADD CONSTRAINT `FK_charge_TO_virtual_account_1` FOREIGN KEY (
-	`va_ch_num`
+ALTER TABLE `charge` ADD CONSTRAINT `FK_virtual_account_TO_charge_1` FOREIGN KEY (
+	`ch_va_me_id`
 )
-REFERENCES `charge` (
-	`ch_num`
+REFERENCES `virtual_account` (
+	`va_me_id`
 );
 
-ALTER TABLE `virtual_account` ADD CONSTRAINT `FK_withdraw_TO_virtual_account_1` FOREIGN KEY (
-	`va_wi_num`
+ALTER TABLE `withdraw` ADD CONSTRAINT `FK_virtual_account_TO_withdraw_1` FOREIGN KEY (
+	`wi_va_me_id`
 )
-REFERENCES `withdraw` (
-	`wi_num`
+REFERENCES `virtual_account` (
+	`va_me_id`
 );
+
 
 ALTER TABLE `auction_record` ADD CONSTRAINT `FK_member_TO_auction_record_1` FOREIGN KEY (
 	`ar_me_id`
