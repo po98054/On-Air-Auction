@@ -10,7 +10,9 @@ CREATE TABLE `member` (
 	`me_id`	varchar(20)	NOT NULL,
 	`me_pw`	varchar(255) NOT NULL,
 	`me_email`	varchar(50) NOT NULL,
-	`me_board`	varchar(100) NOT NULL,
+    	`me_post_num` varchar(70) NOT NULL,
+    	`me_road_name` varchar(70) NOT NULL,
+    	`me_detail_address` varchar(70) NOT NULL,
 	`me_phone`	varchar(20)	NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
 	`me_birth`	date NOT NULL,
@@ -312,7 +314,9 @@ DROP TABLE IF EXISTS `board_list`;
 CREATE TABLE `board_list` (
 	`bl_num`	int auto_increment	NOT NULL primary key,
 	`bl_name`	varchar(30)	NOT NULL,
-	`bl_board`	varchar(100) NOT NULL,
+	`bl_post_num` varchar(70) NOT NULL,
+    	`bl_road_name` varchar(70) NOT NULL,
+    	`bl_detail_address` varchar(70) NOT NULL,
 	`bl_me_id`	varchar(20)	NOT NULL
 );
 
