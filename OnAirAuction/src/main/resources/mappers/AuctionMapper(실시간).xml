@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.onairauction.dao.AuctionDAO">
+  	<select id="getEmail" resultType="String">
+    	select me_email from member where me_id = #{id}
+  	</select>
+  	<insert id="insertReport">
+	  	insert into report(re_content, re_date, re_rc_num, re_me_id, re_report_id, re_report_product)
+	  		values(#{r.re_content}, now(), #{r.re_rc_num}, #{r.re_me_id},
+	  		#{r.re_report_id}, #{r.re_report_product})
+  	</insert>
+  	<insert id="insertNote">
+	  	insert into message(me_title, me_content, me_time, me_send_id, me_receive_id)
+	  		values(#{n.me_title},#{n.me_content}, now(), #{n.me_send_id}, #{n.me_receive_id})
+  	</insert>
+  	<select id="selectAuctionRecord" resultType="kr.kh.onairauction.vo2.AuctionRecordVO">
+	  	select * from auction_record
+  	</select>
+  	<select id="selectReportCategory" resultType="kr.kh.onairauction.vo2.ReportCategoryVO">
+	  	select * from report_category
+  	</select>
+  	<select id="selectMember" resultType="kr.kh.onairauction.vo2.MemberVO">
+  		select * from member where me_id = #{id}
+  	</select>
+  	<select id="selectProduct" resultType="kr.kh.onairauction.vo2.ProductVO">
+  		select * from product where pr_code = #{num}
+  	</select>
+  	<select id="selectMembership" resultType="kr.kh.onairauction.vo2.MembershipLevelVO">
+  		select * from membership_level where  ml_name = #{levelName}
+  	</select>
+  	<select id="selectAccount" resultType="kr.kh.onairauction.vo2.VirtualAccountVO">
+  		select * from virtual_account where  va_me_id = #{id}
+  	</select>
+  	<insert id="insertAuctionRecord">
+	  	insert into auction_record(ar_bid_time, ar_bid_price, ar_me_id, ar_au_num)
+	  		values(now(), #{p}, #{i}, #{n})
+  	</insert>
+  	<select id="selectAuction" resultType="kr.kh.onairauction.vo2.AuctionVO">
+  		select * from auction where au_me_id = #{id}
+  	</select>
+</mapper>
