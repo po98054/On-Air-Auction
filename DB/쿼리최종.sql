@@ -21,7 +21,7 @@ CREATE TABLE `member` (
 	`me_account`	varchar(30)	NULL,
 	`me_join_time`	datetime	NULL,
 	`me_region`	varchar(100)	NULL,
-	`me_customer_certification`	int	NULL,
+	`me_customer_certification`	varchar(20)	NULL,
 	`me_session_id`	varchar(30)	NULL,
 	`me_session_limit`	datetime	NULL,
 	`me_ml_name`	varchar(20)	 NULL
