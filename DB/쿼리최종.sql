@@ -229,7 +229,6 @@ DROP TABLE IF EXISTS `report`;
 
 CREATE TABLE `report` (
 	`re_num`	int auto_increment	NOT NULL primary key,
-	`re_title`	varchar(100) NOT NULL,
 	`re_content`	longtext NOT NULL,
 	`re_date`	datetime NOT NULL,
 	`re_result`	varchar(10) default '처리전'	NULL,
