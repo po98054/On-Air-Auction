@@ -34,6 +34,9 @@
 								<a href="<c:url value='/logout'></c:url>">로그아웃</a>
 							</li>
 						</c:if>
+			<p class="auction_massage" onclick="openPopup()">
+                        	<a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">쪽지함</a>
+                        </p>    
                         <p>
                             <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">마이페이지</a>
                         </p>
