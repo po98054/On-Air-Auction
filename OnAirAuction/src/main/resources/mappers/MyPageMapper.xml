@@ -268,7 +268,7 @@
 		
 		<when test="inquiry.in_ic_num == 1">
 		
-			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id, in_pr_code)
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id, in_pr_code)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
@@ -278,7 +278,7 @@
 		
 		<when test="inquiry.in_ic_num == 2">
 		
-			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id, in_pr_code)
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id, in_pr_code)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
@@ -288,7 +288,7 @@
 		
 		<when test="inquiry.in_ic_num == 3">
 		
-			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id, in_pr_code)
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id, in_pr_code)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
@@ -298,7 +298,7 @@
 		
 		<otherwise>
 	
-			insert into inquiry(in_num, in_title, in_content, in_registerdate, in_ic_num, in_me_id)
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
@@ -314,9 +314,9 @@
 	
 	<insert id="insertFileByInquiry">
   	
-  		insert into file(fi_name, fi_savename, fi_tablename, fi_tablenum)
+  		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
   		
-  		values(#{file.fi_name},#{file.fi_savename}, '문의 사항', #{in_num})
+  		values(#{file.fi_name},#{file.fi_save_name}, '문의 사항', #{in_num})
   	
   	</insert>
   	
@@ -350,7 +350,7 @@
 	
 	<select id="selectFileListByInquiry" resultType="kr.kr.OnAirAuction.VO.FileVO">
 	
-		select * from file where fi_tablenum = #{in_num} and fi_tablename = '문의 사항'
+		select * from file where fi_table_num = #{in_num} and fi_table_name = '문의 사항'
 	
 	</select>
 	
@@ -358,7 +358,7 @@
 	
 	<update id="updateInquiry">
 	
-		update inquiry set in_title = #{inquiry.in_title}, in_content = #{inquiry.in_content}, in_ic_num = #{inquiry.in_ic_num}, in_modifyDate = now()
+		update inquiry set in_title = #{inquiry.in_title}, in_content = #{inquiry.in_content}, in_ic_num = #{inquiry.in_ic_num}, in_modify_date = now()
 		
 		where in_num = #{inquiry.in_num}
 	
@@ -394,25 +394,39 @@
 	
 	<insert id="insertReport" useGeneratedKeys="true" keyProperty="report.re_num">
 	
-    	<if test="report.re_rc_num != 2">
-	
-			insert into report(re_num, re_content, re_date, re_rc_num)
+		<choose>
+		
+		<when test="report.re_rc_num == 1">
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_report_product, re_me_id)
 		
 			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
 			
-			#{report.re_content}, now(), #{report.re_rc_num} from report
-			
-		</if>
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_pr_code}, #{report.re_me_id} from report
 		
-		<if test="report.re_rc_num == 2">
+		</when>
 		
-			insert into report(re_num, re_content, re_date, re_rc_num, re_report_id)
+		<when test="report.re_rc_num == 2">
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_report_id, re_me_id)
 		
 			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
 			
-			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_report_id} from report
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_report_id}, #{report.re_me_id} from report
 			
-		</if>
+		</when>
+		
+		<otherwise>
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_me_id)
+		
+			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
+			
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_me_id} from report
+			
+		</otherwise>
+		
+		</choose>
 		
 	</insert>
 	
@@ -420,9 +434,9 @@
 	
 	<insert id="insertFileByReport">
   	
-  		insert into file(fi_name, fi_savename, fi_tablename, fi_tablenum)
+  		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
   		
-  		values(#{file.fi_name},#{file.fi_savename}, '신고', #{re_num})
+  		values(#{file.fi_name},#{file.fi_save_name}, '신고', #{re_num})
   	
   	</insert>
   	
@@ -430,7 +444,9 @@
 	
 	<select id="selectReportList" resultType="kr.kr.OnAirAuction.VO.ReportVO">
   		
-  		select * from report join report_category on re_rc_num = rc_num order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		select * from report join report_category on re_rc_num = rc_num left join product on re_report_product = pr_code
+  		
+  		 order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
   		
   	</select>
   	
@@ -444,13 +460,15 @@
 	
 	<select id="selectReport" resultType="kr.kr.OnAirAuction.VO.ReportVO">
 	
-		select * from report left join member on me_id = re_me_id where re_num = #{re_num}
+		select * from report left join member on me_id = re_me_id left join product on re_report_product = pr_code
+		
+		where re_num = #{re_num}
 	
 	</select>
 	
 	<select id="selectFileListByReport" resultType="kr.kr.OnAirAuction.VO.FileVO">
 	
-		select * from file where fi_tablenum = #{re_num} and fi_tablename = '신고'
+		select * from file where fi_table_num = #{re_num} and fi_table_name = '신고'
 	
 	</select>
 	
@@ -458,9 +476,9 @@
 	
 	<update id="updateReport">
 	
-		update report set re_content = #{report.re_content}, re_rc_num = #{report.re_rc_num}
+		update report set re_content = #{report.re_content}, re_rc_num = #{report.re_rc_num}, re_report_product = #{report.re_pr_code}, 
 		
-		where re_num = #{report.re_num}
+		re_report_id = #{report.re_report_id} where re_num = #{report.re_num}
 	
 	</update>
 	
@@ -482,10 +500,20 @@
 	
 	<update id="updateMember">
 	
-		update member set me_pw = #{member.me_pw}, me_email = #{member.me_email}, me_phone = #{member.me_phone}, me_board = concat(#{member.addr2}, #{member.addr3})
+		update member set me_pw = #{member.me_pw}, me_email = #{member.me_email}, me_phone = #{member.me_phone}, me_post_num = #{member.me_post_num}
+		
+		, me_road_name = #{member.me_road_name}, me_detail_address = #{member.me_detail_address}
 		
 		where me_id = #{member.me_id}
 	
 	</update>
+	
+	<!-- 회원 탈퇴 -->
+	
+	<delete id="deleteMember">
+	
+		delete from member where me_id = #{user.me_id} and me_pw = #{user.me_pw}
+	
+	</delete>
 
 </mapper>

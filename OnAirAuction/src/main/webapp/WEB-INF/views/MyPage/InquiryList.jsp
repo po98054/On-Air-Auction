@@ -108,16 +108,15 @@
                     <a href="#" class="item-a">후기 조회</a>	
 				</li>	
 				<li class="list-li">신고<br>
-					<a href="#" class="item-a">신고 작성</a><br>
-                    <a href="#" class="item-a">신고 조회</a>	
-				</li>	
+					<a href="<c:url value='/MyPage/ReportInsert'></c:url>" class="item-a">신고 작성</a>
+                    <a href="<c:url value='/MyPage/ReportList'></c:url>" class="item-a">신고 조회</a>	
+				</li>
 				<li class="list-li">문의 사항<br>	
-					<a href="#" class="item-a">문의 사항 등록</a><br>
-                    <a href="#" class="item-a">문의 사항 조회</a>
+					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
+                    <a href="<c:url value='/MyPage/InquiryList'></c:url>" class="item-a">문의 사항 조회</a>
 				</li>
 				<li class="list-li">회원<br>
-					<a href="#" class="item-a">회원 정보 수정</a><br>
-                    <a href="#" class="item-a">회원 탈퇴</a>
+					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
 				</li>
 			</ul>		
 		</div>
@@ -143,7 +142,7 @@
                         <td>${pa.ic_name}</td>
                         <td>${pa.in_title}</td>
                         <td>${pa.in_me_id}</td>
-                        <td>${pa.in_registerdate_str}</td>
+                        <td>${pa.in_register_date_str}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

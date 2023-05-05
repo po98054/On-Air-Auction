@@ -8,9 +8,9 @@
 
 <insert id="insertMember">
 	
-	insert into member(me_id, me_pw, me_email, me_board, me_phone, me_name, me_birth, me_join_time)
+	insert into member(me_id, me_pw, me_email, me_post_num, me_road_name, me_detail_address, me_phone, me_name, me_birth, me_join_time)
 	
-	select #{member.me_id}, #{member.me_pw}, #{member.me_email}, concat(#{member.addr2}, #{member.addr3}), #{member.me_phone}
+	select #{member.me_id}, #{member.me_pw}, #{member.me_email}, #{member.me_post_num}, #{member.me_road_name}, #{member.me_detail_address}, #{member.me_phone}
 	
 			, #{member.me_name}, #{member.me_birth}, now()
 
@@ -20,21 +20,21 @@
 
 <insert id="insertMemberOK">
 
-  		insert into certification(ce_me_id, ce_certificationnumber, ce_time) 
+  		insert into certification(ce_me_id, ce_certification_number, ce_time) 
   		
-  		values(#{mok.ce_me_id},#{mok.ce_certificationnumber}, date_add(#{mok.ce_time},interval 1 hour))
+  		values(#{mok.ce_me_id},#{mok.ce_certification_number}, date_add(#{mok.ce_time},interval 1 hour))
   		
 </insert>
 
 <select id="selectMemberOK" resultType="kr.kr.OnAirAuction.VO.MemberOKVO">
 
-  		select * from certification where ce_me_id = #{mok.ce_me_id} and ce_certificationnumber = #{mok.ce_certificationnumber} and ce_time >= now()
+  		select * from certification where ce_me_id = #{mok.ce_me_id} and ce_certification_number = #{mok.ce_certification_number} and ce_time >= now()
   		
 </select>
 
 <delete id="deleteMemberOK">
 
-  		delete from certification where ce_me_id = #{mok.ce_me_id} and ce_certificationnumber = #{mok.ce_certificationnumber}
+  		delete from certification where ce_me_id = #{mok.ce_me_id} and ce_certification_number = #{mok.ce_certification_number}
   		
 </delete>
 

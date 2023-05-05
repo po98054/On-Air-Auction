@@ -138,13 +138,11 @@
                     <a href="./마이페이지_신고조회.html" class="item-a">신고 조회</a>	
 				</li>	
 				<li class="list-li">문의 사항<br>	
-					<a href="./마이페이지_상품문의등록.html" class="item-a">문의 사항 등록</a><br>
-                    <a href="./마이페이지_상품문의조회.html" class="item-a">문의 사항 조회</a>
+					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
+                    <a href="<c:url value='/MyPage/InquiryList'></c:url>" class="item-a">문의 사항 조회</a>
 				</li>
 				<li class="list-li">회원<br>
-					<a href="./마이페이지_회원정보수정.html" class="item-a">회원 정보 수정</a><br>
-					<a href="./마이페이지_회원탈퇴.html" class="item-a">주소록</a>
-                    <a href="./마이페이지_회원탈퇴.html" class="item-a">회원 탈퇴</a>
+					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
 				</li>		
 			</ul>		
 		</div>
@@ -189,43 +187,22 @@
 				</div>
 				<!-- 7. 주소 -->
 				<div class="field addr">                        
-    				<input class="form-control" type="hidden" style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
+    				<input class="form-control" type="text" style="width: 40%; display: inline;" placeholder="우편번호" name="me_post_num" id="addr1" type="text" readonly="readonly" value="${user.me_post_num}" >
     				<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
-					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" value="${user.me_board}"/>
-					<input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" value="${user.me_board}"/>
+					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="me_road_name" id="addr2" type="text" readonly="readonly" value="${user.me_road_name}"/>
+					<input class="form-control" placeholder="상세주소" name="me_detail_address" id="addr3" type="text" value="${user.me_detail_address}"/>
 				</div>
 
 				<!-- 6. 가입하기 버튼 -->
 				<button class="btn btn-outline-success">회원 정보 수정</button>
+				<a href="<c:url value='/MyPage/MemberDelete/${user.me_id}'></c:url>">
+					<button class="btn btn-outline-primary btn-delete">삭제</button>
+				</a>
 		</form>
 	</div>
 </div>
 </body>
 <script>
-
-let addr2 = $('[name=addr2]').val();
-
-console.log(addr2);
-
-addr2 = addr2.substr(0,38);
-
-console.log(addr2);
-
-let addr3 = $('[name=addr3]').val();
-
-addr3 = addr3.substr(38);
-
-let str =  
-	
-	'<input class="form-control" type="hidden" style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >' +
-    
-	'<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>' 
-	
-	+ '<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" value="'+ addr2 + '"/>' +
-	
-	'<input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" value="'+ addr3 + '"/>';
-
-$('.addr').html(str);
 
 $('form').validate({
 	rules:{

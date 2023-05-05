@@ -17,7 +17,11 @@ public class MemberVO {
 	
 	String me_email;
 	
-	String me_board;
+	String me_post_num;
+	
+	String me_road_name;
+	
+	String me_detail_address;
 	
 	String me_phone;
 	
@@ -66,7 +70,9 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		
-		return "회원 아이디 : " + me_id + " 비밀번호 : " + me_pw + " 이메일 주소 : " + me_email + " 회원 집 주소 : " + me_board + " 회원 핸드폰 번호 : " + me_phone
+		return "회원 아이디 : " + me_id + " 비밀번호 : " + me_pw + " 이메일 주소 : " + me_email + " 회원 우편 번호 : " + me_post_num + " 회원 도로 주소 : " + me_road_name +
+				
+				" 회원 상세 주소 : " + me_detail_address + " 회원 핸드폰 번호 : " + me_phone
 				
 				+ " 회원 이름 : " + me_name + " 회원 주소 1 : " + addr2 + " 회원 주소 3 : " + addr3 + " 회원 생일 : " + me_birth + "  회원 인증여부 : " + me_certification +
 				

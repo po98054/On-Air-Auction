@@ -89,7 +89,7 @@ public class MemberServiceImp implements MemberService{
 		
 		String content = "다음 링크를 클릭해서 이메일 인증을 완료하세요.<br>" + 
 		
-			"<a href='http://localhost:8080/OnAirAuction/email?ce_certificationnumber="+str+"&ce_me_id="+me_id+"'>이메일 인증하기</a>";
+			"<a href='http://localhost:8080/OnAirAuction/email?ce_certification_number="+str+"&ce_me_id="+me_id+"'>이메일 인증하기</a>";
 		
 		//이메일 전송
 		sendEmail(title, content, me_email);
@@ -176,6 +176,8 @@ public class MemberServiceImp implements MemberService{
 		
 		MemberOKVO dbMok = memberDao.selectMemberOK(mok);
 		
+		System.out.println(dbMok);
+		
 		if(dbMok != null) {
 			
 			//member_ok 테이블에서 해당 데이터를 삭제하고
@@ -196,8 +198,6 @@ public class MemberServiceImp implements MemberService{
 
 	@Override
 	public MemberVO login(MemberVO member) {
-		
-		System.out.println(member);
 		
 		if(member == null || member.getMe_id() == null || member.getMe_pw() == null) {
 			
@@ -228,16 +228,12 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public MemberVO getMemberBySession(String me_session_id) {
 		
-		System.out.println(me_session_id);
-		
 		return memberDao.selectMemberBySession(me_session_id);
 		
 	}
 
 	@Override
 	public void updateMemberBySession(MemberVO user) {
-		
-		System.out.println(user);
 		
 		if(user == null) {
 			

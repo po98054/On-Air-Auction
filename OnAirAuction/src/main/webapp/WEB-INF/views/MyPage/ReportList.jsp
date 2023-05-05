@@ -108,16 +108,15 @@
                     <a href="#" class="item-a">후기 조회</a>	
 				</li>	
 				<li class="list-li">신고<br>
-					<a href="#" class="item-a">신고 작성</a><br>
-                    <a href="#" class="item-a">신고 조회</a>	
+					<a href="<c:url value='/MyPage/ReportInsert'></c:url>" class="item-a">신고 작성</a>
+                    <a href="<c:url value='/MyPage/ReportList'></c:url>" class="item-a">신고 조회</a>	
 				</li>	
 				<li class="list-li">문의 사항<br>	
-					<a href="#" class="item-a">문의 사항 등록</a><br>
-                    <a href="#" class="item-a">문의 사항 조회</a>
+					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
+                    <a href="<c:url value='/MyPage/InquiryList'></c:url>" class="item-a">문의 사항 조회</a>
 				</li>
 				<li class="list-li">회원<br>
-					<a href="#" class="item-a">회원 정보 수정</a><br>
-                    <a href="#" class="item-a">회원 탈퇴</a>
+					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
 				</li>
 			</ul>		
 		</div>
@@ -131,6 +130,7 @@
                         <th>신고 카데고리명</th>
                         <th>내용</th>
                         <th>신고 피의자</th>
+                        <th>상품 명</th>
                         <th>신고자</th>
                         <th>신고 날짜</th>
                         <th>신고 여부</th>
@@ -145,6 +145,7 @@
                         <td>${pa.rc_name}</td>
                         <td>${pa.re_content}</td>
                         <td>${pa.re_report_id}</td>
+                        <td>${pa.pr_name}</td>
                         <td>${pa.re_me_id}</td>
                         <td>${pa.re_date_str}</td>
                         <td>${pa.re_result}</td>

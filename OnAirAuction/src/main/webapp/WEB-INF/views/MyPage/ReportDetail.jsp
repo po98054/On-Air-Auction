@@ -82,17 +82,16 @@
                     <a href="#" class="item-a">후기 조회</a>	
 				</li>	
 				<li class="list-li">신고<br>
-					<a href="#" class="item-a">신고 작성</a><br>
-                    <a href="#" class="item-a">신고 조회</a>	
+					<a href="<c:url value='/MyPage/ReportInsert'></c:url>" class="item-a">신고 작성</a>
+                    <a href="<c:url value='/MyPage/ReportList'></c:url>" class="item-a">신고 조회</a>	
 				</li>	
 				<li class="list-li">문의 사항<br>	
-					<a href="#" class="item-a">문의 사항 등록</a><br>
-                    <a href="#" class="item-a">문의 사항 조회</a>
+					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
+                    <a href="<c:url value='/MyPage/InquiryList'></c:url>" class="item-a">문의 사항 조회</a>
 				</li>
 				<li class="list-li">회원<br>
-					<a href="#" class="item-a">회원 정보 수정</a><br>
-                    <a href="#" class="item-a">회원 탈퇴</a>
-				</li>	
+					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
+				</li>
 			</ul>		
 		</div>
         <div class="body-middle">
@@ -104,10 +103,18 @@
                     <label for="title">내용</label>
                     <div class="form-control">${report.re_content}</div>
                 </div>
-                <div class="form-group">
-                    <label>신고 당한 사람</label>
-                    <div class="form-control">${report.re_report_id}</div>
-                </div>
+                <c:if test="${report.re_report_id != null}">
+                	<div class="form-group">
+                    	<label>신고 당한 사람</label>
+                    	<div class="form-control">${report.re_report_id}</div>
+                	</div>
+                </c:if>
+                <c:if test="${report.re_report_id == null}">
+                	<div class="form-group">
+                    	<label>제품 명</label>
+                    	<div class="form-control">${report.pr_name}</div>
+                	</div>
+                </c:if>
                 <div class="form-group">
                     <label for="title">신고일</label>
                     <div class="form-control">${report.re_date_str}</div>
@@ -120,7 +127,7 @@
 				  <div class="swiper-wrapper">
 				  		<c:forEach items="${files}" var="file">
 				  		<div class="swiper-slide">
-							<img src="<c:url value='/download${file.fi_savename}'></c:url>" height="200" width="auto">
+							<img src="<c:url value='/download${file.fi_save_name}'></c:url>" height="200" width="auto">
 						</div>
 						</c:forEach>
 				  </div>

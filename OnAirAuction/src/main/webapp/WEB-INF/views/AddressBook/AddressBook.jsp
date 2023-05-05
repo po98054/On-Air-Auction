@@ -19,12 +19,17 @@
 			<c:forEach items="${list}" var="ab" varStatus="vs">
 				<tr style="margin-bottom: 10px;">
 					<form action="<c:url value='/AddressBook/update'></c:url>" method="post">
-						<input type="hidden" name="bl_num" value="${ab.bl_num}">
+						<td class="form-group">${ab.bl_num}<input type="hidden" name="bl_num" value="${ab.bl_num}"></td>
 						<td class="form-group">
 							<input type="text" class="form-control" value="${ab.bl_name}" name="bl_name">
 						</td>
-						<td>
-							<input type="text" class="form-control" value="${ab.bl_board}" name="bl_board" style=" margin-left: 20px; width: 580px;">
+						<td class="form-group" style="">
+							<input class="form-control" style="margin-left: 15px; width: 40%; display: inline;" placeholder="우편번호" name="bl_post_num" id="addr1" type="text" readonly="readonly" value="${ab.bl_post_num}">
+    						<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+    					</td>
+    					<td>
+    						<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="bl_road_name" id="addr2" type="text" readonly="readonly" value="${ab.bl_road_name}"/>
+    						<input class="form-control" placeholder="상세주소" name="bl_detail_address" id="addr3" type="text" value="${ab.bl_detail_address}"/>
 						</td>
 						<td>
 							<button class="btn btn-outline-warning btn-up" style="margin-left: 20px;">수정</button>
@@ -37,17 +42,16 @@
 		<tfoot >
 			<tr style="margin-top: 60px;">
 				  <form action="<c:url value='/AddressBook/insert'></c:url>" method="post">
-				  <input type="hidden" name="bl_num">
 					<td class="form-group">
 						<input type="text" class="form-control" name="bl_name">
 					</td>
 					<td class="form-group" style="">
-						<input class="form-control" style="margin-left: 15px; width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
+						<input class="form-control" style="margin-left: 15px; width: 40%; display: inline;" placeholder="우편번호" name="bl_post_num" id="addr1" type="text" readonly="readonly" >
     					<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
     				</td>
     				<td>
-    					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" />
-    					<input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"/>
+    					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="bl_road_name" id="addr2" type="text" readonly="readonly" />
+    					<input class="form-control" placeholder="상세주소" name="bl_detail_address" id="addr3" type="text"/>
 					</td>
 					<td><button class="btn btn-outline-success" style="margin-left: 15px;">등록</button></td>
 				</form>

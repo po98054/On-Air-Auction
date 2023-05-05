@@ -12,22 +12,22 @@ public class MemberOKVO {
 	
 	String ce_me_id;
 	
-	String ce_certificationnumber;
+	String ce_certification_number;
 	
 	Date ce_time;
 
 	@Override
 	public String toString() {
 		
-		return "회원 인증 아이디 : " + ce_me_id + " 회원 인증 번호 : " + ce_certificationnumber + " 회원 인증 시간 : " +  ce_time;
+		return "회원 인증 아이디 : " + ce_me_id + " 회원 인증 번호 : " + ce_certification_number + " 회원 인증 시간 : " +  ce_time;
 		
 	}
 	
-	public MemberOKVO(String ce_me_id, String ce_certificationnumber) {
+	public MemberOKVO(String ce_me_id, String ce_certification_number) {
 		
 		this.ce_me_id = ce_me_id;
 		
-		this.ce_certificationnumber = ce_certificationnumber;
+		this.ce_certification_number = ce_certification_number;
 		
 		this.ce_time = new Date();
 		

@@ -292,7 +292,7 @@ public class MyPageServiceImp implements MyPageService{
 				
 			}
 			
-			UploadFileUtils.removeFile(uploadPath, file.getFi_savename());
+			UploadFileUtils.removeFile(uploadPath, file.getFi_save_name());
 			
 			myPageDao.deleteFile(file);
 			
@@ -635,7 +635,13 @@ public class MyPageServiceImp implements MyPageService{
 	}
 
 	@Override
-	public boolean insertReport(ReportVO report, MultipartFile[] files) {
+	public boolean insertReport(ReportVO report, MultipartFile[] files, MemberVO user) {
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
 		
 		System.out.println(files);
 		
@@ -644,6 +650,8 @@ public class MyPageServiceImp implements MyPageService{
 			return false;
 			
 		}
+		
+		report.setRe_me_id(user.getMe_id());
 		
 		myPageDao.insertReport(report);
 		
@@ -720,7 +728,13 @@ public class MyPageServiceImp implements MyPageService{
 	// 신고 상세 보기
 
 	@Override
-	public ReportVO getReport(int re_num) {
+	public ReportVO getReport(int re_num, MemberVO user) {
+		
+		if(user == null) {
+			
+			return null;
+			
+		}
 		
 		return myPageDao.selectReport(re_num);
 		
@@ -732,13 +746,21 @@ public class MyPageServiceImp implements MyPageService{
 		return myPageDao.selectFileListByReport(re_num);
 		
 	}
+	
+	// 신고 수정
 
 	@Override
-	public boolean UpdateReport(ReportVO report, MultipartFile[] files, int[] fileNums) {
+	public boolean UpdateReport(ReportVO report, MultipartFile[] files, int[] fileNums, MemberVO user) {
 		
 		System.out.println(files);
 		
 		System.out.println(fileNums);
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
 		
 		if(report == null || report.getRe_num() <= 0) {
 			
@@ -749,6 +771,12 @@ public class MyPageServiceImp implements MyPageService{
 		ReportVO dbreport = myPageDao.selectReport(report.getRe_num());
 		
 		if(dbreport == null) {
+			
+			return false;
+			
+		}
+		
+		if(!dbreport.getRe_me_id().equals(user.getMe_id())) {
 			
 			return false;
 			
@@ -905,6 +933,18 @@ public class MyPageServiceImp implements MyPageService{
 		
 		return myPageDao.updateMember(member) != 0;
 		
+	}
+
+	@Override
+	public boolean deleteMember(MemberVO user) {
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
+		
+		return myPageDao.deleteMember(user) != 0;
 	}
 	
 }

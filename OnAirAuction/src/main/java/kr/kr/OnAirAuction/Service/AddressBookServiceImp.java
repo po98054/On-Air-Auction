@@ -38,11 +38,15 @@ public class AddressBookServiceImp implements AddressBookService{
 	@Override
 	public boolean insertAddressBook(AddressBookVO ab, MemberVO user) {
 		
+		System.out.println(user);
+		
 		if(user == null) {
 			
 			return false;
 			
 		}
+		
+		System.out.println(ab);
 		
 		if(ab == null) {
 			
@@ -62,6 +66,8 @@ public class AddressBookServiceImp implements AddressBookService{
 
 	@Override
 	public boolean updateAddressBook(AddressBookVO ab, MemberVO user) {
+		
+		System.out.println(ab);
 		
 		if(ab == null || ab.getBl_num() <= 0) {
 			

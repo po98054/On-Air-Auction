@@ -1,5 +1,4 @@
-package kr.kh.onAirAuction.vo;
-
+package kr.kr.OnAirAuction.VO;
 
 import java.util.Date;
 

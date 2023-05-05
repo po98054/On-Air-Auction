@@ -1,4 +1,4 @@
-package kr.kh.onAirAuction.vo;
+package kr.kr.OnAirAuction.VO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -573,9 +573,11 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/ReportInsert", method = RequestMethod.POST)
 	
-	public ModelAndView ReportInsertPost(ModelAndView mv, ReportVO report, MultipartFile []files) {
+	public ModelAndView ReportInsertPost(ModelAndView mv, ReportVO report, MultipartFile []files, HttpSession session) {
 		
-		if(myPageService.insertReport(report, files)) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(myPageService.insertReport(report, files, user)) {
 			
 			System.out.println("신고 등록 성공 !!");
 			
@@ -653,11 +655,13 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/ReportDetail/{re_num}", method=RequestMethod.GET)
 		
-	public ModelAndView ReportDetail(ModelAndView mv, @PathVariable("re_num") int re_num) {
+	public ModelAndView ReportDetail(ModelAndView mv, @PathVariable("re_num") int re_num, HttpSession session) {
 			
 		System.out.println(re_num);
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 			
-		ReportVO report = myPageService.getReport(re_num);
+		ReportVO report = myPageService.getReport(re_num, user);
 			
 		ArrayList<FileVO> files = myPageService.getFileListByReport(re_num);
 			
@@ -675,11 +679,13 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/ReportUpdate/{re_num}", method = RequestMethod.GET)
 		
-	public ModelAndView ReportUpdate(ModelAndView mv, @PathVariable("re_num") int re_num) {
+	public ModelAndView ReportUpdate(ModelAndView mv, @PathVariable("re_num") int re_num, HttpSession session) {
 			
 		System.out.println(re_num);
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 			
-		ReportVO report = myPageService.getReport(re_num);
+		ReportVO report = myPageService.getReport(re_num, user);
 		
 		ArrayList<ReportCategoryVO> reportCategory = myPageService.getReportCategory();
 			
@@ -705,15 +711,17 @@ public class MyPageController {
 		
 	public ModelAndView InquiryUpdatePost(ModelAndView mv, @PathVariable("re_num") int re_num, ReportVO report, MultipartFile []files, int [] fileNums,
 				
-			HttpServletResponse response) {
+			HttpServletResponse response, HttpSession session) {
 			
 		System.out.println(re_num);
 			
 		System.out.println(files);
 			
 		System.out.println(fileNums);
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 			
-		if(myPageService.UpdateReport(report, files, fileNums)) {
+		if(myPageService.UpdateReport(report, files, fileNums, user)) {
 				
 			MessageUtils.alertAndMovePage(response, "신고 수정에 성공했습니다..", "OnAirAuction", "/MyPage/ReportUpdate/"+re_num);
 				

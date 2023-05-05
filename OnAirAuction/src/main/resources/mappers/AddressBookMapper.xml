@@ -12,15 +12,17 @@
 
 <insert id="insertAddressBook">
 
-	insert board_list(bl_name, bl_board, bl_me_id)
+	insert into board_list(bl_name, bl_post_num, bl_road_name, bl_detail_address, bl_me_id)
 	
-	select #{ab.bl_name}, concat(#{ab.addr2}, #{ab.addr3}), #{ab.bl_me_id}
+	 values(#{ab.bl_name}, #{ab.bl_post_num}, #{ab.bl_road_name}, #{ab.bl_detail_address}, #{ab.bl_me_id})
 
 </insert>
 
 <update id="updateAddressBook">
 
-	update board_list set bl_name = #{ab.bl_name}, bl_board = #{ab.bl_board} where bl_num = #{ab.bl_num}
+	update board_list set bl_name = #{ab.bl_name}, bl_post_num = #{ab.bl_post_num}, bl_road_name = #{ab.bl_road_name}, 
+	
+	bl_detail_address = #{ab.bl_detail_address} where bl_num = #{ab.bl_num}
 
 </update>
 

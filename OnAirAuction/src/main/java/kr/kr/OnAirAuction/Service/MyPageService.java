@@ -114,7 +114,7 @@ public interface MyPageService {
 
 	ArrayList<ReportCategoryVO> getReportCategory();
 	
-	boolean insertReport(ReportVO report, MultipartFile[] files);
+	boolean insertReport(ReportVO report, MultipartFile[] files, MemberVO user);
 	
 	// ajax를 통한 아이디 조회
 
@@ -130,13 +130,13 @@ public interface MyPageService {
 	
 	// 신고 상세 보기
 
-	ReportVO getReport(int re_num);
+	ReportVO getReport(int re_num, MemberVO user);
 
 	ArrayList<FileVO> getFileListByReport(int re_num);
 	
 	// 신고 수정
 
-	boolean UpdateReport(ReportVO report, MultipartFile[] files, int[] fileNums);
+	boolean UpdateReport(ReportVO report, MultipartFile[] files, int[] fileNums, MemberVO user);
 	
 	// 신고 삭제
 
@@ -161,5 +161,9 @@ public interface MyPageService {
 	MemberVO getMember(String me_id, MemberVO user);
 
 	boolean UpdateMember(MemberVO member);
+	
+	// 회원 탈퇴
+
+	boolean deleteMember(MemberVO user);
 
 }
