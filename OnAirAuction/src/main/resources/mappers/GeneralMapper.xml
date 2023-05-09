@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="kr.kr.OnAirAuction.DAO.GeneralDAO">
+ 	<!-- 일반 경매 상품 리스트 가져오기 -->
+ 	<select id="selectGeneralList" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+ 		select * from product
+ 	</select>
+
+ 	<!-- 상품 상세페이지 가져오기 -->
+	<select id="selectGeneral" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+		SELECT * FROM product 
+		<!-- 오류 
+		    JOIN product_category ON pr_pc_num = pc_num
+			JOIN product_small_category ON psc_pmc_num = psc_num
+			JOIN product_middle_category ON pmc_plc_num = pmc_num
+		    WHERE pr_code = #{pr.pr_code} 
+		-->
+		<!-- 
+		 아래 코드 함께 사용하면 오류 발생
+			where pr_code = #{pr.pr_code}
+		-->
+	</select>
+	<!-- 오류 수정해야함 -->
+ 	<!-- 상품 카테고리 가져오기 -->
+ 	<!-- 
+ 	<select id="selectProdCategory" resultType="kr.kr.OnAirAuction.VO.Product_categoryVO">
+	 	SELECT psc_name, pmc_name, pc_name FROM product
+			JOIN product_category ON pr_pc_num = pc_num
+			JOIN product_small_category ON pc_psc_num = psc_num
+			JOIN product_middle_category ON psc_pmc_num = pmc_num
+			WHERE pr_code = #{pc_num}
+ 	</select>
+ 	 -->
+ 	
+ 	<select id="selectAuction" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
+ 		SELECT * FROM auction
+			JOIN product ON au_pr_code = au_num
+    		WHERE au_num = #{pr_code}
+ 	</select>
+ 	
+ 	<!-- 회원의 찜한 상품 정보 가져오기 -->
+ 	<select id="selectLikeProductById" resultType="kr.kr.OnAirAuction.VO.Product_likeVO">
+ 		select * from product_like
+			where pl_pr_code = #{pl_pr_code} and pl_me_id = #{pl_me_id};
+ 	</select>
+ 	
+	<!-- 상품 찜하기 등록 -->
+  	<insert id="insertLikeProduct">
+  		insert into product_like(pl_pr_code, pl_me_id, pl_state)
+  			values(#{p_li.pl_pr_code}, #{p_li.pl_me_id}, #{p_li.pl_state})
+  	</insert>
+  	
+  	<!-- 상품 찜하기 변경 -->
+	<insert id="updateLikeProduct">
+  		update product_like 
+  			set pl_state = #{p_li.pl_state}
+  			where pl_pr_code = #{p_li.pl_pr_code}
+  	</insert>
+  	
+ 	<!-- 회원의 찜한 판매자 정보 가져오기 -->
+ 	<select id="selectLikeSellerById" resultType="kr.kr.OnAirAuction.VO.Seller_likeVO">
+ 		select * from seller_like
+			where sl_seller_id = #{sl_seller_id} and sl_me_id = #{sl_me_id};
+ 	</select>
+ 	
+	<!-- 판매자 찜하기 등록 -->
+  	<insert id="insertLikeSeller">
+  		insert into seller_like(sl_seller_id, sl_me_id, sl_state)
+  			values(#{s_li.sl_seller_id}, #{s_li.sl_me_id}, #{s_li.sl_state})
+  	</insert>
+  	
+  	<!-- 판매자 찜하기 변경 -->
+	<insert id="updateLikeSeller">
+  		update seller_like 
+  			set sl_state = #{s_li.sl_state}
+  			where sl_seller_id = #{s_li.sl_seller_id}
+  	</insert>
+  	
+  	<!-- 스토어 정보 가져오기 -->
+  	<select id="selectStore" resultType="kr.kr.OnAirAuction.VO.StoreVO">
+  		SELECT * FROM store
+			JOIN product ON st_num = pr_code
+			WHERE st_num = #{pr_code}
+  	</select>
+  	
+ 	
+ 	<!-- 아래부터 추가중 -->
+ 	
+ 	<select id="selectTotalCountProduct" resultType="int">
+ 		select count(*) from Product
+ 	</select>
+	
+	<select id="selectBidlist" resultType="kr.kr.OnAirAuction.DAO.GeneralDAO">
+		select * from auction_record
+			order by ar_bid_price desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	
+	<insert id="insertImmediate">
+		insert into auction_record(ar_bid_price, ar_me_id) 
+			values(#{bid.ar_bid_price}, #{bid.ar_me_id})
+	</insert>
+
+  	<select id="selectBidlistTotalCount" resultType="int">
+  		select count(*) from auction_record
+  	</select>
+</mapper>
