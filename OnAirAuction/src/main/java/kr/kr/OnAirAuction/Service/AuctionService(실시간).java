@@ -2,38 +2,38 @@ package kr.kh.onairauction.service;
 
 import java.util.ArrayList;
 
-import kr.kh.onairauction.vo.AuctionRecordVO;
-import kr.kh.onairauction.vo.MemberVO;
-import kr.kh.onairauction.vo.MembershipLevelVO;
-import kr.kh.onairauction.vo.NoteBoxVO;
-import kr.kh.onairauction.vo.ProductVO;
-import kr.kh.onairauction.vo.ReportCategoryVO;
-import kr.kh.onairauction.vo.ReportVO;
-import kr.kh.onairauction.vo.VirtualAccountVO;
+import kr.kh.onairauction.vo2.AuctionRecordVO;
 import kr.kh.onairauction.vo2.AuctionVO;
+import kr.kh.onairauction.vo2.MemberVO;
+import kr.kh.onairauction.vo2.MembershipLevelVO;
 import kr.kh.onairauction.vo2.MessageVO;
+import kr.kh.onairauction.vo2.ProductVO;
+import kr.kh.onairauction.vo2.ReportCategoryVO;
+import kr.kh.onairauction.vo2.ReportVO;
+import kr.kh.onairauction.vo2.VirtualAccountVO;
 
 public interface AuctionService {
-	String getEmail(String id);
 	
-	ArrayList<kr.kh.onairauction.vo2.ReportCategoryVO> getReportCategoryName();
+	ArrayList<ReportCategoryVO> selectReportCategory();
 
-	boolean register(kr.kh.onairauction.vo2.ReportVO report);
+	boolean insertReport(ReportVO report);
 	
-	boolean registerNote(MessageVO note);
+	boolean insertMessage(MessageVO message);
 	
-	ArrayList<kr.kh.onairauction.vo2.AuctionRecordVO> getAuctionRecordList();
+	ArrayList<AuctionRecordVO> selectAuctionRecord();
 	
-	kr.kh.onairauction.vo2.MemberVO getUser(String id);
+	MemberVO getUser(String me_id); //나중에 삭제
 	
-	kr.kh.onairauction.vo2.ProductVO getProduct(int num);
+	boolean insertBid(Double price, int expense, VirtualAccountVO userAccount, MemberVO user, int auctionNum);
+	
+	MembershipLevelVO selectMebership(String levelName);
 
-	boolean insertBid(Double price, int expense, kr.kh.onairauction.vo2.VirtualAccountVO account, kr.kh.onairauction.vo2.MemberVO user, int auctionNum);
+	VirtualAccountVO selectAccount(String id);
 	
-	kr.kh.onairauction.vo2.MembershipLevelVO getMebership(String levelName);
+	AuctionVO getAuction(String id); //나중에 삭제
 
-	kr.kh.onairauction.vo2.VirtualAccountVO selectAccount(String id);
-	
-	AuctionVO getAuction(String id);
+	ProductVO selectProduct(int productCode);
+
+	MemberVO selectSeller(String sellerId);
 	
 }

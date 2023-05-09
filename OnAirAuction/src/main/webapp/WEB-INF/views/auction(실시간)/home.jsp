@@ -820,20 +820,15 @@
                 <ul>
                     <li class="id">
                         <div class="seller">판매자</div>
-                        <strong>${seller.me_id}</strong>
+                        <strong>${auctionSeller.me_id}</strong>
                     </li>
                     <li class="pay">구매만족도
-                        <strong>${seller.me_customer_certification}</strong>
-                       
-                        <font>(2,365)
-                            <span class="grade"></span>
-                            
-                        </font>
+                        <strong>${auctionSeller.me_trade_certification}</strong>
                     </li>
                     <li class="recall">
                         반품수용여부
-                        <strong>${product.pr_refund_ok}</strong>
-                        <strong class="st">${product.pr_refund_date}</strong>
+                        <strong>${auctionProduct.pr_refund_ok}</strong>
+                        <strong class="st">${auctionProduct.pr_refund_date}</strong>
                     </li>
                 </ul>
                 <a href="#" class="sel_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매자 찜
@@ -848,7 +843,7 @@
             </div>
         </div>
         <div class="box mid">
-            <div id="tabl3">현재 입찰자: ${last.getAr_me_id()} 님	입찰가격: $ ${last.getAr_bid_price()}	입찰시간: ${last.getAr_bid_time()}</div>
+            <div id="tabl3">현재 입찰자: ${lastAuctionRecord.getAr_me_id()} 님	입찰가격: $ ${lastAuctionRecord.getAr_bid_price()}	입찰시간: ${lastAuctionRecord.getAr_bid_time()}</div>
             <div class="chat-mid"></div>
             <div class="chat-bottom">
                 <input type="text" placeholder="내용을 입력해주세요.">
@@ -859,11 +854,8 @@
             <div class="step step01">
                 <div class="itemid">
                     <strong>Item ID</strong>
-                    <span>${product.pr_code}</span>
-                    <a href="https://www.ebay.com/itm/304798106833?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5338569225&customid=&toolid=10001&mkevt=1" class="all_icon"></a>
-                    <button class="share_btn" id="modal_open_btn">
-                        <span class="all_icon"></span>
-                    </button>
+                    <span>${auctionProduct.pr_code}</span>
+                    <a href="#" class="all_icon" style="cursor: pointer;"></a>
                     <button class="like_btn">
                         <span class="all_icon"></span>
                     </button>
@@ -876,7 +868,7 @@
                                 <span class="pr0">
                                     <img src="//static.itrcomm.com/img/sub/item_status_ico_1.png" alt="">
                                 </span>
-                                ${product.pr_condition}
+                                ${auctionProduct.pr_condition}
                             </dd>
                         </dl>
                     </li>
@@ -884,7 +876,7 @@
                         <dl>
                             <dt>상품위치</dt>
                             <dd>
-                                <label class="warehouseInfo">${product.pr_location}</label>
+                                <label class="warehouseInfo">${auctionProduct.pr_location}</label>
                             </dd>
                         </dl>
                     </li>
@@ -962,52 +954,28 @@
             </div>
         </div>
     </div> 
-    <div class="modal_layer">
+    
+    <div class="modal_layer modal_layer1">
         <div id="modal">
-            <div class="modal_content">
-              <div class="box box1">
-                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MjBfMjU2%2FMDAxNjU4Mjc5MzYwNjcw.5MVjAvre4v-ACGC7cXELJOcBA0x20xDAcxHRHJOnJY8g.8kbITvud_Ao-IhT6bEtBv95FpwSbTkZb4GiDDKukKzgg.PNG.smcho2002%2F1.png&type=sc960_832" alt="">
-                <a href="#"></a>
-              </div>
-              <div class="box box2">
-                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA1MzFfNjYg%2FMDAxNjIyNDY0NjMwMzg4.hY-FUGvamGoj-AcXRHGKyhdQKYehRu7Bx-nYcIlibd4g.tTMZBZsCS1nfVFlz6-uyb7u656Gf06y4mYhGzlzOwusg.PNG.futurara%2F5.png&type=sc960_832" alt="">
-                <a href="#"></a>
-              </div>
-              <div class="box box3">
-                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA0MjVfMjgx%2FMDAxNTI0NjMzMTk5MTg5.LPGkH3KNG5zS5J3abfWHuCu8EXoA24cbNAcexLuWmgMg.9OJE4qEVGIG7PhfciJSB-pWbbbHHjkja-vzrxb5qfl4g.PNG.dc-club%2F%25C0%25CE%25BD%25BA%25C5%25B8%25B1%25D7%25B7%25A5.png&type=sc960_832" alt="">
-                <a href="#"></a>
-              </div>
-              <div class="box box4">
-                <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F293%2F2018%2F11%2F30%2F0000023210_001_20181130102430310.jpg&type=sc960_832" alt="">
-                <a href="#"></a>
-              </div>
+        	<div id="tabl4">
+             <div class="modal_content1">
+                 회원님의 입찰신청 가격은 : ${lastAuctionRecord.getAr_next_bid_price()} 입니다. <br>
+                 입찰하시겠습니까?
+             </div>
             </div>
-            <button type="submit" id="modal_copy_btn">링크 복사하기</button>
-            <button type="button" id="modal_close_btn">공유 취소하기</button>
+            <button type="submit" id="modal_double_btn1">x  2 입찰하기</button>
+            <button type="button" id="modal_close_btn1">입찰 취소</button>
+            <button type="submit" id="modal_confirm_btn1">입찰 확인</button>
         </div>
     </div>
-    
-        <div class="modal_layer modal_layer1">
-            <div id="modal">
-            	<div id="tabl4">
-	                <div class="modal_content1">
-	                    회원님의 입찰신청 가격은 : ${last.getAr_next_bid_price()} 입니다. <br>
-	                    입찰하시겠습니까?
-	                </div>
-                </div>
-                <button type="submit" id="modal_double_btn1">x  2 입찰하기</button>
-                <button type="button" id="modal_close_btn1">입찰 취소</button>
-                <button type="submit" id="modal_confirm_btn1">입찰 확인</button>
-            </div>
-        </div>
     
 
     <div class="modal_layer modal_layer2">
         <div id="modal">
             <div class="modal_content2">
-                <div class="box">
+                <div class="box" id="tabl5">
                     <ul>
-                        <li>현재 입찰가($) : $ ${last.getAr_bid_price()}</li>
+                        <li>현재 입찰가($) : $ ${lastAuctionRecord.getAr_bid_price()}</li>
                         <li>환율 : </li>
                         <li>₩표시 가격 :</li>
                     </ul>
@@ -1034,7 +1002,7 @@
             <div id="modal">
                 <div class="modal_content3">
                         <select name="re_rc_num" style="border-radius: 20px; padding: 5px; border: 2px solid black; font-weight: bold;" >
-                            <c:forEach items="${list1}" var="bo" varStatus="vs">
+                            <c:forEach items="${reportCategory}" var="bo" varStatus="vs">
                             <option value="${bo.rc_num}">${bo.rc_name}</option>
                             </c:forEach>
                         </select>
@@ -1050,7 +1018,7 @@
             </div>
         </div>
     </form>
-    <form action="<c:url value='/notebox'></c:url>" method="post">
+    <form action="<c:url value='/message'></c:url>" method="post">
         <div class="modal_layer modal_layer5">
             <div id="modal">
                 <div class="modal_content3">
@@ -1059,14 +1027,14 @@
                             <textarea name="me_content" id="" cols="30" rows="10" style="border: none; width: 100%; height: 100%; border-radius: 20px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc;" placeholder="내용을 입력해주세요."></textarea>
                         </div>
                         <input type="hidden" name="me_send_id" value="${user.me_id}">
-                        <input type="hidden" name="me_receive_id" value="${seller.me_id}">
+                        <input type="hidden" name="me_receive_id" value="${auctionSeller.me_id}">
                 </div>
                 <button type="button" id="modal_close_btn5" class="close_btn2">닫기</button>
                 <button type="submit" id="modal_confirm_btn5" class="confirm_btn2">보내기</button>
             </div>
         </div>
     </form>
-    <input type="hidden" id="nextPrice" value="${last.getAr_next_bid_price()}">
+    <input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_next_bid_price()}">
 	<div id="myPopup" class="popup">
       <div class="popup-content" onmousedown="dragPopup(event)">
         <div class="close-popup">
@@ -1086,7 +1054,7 @@
               </tr>
             </thead>
             <tbody>
-              <c:forEach items="${list}" var="me" varStatus="vs">
+              <c:forEach items="${messageList}" var="me" varStatus="vs">
                 <tr>
                   <td>${vs}</td>
                   <td>${me.me_time}</td>
@@ -1185,24 +1153,6 @@
 	        }
 	    });  
     });
-    $(function(){
-        const modal1 = document.querySelector('.modal_layer')
-        function modalOn() {
-        modal1.style.display = "flex"
-        }
-        function modalOff() {
-        modal1.style.display = "none"
-        }
-    
-        const btnModal = document.getElementById("modal_open_btn")
-        btnModal.addEventListener("click", e => {
-        modalOn()
-    	})
-        const closeBtn = modal1.querySelector("#modal_close_btn")
-        closeBtn.addEventListener("click", e => {
-        modalOff()
-    	})
-    })
     $(function(){
         const modal1 = document.querySelector('.modal_layer1')
         function modalOn() {
@@ -1315,7 +1265,7 @@
 	    $('.history_btn').click(function ez() {
 			$.ajax({
 				type: 'GET',
-				url: '<c:url value="/AuctionRecord"></c:url>',
+				url: '<c:url value="/auctionRecord"></c:url>',
 				dataType:"Text",
 				contentType:"application/json; charset=UTF-8",
 				success: function(result){
@@ -1339,7 +1289,7 @@
     $(function list(){ 
     	
 	    	$.ajax({
-	    		url : '<c:url value="/ajaxdata"></c:url>',
+	    		url : '<c:url value="/ajaxData"></c:url>',
 	    		type : "get",
 	    		dataType : "text",
 	    		contentType: false,
@@ -1361,7 +1311,8 @@
 	    			
 	    			var text2 = html.find("div#indexListAjax4").detach();
 	    			//$('#tabl4').html(text2);
-	    			
+	    			var text3 = html.find("ul#indexListAjax5").detach();
+	    			$('#tabl5').html(text3);
 	    			
 	    	}).fail(function (jqXHR, textStatus, errorThrown) {
 	    		console.log("에러");
@@ -1384,16 +1335,16 @@
 				dataType:"JSON",
 				contentType:"application/json; charset=UTF-8",
 				success: function(result){
-					if(result.result){
+					if(result.res){
 						alert("입찰하였습니다.")
 						let str = '';
 						str += 
 							'<div class="modal_content1" id="indexListAjax4">'+
-							'회원님의 입찰신청 가격은 : '+ result.price +' 입니다.'+'<br>'+
+							'회원님의 입찰신청 가격은 : '+ result.nextPrice +' 입니다.'+'<br>'+
 							'입찰하시겠습니까?'
 							+'</div>';
 							$('#tabl4').html(str);
-							$("#nextPrice").val(result.price);
+							$("#nextPrice").val(result.nextPrice);
 							//idcheck = 12; 변수타입 let, var 설정안해줘도 값 저장됨
 							//console.log(idcheck);
 							
@@ -1420,16 +1371,16 @@
 				dataType:"JSON",
 				contentType:"application/json; charset=UTF-8",
 				success: function(result){
-					if(result.result){
+					if(result.res){
 						alert("현재입찰가의 2배로 입찰하였습니다.")
 						let str = '';
 						str += 
 							'<div class="modal_content1" id="indexListAjax4">'+
-							'회원님의 입찰신청 가격은 : '+ result.price +' 입니다.'+'<br>'+
+							'회원님의 입찰신청 가격은 : '+ result.nextPrice +' 입니다.'+'<br>'+
 							'입찰하시겠습니까?'
 							+'</div>';
 							$('#tabl4').html(str);
-							$("#nextPrice").val(result.price);
+							$("#nextPrice").val(result.nextPrice);
 						//location.reload() //새로고침 코드
 						
 						}

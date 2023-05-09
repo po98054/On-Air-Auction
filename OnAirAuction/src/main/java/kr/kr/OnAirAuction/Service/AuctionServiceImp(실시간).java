@@ -1,37 +1,31 @@
 package kr.kh.onairauction.service;
 
 import java.util.ArrayList;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kr.kh.onairauction.dao.AuctionDAO;
-import kr.kh.onairauction.vo.AuctionRecordVO;
-import kr.kh.onairauction.vo.MemberVO;
-import kr.kh.onairauction.vo.MembershipLevelVO;
-import kr.kh.onairauction.vo.NoteBoxVO;
-import kr.kh.onairauction.vo.ProductVO;
-import kr.kh.onairauction.vo.ReportCategoryVO;
-import kr.kh.onairauction.vo.ReportVO;
-import kr.kh.onairauction.vo.VirtualAccountVO;
+import kr.kh.onairauction.vo2.AuctionRecordVO;
 import kr.kh.onairauction.vo2.AuctionVO;
+import kr.kh.onairauction.vo2.MemberVO;
+import kr.kh.onairauction.vo2.MembershipLevelVO;
 import kr.kh.onairauction.vo2.MessageVO;
+import kr.kh.onairauction.vo2.ProductVO;
+import kr.kh.onairauction.vo2.ReportCategoryVO;
+import kr.kh.onairauction.vo2.ReportVO;
+import kr.kh.onairauction.vo2.VirtualAccountVO;
 
 @Service
 public class AuctionServiceImp implements AuctionService {
 	@Autowired
 	AuctionDAO auctionDAO;
 	
+	
 	@Override
-	public String getEmail(String id) {
-		return auctionDAO.getEmail(id);
-	}
-	@Override
-	public ArrayList<kr.kh.onairauction.vo2.ReportCategoryVO> getReportCategoryName(){
+	public ArrayList<ReportCategoryVO> selectReportCategory(){
 		return auctionDAO.selectReportCategory();
 	}
 	@Override
-	public boolean register(kr.kh.onairauction.vo2.ReportVO report) {
+	public boolean insertReport(ReportVO report) {
 		if(report == null)
 			return false;
 		if(auctionDAO.insertReport(report) != 0)
@@ -39,30 +33,26 @@ public class AuctionServiceImp implements AuctionService {
 		return false;
 	}
 	@Override
-	public boolean registerNote(MessageVO note) {
-		if(note == null)
+	public boolean insertMessage(MessageVO message) {
+		System.out.println(message); //수정해야함 (유저아이디or셀러아이디가 없을 경우 false)
+		if(message.getMe_content() == "")//수정해야함
 			return false;
-		if(auctionDAO.insertNote(note) != 0)
+		if(auctionDAO.insertMessage(message) != 0)
 			return true;
 		return false;
 	}
 	@Override
-	public ArrayList<kr.kh.onairauction.vo2.AuctionRecordVO> getAuctionRecordList(){
+	public ArrayList<AuctionRecordVO> selectAuctionRecord(){
 		return auctionDAO.selectAuctionRecord();
 	}
 	@Override
-	public kr.kh.onairauction.vo2.MemberVO getUser(String id) {
+	public MemberVO getUser(String me_id) { //나중에 삭제
 		
-		return auctionDAO.selectMember(id);
+		return auctionDAO.selectMember(me_id);
 	}
 	@Override
-	public kr.kh.onairauction.vo2.ProductVO getProduct(int num) {
-		
-		return auctionDAO.selectProduct(num);
-	}
-	@Override
-	public boolean insertBid(Double price, int expense, kr.kh.onairauction.vo2.VirtualAccountVO account, kr.kh.onairauction.vo2.MemberVO user, int auctionNum) {
-		double a = account.getVa_holding_amount(); 
+	public boolean insertBid(Double price, int expense, VirtualAccountVO userAccount, MemberVO user, int auctionNum) {
+		double a = userAccount.getVa_holding_amount(); 
 		double b = price + (price * expense * 0.001);
 		String id = user.getMe_id();
 		if(b > a) {
@@ -77,19 +67,29 @@ public class AuctionServiceImp implements AuctionService {
 		return false;
 	}
 	@Override
-	public kr.kh.onairauction.vo2.MembershipLevelVO getMebership(String levelName) {
+	public MembershipLevelVO selectMebership(String levelName) {
 		
 		return auctionDAO.selectMembership(levelName);
 	}
 	@Override
-	public kr.kh.onairauction.vo2.VirtualAccountVO selectAccount(String id) {
+	public VirtualAccountVO selectAccount(String id) {
 		
 		return auctionDAO.selectAccount(id);
 	}
 	@Override
-	public AuctionVO getAuction(String id) {
+	public AuctionVO getAuction(String id) { //나중에 삭제
 		
 		return auctionDAO.selectAuction(id);
+	}
+	@Override
+	public ProductVO selectProduct(int productCode) {
+		
+		return auctionDAO.selectProduct(productCode);
+	}
+	@Override
+	public MemberVO selectSeller(String sellerId) {
+		
+		return auctionDAO.selectSeller(sellerId);
 	}
 	
 	
