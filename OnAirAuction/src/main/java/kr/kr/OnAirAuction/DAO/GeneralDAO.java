@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
 import kr.kr.OnAirAuction.VO.AuctionVO;
-import kr.kr.OnAirAuction.VO.ProdCategoryVO;
+//import kr.kr.OnAirAuction.VO.ProdCategoryVO;
 import kr.kr.OnAirAuction.VO.ProductVO;
-import kr.kr.OnAirAuction.VO.Product_categoryVO;
-import kr.kr.OnAirAuction.VO.Product_likeVO;
-import kr.kr.OnAirAuction.VO.Seller_likeVO;
+//import kr.kr.OnAirAuction.VO.Product_categoryVO;
+import kr.kr.OnAirAuction.VO.ProductLikeVO;
+import kr.kr.OnAirAuction.VO.SellerLikeVO;
 import kr.kr.OnAirAuction.VO.StoreVO;
 
 public interface GeneralDAO {
@@ -29,24 +29,24 @@ public interface GeneralDAO {
 	AuctionVO selectAuction(@Param("pr_code")int pr_code);
 
 	// 회원의 찜한 상품 정보 가져오기
-	Product_likeVO selectLikeProductById(@Param("pl_me_id")String pl_me_id, @Param("pl_pr_code")int pl_pr_code);
+	ProductLikeVO selectLikeProductById(@Param("pl_me_id")String pl_me_id, @Param("pl_pr_code")int pl_pr_code);
 
 	// 상품 찜하기 등록
-	void insertLikeProduct(@Param("p_li")Product_likeVO product_likeVO);
+	void insertLikeProduct(@Param("p_li")ProductLikeVO product_likeVO);
 
 	// 상품 찜하기 변경(수정 필요)
-	void updateLikeProduct(@Param("p_li")Product_likeVO product_likeVO);
+	void updateLikeProduct(@Param("p_li")ProductLikeVO product_likeVO);
 	
 	int selectTotalCountProduct(@Param("cri")Criteria cri);
 
 	// 회원의 찜한 판매자 정보 가져오기
-	Seller_likeVO selectLikeSellerById(@Param("sl_me_id")String sl_me_id, @Param("sl_seller_id")String sl_seller_id);
+	SellerLikeVO selectLikeSellerById(@Param("sl_me_id")String sl_me_id, @Param("sl_seller_id")String sl_seller_id);
 
 	// 판매자 찜하기 등록
-	void insertLikeSeller(@Param("s_li")Seller_likeVO seller_likeVO);
+	void insertLikeSeller(@Param("s_li")SellerLikeVO seller_likeVO);
 	
 	// 판매자 찜하기 변경(수정 필요)
-	void updateLikeSeller(@Param("s_li")Seller_likeVO seller_likeVO);
+	void updateLikeSeller(@Param("s_li")SellerLikeVO seller_likeVO);
 	
 	// 스토어 정보
 	StoreVO selectStore(@Param("pr_code")int pr_code);

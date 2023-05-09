@@ -10,9 +10,9 @@ import kr.kr.OnAirAuction.Pagination.Criteria;
 import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.ProductVO;
-import kr.kr.OnAirAuction.VO.Product_categoryVO;
-import kr.kr.OnAirAuction.VO.Product_likeVO;
-import kr.kr.OnAirAuction.VO.Seller_likeVO;
+//import kr.kr.OnAirAuction.VO.Product_categoryVO;
+import kr.kr.OnAirAuction.VO.ProductLikeVO;
+import kr.kr.OnAirAuction.VO.SellerLikeVO;
 import kr.kr.OnAirAuction.VO.StoreVO;
 
 @Service
@@ -52,13 +52,13 @@ public class GeneralServiceImp implements GeneralService{
 	}
 	
 	// 상품 찜하기
-	@Override
+	/*@Override
 	public int updateLikeProduct(int pl_pr_code, int pl_state, MemberVO user) {
 		// 기존의 찜의 유무 정보를 가져옴
-		Product_likeVO pLikeVo = generalDao.selectLikeProductById(user.getMe_id(), pl_pr_code);
+		ProductLikeVO pLikeVo = generalDao.selectLikeProductById(user.getMe_id(), pl_pr_code);
 		// 없으면 추가
 		if(pLikeVo == null) {
-			pLikeVo = new Product_likeVO(pl_state, user.getMe_id(), pl_pr_code);
+			pLikeVo = new ProductLikeVO(pl_state, user.getMe_id(), pl_pr_code);
 			generalDao.insertLikeProduct(pLikeVo);
 			return pl_state;
 		}
@@ -77,16 +77,16 @@ public class GeneralServiceImp implements GeneralService{
 			generalDao.updateLikeProduct(pLikeVo);
 			// 0을 리턴
 			return 0;
-	}
+	}*/
 	
 	// 판매자 찜하기
-	@Override
+	/*@Override
 	public int updateLikeSeller(String sl_seller_id, int sl_state, MemberVO user) {
 		// 기존의 찜의 유무 정보를 가져옴
-		Seller_likeVO sLikeVo = generalDao.selectLikeSellerById(user.getMe_id(), sl_seller_id);
+		SellerLikeVO sLikeVo = generalDao.selectLikeSellerById(user.getMe_id(), sl_seller_id);
 		// 없으면 추가
 		if(sLikeVo == null) {
-			sLikeVo = new Seller_likeVO(sl_seller_id, user.getMe_id(), sl_state);
+			sLikeVo = new SellerLikeVO(sl_seller_id, user.getMe_id(), sl_state);
 			generalDao.insertLikeSeller(sLikeVo);
 			return sl_state;
 		}
@@ -105,11 +105,11 @@ public class GeneralServiceImp implements GeneralService{
 			generalDao.updateLikeSeller(sLikeVo);
 			// 0을 리턴
 			return 0;
-	}
+	}*/
 
 	// 상세페이지 상품 좋아요 가져오기
 	@Override
-	public Product_likeVO getLikeProduct(MemberVO user, int pr_code) {
+	public ProductLikeVO getLikeProduct(MemberVO user, int pr_code) {
 		if(user == null)
 			return null;
 		return generalDao.selectLikeProductById(user.getMe_id(), pr_code);
