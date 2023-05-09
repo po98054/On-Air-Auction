@@ -16,19 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
 import kr.kr.OnAirAuction.Pagination.PageMaker;
-import kr.kr.OnAirAuction.Service.BidService;
 import kr.kr.OnAirAuction.Service.GeneralService;
 import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.ProductVO;
-import kr.kr.OnAirAuction.VO.Product_likeVO;
+import kr.kr.OnAirAuction.VO.ProductLikeVO;
 import kr.kr.OnAirAuction.VO.StoreVO;
 
 @Controller
 public class GeneralController {
-	
-	@Autowired
-	BidService bidService;
 	
 	@Autowired
     GeneralService generalService;
@@ -58,7 +54,7 @@ public class GeneralController {
 		// 회원정보를 가져옴(찜한 내용 확인용)
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		// 서비스에게 회원 정보, 상품 정보를 주면서 좋아요 정보를 가져오라고 요청
-		Product_likeVO pLikeVo = generalService.getLikeProduct(user, pr_code);
+		ProductLikeVO pLikeVo = generalService.getLikeProduct(user, pr_code);
 		// 서비스에게 상품코드를 주면서 경매 정보를 가져오라고 요청
 		AuctionVO auction = generalService.getAuction(pr_code);
 		// 서비스에게 상품코드를 주면서 스토어 정보를 가져오라고 요청
@@ -87,7 +83,7 @@ public class GeneralController {
 		return mv;
 	}
 	// 입찰하기 - 즉시구매희망가(POST)
-	@RequestMapping(value = "/general/imme", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/general/imme", method = RequestMethod.POST)
 	public ModelAndView immediateInsertPost(ModelAndView mv, AuctionVO bid, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(bidService.insertImmediate(user, bid)) {
@@ -97,7 +93,7 @@ public class GeneralController {
 		}
 		mv.setViewName("redirect:/general/detail");
 		return mv;
-	}
+	}*/
 	
 	// 입찰하기 - 경매(GET)
 	@RequestMapping(value = "/general/bid", method = RequestMethod.GET)
@@ -116,7 +112,7 @@ public class GeneralController {
 	}
 	
 	// 경매기록보기(GET)
-	@RequestMapping(value = "/general/bidlist", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/general/bidlist", method = RequestMethod.GET)
 	public ModelAndView bidlist(ModelAndView mv, Criteria cri) {
 		// 0 아닌거 같음 수정 필요
 		ArrayList<AuctionVO> list = bidService.getBidlist(cri, 0);
@@ -127,7 +123,7 @@ public class GeneralController {
 		mv.addObject("pm", pm);
 		mv.setViewName("/general/bidlist");
 		return mv;
-	}
+	}*/
 //	// 경매기록보기(POST)
 //	@RequestMapping(value = "/detail/bidlist", method = RequestMethod.POST)
 //	public ModelAndView bidlistPost(ModelAndView mv, BidlistVO bidlist) {
@@ -148,7 +144,7 @@ public class GeneralController {
 	}
 	
 	// 상품 찜
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value = "/like/product/{pl_pr_code}/{pl_state}", method=RequestMethod.GET)
 	public Map<String, Object> likeProduct(HttpSession session,
 			@PathVariable("pl_pr_code")int pl_pr_code,  // 상품코드 확인
@@ -161,10 +157,10 @@ public class GeneralController {
 		map.put("state", res);
 		map.put("res", res);
 		return map;
-	}
+	}*/
 	
 	// 판매자 찜
-	@RequestMapping(value = "/like/seller/{sl_seller_id}/{sl_me_id}", method=RequestMethod.GET)
+	/*@RequestMapping(value = "/like/seller/{sl_seller_id}/{sl_me_id}", method=RequestMethod.GET)
 	public Map<String, Object> likeSeller(HttpSession session,
 			@PathVariable("sl_seller_id")String sl_seller_id,  // 판매자 아이디 확인
 			@PathVariable("sl_state")int sl_state) { // 찜의 유무 값 확인
@@ -176,6 +172,6 @@ public class GeneralController {
 		map.put("state", res);
 		map.put("res", res);
 		return map;
-	}
+	}*/
 	
 }
