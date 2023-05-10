@@ -42,7 +42,7 @@ CREATE TABLE `product` (
 	`pr_state`	varchar(20) default '시작전'	NULL,
 	`pr_start_price`	int	NOT NULL,
 	`pr_origin`	varchar(50)	NOT NULL,
-	`pr_size`	varchar(100)	NOT NULL,
+	`pr_size`	varchar(100) NOT NULL,
 	`pr_st_num`	int	NOT NULL,
 	`pr_pc_num`	int	NOT NULL
 );
@@ -153,7 +153,7 @@ CREATE TABLE `inquiry` (
 	`in_answer_date`	datetime	NULL,
 	`in_answer_content`	longtext	NULL,
 	`in_me_id`	varchar(20)	NOT NULL,
-	`in_pr_code`	int	NOT NULL,
+	`in_pr_code`	int NULL,
 	`in_ic_num`	int	NOT NULL
 );
 
@@ -331,7 +331,7 @@ CREATE TABLE `charge` (
 	`ch_method`	varchar(30)	NOT NULL,
 	`ch_amount`	int	NOT NULL,
 	`ch_charge_date`	datetime NOT NULL,
-    	`ch_va_me_id`	varchar(20)	NOT NULL
+    `ch_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `withdraw`;
@@ -341,7 +341,7 @@ CREATE TABLE `withdraw` (
 	`wi_amount`	int NOT NULL,
 	`wi_withdraw_date`	datetime NOT NULL,
 	`wi_withdraw_reason`	varchar(50) NOT NULL,
-    	`wi_va_me_id`	varchar(20)	NOT NULL
+    `wi_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `message`;
@@ -369,6 +369,13 @@ DROP TABLE IF EXISTS `message_box`;
 CREATE TABLE `message_box` (
 	`mb_me_id`	varchar(20)	NOT NULL,
 	`mb_me_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `chatting_attend`;
+
+CREATE TABLE `chatting_attend` (
+	`ca_ch_num`	int	NOT NULL,
+    `ca_me_id`	varchar(20)	NOT NULL
 );
 
 ALTER TABLE `member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
@@ -715,3 +722,16 @@ REFERENCES `message` (
 	`me_num`
 );
 
+ALTER TABLE `chatting_attend` ADD CONSTRAINT `FK_chatting_TO_chatting_attend_1` FOREIGN KEY (
+	`ca_ch_num`
+)
+REFERENCES `chatting` (
+	`ch_num`
+);
+
+ALTER TABLE `chatting_attend` ADD CONSTRAINT `FK_member_TO_chatting_attend_1` FOREIGN KEY (
+	`ca_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
