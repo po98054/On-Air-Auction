@@ -67,15 +67,15 @@
 		</div>
 		<div class="form-group">
 			<label>반품수용기간</label>
-			<div class="form-control">${vo.pr_refunddate }</div>
+			<div class="form-control">${vo.pr_refund_date }</div>
 		</div>
 		<div class="form-group">
 			<label>환불가능조건</label>
-			<div class="form-control">${vo.pr_refundreason }</div>
+			<div class="form-control">${vo.pr_refund_reason }</div>
 		</div>
 		<div class="form-group">
 			<label>상품시작가격</label>
-			<div class="form-control">${vo.pr_startprice}</div>
+			<div class="form-control">${vo.pr_start_price}</div>
 		</div>
 		<div class="form-group">
 			<label>원산지</label>
@@ -92,7 +92,7 @@
 				  <div class="swiper-wrapper">
 				  	<c:forEach items="${files}" var="file">
 				  		<div class="swiper-slide">
-							<img src="<c:url value="/download${file.fi_savename}"></c:url>" height="200" width="auto">
+							<img src="<c:url value="/download${file.fi_save_name}"></c:url>" height="200" width="auto">
 						</div>	
 					</c:forEach>
 				  </div>
