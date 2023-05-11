@@ -39,8 +39,5 @@ public interface ProductService {
 	// 상품 수정
 	boolean updateProduct(ProductVO vo, MultipartFile[] files, int[] fileNums);
 
-	boolean loginMember(MemberVO member);
-
-
 
 }
