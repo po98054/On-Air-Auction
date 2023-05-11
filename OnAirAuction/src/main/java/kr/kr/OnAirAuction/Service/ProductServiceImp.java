@@ -11,7 +11,11 @@ import kr.kh.onAirAuction.pagination.Criteria;
 import kr.kh.onAirAuction.vo.ProductVO;
 import kr.kh.onAirAuction.utils.UploadFileUtils;
 import kr.kh.onAirAuction.vo.FileVO;
+import kr.kh.onAirAuction.vo.MemberVO;
 import kr.kh.onAirAuction.vo.ProductCategoryVO;
+import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
+import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
+import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
 
 
 @Service
@@ -24,10 +28,15 @@ public class ProductServiceImp implements ProductService {
 	
 	//상품 등록
 	@Override
-	public void insert(ProductCategoryVO pc, ProductVO vo, MultipartFile[] files) {
-		productDao.insertCategory(pc);
-		productDao.insertBoard(vo);	
-		uploadFiles(files, vo.getPr_code());
+	public void insertProduct(ProductLargeCategoryVO plc, ProductMiddleCategoryVO pmc,
+			ProductSmallCategoryVO psc, ProductCategoryVO pc,  
+			ProductVO vo, MultipartFile[] files) {
+		productDao.ProductLargeCategoryVO(plc);
+		productDao.ProductMiddleCategoryVO(pmc);
+		productDao.ProductSmallCategoryVO (psc);
+		productDao.ProductCategoryVO(pc);
+		productDao.insertProduct(vo);	
+		uploadFiles(files, vo.getPr_code());	
 	}
 	
 	//첨부파일
@@ -85,7 +94,7 @@ public class ProductServiceImp implements ProductService {
 		for(FileVO file : fileList) {
 			if(file == null)
 				continue;
-			UploadFileUtils.removeFile(uploadPath, file.getFi_savename());
+			UploadFileUtils.removeFile(uploadPath, file.getFi_save_name());
 			productDao.deleteFile(file);
 		}	
 	}
@@ -109,5 +118,8 @@ public class ProductServiceImp implements ProductService {
 		}	
 		deleteFileList(fileList);	
 		return true;
-	}	
+	}
+	
+
+	
 }
