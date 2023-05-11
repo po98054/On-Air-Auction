@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,9 @@ import kr.kh.onAirAuction.service.ProductService;
 import kr.kh.onAirAuction.utils.MessageUtils;
 import kr.kh.onAirAuction.vo.FileVO;
 import kr.kh.onAirAuction.vo.ProductCategoryVO;
+import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
+import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
+import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
 import kr.kh.onAirAuction.vo.ProductVO;
 
 @Controller
@@ -27,16 +31,18 @@ public class ProductController {
 	@Autowired
     private ProductService productService;
 	
-	@RequestMapping(value = "/product")
-	public ModelAndView product(ModelAndView mv) {		
-		mv.setViewName("/product/insert");	
+	// 상품 등록
+	@RequestMapping(value="/product/insert", method=RequestMethod.GET)
+	public  ModelAndView productInsert(ModelAndView mv){
+		mv.setViewName("/product/insert");
+
 		return mv;
 	}
-	
-	// 상품 등록
     @RequestMapping(value="/product/insert", method=RequestMethod.POST)
-	public String insert(ProductCategoryVO pc, ProductVO vo, MultipartFile []files){
-		productService.insert(pc, vo, files);
+	public String productInsertPOST(ProductLargeCategoryVO plc, ProductMiddleCategoryVO pmc, 
+			ProductSmallCategoryVO psc, ProductCategoryVO pc,		
+			ProductVO vo, MultipartFile []files){
+		productService.insertProduct(plc, pmc, psc, pc, vo, files);
 		return "redirect:/product/list";
 	}
     
