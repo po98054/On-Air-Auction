@@ -38,8 +38,7 @@
 					<th>환불가능조건</th>
 					<th>경매시작가격</th>
 					<th>원산지</th>
-					<th>물품크기</th>
-					
+					<th>물품크기</th>		
 				</tr>
 			</thead>
 			<tbody class="product">
@@ -54,9 +53,9 @@
 						<td>${vo.pr_detail }</td>
 						<td>${vo.pr_location }</td>
 						<td>${vo.pr_refund_ok }</td>
-						<td>${vo.pr_refunddate }</td>
-						<td>${vo.pr_refundreason }</td>
-						<td>${vo.pr_startprice } <span>원</span></td>
+						<td>${vo.pr_refund_date }</td>
+						<td>${vo.pr_refund_reason }</td>
+						<td>${vo.pr_start_price } <span>원</span></td>
 						<td>${vo.pr_origin }</td>
 						<td>${vo.pr_size }</td>
 					</tr>
