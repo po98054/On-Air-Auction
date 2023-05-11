@@ -192,7 +192,7 @@
 					</div>
 					<div class="container-box2-list">
 						<div>
-							<select class="form-control" id="category1" size="6" style="height:250px;" onchange="changeFn()"  name="plc_name">
+							<select class="form-control" id="category1" size="6" style="height:250px;" name="plc_name">
 	                               <option value="category1-1">의류/신발/가방</option>
 	                               <option value="category1-2">식품</option>
 	                               <option value="category1-3">생활잡화</option>
@@ -200,7 +200,7 @@
 							</select>
 						</div>
 						<div>
-	                        <select class="form-control" id="category2" size="6" style="height:250px; display: none;" onchange="changeRemove()" onchange="changeFn()"  name="pmc_name">
+	                        <select class="form-control" id="category2" size="6" style="height:250px; display: none;" onchange="changeRemove()" name="pmc_name">
 	                               <option value="category2-1" class="category1-1">여성의류</option>
 	                               <option value="category2-2" class="category1-1">남성의류</option>
 	                               <option value="category2-3" class="category1-1">신발</option>
@@ -216,7 +216,7 @@
 	                           </select>
 						</div>
 						<div>
-	                        <select class="form-control" id="category3" size="6" style="height: 250px; display: none;" onchange="changeFn()"  name="psc_name">
+	                        <select class="form-control" id="category3" size="6" style="height: 250px; display: none;" name="psc_name">
 	                               <option value="category3-1" class="category2-1">셔츠/블라우스</option>
 	                               <option value="category3-2" class="category2-1">가디건</option>
 	                               <option value="category3-3" class="category2-1">원피스</option>
@@ -256,7 +256,7 @@
 	                           </select>
 						</div>
 	                    <div>
-	                        <select class="form-control" id="category4" size="6" style="height: 250px; display: none;"  onchange="changeFn()"  name="pc_name">
+	                        <select class="form-control" id="category4" size="6" style="height: 250px; display: none;" name="pc_name">
 	                               <option value="category4-1" class="category3-1">레이스</option>
 	                               <option value="category4-2" class="category3-1">스프라이프셔츠</option>
 	                               <option value="category4-3" class="category3-1">솔리드셔츠</option>
@@ -412,19 +412,19 @@
 							<tr>
 								<td class="container3-box3-th">반품수용기간</td>
 								<td colspan="2" class="container3-box3-td">
-										<input type="text" class="form-control"  id="refunddate" name="pr_refunddate">
+										<input type="text" class="form-control"  id="refund_date" name="pr_refund_date">
 								</td>
 							</tr>
 							<tr>
 								<td class="container3-box3-th">환불가능조건</td>
 								<td colspan="2" class="container3-box3-td">
-										<input type="text" class="form-control"  id="refundreason" name="pr_refundreason">
+										<input type="text" class="form-control"  id="refundreason" name="pr_refund_reason">
 								</td>
 							</tr>
 							<tr>
 								<td class="container3-box3-th">경매시작가격</td>
 								<td colspan="2" class="container3-box3-td">
-										<input type="number" class="form-control"  id="startprice" name="pr_startprice">
+										<input type="number" class="form-control"  id="start_price" name="pr_start_price">
 								</td>
 							</tr>
 							<tr>
@@ -436,7 +436,7 @@
 							<tr>
 								<td class="container3-box3-th">상품크기</td>
 								<td colspan="2" class="container3-box3-td">
-										<input type="number" class="form-control"  id="size" name="pr_size">
+										<input type="text" class="form-control"  id="size" name="pr_size">
 								</td>
 							</tr>
 							<tr>
@@ -511,22 +511,22 @@ $('form').submit(function(){
 		$('[name=pr_refund_ok]').focus();
 		return false;
 	}
-	let pr_refundreason = $('[name=pr_refundreason]').val();
-	if(pr_refundreason.trim().length  == 0){
-		alert('환불가능조건을 입력하세요.');
-		$('[name=pr_refundreason]').focus();
-		return false;
-	}
-	let pr_refunddate = $('[name=pr_refunddate]').val();
-	if(pr_refunddate.trim().length  == 0){
+	let pr_refund_date = $('[name=pr_refund_date]').val();
+	if(pr_refund_date.trim().length  == 0){
 		alert('반품수용기간을 입력하세요.');
-		$('[name=pr_refunddate]').focus();
+		$('[name=pr_refund_date]').focus();
 		return false;
 	}
-	let pr_startprice = $('[name=pr_startprice]').val();
-	if(pr_startprice.trim().length  == 0){
+	let pr_refund_reason = $('[name=pr_refund_reason]').val();
+	if(pr_refund_reason.trim().length  == 0){
+		alert('환불가능조건을 입력하세요.');
+		$('[name=pr_refund_reason]').focus();
+		return false;
+	}
+	let pr_start_price = $('[name=pr_start_price]').val();
+	if(pr_start_price.trim().length  == 0){
 		alert('경매시작가격을 입력하세요.');
-		$('[name=pr_startprice]').focus();
+		$('[name=pr_start_price]').focus();
 		return false;
 	}
 	let pr_origin = $('[name=pr_origin]').val();
@@ -639,24 +639,4 @@ $('form').submit(function(){
     function changeRemove(){
         $('#category4').hide();
     }
-</script>
-
-<script>
-function changeFn(){
-	var plc_name  = document.getElementById('category1');
-	var option = select.options[select.selectedIndex];
-	document.getElementById('text').value = option.text;
-	
-	var pmc_name  = document.getElementById('category2');
-	var option = select.options[select.selectedIndex];
-	document.getElementById('text').value = option.text;
-	
-	var psc_name  = document.getElementById('category3');
-	var option = select.options[select.selectedIndex];
-	document.getElementById('text').value = option.text;
-	
-	var pc_name  = document.getElementById('category4');
-	var option = select.options[select.selectedIndex];
-	document.getElementById('text').value = option.text;
-};
 </script>
