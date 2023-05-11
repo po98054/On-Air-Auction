@@ -15,8 +15,8 @@
 	.form-group{
 		margin-top: 20px;
 	}
-	#au_limitbidtime, #au_limitlevel, #au_extension , #au_faild{
-		margin-left: 10px;
+	#au_limitbidtime{
+		margin-left: 20px;
 	}
 </style>
 <body>
@@ -35,34 +35,23 @@
 				</select>
 			</div>	
 			<label for="start-date">경매 시작일:</label>
-				<input class="form-control" type="datetime-local" id="startDate" name="au_startdate" > <br>	 
+				<input class="form-control" type="datetime-local" id="startDate" name="au_start_date" > <br>	 
 			<label for="end-date">경매 종료일:</label>
-				<input class="form-control" type="datetime-local" id="endDate" name="au_finaldate"> <br>		  
-			<label for="auctionExtend">연장경매</label>
-				<input type="radio" id="au_extension" name="au_extension" value="1">
-				<input type="radio" id="au_extension" name="au_extension" value="2"> <br>
-			<label for="auctionFaild">재경매</label>
-				<input type="radio" id="au_faild" name="au_faild" value="1">
-				<input type="radio" id="au_faild" name="au_faild" value="2"> <br>
+				<input class="form-control" type="datetime-local" id="endDate" name="au_final_date"> <br>		  
 			<label for="calculation">경매 시작가</label>
 				<input class="form-control" type="number" id="calculation" name="au_calculation"> <br>	
 		 	<label for="immediate">즉시가</label>
 				<input class="form-control" type="number" id="immediate" name="au_immediate"> <br>
 			<label for="deliveryway">배송방법</label>
-				<input class="form-control" type="text" id="deliveryway" name="au_deliveryway" placeholder="택배 or 직거래"> <br>
+				<input class="form-control" type="text" id="deliveryway" name="au_delivery_way" placeholder="택배 or 직거래"> <br>
 	 		<div id="limitbidtime" style="display:none">
 				<label>입찰제한시간</label>
-				<input type="radio" id="limitbidtime" name="au_limitbidtime" value="1">15초
-				<input type="radio" id="limitbidtime" name="au_limitbidtime" value="2">30초
-				<input type="radio" id="limitbidtime" name="au_limitbidtime" value="3">1분		
-			</div>
-		 	<div id="limitlevel" style="display:none">
-				<label>제한등급</label>
-				<input type="radio" id="limitlevel" name="au_limitlevel" value="1">브론즈
-				<input type="radio" id="limitlevel" name="au_limitlevel" value="2">실버
-				<input type="radio" id="limitlevel" name="au_limitlevel" value="3">골드
-				<input type="radio" id="limitlevel" name="au_limitlevel" value="4">VIP
-			</div>					
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="1">15초
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="2">30초
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="3">1분	
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="4">3분	
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="5">5분		
+			</div>			
 		  	<button type="submit" class="btn btn-success">전송</button>
 		</form>
 	</div>
@@ -77,11 +66,6 @@ $(document).ready(function() {
 	    } else {
 	      $("#limitbidtime").hide();
 	    }
-	    if (selectedValue == "4") {
-    	  $("#limitlevel").show();
-  	    } else {
-  	      $("#limitlevel").hide();
-  	    }
  	});	    
 });
 </script>
@@ -93,16 +77,16 @@ $(document).ready(function() {
 			$('[name=au_ac_num]').focus();
 			return false;
 		} 
-		let au_startdate = $('[name=au_startdate]').val();
-		if(au_startdate  == 0){
+		let au_start_date = $('[name=au_start_date]').val();
+		if(au_start_date  == 0){
 			alert('경매 시작일을 선택하세요.');
-			$('[name=au_startdate]').focus();
+			$('[name=au_start_date]').focus();
 			return false;
 		} 
-		let au_finaldate = $('[name=au_finaldate]').val();
-		if(au_finaldate  == 0){
+		let au_final_date = $('[name=au_final_date]').val();
+		if(au_final_date  == 0){
 			alert('경매 종료일을 선택하세요.');
-			$('[name=au_finaldate]').focus();
+			$('[name=au_final_date]').focus();
 			return false;
 		} 
 		let au_calculation = $('[name=au_calculation]').val();
@@ -117,10 +101,10 @@ $(document).ready(function() {
 			$('[name=au_immediate]').focus();
 			return false;
 		} 
-		let au_deliveryway = $('[name=au_deliveryway]').val();
-		if(au_deliveryway  == 0){
+		let au_delivery_way = $('[name=au_delivery_way]').val();
+		if(au_delivery_way  == 0){
 			alert('배송방법을 입력하세요.');
-			$('[name=au_deliveryway]').focus();
+			$('[name=au_delivery_way]').focus();
 			return false;
 		} 
 		/*

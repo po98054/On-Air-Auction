@@ -32,21 +32,21 @@
 					<th>즉시가</th>
 					<th>배송방법</th>
 					<th>입찰제한시간</th>
-					<th>제한등급</th>
 				</tr>
 			</thead>
 			<tbody class="auction">
 				<c:forEach items="${list}" var="auction">
 					<tr>
 						<th>${auction.ac_name}</th>
-						<td>${auction.au_num}</td>
-						<td>${auction.au_startdate} </td>
-						<td>${auction.au_finaldate}</td>
+						<td class="form-group">
+							<a href="<c:url value='/auction/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+						</td>
+						<td>${auction.au_start_date}</td>
+						<td>${auction.au_final_date}</td>
 	              		<td>${auction.au_calculation} <span>원</span> </td>
 						<td>${auction.au_immediate} <span>원</span></td>
-						<td>${auction.au_deliveryway}</td>
-						<td>${auction.au_limitbidtime}</td>
-						<td>${auction.au_limitlevel}</td>
+						<td>${auction.au_delivery_way}</td>
+						<td>${auction.au_limit_bid_time}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -70,5 +70,3 @@
 		</c:if>
 	</ul>
 </div>
-
-
