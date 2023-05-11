@@ -10,7 +10,5 @@ public interface ChargeDAO {
 
 	void chargeInsert(ChargeVO chargeVO);
 
-	void chargeSelect(ChargeVO chargeVO);
-
 
 }
