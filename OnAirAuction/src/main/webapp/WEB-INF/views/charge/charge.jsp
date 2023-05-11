@@ -36,9 +36,9 @@
  <div class="card-body bg-white">
  	<div class="card-footer">
 	 	<div class="form-group"  >
-			<p>현재금액: <span id="current-amount">100</span>원</p>
-
+			<button id="amount-btn">금액 조회</button>		
 		</div>
+		<div id="amount-result"></div>
 	 	<a href="#">
 	 		<img class="img-kakao" src="<c:url value='/resources/img/kakao.jpg'></c:url>" alt="logo">
 	 	</a> <br>
@@ -97,23 +97,19 @@
     });
 </script>
 <script>
-const currentAmount = document.querySelector("#current-amount");
-
-currentAmount.addEventListener("click", function() {
-    getCh_amount();
-});
-
-function getCh_amount() {
-    $.ajax({
-        type: "GET",
-        url: "/getChAmount",
-        success: function (data) {
-            const chAmountDiv = document.querySelector("#ch-amount");
-            chAmountDiv.textContent = data.ch_amount;
-        },
-        error: function () {
-            console.log("Error occurred while getting ch_amount.");
-        },
+$(document).ready(function () {
+    $('#amount-btn').click(function () {
+        $.ajax({
+            url: '/auction/getAmount', 
+            type: 'GET',
+            data: {ch_amount: 10000}, 
+            success: function (data) { 
+                $('#amount-result').text('현재 금액: ' + data);
+            },
+            error: function () { 
+                alert('금액 조회에 실패했습니다.');
+            }
+        });
     });
-}
-	</script>
+});
+</script>
