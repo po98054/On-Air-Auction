@@ -19,9 +19,5 @@ public class ChargeServiceImp implements ChargeService {
 		chargeDao.chargeInsert(chargeVO);			
 	}
 
-	@Override
-	public void selectCharge(ChargeVO chargeVO) {
-		chargeDao.chargeSelect(chargeVO);		
-	}
 
 }
