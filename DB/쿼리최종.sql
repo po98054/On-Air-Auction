@@ -54,7 +54,7 @@ CREATE TABLE `auction` (
 	`au_calculation`	int	NOT NULL,
 	`au_limit_bid_time`	int default 0	NULL,
 	`au_start_date`	datetime NOT NULL,
-	`au_final_date`	datetime NOT NULL,
+	`au_final_date`	datetime  NULL,
 	`au_extension`	int default 0	NULL,
 	`au_faild`	int default 0	NULL,
 	`au_immediate`	int	NULL,
