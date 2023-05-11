@@ -3,33 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="kr.kh.onAirAuction.dao.AuctionDAO">
- 		
  	<insert id="insertAuction" useGeneratedKeys="true" keyProperty="auction.ac_num">
- 		insert into auction(au_num, au_ac_num, au_calculation, au_startdate, au_finaldate, au_extension, au_faild, au_immediate, au_deliveryway, au_limitbidtime, au_limitlevel)
- 		select ifnull(max(au_num),0)+1, #{auction.au_ac_num}, #{auction.au_calculation}, #{auction.au_startdate}, #{auction.au_finaldate}, #{auction.au_extension}, #{auction.au_faild}, 
- 				#{auction.au_immediate}, #{auction.au_deliveryway}, #{auction.au_limitbidtime}, #{auction.au_limitlevel}
+ 		insert into auction(au_num, au_ac_num, au_start_date, au_final_date, au_calculation, 
+ 				au_immediate, au_delivery_way, au_limit_bid_time, au_pr_code, au_me_id)
+ 		select ifnull(max(au_num),0)+1, #{auction.au_ac_num}, #{auction.au_start_date}, #{auction.au_final_date}, #{auction.au_calculation}, 
+ 				#{auction.au_immediate}, #{auction.au_delivery_way}, #{auction.au_limit_bid_time}, 1, 'dlsrb7890'
  		from auction
  	</insert>
  	<select id="selectAuctionList" resultType="kr.kh.onAirAuction.vo.AuctionVO">
-  		SELECT ac_name, au_num, au_startdate, au_finaldate, au_calculation, au_immediate, au_deliveryway,
-		    COALESCE(CASE WHEN au_limitbidtime = 0 THEN 'X'
-		                  WHEN au_limitbidtime = 1 THEN '15초'
-		                  WHEN au_limitbidtime = 2 THEN '30초'
-		                  WHEN au_limitbidtime = 3 THEN '60초'
+  		SELECT ac_name, au_num, au_start_date, au_final_date, au_calculation, au_immediate, au_delivery_way,
+		    COALESCE(CASE WHEN au_limit_bid_time = 0 THEN 'X'
+		                  WHEN au_limit_bid_time = 1 THEN '15초'
+		                  WHEN au_limit_bid_time = 2 THEN '30초'
+		                  WHEN au_limit_bid_time = 3 THEN '1분'
+		                  WHEN au_limit_bid_time = 4 THEN '3분'
+		                  WHEN au_limit_bid_time = 5 THEN '5분'
 		                  ELSE 'X'
-		             END, '해당없음') AS au_limitbidtime,
-		    COALESCE(CASE WHEN au_limitlevel = 0 THEN 'X'
-		                  WHEN au_limitlevel = 1 THEN '브론즈'
-		                  WHEN au_limitlevel = 2 THEN '실버'
-		                  WHEN au_limitlevel = 3 THEN '골드'
-		                  WHEN au_limitlevel = 4 THEN 'VIP'
-		                  ELSE 'X'
-		             END, 'X') AS au_limitlevel
+		             END, '해당없음') AS au_limit_bid_time
 		FROM auction JOIN auction_category ON au_ac_num = ac_num
-		WHERE au_ac_num = ac_num ORDER BY au_num ASC LIMIT #{cri.pageStart}, #{cri.perPageNum};
-	</select>	
+		ORDER BY au_num ASC LIMIT #{cri.pageStart}, #{cri.perPageNum};
+	</select>
 	<select id="selectAuctionTotalCount" resultType="int">
 		select count(*) from auction 
+	</select>
+	<select id="selectAuction" resultType="kr.kh.onAirAuction.vo.AuctionVO">
+		select * from auction where au_num = #{au_num}
 	</select>
  </mapper>
  
