@@ -35,11 +35,9 @@
 </style>    
  <div class="card-body bg-white">
  	<div class="card-footer">
-	 	<div class="form-group">
-			<a href="#">
-				<button class="btn btn-outline-primary">현재금액</button>
-			</a>
-			<div class="form-control">${ch_amount}</div>
+	 	<div class="form-group"  >
+			<p>현재금액: <span id="current-amount">100</span>원</p>
+
 		</div>
 	 	<a href="#">
 	 		<img class="img-kakao" src="<c:url value='/resources/img/kakao.jpg'></c:url>" alt="logo">
@@ -62,10 +60,10 @@
 
 <script>
     $('#charge_kakao').click(function () {
-        // getter
         var IMP = window.IMP;
         IMP.init('imp20544548');
         var money = $('input[name="cp_item"]:checked').val();
+        const now = new Date();  // 현재 시간을 가져옵니다
         IMP.request_pay({
             pg: 'kakao',
             merchant_uid: 'merchant_' + new Date().getTime(),
@@ -79,46 +77,43 @@
         }, function (rsp) {
             console.log(rsp);
             if (rsp.success) {
-                var msg = '결제가 완료되었습니다.';
-                msg += '고유ID : ' + rsp.imp_uid;
-                msg += '상점 거래ID : ' + rsp.merchant_uid;
-                msg += '결제 금액 : ' + rsp.paid_amount;          
+                var msg = '충전이 완료되었습니다.';         
                 $.ajax({
                     type: "POST", 
                     async: false,
                     url: "<c:url value='/charge/point'></c:url>",
                     data: {
                     	"ch_amount" : money,
-                    	"ch_method" : "kakao"
-                    },
-                    success:function(data){
-                    	$.ajax({
-                    		type: "GET", 
-                            async: false,
-                            url: "<c:url value='/select/point'></c:url>",
-                            data: {
-                            	"ch_amount" : money
-                            },
-                            success: function(data) {
-                            	$('.form-control').html(data);
-                            },
-                            error: function() {
-                                var msg = '두 번째 AJAX 요청에 실패하였습니다.';
-                                alert(msg);
-                            }
-                    	})
-                    },
-                    error: function() {
-                        var msg = '첫 번째 AJAX 요청에 실패하였습니다.';
-                        alert(msg);
-                    }
+                    	"ch_method" : "kakao",
+                    	"ch_charge_date" : now
+                   	}
                 });
             } else {
                 var msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
             }
             alert(msg);
-            document.location.href="/onAirAuction"; //alert창 확인 후 이동할 url 설정
         });
     });
 </script>
+<script>
+const currentAmount = document.querySelector("#current-amount");
+
+currentAmount.addEventListener("click", function() {
+    getCh_amount();
+});
+
+function getCh_amount() {
+    $.ajax({
+        type: "GET",
+        url: "/getChAmount",
+        success: function (data) {
+            const chAmountDiv = document.querySelector("#ch-amount");
+            chAmountDiv.textContent = data.ch_amount;
+        },
+        error: function () {
+            console.log("Error occurred while getting ch_amount.");
+        },
+    });
+}
+	</script>
