@@ -6,8 +6,6 @@
 	<insert id="chargeInsert" parameterType="kr.kh.onAirAuction.vo.ChargeVO">
 		insert into charge(ch_amount, ch_method) values(#{ch_amount}, #{ch_method})
 	</insert>
-	<select id="chargeSelect" resultType="kr.kh.onAirAuction.vo.ChargeVO">
-  		select ch_amount from charge 
-	</select> 
+	
 </mapper>
 
