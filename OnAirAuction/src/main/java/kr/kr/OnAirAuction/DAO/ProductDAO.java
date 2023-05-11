@@ -1,21 +1,33 @@
 package kr.kh.onAirAuction.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.onAirAuction.pagination.Criteria;
+import kr.kh.onAirAuction.vo.AuctionVO;
+import kr.kh.onAirAuction.vo.ChargeVO;
 import kr.kh.onAirAuction.vo.FileVO;
 import kr.kh.onAirAuction.vo.ProductCategoryVO;
+import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
+import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
+import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
 import kr.kh.onAirAuction.vo.ProductVO;
 
 public interface ProductDAO {
 
 	// 상품 등록
-	void insertCategory(@Param("pc")ProductCategoryVO pc);
+	void ProductCategoryVO(@Param("pc")ProductCategoryVO pc);
 
-	void insertBoard(@Param("p")ProductVO vo);
+	void ProductSmallCategoryVO(@Param("pc")ProductSmallCategoryVO psc);
+	
+	void ProductMiddleCategoryVO(@Param("pc")ProductMiddleCategoryVO pmc);
 
+	void ProductLargeCategoryVO(@Param("pc")ProductLargeCategoryVO plc);
+		
+	void insertProduct(@Param("p")ProductVO vo);
+	
 	// 첨부파일
 	void insertFile(@Param("file")FileVO fileVo, @Param("pr_code")int pr_code);
 
@@ -39,5 +51,5 @@ public interface ProductDAO {
 
 	FileVO selectFile(@Param("fi_num")int fileNum);
 
-
+	
 }
