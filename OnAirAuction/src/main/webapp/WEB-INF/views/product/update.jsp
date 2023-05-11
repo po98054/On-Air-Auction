@@ -86,19 +86,19 @@
 			<div class="form-group">
 				<label>반품수용기간</label>
 				<div class="form-control">
-				    <input type="text" id="refunddate" name="pr_refunddate" value="${vo.pr_refunddate }" style="border:none">
+				    <input type="text" id="refunddate" name="pr_refund_date" value="${vo.pr_refund_date }" style="border:none">
 			    </div>
 			</div>
 			<div class="form-group">
 				<label>환불가능조건</label>
 				<div class="form-control">
-				    <input type="text" id="refundreason" name="pr_refundreason" value="${vo.pr_refundreason }" style="border:none">
+				    <input type="text" id="refundreason" name="pr_refund_reason" value="${vo.pr_refund_reason }" style="border:none">
 			    </div>
 			</div>
 			<div class="form-group">
 			    <label for="startprice">경매시작가격</label>
 			    <div class="form-control">
-				    <input type="text" id="startprice" name="pr_startprice" value="${vo.pr_startprice }" style="border:none">
+				    <input type="text" id="startprice" name="pr_start_price" value="${vo.pr_start_price }" style="border:none">
 			    </div>
 			</div>
 			<div class="form-group">
@@ -120,7 +120,7 @@
 						<div style="position: relative">
 							<div class="file-box" style="display: none">+</div>
 							<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
-							<img class="preview" height="200" width="auto" src="<c:url value='/download${file.fi_savename}'></c:url>">
+							<img class="preview" height="200" width="auto" src="<c:url value='/download${file.fi_save_name}'></c:url>">
 							<span class="btn-times" data-num="${file.fi_num}">X</span>
 						</div>
 					</c:forEach>
@@ -178,22 +178,22 @@ $('form').submit(function(){
 		$('[name=pr_refund_ok]').focus();
 		return false;
 	}
-	let pr_refunddate = $('[name=pr_refunddate]').val();
-	if(pr_refunddate.trim().length  == 0){
+	let pr_refund_date = $('[name=pr_refund_date]').val();
+	if(pr_refund_date.trim().length  == 0){
 		alert('반품수용기간을 입력하세요.');
-		$('[name=pr_refunddate]').focus();
+		$('[name=pr_refund_date]').focus();
 		return false;
 	}
-	let pr_refundreason = $('[name=pr_refundreason]').val();
-	if(pr_refundreason.trim().length  == 0){
+	let pr_refund_reason = $('[name=pr_refund_reason]').val();
+	if(pr_refund_reason.trim().length  == 0){
 		alert('환불가능조건을 입력하세요.');
-		$('[name=pr_refundreason]').focus();
+		$('[name=pr_refund_reason]').focus();
 		return false;
 	}
-	let pr_startprice = $('[name=pr_startprice]').val();
-	if(pr_startprice.trim().length  == 0){
+	let pr_start_price = $('[name=pr_start_price]').val();
+	if(pr_start_price.trim().length  == 0){
 		alert('경매시작가격을 입력하세요.');
-		$('[name=pr_startprice]').focus();
+		$('[name=pr_start_price]').focus();
 		return false;
 	}
 	let pr_origin = $('[name=pr_origin]').val();
@@ -218,14 +218,11 @@ $('form').submit(function(){
 	      break;
 	    }
 	  }
-
 	  if (!imageSelected) {
-	    alert('이미지를 1개 이상 선택하세요.');
-	    return false;
-	  }
-
-	  // 유효성 검사를 통과한 경우에는 true를 반환하여 폼을 제출합니다.
-	  return true;
+		    alert('이미지를 1개 이상 선택하세요.');
+		    return false;
+		  }
+	  return true;  
 });
 
 	$('.file-box,.preview').click(function(){
