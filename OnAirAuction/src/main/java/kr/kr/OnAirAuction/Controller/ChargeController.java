@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.onAirAuction.pagination.Criteria;
 import kr.kh.onAirAuction.pagination.PageMaker;
 import kr.kh.onAirAuction.service.ChargeService;
+import kr.kh.onAirAuction.vo.AuctionVO;
 import kr.kh.onAirAuction.vo.ChargeVO;
 import kr.kh.onAirAuction.vo.ProductVO;
 
@@ -44,10 +45,12 @@ public class ChargeController {
 	    return "redirect:/select/point";
 	}
 
-	@RequestMapping(value = "/select/point", method=RequestMethod.GET)
-	public ModelAndView selectPoint(ModelAndView mv) {	
-		mv.setViewName("/charge/insert");	
-		return mv;
+	@ResponseBody
+	@RequestMapping(value = "/auction/getAmount", method=RequestMethod.GET)
+	public String selectPoint(@RequestParam("ch_amount") int ch_amount) {
+		ChargeVO vo = chargeservice.getPoint(ch_amount);
+	    int amount = vo.getCh_amount();
+		return String.valueOf(amount);
 	}
 	
 }
