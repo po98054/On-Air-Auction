@@ -12,6 +12,8 @@ public interface AuctionService {
 	
 	ArrayList<AuctionVO> getAuctionList(Criteria cri);
 
-	int getBoardTotalCount(Criteria cri);
+	int getAuctionTotalCount(Criteria cri);
+
+	AuctionVO getAuction(int au_num);
 
 }

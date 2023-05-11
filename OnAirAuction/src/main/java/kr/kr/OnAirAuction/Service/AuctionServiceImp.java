@@ -28,10 +28,14 @@ public class AuctionServiceImp implements AuctionService {
 	}
 
 	@Override
-	public int getBoardTotalCount(Criteria cri) {
+	public int getAuctionTotalCount(Criteria cri) {
 		return auctionDao.selectAuctionTotalCount(cri);
 	}
 
+	@Override
+	public AuctionVO getAuction(int au_num) {
+		return  auctionDao.selectAuction(au_num);
+	}
 
 
 }
