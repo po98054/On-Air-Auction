@@ -20,6 +20,9 @@ public class AuctionVO {
 	String au_me_id;
 	int au_ac_num;
 	
+	int ac_num;
+	String ac_name;
+	
 public String getAu_start_date() {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(au_start_date == null) {
