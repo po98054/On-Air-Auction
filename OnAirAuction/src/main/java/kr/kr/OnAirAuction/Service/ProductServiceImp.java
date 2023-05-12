@@ -1,4 +1,4 @@
-package kr.kh.onAirAuction.service;
+package kr.kr.OnAirAuction.Service;
 
 import java.util.ArrayList;
 
@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.kh.onAirAuction.dao.ProductDAO;
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.vo.ProductVO;
-import kr.kh.onAirAuction.utils.UploadFileUtils;
-import kr.kh.onAirAuction.vo.FileVO;
-import kr.kh.onAirAuction.vo.MemberVO;
-import kr.kh.onAirAuction.vo.ProductCategoryVO;
-import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
-import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
-import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
+import kr.kr.OnAirAuction.DAO.ProductDAO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.ProductVO;
+import kr.kr.OnAirAuction.Utils.UploadFileUtils;
+import kr.kr.OnAirAuction.VO.FileVO;
+import kr.kr.OnAirAuction.VO.MemberVO;
+import kr.kr.OnAirAuction.VO.ProductCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductLargeCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductMiddleCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductSmallCategoryVO;
 
 
 @Service
@@ -24,7 +24,7 @@ public class ProductServiceImp implements ProductService {
 	@Autowired
 	ProductDAO productDao;
 	
-	String uploadPath = "D:\\uploadfiles";
+	String uploadPath = "C:/Users/82108/Pictures/fileUpload";
 	
 	//상품 등록
 	@Override
@@ -62,12 +62,12 @@ public class ProductServiceImp implements ProductService {
 	
 	// 상품 리스트
 	@Override
-	public ArrayList<ProductVO> getProductList(Criteria cri) {
-		return productDao.selectProductList(cri);
+	public ArrayList<ProductVO> getProductList(Criteria criteria) {
+		return productDao.selectProductList(criteria);
 	}
 	@Override
-	public int getProductTotalCount(Criteria cri) {
-		return productDao.selectProductTotalCount(cri);
+	public int getProductTotalCount(Criteria criteria) {
+		return productDao.selectProductTotalCount(criteria);
 	}
 	
 	// 상품 상세페이지

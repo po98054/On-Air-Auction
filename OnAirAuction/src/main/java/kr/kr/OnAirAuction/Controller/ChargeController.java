@@ -1,6 +1,7 @@
-package kr.kh.onAirAuction.controller;
+package kr.kr.OnAirAuction.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.pagination.PageMaker;
-import kr.kh.onAirAuction.service.ChargeService;
-import kr.kh.onAirAuction.vo.AuctionVO;
-import kr.kh.onAirAuction.vo.ChargeVO;
-import kr.kh.onAirAuction.vo.ProductVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.Pagination.PageMaker;
+import kr.kr.OnAirAuction.Service.ChargeService;
+import kr.kr.OnAirAuction.VO.AuctionVO;
+import kr.kr.OnAirAuction.VO.ChargeVO;
+import kr.kr.OnAirAuction.VO.ProductVO;
 
 @Controller
 public class ChargeController {
@@ -45,12 +46,12 @@ public class ChargeController {
 	    return "redirect:/select/point";
 	}
 
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value = "/auction/getAmount", method=RequestMethod.GET)
 	public String selectPoint(@RequestParam("ch_amount") int ch_amount) {
 		ChargeVO vo = chargeservice.getPoint(ch_amount);
 	    int amount = vo.getCh_amount();
 		return String.valueOf(amount);
-	}
+	}*/
 	
 }

@@ -1,10 +1,10 @@
-package kr.kh.onAirAuction.service;
+package kr.kr.OnAirAuction.Service;
 
 import java.util.ArrayList;
 
-import kr.kh.onAirAuction.vo.AuctionTypeVO;
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.vo.AuctionVO;
+import kr.kr.OnAirAuction.VO.AuctionTypeVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.AuctionVO;
 
 public interface AuctionService {
 

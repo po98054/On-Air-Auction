@@ -1,4 +1,4 @@
-package kr.kh.onAirAuction.controller;
+package kr.kr.OnAirAuction.Controller;
 
 import java.util.ArrayList;
 
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.pagination.PageMaker;
-import kr.kh.onAirAuction.service.AuctionService;
-import kr.kh.onAirAuction.vo.AuctionTypeVO;
-import kr.kh.onAirAuction.vo.AuctionVO;
-import kr.kh.onAirAuction.vo.FileVO;
-import kr.kh.onAirAuction.vo.ProductVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.Pagination.PageMaker;
+import kr.kr.OnAirAuction.Service.AuctionService;
+import kr.kr.OnAirAuction.VO.AuctionTypeVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
+import kr.kr.OnAirAuction.VO.FileVO;
+import kr.kr.OnAirAuction.VO.ProductVO;
 
 @Controller
 public class AuctionController {

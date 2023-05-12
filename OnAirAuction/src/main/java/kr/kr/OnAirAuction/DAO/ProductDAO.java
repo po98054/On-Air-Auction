@@ -1,19 +1,19 @@
-package kr.kh.onAirAuction.dao;
+package kr.kr.OnAirAuction.DAO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.vo.AuctionVO;
-import kr.kh.onAirAuction.vo.ChargeVO;
-import kr.kh.onAirAuction.vo.FileVO;
-import kr.kh.onAirAuction.vo.ProductCategoryVO;
-import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
-import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
-import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
-import kr.kh.onAirAuction.vo.ProductVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.AuctionVO;
+import kr.kr.OnAirAuction.VO.ChargeVO;
+import kr.kr.OnAirAuction.VO.FileVO;
+import kr.kr.OnAirAuction.VO.ProductCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductLargeCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductMiddleCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductSmallCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductVO;
 
 public interface ProductDAO {
 
@@ -32,9 +32,9 @@ public interface ProductDAO {
 	void insertFile(@Param("file")FileVO fileVo, @Param("pr_code")int pr_code);
 
 	// 상품 리스트
-	ArrayList<ProductVO> selectProductList(@Param("cri")Criteria cri);
+	ArrayList<ProductVO> selectProductList(@Param("cri")Criteria criteria);
 
-	int selectProductTotalCount(@Param("cri")Criteria cri);
+	int selectProductTotalCount(@Param("cri")Criteria criteria);
 
 	// 상품 상세페이지
 	ProductVO selectProduct(@Param("pr_code")int pr_code);

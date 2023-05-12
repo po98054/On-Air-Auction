@@ -1,21 +1,21 @@
-package kr.kh.onAirAuction.service;
+package kr.kr.OnAirAuction.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.vo.AuctionTypeVO;
-import kr.kh.onAirAuction.vo.AuctionVO;
-import kr.kh.onAirAuction.vo.ChargeVO;
-import kr.kh.onAirAuction.vo.FileVO;
-import kr.kh.onAirAuction.vo.MemberVO;
-import kr.kh.onAirAuction.vo.ProductCategoryVO;
-import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
-import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
-import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
-import kr.kh.onAirAuction.vo.ProductVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.AuctionTypeVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
+import kr.kr.OnAirAuction.VO.ChargeVO;
+import kr.kr.OnAirAuction.VO.FileVO;
+import kr.kr.OnAirAuction.VO.MemberVO;
+import kr.kr.OnAirAuction.VO.ProductCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductLargeCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductMiddleCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductSmallCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductVO;
 
 public interface ProductService {
 	
@@ -24,9 +24,9 @@ public interface ProductService {
 			ProductCategoryVO pc, ProductVO vo, MultipartFile[] files);
 	
 	// 상품 리스트
-	ArrayList<ProductVO> getProductList(Criteria cri);
+	ArrayList<ProductVO> getProductList(Criteria criteria);
 
-	int getProductTotalCount(Criteria cri);
+	int getProductTotalCount(Criteria criteria);
 	
 	// 상품 상세페이지
 	ProductVO getProduct(int pr_code);

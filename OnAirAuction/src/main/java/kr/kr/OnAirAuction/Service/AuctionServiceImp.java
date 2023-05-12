@@ -1,15 +1,14 @@
-package kr.kh.onAirAuction.service;
+package kr.kr.OnAirAuction.Service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.kh.onAirAuction.dao.AuctionDAO;
-import kr.kh.onAirAuction.dao.ProductDAO;
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.vo.AuctionTypeVO;
-import kr.kh.onAirAuction.vo.AuctionVO;
+import kr.kr.OnAirAuction.DAO.AuctionDAO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.AuctionTypeVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
 
 @Service
 public class AuctionServiceImp implements AuctionService {

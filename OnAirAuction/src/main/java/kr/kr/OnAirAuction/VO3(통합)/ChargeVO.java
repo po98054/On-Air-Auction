@@ -1,0 +1,24 @@
+package kr.kr.OnAirAuction.VO;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import lombok.Data;
+
+@Data
+public class ChargeVO {
+	int ch_num;
+	String ch_method;
+	int ch_amount;
+	String ch_charge_date;
+	String ch_va_me_id;
+	
+/*public String getCh_charge_date() {
+	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	if(ch_charge_date == null) {
+		
+		return null;
+		
+	}
+	return date.format(ch_charge_date);
+ 	}*/
+}

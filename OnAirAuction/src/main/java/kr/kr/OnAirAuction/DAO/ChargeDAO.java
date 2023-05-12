@@ -1,10 +1,10 @@
-package kr.kh.onAirAuction.dao;
+package kr.kr.OnAirAuction.DAO;
 
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.kh.onAirAuction.vo.ChargeVO;
+import kr.kr.OnAirAuction.VO.ChargeVO;
 
 public interface ChargeDAO {
 

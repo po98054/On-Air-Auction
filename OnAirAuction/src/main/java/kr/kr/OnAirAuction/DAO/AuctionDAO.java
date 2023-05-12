@@ -1,12 +1,12 @@
-package kr.kh.onAirAuction.dao;
+package kr.kr.OnAirAuction.DAO;
 
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.vo.AuctionTypeVO;
-import kr.kh.onAirAuction.vo.AuctionVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.AuctionTypeVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
 
 public interface AuctionDAO {
 	

@@ -66,17 +66,17 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">
 			<li class="page-item">
-				<a class="page-link" href="<c:url value='/product/list?page=${pm.startPage-1}&search=${pm.cri.search}&type=${pm.cir.type}'></c:url>">이전</a>
+				<a class="page-link" href="<c:url value='/product/list?page=${pm.startPage-1}&search=${pm.criteria.search}&type=${pm.criteria.type}'></c:url>">이전</a>
 			</li>
 		</c:if>
 		<c:forEach begin="${pm.startPage }" end="${pm.endPage }" var="i">
-			<li class="page-item <c:if test="${pm.cri.page == i}"> active</c:if>">
-				<a class="page-link" href="<c:url value='/product/list?page=${i}&search=${pm.cri.search}&type=${pm.cri.type}'></c:url>">${i}</a>
+			<li class="page-item <c:if test="${pm.criteria.page == i}"> active</c:if>">
+				<a class="page-link" href="<c:url value='/product/list?page=${i}&search=${pm.criteria.search}&type=${pm.criteria.type}'></c:url>">${i}</a>
 			</li>
 		</c:forEach>	
 		<c:if test="${pm.next}">
 			<li class="page-item">
-				<a class="page-link" href="<c:url value='/product/list?page=${pm.endPage+1}&search=${pm.cri.search}&type=${pm.cri.type}'></c:url>">다음</a>
+				<a class="page-link" href="<c:url value='/product/list?page=${pm.endPage+1}&search=${pm.criteria.search}&type=${pm.criteria.type}'></c:url>">다음</a>
 			</li>
 		</c:if>
 	</ul>

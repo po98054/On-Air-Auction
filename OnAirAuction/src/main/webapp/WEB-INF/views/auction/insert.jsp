@@ -46,11 +46,11 @@
 				<input class="form-control" type="text" id="deliveryway" name="au_delivery_way" placeholder="택배 or 직거래"> <br>
 	 		<div id="limitbidtime" style="display:none">
 				<label>입찰제한시간</label>
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="1">15초
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="2">30초
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="3">1분	
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="4">3분	
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="5">5분		
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="15">15초
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="30">30초
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="60">1분	
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="180">3분	
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="300">5분		
 			</div>			
 		  	<button type="submit" class="btn btn-success">전송</button>
 		</form>

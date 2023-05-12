@@ -1,6 +1,6 @@
-package kr.kh.onAirAuction.service;
+package kr.kr.OnAirAuction.Service;
 
-import kr.kh.onAirAuction.vo.ChargeVO;
+import kr.kr.OnAirAuction.VO.ChargeVO;
 
 public interface ChargeService {
 

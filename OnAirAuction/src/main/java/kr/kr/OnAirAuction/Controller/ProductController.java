@@ -1,4 +1,4 @@
-package kr.kh.onAirAuction.controller;
+package kr.kr.OnAirAuction.Controller;
 
 import java.util.ArrayList;
 
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.onAirAuction.pagination.Criteria;
-import kr.kh.onAirAuction.pagination.PageMaker;
-import kr.kh.onAirAuction.service.ProductService;
-import kr.kh.onAirAuction.utils.MessageUtils;
-import kr.kh.onAirAuction.vo.FileVO;
-import kr.kh.onAirAuction.vo.ProductCategoryVO;
-import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
-import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
-import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
-import kr.kh.onAirAuction.vo.ProductVO;
+import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.Pagination.PageMaker;
+import kr.kr.OnAirAuction.Service.ProductService;
+import kr.kr.OnAirAuction.Utils.MessageUtils;
+import kr.kr.OnAirAuction.VO.FileVO;
+import kr.kr.OnAirAuction.VO.ProductCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductLargeCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductMiddleCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductSmallCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductVO;
 
 @Controller
 public class ProductController {
@@ -48,10 +48,10 @@ public class ProductController {
     
     // 상품 리스트
     @RequestMapping(value="/product/list", method=RequestMethod.GET)
-    public ModelAndView list(ModelAndView mv, Criteria cri) {
-    	ArrayList<ProductVO> list = productService.getProductList(cri);
-    	int totalCount = productService.getProductTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 3, cri);
+    public ModelAndView list(ModelAndView mv, Criteria criteria) {
+    	ArrayList<ProductVO> list = productService.getProductList(criteria);
+    	int totalCount = productService.getProductTotalCount(criteria);
+		PageMaker pm = new PageMaker(totalCount, 3, criteria);
     	mv.addObject("list", list);
     	mv.addObject("pm", pm);
     	mv.setViewName("/product/list");
@@ -104,11 +104,11 @@ public class ProductController {
 			MultipartFile []files, int [] fileNums, HttpServletResponse response) {
 		if(productService.updateProduct(vo, files, fileNums)) {
 			MessageUtils.alertAndMovePage(response, 
-					"게시글을 수정했습니다.", "/onAirAuction", 
+					"게시글을 수정했습니다.", "/OnAirAuction", 
 					"/product/detail/"+pr_code);
 		}else {
 			MessageUtils.alertAndMovePage(response, 
-					"게시글을 수정하지 못했습니다.", "/onAirAuction", 
+					"게시글을 수정하지 못했습니다.", "/OnAirAuction", 
 					"/product/list");
 		}
 		return mv;
