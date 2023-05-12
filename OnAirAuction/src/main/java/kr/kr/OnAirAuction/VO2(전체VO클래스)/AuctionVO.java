@@ -9,8 +9,8 @@ public class AuctionVO {
 	int au_num;
 	int au_calculation;
 	int au_limit_bid_time;
-	Date au_start_date;
-	Date au_final_date;
+	String au_start_date;
+	String au_final_date;
 	int au_extension;
 	int au_faild;
 	int au_immediate;
