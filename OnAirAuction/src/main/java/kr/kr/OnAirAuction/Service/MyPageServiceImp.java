@@ -454,7 +454,13 @@ public class MyPageServiceImp implements MyPageService{
 	// 문의 사항 조회
 	
 	@Override
-	public ArrayList<InquiryVO> getInquiryList(Criteria criteria) {
+	public ArrayList<InquiryVO> getInquiryList(Criteria criteria, MemberVO user) {
+		
+		if(user == null) {
+			
+			return null;
+			
+		}
 		
 		if(criteria == null) {
 			
@@ -462,7 +468,7 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectInquiryList(criteria);
+		return myPageDao.selectInquiryList(criteria, user);
 		
 	}
 
@@ -951,6 +957,42 @@ public class MyPageServiceImp implements MyPageService{
 		}
 		
 		return myPageDao.deleteMember(user) != 0;
+	}
+
+	@Override
+	public InquiryVO getInquiryByNum(int in_num) {
+		
+		return myPageDao.selectInquiryByNum(in_num);
+		
+	}
+
+	@Override
+	public boolean ReplyInquiryInsert(InquiryVO inquiry, MultipartFile[] files, MemberVO user) {
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
+		
+		System.out.println(files);
+		
+		if(inquiry == null || inquiry.getIn_title() == null || inquiry.getIn_title().trim().length() == 0 ||
+				
+				inquiry.getIn_content() == null) {
+			
+			return false;
+			
+		}
+		
+		inquiry.setIn_me_id(user.getMe_id());
+		
+		myPageDao.insertInquiryReply(inquiry);
+		
+		uploadFilesByInquiry(files, inquiry.getIn_num());
+		
+		return true;
+		
 	}
 	
 }

@@ -383,7 +383,7 @@ public class MyPageController {
 			
 		}
 		
-		mv.setViewName("/MyPage/InquiryInsert");
+		mv.setViewName("redirect://MyPage/InquiryInsert");
 		
 		return mv;
 		
@@ -489,9 +489,11 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/InquiryList", method = RequestMethod.GET)
 	
-	public ModelAndView InquiryList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView InquiryList(ModelAndView mv, Criteria criteria, HttpSession session) {
 		
-		ArrayList<InquiryVO> list = myPageService.getInquiryList(criteria);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		ArrayList<InquiryVO> list = myPageService.getInquiryList(criteria, user);
 		
 		int totalCount = myPageService.getInquiryTotalCount(criteria);
 		
@@ -536,6 +538,128 @@ public class MyPageController {
 	@RequestMapping(value = "/MyPage/InquiryDelete/{in_num}", method = RequestMethod.GET)
 	
 	public ModelAndView InquiryDelete(ModelAndView mv, @PathVariable("in_num") int in_num, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(myPageService.deleteInquiry(in_num, user)) {
+			
+			System.out.println("문의 사항 삭제 성공");
+			
+		} else {
+			
+			System.out.println("문의 사항 삭제 실패");
+			
+		}
+		
+		mv.setViewName("redirect:/MyPage/InquiryList");
+		
+		return mv;
+		
+	}
+	
+	// 문의 사항 답글 등록
+	
+	@RequestMapping(value = "/MyPage/ReplyInquiryInsert/{in_num}", method = RequestMethod.GET)
+	
+	public ModelAndView ReplyInquiryInsert(ModelAndView mv, @PathVariable("in_num") int in_num) {
+		
+		ArrayList<InquiryCategoryVO> inquiryCategory = myPageService.getInquiryCategory();
+		
+		InquiryVO inquiry = myPageService.getInquiryByNum(in_num);
+		
+		mv.addObject("inquiryCategory", inquiryCategory);
+		
+		mv.addObject("inquiry", inquiry);
+		
+		mv.setViewName("/MyPage/ReplyInquiryInsert");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReplyInquiryInsert", method = RequestMethod.POST)
+	
+	public ModelAndView ReplyInquiryInsertPost(ModelAndView mv, InquiryVO inquiry, MultipartFile []files, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(myPageService.ReplyInquiryInsert(inquiry, files, user)) {
+			
+			System.out.println("문의 사항 등록 성공 !!");
+			
+		} else {
+			
+			System.out.println("문의 사항 등록 실패 !!");
+			
+		}
+		
+		mv.setViewName("redirect:/MyPage/ReplyInquiryInsert");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReplyInquiryUpdate/{in_num}", method = RequestMethod.GET)
+	
+	public ModelAndView ReplyInquiryUpdate(ModelAndView mv, @PathVariable("in_num") int in_num, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		System.out.println(in_num);
+		
+		InquiryVO inquiry = myPageService.getInquiry(in_num, user);
+		
+		ArrayList<InquiryCategoryVO> inquiryCategory = myPageService.getInquiryCategory();
+		
+		ArrayList<FileVO> files = myPageService.getFileListByInquiry(in_num);
+		
+		System.out.println(inquiryCategory);
+		
+		System.out.println(files);
+		
+		mv.addObject("inquiry", inquiry);
+		
+		mv.addObject("files", files);
+		
+		mv.addObject("inquiryCategory", inquiryCategory);
+		
+		mv.setViewName("/MyPage/InquiryUpdate");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReplyInquiryUpdate/{in_num}", method = RequestMethod.POST)
+	
+	public ModelAndView ReplyInquiryUpdatePost(ModelAndView mv, @PathVariable("in_num") int in_num, InquiryVO inquiry, MultipartFile []files, int [] fileNums,
+			
+			HttpServletResponse response, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		System.out.println(in_num);
+		
+		System.out.println(files);
+		
+		System.out.println(fileNums);
+		
+		if(myPageService.UpdateInquiry(inquiry, files, fileNums, user)) {
+			
+			MessageUtils.alertAndMovePage(response, "문의 사항 수정에 성공했습니다..", "OnAirAuction", "/MyPage/ReplyInquiryUpdate/"+in_num);
+			
+		} else {
+			
+			System.out.println("문의 사항 수정 실패!!!!");
+			
+		}
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/MyPage/ReplyInquirydelete/{in_num}", method = RequestMethod.GET)
+	
+	public ModelAndView ReplyInquirydelete(ModelAndView mv, @PathVariable("in_num") int in_num, HttpSession session) {
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		

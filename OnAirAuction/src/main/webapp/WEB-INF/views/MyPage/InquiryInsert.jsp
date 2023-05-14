@@ -143,7 +143,7 @@
 			
 			</div>
 			
-			<div class="PrName" style="width:120px; height: 20px;">
+			<div class="PrName" style="width:120px; height: 20px; display: none;">
 			
 			<label for="person" id="pr_name">상품</label>
 			
@@ -255,6 +255,44 @@
 	</div>
 	
 	<script>
+	let ic = [];
+	
+	<c:forEach items="${inquiryCategory}" var="ic">
+	
+		<c:if test="${ic.ic_name == '상품'}">ic.push('${ic.ic_num}')</c:if>
+		<c:if test="${ic.ic_name == '배송'}">ic.push('${ic.ic_num}')</c:if>
+		<c:if test="${ic.ic_name == '경매'}">ic.push('${ic.ic_num}')</c:if>
+		
+	</c:forEach>
+	
+	console.log(ic);
+	
+	$('#type').change(function(){
+		
+		let val = $(this).val();
+		
+		$('.PrName').hide();
+		
+		console.log(val);
+		
+		console.log(ic);
+		
+		console.log("ic.indexOf(val) : " + ic.indexOf(val));
+		
+		if(val == 0) {
+			
+			return;
+			
+		}
+		
+		if(ic.indexOf(val) != -1){
+			
+			$('.PrName').show();
+			
+		}
+		
+	});
+	
     $('#content').summernote({
         placeholder: '내용을 입력하세요.',
         tabsize: 2,

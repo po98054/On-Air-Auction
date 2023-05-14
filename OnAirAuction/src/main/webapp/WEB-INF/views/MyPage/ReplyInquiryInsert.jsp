@@ -123,7 +123,7 @@
 		
 		<div class="body-middle">
         
-           <form action="<c:url value='/MyPage/InquiryUpdate/${inquiry.in_num}'></c:url>" method="post" enctype="multipart/form-data">
+           <form action="<c:url value='/MyPage/ReplyInquiryInsert'></c:url>" method="post" enctype="multipart/form-data">
            
            	<div class="form-group">
 		
@@ -143,11 +143,11 @@
 			
 			</div>
 			
-			<div class="PrName" style="width:140px; height: 20px;">
+			<div class="PrName" style="width:140px; height: 20px;" readonly>
+			
+			<input type="hidden" name="in_pr_code" value="${inquiry.in_pr_code}">
 			
 			<label for="person" id="pr_name">상품 : ${inquiry.pr_name}  </label>
-			
-			 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색</button>
 			 
 			</div>
            
@@ -155,7 +155,7 @@
 		
 				<label for="title">제목:</label>
 			
-				<input type="text" class="form-control" id="title" name="in_title" value="${inquiry.in_title}">
+				<input type="text" class="form-control" id="title" name="in_title" value="${inquiry.in_num}번 글의 답글">
 			
 			 </div>
 			 
@@ -175,82 +175,47 @@
 		
 			<label>이미지:</label>
 			
-			<div class="form-group mt-3">
+			<div class="form-group mt-3" style="margin-left: 10px">
 			
-				<c:forEach items="${files}" var="file">
+				<div>
 				
-					<div style="position: relative">
+					<div class="file-box">+</div>
+					
+					<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
+					
+					<img class="preview" height="200" width="auto">
 				
-						<div class="file-box" style="display: none">+</div>
-					
-						<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
-					
-						<img class="preview" height="200" width="auto" src="<c:url value='/download${file.fi_save_name}'></c:url>">
-						
-						<span class="btn-times" data-num="${file.fi_num}">X</span>
+				</div>
 				
-					</div>
-					
-				</c:forEach>
+				<div>
 				
-				<c:forEach begin="1" end="${3 - files.size()}">
-			
-					<div>
+					<div class="file-box">+</div>
+					
+					<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
+					
+					<img class="preview" height="200" width="auto">
 				
-						<div class="file-box">+</div>
-					
-						<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
-					
-						<img class="preview" height="200" width="auto">
+				</div>
 				
-					</div>
+				<div>
+				
+					<div class="file-box">+</div>
 					
-				</c:forEach>
+					<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
+					
+					<img class="preview" height="200" width="auto">
+				
+				</div>
 				
 			</div>
 		
 		</div>
 		
-		<button class="btn btn-outline-success col-12 mb-2" style="margin-left: 10px">문의 사항 수정</button>
+		<button class="btn btn-outline-success col-12 mb-2" style="margin-left: 10px">문의 사항 답글 등록</button>
 			 
 		</form>
 		
-		 <!-- The Modal -->
-      <div class="modal" id="myModal" style="margin-top: 150px;">
-        <div class="modal-dialog">
-          <div class="modal-content">
-          
-            <!-- Modal Header -->
-            <div class="modal-header">
-            	
-                <label>상품</label>
-            		
-            	<input type="text" class="form-control" placeholder="Search" name="search" value="${pm.criteria.search}">
-            	
-            	<div class="input-group-append">
-            		
-            		<button class="btn btn-success" type="submit" id="btn-search">검색</button>
-            			
-            	</div>
-            	
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              
-            </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body dream">
-              
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-      
+		
 	</div>
 	</div>
 	
@@ -262,18 +227,6 @@
     });
     
 	$('form').submit(function(){
-		
-		let ic_num = $('[name=in_ic_num]').val();
-		
-		if(ic_num  == 0){
-			
-			alert('문의사항 카데고리를 선택하세요.');
-			
-			$('[name=in_ic_num]').focus();
-			
-			return false;
-			
-		}
 		
 		let in_title = $('[name=in_title]').val();
 		
@@ -372,144 +325,6 @@
 		}
 		
 		reader.readAsDataURL(input.files[0]);
-		
-	}
-
-$('#btn-search').click(function(){
-	
-	let search = $('[name=search]').val();
-	
-	console.log(search);
-	
-	let product = {
-			
-			search : search
-			
-	};
-	
-	select(product)
-    
-})
-
-function select(product){
-	
-	ajax('POST', product, '<c:url value="/ProductList"></c:url>', function(data){
-		
-			if(data.product){
-				
-				let str = '';
-				
-				let product = data.product;
-				
-				for(i = 0; i < product.length; i++){
-					
-				str +=
-					
-				'<table class="table table-striped">' + '<thead>' + '<tr>' + '<th>상품명</th>' + 
-				
-				'<th>이름</th>' + '<th hidden></th>' + '</tr>' + '</thead>';
-				
-				str +=
-					
-				'<tbody>' + '<tr>'+ '<td>' + '<a href="#" class="sport">' + product[i].pr_name + '</a>' + '</td>' +
-				
-				'<td>' + product[i].me_name + '</td>'
-				
-				+ '<td hidden class="code">' + product[i].pr_code + '</td>' ;
-				
-				str +=
-					
-				'</tr>' + '</tbody>' + '</table>';
-				
-				}
-				
-				$('.dream').html(str);
-				
-			}
-			
-		});
-	
-	let pr = $('.sport').text();
-	
-	let code = $('.code').text();
-	
-	code = parseInt(code);
-	
-	console.log($.type(code));
-	
-	let prName = {
-			
-			pr_name : pr,
-			
-			pr_code : code
-			
-	};
-	
-	console.log(prName);
-	
-	$('.sport').click(function(){
-		
-		selectPrName(prName);
-		
-	})
-	
-	}
-	
-function selectPrName(prName){
-	
-	ajax('POST', prName, '<c:url value='/MyPage/ProductSelect'></c:url>', function(data){
-		
-		if(data.result){
-			
-			let str2 = '';
-			
-			let result = data.result;
-			
-			for(i = 0; i < result.length; i++){
-				
-				console.log(result[i].pr_name);
-				
-				console.log(result[i].pr_code);
-				
-				console.log($.type(result[i].pr_code));
-			
-			str2 +=
-				
-				'<input type="hidden" name="in_pr_code" value="'+ result[i].pr_code + '"/>' +
-				
-				'<label for="person" id="pr_name" name="pr_name">' + result[i].pr_name + '</label>' +
-				
-				'<button type="button" class="searchButton" data-toggle="modal" data-target="#myModal">검색</button>';
-				
-			}
-				
-			$('.PrName').html(str2);
-			
-	}
-	
-})
-
-}
-		
-function ajax(method, obj, url, successFunc, errorFunc){
-	
-	$.ajax({
-		
-			async:false,
-			
-			type: method,
-			
-			data: JSON.stringify(obj),
-			
-			url: url,
-			
-			dataType:"json",
-			
-			contentType:"application/json; charset=UTF-8",
-			
-			success : successFunc
-			
-		});
 		
 	}
 </script>

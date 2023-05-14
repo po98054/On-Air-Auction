@@ -134,12 +134,25 @@
 			</div>
 			</div>
 			<div class="btn-list">
-            <a href="<c:url value='/MyPage/InquiryUpdate/${inquiry.in_num}'></c:url>">
-				<button class="btn btn-outline-primary btn-update">수정</button>
-			</a>
-			<a href="<c:url value='/MyPage/InquiryDelete/${inquiry.in_num}'></c:url>">
-				<button class="btn btn-outline-primary btn-delete">삭제</button>
-			</a>
+			<c:if test="${inquiry.in_answer_date == null}">
+            	<a href="<c:url value='/MyPage/InquiryUpdate/${inquiry.in_num}'></c:url>">
+					<button class="btn btn-outline-primary btn-update">수정</button>
+				</a>
+				<a href="<c:url value='/MyPage/InquiryDelete/${inquiry.in_num}'></c:url>">
+					<button class="btn btn-outline-primary btn-delete">삭제</button>
+				</a>
+				<a href="<c:url value='/MyPage/ReplyInquiryInsert/${inquiry.in_num}'></c:url>">
+					<button class="btn btn-outline-primary btn-delete">답글 등록</button>
+				</a>
+			</c:if>
+			<c:if test="${inquiry.in_answer_date != null}">
+				<a href="<c:url value='/MyPage/ReplyInquiryUpdate/${inquiry.in_num}'></c:url>">
+					<button class="btn btn-outline-primary btn-update">답글 수정</button>
+				</a>
+				<a href="<c:url value='/MyPage/ReplyInquirydelete/${inquiry.in_num}'></c:url>">
+					<button class="btn btn-outline-primary btn-delete">삭제</button>
+				</a>
+			</c:if>
             </div>
             
        </div>

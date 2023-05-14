@@ -19,6 +19,8 @@ public class InquiryVO {
 	
 	Date in_register_date;
 	
+	Date in_answer_date;
+	
 	Date in_modify_date;
 	
 	Date in_answerdate;
@@ -59,6 +61,14 @@ public class InquiryVO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		return sdf.format(in_modify_date);
+		
+	}
+	
+	public String getIn_answer_date_str() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return sdf.format(in_answer_date);
 		
 	}
 	

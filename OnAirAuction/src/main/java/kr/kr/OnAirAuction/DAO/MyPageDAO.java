@@ -100,7 +100,7 @@ public interface MyPageDAO {
 	
 	// 문의 사항 조회
 
-	ArrayList<InquiryVO> selectInquiryList(@Param("criteria")Criteria criteria);
+	ArrayList<InquiryVO> selectInquiryList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
 
 	int selectInquiryTotalCount(@Param("criteria")Criteria criteria);
 	
@@ -177,5 +177,9 @@ public interface MyPageDAO {
 	// 회원 탈퇴
 	
 	int deleteMember(@Param("user")MemberVO user);
+
+	InquiryVO selectInquiryByNum(@Param("in_num")int in_num);
+
+	void insertInquiryReply(@Param("inquiry")InquiryVO inquiry);
 
 }

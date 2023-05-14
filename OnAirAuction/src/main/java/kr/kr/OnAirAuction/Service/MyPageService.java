@@ -92,7 +92,7 @@ public interface MyPageService {
 	
 	// 문의 사항 조회
 
-	ArrayList<InquiryVO> getInquiryList(Criteria criteria);
+	ArrayList<InquiryVO> getInquiryList(Criteria criteria, MemberVO user);
 
 	int getInquiryTotalCount(Criteria criteria);
 	
@@ -165,5 +165,9 @@ public interface MyPageService {
 	// 회원 탈퇴
 
 	boolean deleteMember(MemberVO user);
+
+	InquiryVO getInquiryByNum(int in_num);
+
+	boolean ReplyInquiryInsert(InquiryVO inquiry, MultipartFile[] files, MemberVO user);
 
 }
