@@ -587,7 +587,7 @@ public class MyPageController {
 			
 		}
 		
-		mv.setViewName("/MyPage/ReportInsert");
+		mv.setViewName("redirect://MyPage/ReportInsert");
 		
 		return mv;
 		
@@ -602,6 +602,8 @@ public class MyPageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<PersonSearchVO> person = myPageService.getPerson(criteria);
+		
+		System.out.println(person);
 		
 		map.put("person", person);
 		
@@ -633,9 +635,13 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/ReportList", method = RequestMethod.GET)
 		
-	public ModelAndView ReportList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView ReportList(ModelAndView mv, Criteria criteria, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		System.out.println(user);
 			
-		ArrayList<ReportVO> list = myPageService.getReportList(criteria);
+		ArrayList<ReportVO> list = myPageService.getReportList(criteria, user);
 			
 		int totalCount = myPageService.getReportTotalCount(criteria);
 			

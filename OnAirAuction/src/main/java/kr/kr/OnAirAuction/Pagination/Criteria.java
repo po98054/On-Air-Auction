@@ -16,6 +16,8 @@ public class Criteria {
 	
 	private String search;
 	
+	private String select;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fromDate;
 	

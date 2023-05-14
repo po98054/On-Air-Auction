@@ -382,7 +382,7 @@
 	
 	<select id="selectPerson" resultType="kr.kr.OnAirAuction.VO.PersonSearchVO">
 	
-		select me_name, me_id from member where (me_id like concat('%', #{criteria.search}, '%')) 
+		select me_name, me_id from member where (me_id like concat('%', #{criteria.select}, '%')) 
 	
 	</select>
 	
@@ -445,6 +445,8 @@
 	<select id="selectReportList" resultType="kr.kr.OnAirAuction.VO.ReportVO">
   		
   		select * from report join report_category on re_rc_num = rc_num left join product on re_report_product = pr_code
+  		
+  		where re_me_id = #{user.me_id}
   		
   		 order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
   		

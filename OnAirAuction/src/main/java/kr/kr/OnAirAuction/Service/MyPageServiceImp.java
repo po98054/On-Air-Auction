@@ -706,7 +706,7 @@ public class MyPageServiceImp implements MyPageService{
 	// 신고 조회
 	
 	@Override
-	public ArrayList<ReportVO> getReportList(Criteria criteria) {
+	public ArrayList<ReportVO> getReportList(Criteria criteria, MemberVO user) {
 		
 		if(criteria == null) {
 			
@@ -714,7 +714,13 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectReportList(criteria);
+		if(user == null) {
+			
+			return null;
+			
+		}
+		
+		return myPageDao.selectReportList(criteria, user);
 		
 	}
 

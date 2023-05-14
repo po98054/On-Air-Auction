@@ -10,44 +10,37 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	
-    	<!-- MySQL 버전에 따라 driverClassName의 value값이 달라짐 아래 코드는 Mysql 8기준 -->
     	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-    	<!-- MySQL 버전이 6인 경우 아래 코드 반영 -->
-    	<!-- <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> -->
-    	<property name="url" value="jdbc:mysql://localhost:3306/onairauction?useSSL=false&amp;serverTimezone=Asia/Seoul">
-    	</property>
+    	
+    	<property name="url" value="jdbc:mysql://localhost:3306/onairauction?useSSL=false&amp;serverTimezone=Asia/Seoul"></property>
+    	
     	<property name="username" value="root"></property>
+    	
     	<property name="password" value="root"></property>
     	
-	</bean> 
+	</bean>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	
-    	<property name="dataSource" ref="dataSource" />
-    	<property name="mapperLocations" value="classpath*:mappers/**/*Mapper.xml"></property>
-    	
+	    <property name="dataSource" ref="dataSource" />
+	    <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
 	</bean>
-	
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-    	<property name="host" value="smtp.gmail.com" />
-    	<property name="port" value="587" />
-    	<property name="username" value="javaflex018@gmail.com" />
-    	<property name="password" value="dqxlepdzoxjnliua" />
-    	<property name="javaMailProperties">
-        	<props>
-            	<prop key="mail.transport.protocol">smtp</prop>
-            	<prop key="mail.smtp.auth">true</prop>
-            	<prop key="mail.smtp.starttls.enable">true</prop>
-            	<prop key="mail.debug">true</prop>
-            	<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
-        	</props>
-    	</property>
-	</bean>
-	
 	<mybatis-spring:scan base-package="kr.kr.OnAirAuction.DAO"/>
-	
+		
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="smtp.gmail.com" />
+	    <property name="port" value="587" />
+	    <property name="username" value="javaflex018@gmail.com" />
+	    <property name="password" value="wzleslfhwzflbnre" />
+	    <property name="javaMailProperties">
+	        <props>
+	            <prop key="mail.transport.protocol">smtp</prop>
+	            <prop key="mail.smtp.auth">true</prop>
+	            <prop key="mail.smtp.starttls.enable">true</prop>
+	            <prop key="mail.debug">true</prop>
+	            <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+	        </props>
+	    </property>
+	</bean>
 </beans>

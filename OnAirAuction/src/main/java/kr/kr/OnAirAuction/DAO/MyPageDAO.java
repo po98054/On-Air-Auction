@@ -136,7 +136,7 @@ public interface MyPageDAO {
 	
 	// 신고 조회
 
-	ArrayList<ReportVO> selectReportList(@Param("criteria")Criteria criteria);
+	ArrayList<ReportVO> selectReportList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
 
 	int selectReportTotalCount(@Param("criteria")Criteria criteria);
 	

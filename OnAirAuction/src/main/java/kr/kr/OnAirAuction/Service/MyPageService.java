@@ -124,7 +124,7 @@ public interface MyPageService {
 	
 	// 신고 조회
 
-	ArrayList<ReportVO> getReportList(Criteria criteria);
+	ArrayList<ReportVO> getReportList(Criteria criteria, MemberVO user);
 
 	int getReportTotalCount(Criteria criteria);
 	

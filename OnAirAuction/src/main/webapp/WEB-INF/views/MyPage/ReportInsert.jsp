@@ -261,7 +261,7 @@
             	
                 <label>유저</label>
             		
-            	<input type="text" class="form-control" placeholder="Search" name="select" value="${pm.criteria.search}">
+            	<input type="text" class="form-control" placeholder="Search" name="select" value="${pm.criteria.select}">
             	
             	<div class="input-group-append">
             		
@@ -314,7 +314,6 @@
 		
 		$('.PrName').hide();
 		
-		$('.PrdName').hide();
 		
 		if(val == 0) {
 			
