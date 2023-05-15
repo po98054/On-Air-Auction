@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <title>일반경매</title>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <style>
@@ -190,13 +192,20 @@
   background-image: url(http://static.itrcomm.com/img/sub/view_icon_all_sel2.png);
   background-repeat: no-repeat;
 }
+.info-step01 .product-id .product-copy{
+  margin-right: 5px; text-decoration: underline; color: #000;
+  text-decoration-color: cornflowerblue; text-decoration-style: dotted;
+}
+.info-step01 .product-id .copy-icon{
+  width: 16px; height: 20px; margin-left: 5px;
+}
 .info-step01 .product-id .btn-share{
   right: 45px;
 }
 .info-step01 .product-id .share-icon{
   background-position: -52px 0; border-bottom: 0;
 }
-.info-step01 .product-id .btn-like{
+.info-step01 .product-id .btn-product-like{
   right: 0px;
 }
 .info-step01 .product-id .like-icon{
@@ -241,17 +250,19 @@
 .info-step01 .product-id dday{
   float: right;
 }
-
 .info-step01 .btn-deadline,.btn-bidlist{
-  background-color: #6d6e71; color: #fff; border: 1px solid #6d6e71;
+  background-color: #000; color: #fff; border: 1px solid #6d6e71;
   display: inline-block; padding: 6px 12px; margin-bottom: 0; 
   font-size: 14px; line-height: 1.5; text-align: center; white-space: nowrap;
   vertical-align: middle; cursor: pointer; touch-action: manipulation;
-  margin-top: 5px; margin-left: 10px;
+  margin-top: 5px; margin-left: 10px; border-radius: 5px;
 }
 .info-step01 .deadline-icon,.bidlist-icon{
   color: #c5b799; display: inline-block; font: normal 14px;
   font-size: inherit; text-rendering: auto;
+}
+.info-step01 .btn-deadline:hover,.btn-bidlist:hover{
+  background: #6d6e71;
 }
 .info-step01 span{
   color: #262626; padding-bottom: 1px; 
@@ -320,13 +331,11 @@
 /* info-step02 끝 */
 /* product-info-btn-area 시작 */
 .product-info-btn-area{
-  padding-top: 15px; text-align: center; clear: both; ;
+  padding-top: 15px; text-align: center; clear: both;
 }
 .product-info-btn-area button{
-  display: inline-block; text-align: center;
-  cursor: pointer; border: 0; padding: 0;
-  width: 300px; height: 48px;
-  color: #fff; font-size: 18px; border-radius: 18px;
+  display: inline-block; text-align: center; cursor: pointer; border: 0; padding: 0;
+  width: 300px; height: 48px; color: #fff; font-size: 18px; border-radius: 18px;
   line-height: 48px; 
 }
 .product-info-btn-area span{
@@ -335,8 +344,7 @@
   display: inline-block;
 }
 .product-info-btn-area .btn-bid{
-  background: #0053a0; display: inline-block;
-  text-align: center; margin-left: 10px;
+  background: #0053a0; display: inline-block; text-align: center; margin-left: 10px;
 }
 .product-info-btn-area .bid-icon{
   width: 26px; height: 20px; background-position: -207px 0px;
@@ -451,15 +459,12 @@
   font-size: 15px; display: block;
   text-decoration: none; cursor: pointer;
 }
-
 .tab-area .product-description-tab{
   border-bottom: 0; 
 }
-
 .tab-area .product-review-tab{
   border-bottom: 0; 
 }
-
 .tab-area .product-inquiry-tab{
   border-bottom: 0; 
 }
@@ -483,8 +488,6 @@
 .product-review-area .colgroup{
   display: table-caption; 
 }
-
-
 
 .product-review-area .review-layout-left{
   display: table-cell; width: 250px; padding: 60px 0 20px 0;
@@ -734,6 +737,7 @@
   text-decoration: none; font-size: 25px;
   background-color: #fff; cursor: pointer;
   color: black; opacity: 85%;
+  text-decoration: none;
 }
 /* 페이지 상단으로 이동하기 구현 끝 */
 /* 마감연장 모달창 시작 */
@@ -780,7 +784,7 @@
   border: 0
 }
 #bidlist-modal .bidlist-content {
-  width: 400px; margin: 0 auto;
+  margin: 0 auto;
   padding: 20px 10px; background:#fff;
   border: 1px solid #e5e5e5; border-radius: 15px;
 }
@@ -792,14 +796,15 @@
   background-color: #f8f8f8; border-bottom: solid 1px #e6e6e6;
   padding: 7px 0 5px 10px;
 }
-#bidlist-modal .-content .product-table td{
+#bidlist-modal .bidlist-content .product-table td{
   padding: 8px 0 6px 10px; border-bottom: solid 1px #e6e6e6;
 }
 #bidlist-modal .bidlist-content .h1{
   font-size: 16px; color: #000; font-weight: bold;
 }
 #bidlist-modal .bidlist-content .bid{
-  padding: 0 0 0 10px; font-size: 13px; color: #000;  
+  padding: 0 0 0 10px; font-size: 16px; color: #000;
+  font-weight: 600; margin-bottom: 5px; 
 }
 #bidlist-modal .bidlist-content .bidlist-table{
   font-size: 13px; text-align: center;
@@ -861,8 +866,7 @@
   z-index:-1;
 }
 #imme-modal .imme-content ul{
-  padding-top: 15px; 
-  padding-bottom: 10px; list-style: none;
+  padding-top: 15px; list-style: none;
 }
 #imme-modal .imme-content li{
   clear: both; font-size: 15px; color: #333;
@@ -938,8 +942,7 @@
   z-index:-1;
 }
 #bid-modal .bid-content ul{
-  padding-top: 15px; 
-  padding-bottom: 10px; list-style: none;
+  padding-top: 15px; list-style: none;
 }
 #bid-modal .bid-content li{
   clear: both; font-size: 15px; color: #333;
@@ -963,10 +966,14 @@
   cursor: pointer;
 }
 #bid-modal .bid-content .bid-btn a{
-  margin-top: 15px; background-color: #0053a0;
+  background-color: #0053a0;
   color: #fff; border-radius: 6px; display: block;
   font-size: 15px; height: 62px; width: 100%; line-height: 62px;
   text-align: center;
+}
+#bid-modal .bid-content .bid-btn .question{
+  font-size: 15px; text-align: center; font-weight: 700; cursor: default;
+  margin-bottom: 15px;
 }
 #bid-modal .bid-content .btn-area{
   clear: both;
@@ -980,7 +987,7 @@
   width: 48.5%; display: inline-block;
 }
 #bid-modal .bid-content .btn-area a{
-  margin-top: 15px; background: #333a39; 
+  background: #333a39; 
   color: #fff; border-radius: 6px;
   display: block; font-size: 15px; 
   height: 62px; width: 100%; line-height: 62px;
@@ -1092,28 +1099,29 @@
           <i></i>
         </li>
         <li>
-          <a href="">컴퓨터 & 태블릿</a>
+        <!-- 카테고리 수정 필요 ${prodCategory.pmc_name } -->
+          <a href="">${prodCategory.pmc_name }</a>
         </li>
         <li>
           <i></i>
         </li>
         <li>
-          <a href="">모니터, 프로젝터, 액세서리</a>
+          <a href="">${prodCategory.psc_name }</a>
         </li>
         <li>
           <i></i>
         </li>
         <li>
-          <a href="">모니터</a>
+          <a href="">${prodCategory.pc_name }</a>
         </li>
       </ul>
       <!-- 상단 상품 카테고리 위치 표시 끝 -->
       </div>
         <h1 class="product-name">
-          KH 27GP950-B 27" UltraGear 4K UHD Nano IPS 1ms 144Hz G-Sync Gaming Monitor
+          ${product.pr_name }
         </h1>
         <h2 class="product-subname">
-          KH Warranty | Quick Shipping from #1 US store!
+          ${product.pr_intro }
         </h2>
       <!-- product-simple-area 시작 -->
       <div class="product-simple-area">
@@ -1176,23 +1184,25 @@
             <div class="info-step01">
               <div class="product-id">
                 <strong>Item ID</strong>
-                  ${product.pr_code}
+                  <a class="product-copy" onclick="copyToClipboard('${product.pr_code}')">${product.pr_code}
+                  	<img class="copy-icon" src="https://cdn.pixabay.com/photo/2012/04/16/13/10/document-35941_640.png">
+                  </a>
                   <button type="button" class="btn-share" id="btn-share">
                     <i class="share-icon"></i>
                   </button>
-                  <button type="button" class="btn-like" id="btn-like">
-                    <i class="like-icon" id="btnLike"></i>
+                  <button type="button" class="btn-product-like" id="btn-product-like">
+                    <i class="like-icon" id="btnProductLike"></i>
                   </button>
                   <div class="box-share" id="box-share">
                     <ul>
                       <li>
-                        <a href="" class="btn-facebook"></a>
+                        <a href="javascript:shareFacebook();" class="btn-facebook"></a>
                       </li>
                       <li>
-                        <a href="" class="btn-twitter"></a>
+                        <a href="javascript:shareTwitter();" class="btn-twitter"></a>
                       </li>
                       <li>
-                        <a href="" class="btn-kakao"></a>
+                        <a href="javascript:shareKakao();" class="btn-kakao"></a>
                       </li>
                       <li>
                         <button class="box-share_close" id="box-share_close"></button>
@@ -1219,15 +1229,15 @@
                     </dt>
                     <dd>
                     	<a id="countDday"></a>
-                    	<span id="dday">${ac_finaldate}</span>
-                      	<a href="<c:url value='/general/deadline'></c:url>" class="btn-deadline" id="btn-modal-deadline_open">
+                    	<span id="dday">( ${auction.au_final_date} )</span>
+                      	<button class="btn-deadline" id="btn-modal-deadline_open">
                         	<i class="deadline-icon"></i>
                         	마감연장
-                      	</a>
-                     	 <a href="<c:url value='/general/bidlist'></c:url>" class="btn-bidlist" id="btn-modal-bidlist_open">
-                       	 <i class="bidlist-icon"></i>
-                        	경매기록보기 >
-                      	</a>
+                      	</button>
+                     	 <button class="btn-bidlist" id="btn-modal-bidlist_open">
+	                       	 <i class="bidlist-icon"></i>
+	                        	경매기록보기 >
+                      	</button>
                     </dd>
                   </dl>
                 </li>
@@ -1237,11 +1247,9 @@
             <div id="deadline-modal">
                <div class="deadline-content">
                 <button type="button" id="btn-modal-deadline-close" class="btn-close">X</button> 
-                <h2>마감연장 창</h2>
-                <br>
-                <h1>구현중</h1>
-                <p>판매종료시간</p>
-                <p>03월 07일 11시 26분 28초</p>
+                <h3>마감연장 창</h3>
+                <span>판매종료시간</span>
+                <span>${auction.au_final_date}</span>
                 <a>+3</a>
                 <a>+5</a>
                 <a>+7</a>
@@ -1255,21 +1263,21 @@
             <div id="bidlist-modal">
               <div class="bidlist-content">
                 <button type="button" id="btn-modal-bidlist_close">X</button> 
-                <h1>경매기록</h1>
+                <h3>경매기록</h3>
                 <br>
                   <table border="1" style="width:400px" class="product-table">
-                    <h2 class="bid">입찰상품</h2>
+                    <h2 class="bid">■ 입찰상품</h2>
                     <tr>
                       <th>상품명</th>
-                      <td>LG UltraGear 4K UHD Nano IPS 1ms 144Hz G-Sync Gaming Monitor</td>
+                      <td>${product.pr_name }</td>
                     </tr>
                     <tr>
                       <th width="100px">경매마감일자</th>
-                      <td>2023-03-24 오후 9:00:00</td>
+                      <td>${auction.au_final_date}</td>
                     </tr>
                     <tr>
                       <th>판매지역</th>
-                      <td>전국</td>
+                      <td>${product.pr_location }</td>
                     </tr>
                   </table>
                   <div class="bid-text">
@@ -1283,36 +1291,13 @@
                       <th>입찰일자</th>
                       <th>입찰가격</th>
                     </tr>
-                    <tr>
-                      <td>kuinmo0***</td>
-                      <td>2023-03-20 18:37:53.060</td>
-                      <td>100,000 원</td>
-                    </tr>
-                    <tr>
-                      <td>hana***</td>
-                      <td>2023-03-20 13:25:49.910</td>
-                      <td>23,000 원</td>
-                    </tr>
-                    <tr>
-                      <td>sehae0***</td>
-                      <td>2023-03-19 23:30:23.127</td>
-                      <td>15,000 원</td>
-                    </tr>
-                    <tr>
-                      <td>ssb198***</td>
-                      <td>2023-03-19 22:32:06.887</td>
-                      <td>6,000 원</td>
-                    </tr>
-                    <tr>
-                      <td>dong5***</td>
-                      <td>2023-03-19 21:01:07.940	</td>
-                      <td>2,600 원</td>
-                    </tr>
-                    <tr>
-                      <td>302dragon***</td>
-                      <td>2023-03-19 15:54:47.510</td>
-                      <td>2,000 원</td>
-                    </tr>
+                 	<c:forEach items="${list }" var="auRecord">
+                      <tr>
+                        <td>${auctionRecord.ar_me_id}</td>
+                        <td>${auctionRecord.ar_bid_time}</td>
+                        <td>${auctionRecord.ar_bid_price}</td>
+                      </tr>
+                    </c:forEach>
                   </table>
                   <br>
               </div>
@@ -1327,7 +1312,7 @@
                   <dl>
                     <dt>시작가</dt>
                     <dd class="start-price">
-                      ${product.pr_startprice } 원
+                   		<fmt:formatNumber value="${product.pr_start_price}" type="currency" currencySymbol="$" />
                     </dd>
                   </dl>
                 </li>
@@ -1335,7 +1320,7 @@
                   <dl>
                     <dt>현재가</dt>
                     <dd class="current-price">
-                      ${auction_record.ar_bidprice } 원
+						<fmt:formatNumber value="${auRecord.getAr_bid_price()}" type="currency" currencySymbol="$" />                    
                     </dd>
                   </dl>
                 </li>
@@ -1348,14 +1333,13 @@
               <button class="btn-imme" id="btn-modal-imme_open" onclick="btnImme()">즉시 구매하기
               </button>
            	   -->
-           	  <a href="<c:url value='/general/imme'></c:url>" class="btn-imme" id="btn-modal-imme_open" onclick="btnBid()">입찰하기
-           	  </a>
+           	  <button class="btn-imme" id="btn-modal-imme_open" onclick="btnImme()'">즉시 구매
                 <span class="imme-icon"></span>
-              <a href="<c:url value='/general/bid'></c:url>" class="btn-bid" id="btn-modal-bid_open" onclick="btnBid()">입찰하기
+           	  </button>
+              <button class="btn-bid" id="btn-modal-bid_open" onclick="btnBid()">입찰하기
                 <span class="bid-icon"></span>
-              </a>
+              </button>
             </div>
-            <%--
             <!-- 즉시 구매 입찰 모달창 시작 -->
             <form action="<c:url value='/general/imme'></c:url>" method="post">
             <div id="imme-modal">
@@ -1392,24 +1376,28 @@
             </div>
             </form>
             <!-- 즉시 구매 입찰하기 모달창 끝 -->
-			--%>
             <!-- 입찰하기 모달창 시작 -->
             <div id="bid-modal">
               <div class="modal_layer"></div>
               <div class="bid-content">
                 <button type="button" id="btn-modal-bid-close">X</button> 
-                <h2>입찰신청</h2>
+                <h3>입찰신청</h3>
                 <br>
                 <ul>
                   <li>
                     <dl>
                       <dt>현재 입찰가</dt>
-                      <dd> 원</dd>
+                      <dd>
+                      	$ <input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_bid_price() }">
+                      </dd>
                     </dl>
                   </li>
                 </ul>
                 <div class="bid-btn">
-                  <a onclick="bidSuccess();">입찰하기</a>
+                  <div class="question">
+                  	입찰 신청 가격은 $ ${lastAuctionRecord.getAr_next_bid_price()} 입니다. 입찰하시겠습니까?
+                  </div>
+                  <a id="bidConfirm" onclick="bidConfirm();">입찰하기</a>
                   <div class="label">경매 입찰에 성공할 경우 낙찰된 상품은 반드시 구매해 주셔야 합니다.</div>
                 </div>
                 <div class="btn-area">
@@ -1432,7 +1420,7 @@
               <ul>
                 <li class="store-id">
                   <div class="store" style="width: 84px; display: inline-block;">판매자</div>
-                  <strong>sample-ID</strong>
+                  <strong>${store.st_name }</strong>
                 </li>
                 <li class="buy-satisfaction">
                   구매만족도
@@ -1798,7 +1786,7 @@
       </div>
       <!-- 상품 세부 설명 끝 -->
     </div>
-    <a class="content-top" onclick="topBtn()">↑</a>
+    <button class="content-top" onclick="topBtn()">↑</button>
   </div>
 </body>
 <script>
@@ -1831,13 +1819,6 @@ function immeSuccess(){
 	document.getElementById("imme-modal").style.display = "none";
  
 }
-function bidSuccess(){
-  alert('입찰에 성공했습니다.')
-  document.getElementById("bid-modal").style.display = "none";
-}
-$('.btn-confirm').click(function(e){
-  e.preventDefault();
-});
 
 
 // 썸네일 이미지 표시
@@ -1921,12 +1902,30 @@ $(function(){
 
 // 상품 찜하기 버튼 클릭 시 이벤트 발생
 $(function(){
-		
-  const btnLike = document.getElementById("btn-like");
-  const btnlikeSel = document.getElementById("btnLike");
-  
-  btnLike.addEventListener("click", function() {
-    const hasClass = btnlikeSel.classList.toggle("sel");
+  	const btnProductLike = document.getElementById("btn-product-like");
+  	const btnProductlikeSel = document.getElementById("btnProductLike");
+  	
+  	btnProductLike.addEventListener("click", function() {
+	if('${user.me_id}' == ''){
+	    let res = confirm('로그인한 회원만 상품 찜하기가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
+	    if(res){
+	    	location.href="<c:url value='/login'></c:url>"
+	    }
+	    return;
+	}
+	let pl_state = 1;
+	
+  	// 페이지 로딩 시 서버에서 찜한 상태를 확인하고, 버튼의 CSS를 수정
+	$.ajax({
+ 		async: true,
+ 		type: 'GET',
+ 		url: "<c:url value='/like/product/${product.pr_code}/"+pl_state+"'></c:url>",
+ 		dataType:"json",
+ 		success: function(data){
+ 			console.log(data);
+ 		}
+ 	})
+    const hasClass = btnProductlikeSel.classList.toggle("sel");
 	if(hasClass){
   		if(confirm("상품 찜하기를 등록했습니다.\n찜한 상품 페이지로 이동하시겠습니까?")){
   			location.href = "${pageContext.request.contextPath}/like/product"	
@@ -1943,16 +1942,33 @@ $(function(){
 	const btnStoreLikeSel = document.getElementById("btnStoreLike");
   
   	btnStoreLike.addEventListener("click", function() {
-    	const hasClass = btnStoreLikeSel.classList.toggle("sel");
-    	// 수정해야 함
-    	if(hasClass){
-      		if(confirm("판매자 찜하기를 등록했습니다.\n찜한 판매자 페이지로 이동하시겠습니까?")){
-      			location.href = "${pageContext.request.contextPath}/like/store"	
-      		}
-	    }else{
-	    	alert("판매자 찜하기를 취소했습니다.");
-    	}
-  	})
+	if('${user.me_id}' == ''){
+	    let res = confirm('로그인한 회원만 판매자 찜하기가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
+	    if(res){
+	    	location.href="<c:url value='/login'></c:url>"
+	    }
+	    return;
+	}
+	let sl_state = 1;
+	$.ajax({
+ 		async: true,
+ 		type: 'GET',
+ 		url: "<c:url value='/like/product/${product.pr_code}/"+sl_state+"'></c:url>",
+ 		dataType:"json",
+ 		success: function(data){
+ 			console.log(data);
+ 		}
+ 	})
+   	const hasClass = btnStoreLikeSel.classList.toggle("sel");
+   	
+   	if(hasClass){
+   		if(confirm("판매자 찜하기를 등록했습니다.\n찜한 판매자 페이지로 이동하시겠습니까?")){
+   			location.href = "${pageContext.request.contextPath}/like/seller"
+   		}
+    }else{
+    	alert("판매자 찜하기를 취소했습니다.");
+   	}
+  })
 });
 
 // 공유하기
@@ -1986,13 +2002,21 @@ $(function(){
   }
   const btnModal = document.getElementById("btn-modal-deadline_open")
   btnModal.addEventListener("click", e => {
-      modalOn()
+	  // 구현 완료 하면 user.me_id == '' 삭제
+	 <%-- 
+	  if('${user.me_id}' == '${user.st_me_id}'){
+	 --%>
+	  if('${user.me_id}' == ''){
+		let res = alert('판매자만 마감연장이 가능합니다. \n로그인하면 모달창 열림. 수정 예정');
+	  }else{
+      	modalOn()
+	  }
   })
-  const closeBtn = modal.querySelector("#btn-modal-deadline-close")
+  const closeBtn = modal.querySelector("#btn-modal-deadline_close")
   closeBtn.addEventListener("click", e => {
       modalOff()
   })
-})
+});
 
 // 경매기록 모달창
 $(function(){
@@ -2012,7 +2036,22 @@ $(function(){
       modalOff()
   })
 })
-//즉시 구매 입찰하기 모달창
+// 즉시 구매 입찰하기 페이지 이동
+$(function() {
+	
+	const btnImme = document.getElementById("btn-imme");
+  
+	btnImme.addEventListener("click", function() {
+	if('${user.me_id}' == ''){
+	    let res = confirm('로그인한 회원만 즉시 구매가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
+	    if(res){
+	    	location.href="<c:url value='/login'></c:url>"
+		    }
+		}
+	})
+})
+
+// 즉시 구매 입찰하기 모달창
 $(function(){
   const modal = document.getElementById("imme-modal")
   function modalOn() {
@@ -2030,9 +2069,12 @@ $(function(){
       modalOff()
   })
 })
+
+// 입찰하기 기능 구현
 // 입찰하기 모달창
 $(function(){
   const modal = document.getElementById("bid-modal")
+    
   function modalOn() {
     modal.style.display = "flex"
   }
@@ -2041,13 +2083,65 @@ $(function(){
   }
   const btnModal = document.getElementById("btn-modal-bid_open")
   btnModal.addEventListener("click", e => {
-      modalOn()
+	  if('${user.me_id}' == ''){
+		let res = confirm('로그인한 회원만 입찰하기가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
+		  if(res){
+		    location.href="<c:url value='/login'></c:url>"
+		  }
+	  }else{
+      	modalOn()
+	  }
   })
-  const closeBtn = modal.querySelector("#btn-modal-bid-close")
+  const closeBtn = modal.querySelector("#btn-modal-bid_close")
   closeBtn.addEventListener("click", e => {
       modalOff()
   })
-})
+});
+// 입찰하기 모달창 내에서의 기능 구현
+$('#bidConfirm').click(function(){
+	// 입찰가격과 회원의 보유계좌잔액을 비교하여 입찰 진행 유무 코드 구현 해야함
+	
+	$.ajax({
+		type: 'POST',
+		url: '<c:url value="/auctionBid"></c:url>',
+		data: JSON.stringify(price),
+		dataType: "JSON",
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			if(result.res){
+				alert("입찰되었습니다.")
+				let str = '';
+				str +=
+					'<div class="bid-content">' +
+					'입찰 신청 가격은 ' + result.nextPrice + ' 입니다. 입찰하시겠습니까?' + 
+					'</div>';
+					$('.bid-content').html(str);
+					$("#nextPrice").val(result.nextPrice);
+			}
+			else{
+				alert("보유계좌에 잔액이 부족합니다.");
+			}
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+});
+// 입찰하기 모달창에서 입찰하기 버튼 클릭 시 기능 구현
+function bidConfirm(){
+  alert('입찰에 성공했습니다.')
+  document.getElementById("bid-modal").style.display = "none";
+}
+$('.btn-confirm').click(function(e){
+  e.preventDefault();
+});
+
+
+
+
+
+
+
 // 문의하기 모달창
 $(function(){
   const modal = document.getElementById("qna-modal")
@@ -2127,8 +2221,44 @@ dateObj.setDate(dateObj.getDate() + 1);
 
 countDownTimer('countDday', '05/31/2023 11:59 PM');
 
+// 페이스북 공유하기
+function shareFacebook() {
+    var sendUrl = "onairauction.com"; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
 
+// 트위터 공유하기
+function shareTwitter() {
+    var sendText = "[공유]일반 경매"; // 전달할 텍스트
+    var sendUrl = "blog.naver.com"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
 
+// 카카오톡 공유하기
+function shareKakao(){
+	// 사용할 앱의 JavaScript 키 설정
+	  Kakao.init('39cf8f060602cd52760b50470a9c192b');
+
+	  // 카카오링크 버튼 생성
+	  Kakao.Link.createDefaultButton({
+	    container: '.btn-kakao', // 카카오공유버튼ID
+	    objectType: 'feed',
+	    content: {
+	      title: "테스트", // 보여질 제목
+	      description: "[공유] 일반 경매 상품 공유", // 보여질 설명
+	      imageUrl: "blog.naver.com/", // 콘텐츠 URL
+	      link: {
+	         mobileWebUrl: "blog.naver.com/",
+	         webUrl: "blog.naver.com/"
+	      }
+	    }
+	  });
+}
+// 제품 코드 선택 시 텍스트 자동 복사 이벤트
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    alert(text + " is copied to clipboard.");
+}
 
 </script>
 </html>
