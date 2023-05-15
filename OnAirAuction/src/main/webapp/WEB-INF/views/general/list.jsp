@@ -28,15 +28,15 @@
 <div class="body">
   <h2>일반경매</h2>
   	<div class="row">
-	  <c:forEach items="${list }" var="product">
+	  <c:forEach items="${list }" var="pr">
 	  	<div class="col-md-4">
 			<div class="container col-md-4">
 				  <div class="card" style="width:200px">
 				    <img class="card-img-top" src="https://cdn.pixabay.com/photo/2017/10/05/10/05/leaf-2818896_960_720.jpg" alt="Card image" style="width:100%">
 				    <div class="card-body">
-				      <h4 class="card-title">${product.pr_name }</h4>
-				      <p class="card-text">${product.pr_intro }</p>
-				      <a href="<c:url value='/general/detail'></c:url>" class="btn btn-primary">See Detail</a>
+				      <h4 class="card-title">${pr.pr_name }</h4>
+				      <p class="card-text">${pr.pr_intro }</p>
+				      <a href="<c:url value='/general/detail/${pr.pr_code }'></c:url>" class="btn btn-primary">See Detail</a>
 				    </div>
 				  </div>
 			  <br>
