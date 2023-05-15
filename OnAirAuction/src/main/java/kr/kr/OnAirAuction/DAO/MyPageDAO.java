@@ -182,4 +182,6 @@ public interface MyPageDAO {
 
 	void insertInquiryReply(@Param("inquiry")InquiryVO inquiry);
 
+	int updateReplyInquiry(@Param("inquiry")InquiryVO inquiry);
+
 }

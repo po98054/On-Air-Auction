@@ -165,7 +165,7 @@
 			
 					<label for="content">내용:</label>
 					
-					<textarea id="content" name="in_content"></textarea>
+					<textarea id="content" name="in_answer_content"></textarea>
 				
 				</div>
 			
@@ -240,9 +240,9 @@
 			
 		}
 		
-		let in_content = $('[name=in_content]').val();
+		let in_content = $('[name=in_answer_content]').val();
 		
-		if(in_content.trim().length  == 0){
+		if(in_answer_content.trim().length  == 0){
 			
 			alert('내용을 입력하세요.');
 			

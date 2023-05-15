@@ -979,7 +979,7 @@ public class MyPageServiceImp implements MyPageService{
 		
 		if(inquiry == null || inquiry.getIn_title() == null || inquiry.getIn_title().trim().length() == 0 ||
 				
-				inquiry.getIn_content() == null) {
+				inquiry.getIn_answer_content() == null) {
 			
 			return false;
 			
@@ -991,6 +991,77 @@ public class MyPageServiceImp implements MyPageService{
 		
 		uploadFilesByInquiry(files, inquiry.getIn_num());
 		
+		return true;
+		
+	}
+
+	@Override
+	public boolean UpdateReplyInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums, MemberVO user) {
+		
+		System.out.println(files);
+		
+		System.out.println(fileNums);
+		
+		if(inquiry == null || inquiry.getIn_num() <= 0) {
+			
+			return false;
+			
+		}
+		
+		if(user == null) {
+			
+			return false;
+			
+		}
+		
+		InquiryVO dbInquiry = myPageDao.selectInquiry(inquiry.getIn_num());
+		
+		if(dbInquiry == null) {
+			
+			return false;
+			
+		}
+		
+		if(!dbInquiry.getIn_me_id().equals(user.getMe_id())) {
+			
+			return false;
+			
+		}
+		
+		if(myPageDao.updateReplyInquiry(inquiry) == 0) {
+			
+			return false;
+			
+		}
+		
+		uploadFilesByInquiry(files, inquiry.getIn_num());
+		
+		if(fileNums == null || fileNums.length == 0) {
+			
+			return true;
+			
+		}
+
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		
+		System.out.println(fileList);
+		
+		for(int fileNum : fileNums) {
+			
+			FileVO fileVo = myPageDao.selectFile(fileNum);
+			
+			System.out.println(fileVo);
+			
+			if(fileVo != null) {
+				
+				fileList.add(fileVo);
+				
+			}
+			
+		}
+		
+		deleteFileList(fileList);
+			
 		return true;
 		
 	}

@@ -623,7 +623,7 @@ public class MyPageController {
 		
 		mv.addObject("inquiryCategory", inquiryCategory);
 		
-		mv.setViewName("/MyPage/InquiryUpdate");
+		mv.setViewName("/MyPage/ReplyInquiryUpdate");
 		
 		return mv;
 		
@@ -643,7 +643,7 @@ public class MyPageController {
 		
 		System.out.println(fileNums);
 		
-		if(myPageService.UpdateInquiry(inquiry, files, fileNums, user)) {
+		if(myPageService.UpdateReplyInquiry(inquiry, files, fileNums, user)) {
 			
 			MessageUtils.alertAndMovePage(response, "문의 사항 수정에 성공했습니다..", "OnAirAuction", "/MyPage/ReplyInquiryUpdate/"+in_num);
 			

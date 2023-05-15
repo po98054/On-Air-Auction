@@ -170,4 +170,6 @@ public interface MyPageService {
 
 	boolean ReplyInquiryInsert(InquiryVO inquiry, MultipartFile[] files, MemberVO user);
 
+	boolean UpdateReplyInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums, MemberVO user);
+
 }

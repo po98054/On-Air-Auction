@@ -390,47 +390,57 @@
 		
 		<when test="inquiry.in_ic_num == 1">
 		
-			insert into inquiry(in_num, in_title, in_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
-			#{inquiry.in_title}, #{inquiry.in_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
 			
 		</when>
 		
 		<when test="inquiry.in_ic_num == 2">
 		
-			insert into inquiry(in_num, in_title, in_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
-			#{inquiry.in_title}, #{inquiry.in_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
 			
 		</when>
 		
 		<when test="inquiry.in_ic_num == 3">
 		
-			insert into inquiry(in_num, in_title, in_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
-			#{inquiry.in_title}, #{inquiry.in_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code}  from inquiry
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code}  from inquiry
 			
 		</when>
 		
 		<otherwise>
 	
-			insert into inquiry(in_num, in_title, in_content, in_register_date, in_answer_date, in_ic_num, in_me_id)
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id)
 		
 			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
 			
-			#{inquiry.in_title}, #{inquiry.in_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id} from inquiry
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id} from inquiry
 			
 		</otherwise>
 		
 		</choose>
   	
   	</insert>
+  	
+  	<update id="updateReplyInquiry">
+	
+		update inquiry set in_title = #{inquiry.in_title}, in_answer_content = #{inquiry.in_answer_content}, in_ic_num = #{inquiry.in_ic_num}, 
+		
+		in_modify_date = now()
+		
+		where in_num = #{inquiry.in_num}
+	
+	</update>
 	
 	<!-- 신고 등록 -->
 	

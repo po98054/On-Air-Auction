@@ -123,7 +123,7 @@
 		
 		<div class="body-middle">
         
-           <form action="<c:url value='/MyPage/ReplyInquiryInsert'></c:url>" method="post" enctype="multipart/form-data">
+           <form action="<c:url value='/MyPage/ReplyInquiryUpdate/${inquiry.in_num}'></c:url>" method="post" enctype="multipart/form-data">
            
            	<div class="form-group">
 		
@@ -155,7 +155,7 @@
 		
 				<label for="title">제목:</label>
 			
-				<input type="text" class="form-control" id="title" name="in_title" value="${inquiry.in_num}번 글의 답글">
+				<input type="text" class="form-control" id="title" name="in_title" value="${inquiry.in_num}번 글의 답글 : ${inquiry.in_title}">
 			
 			 </div>
 			 
@@ -165,7 +165,7 @@
 			
 					<label for="content">내용:</label>
 					
-					<textarea id="content" name="in_content"></textarea>
+					<textarea id="content" name="in_answer_content"></textarea>
 				
 				</div>
 			
@@ -240,9 +240,9 @@
 			
 		}
 		
-		let in_content = $('[name=in_content]').val();
+		let in_content = $('[name=in_answer_content]').val();
 		
-		if(in_content.trim().length  == 0){
+		if(in_answer_content.trim().length  == 0){
 			
 			alert('내용을 입력하세요.');
 			
@@ -278,7 +278,7 @@
 		
 	});
 	
-	$('#content').summernote('code','${inquiry.in_content}');
+	$('#content').summernote('code','${inquiry.in_answer_content}');
 	
 	$('.file-box,.preview').click(function(){
 		

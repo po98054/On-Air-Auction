@@ -37,6 +37,8 @@ public class InquiryVO {
 	
 	String pr_name;
 	
+	String in_answer_content;
+	
 	@Override
 	public String toString() {
 		
@@ -44,7 +46,9 @@ public class InquiryVO {
 				
 				"문의 사항 수정일 : " + getIn_modifyDate_str() + " 문의 사항 답변일 : " + getIn_answerdate_str() +*/ " 문의 사항 답변 내용 : " + in_answercontent +
 				
-				" 문의 사항 등록자 : " + in_me_id + " 문의 사항 카데고리 번호 : " + in_ic_num + " 문의 사항 제품 코드 : " + in_pr_code + " 문의 사항 제품 명 :" + pr_name;
+				" 문의 사항 등록자 : " + in_me_id + " 문의 사항 카데고리 번호 : " + in_ic_num + " 문의 사항 제품 코드 : " + in_pr_code + " 문의 사항 제품 명 :" + pr_name
+				
+				+ " 문의 사항 답글 내용 : " + in_answer_content;
 		
 	}
 	
