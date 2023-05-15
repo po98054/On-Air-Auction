@@ -3,11 +3,13 @@ package kr.kh.onairauction.dao;
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.onairauction.vo2.SellerLikeVO;
 import kr.kh.onairauction.vo2.AuctionRecordVO;
 import kr.kh.onairauction.vo2.AuctionVO;
 import kr.kh.onairauction.vo2.MemberVO;
 import kr.kh.onairauction.vo2.MembershipLevelVO;
 import kr.kh.onairauction.vo2.MessageVO;
+import kr.kh.onairauction.vo2.ProductLikeVO;
 import kr.kh.onairauction.vo2.ProductVO;
 import kr.kh.onairauction.vo2.ReportCategoryVO;
 import kr.kh.onairauction.vo2.ReportVO;
@@ -21,7 +23,7 @@ public interface AuctionDAO {
 	
 	int insertMessage(@Param("m")MessageVO note);
 	
-	ArrayList<AuctionRecordVO> selectAuctionRecord();
+	ArrayList<AuctionRecordVO> selectAuctionRecord(int auctionNum);
 
 	MemberVO selectMember(String id); //나중에 삭제
 
@@ -36,4 +38,16 @@ public interface AuctionDAO {
 	ProductVO selectProduct(int productCode);
 
 	MemberVO selectSeller(String sellerId);
+
+	SellerLikeVO selectSellerLike(@Param("userId")String userId, @Param("sellerId")String sellerId);
+
+	void insertSellerLike(@Param("userId")String userId, @Param("sellerId")String sellerId, @Param("num")int num);
+
+	void updateSellerLike(@Param("s")SellerLikeVO table, @Param("sellerLikeState")int sellerLikeState);
+
+	ProductLikeVO selectProductLike(@Param("productCode")int productCode, @Param("userId")String userId);
+
+	void insertProductLike(@Param("productCode")int productCode, @Param("userId")String userId, @Param("num")int num);
+
+	void updateProductLike(@Param("p")ProductLikeVO table, @Param("productLikeState")int productLikeState);
 }
