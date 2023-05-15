@@ -53,7 +53,7 @@
         </div>
         <ul>
             <li>
-                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">일반경매
+                <a href="<c:url value='/general/list'></c:url>" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">일반경매
                     <sup>
                         <font color="red">
                             <b>New</b>
