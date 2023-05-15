@@ -13,7 +13,7 @@
 	  		values(#{m.me_title},#{m.me_content}, now(), #{m.me_send_id}, #{m.me_receive_id})
   	</insert>
   	<select id="selectAuctionRecord" resultType="kr.kh.onairauction.vo2.AuctionRecordVO">
-	  	select * from auction_record
+	  	select * from auction_record where ar_au_num = #{auctionNum}
   	</select>
   	<select id="selectReportCategory" resultType="kr.kh.onairauction.vo2.ReportCategoryVO">
 	  	select * from report_category
@@ -40,4 +40,33 @@
   	<select id="selectAuction" resultType="kr.kh.onairauction.vo2.AuctionVO">
   		select * from auction where au_me_id = #{id} <!-- 나중에 삭제 -->
   	</select>
+  	<select id="selectSellerLike" resultType="kr.kh.onairauction.vo2.SellerLikeVO">
+  		select * from seller_like where sl_me_id = #{userId} and sl_seller_id = #{sellerId}
+  	</select>
+  	<insert id="insertSellerLike">
+	  	insert into seller_like(sl_me_id, sl_seller_id, sl_state)
+	  		values(#{userId}, #{sellerId}, #{num})
+  	</insert>
+  	<update id="updateSellerLike">
+  		update seller_like
+  			set
+  				sl_state = #{sellerLikeState}
+  			where
+  				sl_me_id = #{s.sl_me_id} and sl_seller_id = #{s.sl_seller_id}
+  	</update>
+  	<select id="selectProductLike" resultType="kr.kh.onairauction.vo2.ProductLikeVO">
+  		select * from product_like where pl_pr_code = #{productCode} and pl_me_id = #{userId}
+  	</select>
+  	<insert id="insertProductLike">
+	  	insert into product_like(pl_pr_code, pl_me_id, pl_state)
+	  		values(#{productCode}, #{userId}, #{num})
+  	</insert>
+  	<update id="updateProductLike">
+  		update product_like
+  			set
+  				pl_state = #{productLikeState}
+  			where
+  				pl_pr_code = #{p.pl_pr_code} and pl_me_id = #{p.pl_me_id}
+  	</update>
+  	
 </mapper>

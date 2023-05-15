@@ -15,8 +15,8 @@
     
     <font class="f18" id="indexListAjax2">
     	$ ${lastAuctionRecord.getAr_bid_price()}       
-    </font>
-    
+	    </font>
+	    
     <div class="chat-top" id="indexListAjax3">현재 입찰자: ${lastAuctionRecord.getAr_me_id()} 님	입찰가격: $ ${lastAuctionRecord.getAr_bid_price()}	입찰시간: ${lastAuctionRecord.getAr_bid_time()}</div>
     
     <div class="modal_content1" id="indexListAjax4">
@@ -25,10 +25,31 @@
     </div>
     
     <ul id="indexListAjax5">
-    <li>현재 입찰가($) : $ ${lastAuctionRecord.getAr_bid_price()}</li>
-    <li>환율 : </li>
-    <li>₩표시 가격 :</li>
+	    <li>현재 입찰가($) : $ ${lastAuctionRecord.getAr_bid_price()}</li>
+	    <li>환율 : </li>
+	    <li>₩표시 가격 :</li>
     </ul>
+    
+    <ul class="list-unstyled" id="indexListAjax6">
+	     <li class="timer">
+	         <span>${nowTime}</span>
+	     </li>
+	     <li class="clearFix">
+	         <p>
+	             <i class="lock">로그인하시면 다양한 정보를 보실 수 있습니다.</i>
+	         </p>
+	     </li>
+  	</ul>
+  	
+  	<dl id="indexListAjax7">
+      <dt>판매종료시간</dt>
+      <dd class="korEndTime" style="font-weight: bold; color: green;">
+       	경매가 종료되었습니다.
+      </dd>
+    </dl>
+  	
+  	
+  	
     
 </body>
 </html>
