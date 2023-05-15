@@ -16,6 +16,10 @@ import kr.kr.OnAirAuction.Utils.UploadFileUtils;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 
+import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
+
+import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
@@ -53,7 +57,13 @@ public class MyPageServiceImp implements MyPageService{
 	// 경매 참가 내역 조회 서비스
 
 	@Override
-	public ArrayList<ParticipateAuctionVO> getPartAuctList(Criteria criteria) {
+	public ArrayList<ParticipateAuctionVO> getPartAuctList(Criteria criteria, MemberVO user) {
+		
+		if(user == null) {
+			
+			return null;
+			
+		}
 		
 		if(criteria == null) {
 			
@@ -61,7 +71,7 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectPartAuctList(criteria);
+		return myPageDao.selectPartAuctList(criteria, user);
 		
 	}
 	
@@ -1065,5 +1075,31 @@ public class MyPageServiceImp implements MyPageService{
 		return true;
 		
 	}
+
+	@Override
+	public ArrayList<AuctionCategoryVO> getAuctionCategory() {
+		
+		return myPageDao.selectAllAuctionCategory();
+		
+	}
+
+	/*@Override
+	public ArrayList<AuctionVO> SelectAuction() {
+		
+		return myPageDao.selectMaxAuction();
+		
+	}
+
+	@Override
+	public ArrayList<AuctionRecordVO> SelectMaxAuctionRecord(ArrayList<AuctionVO> auction) {
+		
+		if(auction == null) {
+			
+			return null;
+			
+		}
+		
+		return myPageDao.selectMaxAuctionRecord(auction);
+	}*/
 	
 }

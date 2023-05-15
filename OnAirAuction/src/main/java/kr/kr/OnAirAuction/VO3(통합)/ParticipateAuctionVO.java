@@ -13,7 +13,7 @@ public class ParticipateAuctionVO {
 	
 	String ac_name;
 	
-	String me_name;
+	String au_me_id;
 	
 	String pr_name;
 	
@@ -34,7 +34,7 @@ public class ParticipateAuctionVO {
 	@Override
 	public String toString() {
 		
-		return " 경매 번호 : " + au_num + " 경매 카데고리 명 : " + ac_name + " 판매자 명 : " + me_name + " 상품 명 : " + pr_name + " 경매 시작 가격 : " + pr_start_price
+		return " 경매 번호 : " + au_num + " 경매 카데고리 명 : " + ac_name + " 판매자 명 : " + au_me_id + " 상품 명 : " + pr_name + " 경매 시작 가격 : " + pr_start_price
 				
 				+ " 경매 시작일 : " + au_start_date + " 경매 상태 : " + pr_state + " 낙찰 여부 : " + YN + " 낙찰 가격 : " + ar_bid_price;
 				

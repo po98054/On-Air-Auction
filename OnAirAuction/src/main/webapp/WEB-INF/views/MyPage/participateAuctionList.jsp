@@ -52,7 +52,7 @@
 		float:left; width: 400px; height: 50px; 
 	}
 	.body .body-middle .middle .beforeMonth .Month{
-		margin-top: 10px; margin-bottom: 20px; margin-left: 70px;
+		margin-top: 5px; margin-bottom: 20px; margin-left: 70px;
 	}
 	.body .body-middle .middle .beforeMonth .data{
 		margin-left: 15px; color:black;
@@ -188,46 +188,38 @@
                         <li style="text-align: center; font-size: 20px;">경매 참가 내역 - 일반/실시간 경매<br>
                         </li>
                     </ul>
-				</div>	
-				<div class="TotalData">	
-					<ul class="Total">	
-						<li>한번에 볼 수 있는 데이터 건수</li>	
-					</ul>	
-					<a href="#" class="ten">10건</a>	
-					<a href="#" class="total-data">15건</a>	
-				</div>	
-			</div>
+				</div>
 			<div class="Result-Data">
-				<table>
+			
+				<table class="auction">
 					<thead>
 						<tr>
 							<th>경매 번호</th>
-							<th>경매 카데고리 이름</th>
 							<th>판매자명</th>
 							<th>판매 물품명</th>
 							<th>최초 입찰가</th>
 							<th>경매 시작 시간</th>
 							<th>경매 상태</th>
-                            <th>낙찰 여부</th>
-                            <th>낙찰 가격</th>
+							<th>낙찰 확인</th>
 						</tr>
 					</thead>
                     <tbody>
                     	<c:forEach items="${list}" var="pa">
                         <tr>
                             <td>
-                                <a href="#" class="auction">${pa.ac_num}</a>
+                                <a href="#" class="auction">${pa.au_num}</a>
                             </td>
-                            <td>${pa.ac_ac_name}</td>
                             <td>
-                                <a href="#" class="product">${pa.me_name}</a>
+                                <a href="#" class="product">${pa.au_me_id}</a>
                             </td>
                             <td>${pa.pr_name}</td>
-                            <td>${pa.pr_startprice}</td>
-                            <td>${pa.ac_startdate}</td>
-                            <td>${pa.ac_state}</td>
-                            <td></td>
-                            <td>${pa.ar_bidprice}</td>
+                            <td>${pa.pr_start_price}</td>
+                            <td>${pa.au_start_date}</td>
+                            <td>${pa.pr_state}</td>
+                            <td>
+                            	<!--  <input type="number" name="au_num" value="${list.au_num}" style="display: none;">-->
+                            	<button type="button" class="btn btn-primary btn-console" data-toggle="modal" data-target="#myModal">확인</button>
+                            </td>
                         </tr>
                         </c:forEach>
                     </tbody>
@@ -291,7 +283,35 @@
             </ul>
             </div>
 		</div>
+		
+		 <!-- The Modal -->
+      <div class="modal" id="myModal" style="margin-top: 150px;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+            	
+                <label>낙찰 확인</label>
+              
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body dream">
+              
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
     </div>
+   </div>
     
     <script src="<c:url value='/resources/js/jquery-ui.js'></c:url>"></script>
     
@@ -312,5 +332,70 @@
 			});
     		
     	})
+    	
+    	$('.btn-console').click(function(){
+    		
+    		let a = String(${list.au_num});
+        	
+        	console.log(a);
+    		
+    	})
+    	
+    	
+    	
+		
+		/*$('#btn-search').click(function(){
+	
+			select(product)
+    
+		})
+
+function select(product){
+	
+	ajax('POST', product, '<c:url value="/ProductList"></c:url>', function(data){
+		
+			if(data.product){
+				
+				let str = '';
+				
+				let product = data.product;
+				
+				for(i = 0; i < product.length; i++){
+					
+				
+					
+				
+				
+				}
+				
+				$('.dream').html(str);
+				
+			}
+			
+		});
+	
+	}
+		
+		function ajax(method, obj, url, successFunc, errorFunc){
+			
+			$.ajax({
+				
+					async:false,
+					
+					type: method,
+					
+					data: JSON.stringify(obj),
+					
+					url: url,
+					
+					dataType:"json",
+					
+					contentType:"application/json; charset=UTF-8",
+					
+					success : successFunc
+					
+				});
+				
+			}*/
     
     </script>

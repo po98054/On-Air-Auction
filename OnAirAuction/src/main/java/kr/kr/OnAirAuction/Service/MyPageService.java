@@ -8,6 +8,10 @@ import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 
+import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
+
+import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
@@ -38,7 +42,7 @@ public interface MyPageService {
 	
 	// 경매 참가 내역 조회 서비스
 
-	ArrayList<ParticipateAuctionVO> getPartAuctList(Criteria criteria);
+	ArrayList<ParticipateAuctionVO> getPartAuctList(Criteria criteria, MemberVO user);
 
 	int getPartAuctTotalCount(Criteria criteria);
 	
@@ -171,5 +175,11 @@ public interface MyPageService {
 	boolean ReplyInquiryInsert(InquiryVO inquiry, MultipartFile[] files, MemberVO user);
 
 	boolean UpdateReplyInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums, MemberVO user);
+
+	ArrayList<AuctionCategoryVO> getAuctionCategory();
+
+	/*ArrayList<AuctionVO> SelectAuction();
+
+	ArrayList<AuctionRecordVO> SelectMaxAuctionRecord(ArrayList<AuctionVO> auction);*/
 
 }

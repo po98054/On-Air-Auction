@@ -8,6 +8,9 @@ import kr.kr.OnAirAuction.Pagination.Criteria;
 
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 
+import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
+import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
@@ -38,7 +41,7 @@ public interface MyPageDAO {
 	
 	// 경매 참가 내역 조회 서비스
 
-	ArrayList<ParticipateAuctionVO> selectPartAuctList(@Param("criteria")Criteria criteria);
+	ArrayList<ParticipateAuctionVO> selectPartAuctList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
 
 	int selectPartAuctTotalCount(@Param("criteria")Criteria criteria);
 	
@@ -183,5 +186,11 @@ public interface MyPageDAO {
 	void insertInquiryReply(@Param("inquiry")InquiryVO inquiry);
 
 	int updateReplyInquiry(@Param("inquiry")InquiryVO inquiry);
+
+	ArrayList<AuctionCategoryVO> selectAllAuctionCategory();
+
+	/*ArrayList<AuctionVO> selectMaxAuction();
+
+	ArrayList<AuctionRecordVO> selectMaxAuctionRecord(@Param("auction")ArrayList<AuctionVO> auction);*/
 
 }

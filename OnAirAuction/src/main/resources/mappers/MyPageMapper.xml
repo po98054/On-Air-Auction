@@ -5,20 +5,42 @@
 <mapper namespace="kr.kr.OnAirAuction.DAO.MyPageDAO">
 
 	<!-- 경매 참가 내역 조회 쿼리 -->
+	
+	<select id="selectAllAuctionCategory" resultType="kr.kr.OnAirAuction.VO.AuctionCategoryVO">
+	
+		select * from auction_category
+	
+	</select>
+	
+	<!-- <select id="selectMaxAuction" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
+	
+		select * from auction
+	
+	</select>
+	
+	 <select id="selectMaxAuctionRecord" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
+	
+		select * from auction_record
+	
+	</select>-->
 
 	<select id="selectPartAuctList" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
 	
-		select ac_num, ac_ac_name, me_name, pr_name, pr_startprice, ac_startDate, ac_state, ar_bidprice
+		select au_num, au_me_id, pr_name, pr_start_price, au_start_date, pr_state, ac_name
 		
-		from auction join member on ac_me_id = me_id join product on pr_code = ac_pr_code
+		from auction join auction_category on ac_num = au_ac_num join auction_record on au_num = ar_au_num
 		
-		join auction_record on ac_num = ar_ac_num
+		join member on me_id = ar_me_id join product on pr_code = au_pr_code
 		
 		where (pr_name like concat('%', #{criteria.search}, '%') or me_name like concat('%', #{criteria.search}, '%'))
 		
-		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
+		and ar_me_id = #{user.me_id}
 		
-		order by ac_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		group by ar_au_num
+		
+		order by au_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
 	
 	</select>
 	
@@ -28,9 +50,9 @@
 	
 		select count(*)
 		
-		from auction join member on ac_me_id = me_id join product on pr_code = ac_pr_code
+		from auction join member on au_me_id = me_id join product on pr_code = au_pr_code
 		
-		join auction_record on ac_num = ar_ac_num
+		join auction_record on au_num = ar_au_num
 	
 	</select>
 	

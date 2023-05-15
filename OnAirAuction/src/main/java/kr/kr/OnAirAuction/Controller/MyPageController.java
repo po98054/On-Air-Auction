@@ -64,6 +64,12 @@ import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
 
+import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
+
+import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+
+import kr.kr.OnAirAuction.VO.AuctionVO;
+
 @Controller
 @RestController
 public class MyPageController {
@@ -74,15 +80,31 @@ public class MyPageController {
 	// 구매자 -> 경매 참가 내역 (일반/실시간 경매)
 	
 	@RequestMapping(value = "/MyPage/participateAuctionList")
-	public ModelAndView ParticipateAuctionList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView ParticipateAuctionList(ModelAndView mv, Criteria criteria, HttpSession session) {
 		
-		ArrayList<ParticipateAuctionVO> list = myPageService.getPartAuctList(criteria);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		/*ArrayList<AuctionVO> auction = myPageService.SelectAuction();
+		
+		ArrayList<AuctionRecordVO> record = myPageService.SelectMaxAuctionRecord(auction);*/
+		
+		ArrayList<AuctionCategoryVO> AuctionCategory = myPageService.getAuctionCategory();
+		
+		ArrayList<ParticipateAuctionVO> list = myPageService.getPartAuctList(criteria, user);
+		
+		//System.out.println(auction);
+		
+		//System.out.println(record);
 		
 		System.out.println(list);
 		
 		int totalCount = myPageService.getPartAuctTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		//mv.addObject("auction", auction);
+		
+		mv.addObject("AuctionCategory", AuctionCategory);
 		
 		mv.addObject("pm", pm);
 		
