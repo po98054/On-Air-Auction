@@ -8,12 +8,14 @@ import kr.kr.OnAirAuction.VO.AuctionVO;
 
 public interface AuctionService {
 
-	void insertAuction(AuctionVO auction);
+	boolean insertAuction(AuctionVO auction, MemberVO user, ProductVO product);
 	
 	ArrayList<AuctionVO> getAuctionList(Criteria cri);
 
 	int getAuctionTotalCount(Criteria cri);
 
 	AuctionVO getAuction(int au_num);
+
+	ProductVO getPrcode(int au_pr_code);
 
 }
