@@ -25,7 +25,10 @@ public class AuctionController {
 	
 	//경매 등록
 	@RequestMapping(value="/auction/insert", method=RequestMethod.GET)
-	public ModelAndView product(ModelAndView mv) {
+	public ModelAndView product(ModelAndView mv, Integer au_pr_code) {
+		au_pr_code = au_pr_code == null ? 0 : au_pr_code;
+		System.out.println(au_pr_code);
+		mv.addObject("au_pr_code", au_pr_code);
 		mv.setViewName("/auction/insert");	
 		return mv;
 	}
