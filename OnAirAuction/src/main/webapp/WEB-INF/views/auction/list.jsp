@@ -24,7 +24,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>경매카테고리이름</th>
+					<th>경매이름</th>
 					<th>경매번호</th>	
 					<th>경매시작일</th>
 					<th>경매종료일</th>
@@ -37,16 +37,35 @@
 			<tbody class="auction">
 				<c:forEach items="${list}" var="auction">
 					<tr>
-						<th>${auction.ac_name}</th>
+			            <th>${auction.ac_name}</th>
 						<td class="form-group">
-							<a href="<c:url value='/auction/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
-						</td>
+			                <c:choose>
+			                    <c:when test="${auction.ac_name == '일반경매'}">
+			                        <a href="<c:url value='/general/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+			                    </c:when>
+			                    <c:when test="${auction.ac_name == '실시간경매'}">
+			                        <a href="<c:url value='/onair/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+			                    </c:when>
+		                        <c:when test="${auction.ac_name == '직거래경매'}">
+							        <a href="<c:url value='/reverse/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+							    </c:when>
+							    <c:when test="${auction.ac_name == '인원수제한경매'}">
+							        <a href="<c:url value='/reverse/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+							    </c:when>
+							    <c:when test="${auction.ac_name == 'VIP경매'}">
+							        <a href="<c:url value='/reverse/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+							    </c:when>
+							    <c:when test="${auction.ac_name == '역경매'}">
+							        <a href="<c:url value='/reverse/detail/${auction.au_num}'></c:url>">${auction.au_num}</a>
+							    </c:when>
+			                </c:choose>
+			            </td>
 						<td>${auction.au_start_date}</td>
 						<td>${auction.au_final_date}</td>
 	              		<td>${auction.au_calculation} <span>원</span> </td>
 						<td>${auction.au_immediate} <span>원</span></td>
 						<td>${auction.au_delivery_way}</td>
-						<td>${auction.au_limit_bid_time}</td>
+						<td>${auction.au_limit_bid_time} <span>초</span></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -55,17 +74,17 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">
 			<li class="page-item">
-				<a class="page-link" href="<c:url value='/auction/list?page=${pm.startPage-1}&search=${pm.criteria.search}&type=${pm.criteria.type}'></c:url>">이전</a>
+				<a class="page-link" href="<c:url value='/auction/list?page=${pm.startPage-1}&search=${pm.cri.search}&type=${pm.cir.type}'></c:url>">이전</a>
 			</li>
 		</c:if>
 		<c:forEach begin="${pm.startPage }" end="${pm.endPage }" var="i">
-			<li class="page-item <c:if test="${pm.criteria.page == i}"> active</c:if>">
-				<a class="page-link" href="<c:url value='/auction/list?page=${i}&search=${pm.criteria.search}&type=${pm.criteria.type}'></c:url>">${i}</a>
+			<li class="page-item <c:if test="${pm.cri.page == i}"> active</c:if>">
+				<a class="page-link" href="<c:url value='/auction/list?page=${i}&search=${pm.cri.search}&type=${pm.cri.type}'></c:url>">${i}</a>
 			</li>
 		</c:forEach>	
 		<c:if test="${pm.next}">
 			<li class="page-item">
-				<a class="page-link" href="<c:url value='/auction/list?page=${pm.endPage+1}&search=${pm.criteria.search}&type=${pm.criteria.type}'></c:url>">다음</a>
+				<a class="page-link" href="<c:url value='/auction/list?page=${pm.endPage+1}&search=${pm.cri.search}&type=${pm.cri.type}'></c:url>">다음</a>
 			</li>
 		</c:if>
 	</ul>

@@ -35,9 +35,9 @@
 				</select>
 			</div>	
 			<label for="start-date">경매 시작일:</label>
-				<input class="form-control" type="datetime-local" id="startDate" name="au_start_date" > <br>	 
+				<input class="form-control" type="date" id="startDate" name="au_start_date" > <br>	 
 			<label for="end-date">경매 종료일:</label>
-				<input class="form-control" type="datetime-local" id="endDate" name="au_final_date"> <br>		  
+				<input class="form-control" type="date" id="endDate" name="au_final_date"> <br>		  
 			<label for="calculation">경매 시작가</label>
 				<input class="form-control" type="number" id="calculation" name="au_calculation"> <br>	
 		 	<label for="immediate">즉시가</label>
@@ -46,11 +46,11 @@
 				<input class="form-control" type="text" id="deliveryway" name="au_delivery_way" placeholder="택배 or 직거래"> <br>
 	 		<div id="limitbidtime" style="display:none">
 				<label>입찰제한시간</label>
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="15">15초
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="30">30초
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="60">1분	
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="180">3분	
-				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="300">5분		
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="1">15초
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="2">30초
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="3">1분	
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="4">2분	
+				<input type="radio" id="au_limitbidtime" name="au_limit_bid_time" value="5">3분		
 			</div>			
 		  	<button type="submit" class="btn btn-success">전송</button>
 		</form>
@@ -107,18 +107,6 @@ $(document).ready(function() {
 			$('[name=au_delivery_way]').focus();
 			return false;
 		} 
-		/*
-		let selectedLimitbidtime = $('input[name=au_limitbidtime]:checked').val();
-		if (!selectedLimitbidtime) {
-			alert('입찰제한시간을 선택하세요.');
-			event.preventDefault();
-		}
-		let selectedLimitlevel = $('input[name=au_limitlevel]:checked').val();
-		if (!selectedLimitlevel) {
-			alert('제한등급을 선택하세요.');
-			event.preventDefault();
-		}
-		*/
 	});
 </script>
 <script>
