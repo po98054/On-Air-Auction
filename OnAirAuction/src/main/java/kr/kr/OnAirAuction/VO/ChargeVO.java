@@ -8,7 +8,14 @@ import lombok.NoArgsConstructor;
 public class ChargeVO {
 	
 	int ch_num;
-	int ch_amount;
 	String ch_method;
+	int ch_amount;
+	Date ch_charge_date;
+	String ch_va_me_id;
+	
+	public String getCh_charge_date() {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return date.format(ch_charge_date);
+	 	}
 
 }
