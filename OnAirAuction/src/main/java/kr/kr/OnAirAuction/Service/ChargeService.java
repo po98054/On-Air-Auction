@@ -6,5 +6,6 @@ public interface ChargeService {
 
 	void insertCharge(ChargeVO chargeVO);
 
+	ArrayList<ChargeVO> getPoint(ChargeVO charge);
 
 }
