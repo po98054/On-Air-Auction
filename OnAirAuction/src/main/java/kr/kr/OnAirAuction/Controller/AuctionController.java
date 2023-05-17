@@ -34,8 +34,10 @@ public class AuctionController {
 	}
 	
     @RequestMapping(value="/auction/insert", method=RequestMethod.POST)
-	public ModelAndView insertAuctionPOST(ModelAndView mv, AuctionVO auction){
-    	auctionservice.insertAuction(auction);
+	public ModelAndView insertAuctionPOST(ModelAndView mv, AuctionVO auction, HttpSession session){
+    	MemberVO user = (MemberVO)session.getAttribute("user");
+    	ProductVO product = (ProductVO)session.getAttribute("pr_code");
+    	auctionservice.insertAuction(auction, user, product);
     	mv.setViewName("redirect:/auction/list");
 		return mv;
 	}
