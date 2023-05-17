@@ -32,9 +32,29 @@
 	.form-control{
 		width: 100px; height:100px;
 	}
+	.table{
+		float: right;
+	}
+	.table::after{
+		clear: both; display: block; content: '';
+	}
 </style>    
  <div class="card-body bg-white">
  	<div class="card-footer">
+	 	<table class="table">
+			<thead>
+				<tr>
+					<th>현재금액</th>
+				</tr>
+			</thead>
+			<tbody class="auction">
+				<c:forEach items="${list}" var="charge">
+					<tr>
+						<th>${charge.ch_amount}</th>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	 	<a href="#">
 	 		<img class="img-kakao" src="<c:url value='/resources/img/kakao.jpg'></c:url>" alt="logo">
 	 	</a> <br>
@@ -77,7 +97,7 @@
                 $.ajax({
                     type: "POST", 
                     async: false,
-                    url: "<c:url value='/charge/insert'></c:url>",
+                    url: "<c:url value='/charge/point'></c:url>",
                     data: {
                     	"ch_amount" : money,
                     	"ch_method" : "kakao",
