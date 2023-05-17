@@ -1,6 +1,8 @@
-package kr.kr.OnAirAuction.Controller;
+package kr.kh.onAirAuction.controller;
 
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kr.OnAirAuction.Pagination.Criteria;
-import kr.kr.OnAirAuction.Pagination.PageMaker;
-import kr.kr.OnAirAuction.Service.AuctionService;
-import kr.kr.OnAirAuction.VO.AuctionTypeVO;
-import kr.kr.OnAirAuction.VO.AuctionVO;
-import kr.kr.OnAirAuction.VO.FileVO;
-import kr.kr.OnAirAuction.VO.ProductVO;
+import kr.kh.onAirAuction.pagination.Criteria;
+import kr.kh.onAirAuction.pagination.PageMaker;
+import kr.kh.onAirAuction.service.AuctionService;
+import kr.kh.onAirAuction.vo.AuctionVO;
+import kr.kh.onAirAuction.vo.MemberVO;
+import kr.kh.onAirAuction.vo.ProductVO;
 
 @Controller
 public class AuctionController {
@@ -23,7 +24,7 @@ public class AuctionController {
 	@Autowired
 	private AuctionService auctionservice;
 	
-	//경매 등록
+	//��� ���
 	@RequestMapping(value="/auction/insert", method=RequestMethod.GET)
 	public ModelAndView product(ModelAndView mv, Integer au_pr_code) {
 		au_pr_code = au_pr_code == null ? 0 : au_pr_code;
@@ -42,7 +43,7 @@ public class AuctionController {
 		return mv;
 	}
     
-    // 경매 등록 리스트
+    // ��� ��� ����Ʈ
     @RequestMapping(value="/auction/list", method=RequestMethod.GET)
     public ModelAndView auctionList(ModelAndView mv, Criteria cri) {
     	ArrayList<AuctionVO> list = auctionservice.getAuctionList(cri);
@@ -54,20 +55,20 @@ public class AuctionController {
 		return mv;
 	}
     /*
-    //경매 상세 페이지
+    //��� �� ������
     @RequestMapping(value="/auction/detail/{au_num}", method=RequestMethod.GET)
     public ModelAndView  auctionDetail(ModelAndView mv, 
     		@PathVariable("au_num") int au_num) {
     	AuctionVO vo = auctionservice.getAuction(au_num);
     	mv.setViewName("/auction/detail");
-    	 if(vo.getAu_ac_num() == 1) {
+    	 if(vo.getAu_ac_num() == 1 || vo.getAu_ac_num() == 3 || vo.getAu_ac_num() == 4
+    			 || vo.getAu_ac_num() == 5 || vo.getAu_ac_num() == 6) {
     	        mv.setViewName("/auctioncategory/general");
     	    } else if(vo.getAu_ac_num() == 2) {
     	        mv.setViewName("/auctioncategory/onair");
-    	    }
-    	 
+    	    } 
     	return mv;
     }
-    */    
+    */  
     
 }

@@ -1,29 +1,28 @@
-package kr.kr.OnAirAuction.Controller;
+package kr.kh.onAirAuction.controller;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kr.OnAirAuction.Pagination.Criteria;
-import kr.kr.OnAirAuction.Pagination.PageMaker;
-import kr.kr.OnAirAuction.Service.ProductService;
-import kr.kr.OnAirAuction.Utils.MessageUtils;
-import kr.kr.OnAirAuction.VO.FileVO;
-import kr.kr.OnAirAuction.VO.ProductCategoryVO;
-import kr.kr.OnAirAuction.VO.ProductLargeCategoryVO;
-import kr.kr.OnAirAuction.VO.ProductMiddleCategoryVO;
-import kr.kr.OnAirAuction.VO.ProductSmallCategoryVO;
-import kr.kr.OnAirAuction.VO.ProductVO;
+import kr.kh.onAirAuction.pagination.Criteria;
+import kr.kh.onAirAuction.pagination.PageMaker;
+import kr.kh.onAirAuction.service.ProductService;
+import kr.kh.onAirAuction.utils.MessageUtils;
+import kr.kh.onAirAuction.vo.FileVO;
+import kr.kh.onAirAuction.vo.ProductCategoryVO;
+import kr.kh.onAirAuction.vo.ProductLargeCategoryVO;
+import kr.kh.onAirAuction.vo.ProductMiddleCategoryVO;
+import kr.kh.onAirAuction.vo.ProductSmallCategoryVO;
+import kr.kh.onAirAuction.vo.ProductVO;
 
 @Controller
 public class ProductController {
@@ -31,7 +30,7 @@ public class ProductController {
 	@Autowired
     private ProductService productService;
 	
-	// ìƒí’ˆ ë“±ë¡
+	// »óÇ° µî·Ï
 	@RequestMapping(value="/product/insert", method=RequestMethod.GET)
 	public  ModelAndView productInsert(ModelAndView mv){
 		mv.setViewName("/product/insert");
@@ -41,24 +40,26 @@ public class ProductController {
     @RequestMapping(value="/product/insert", method=RequestMethod.POST)
 	public String productInsertPOST(ProductLargeCategoryVO plc, ProductMiddleCategoryVO pmc, 
 			ProductSmallCategoryVO psc, ProductCategoryVO pc,		
-			ProductVO vo, MultipartFile []files){
+			ProductVO vo, MultipartFile []files, HttpSession session){
+    	ProductVO product = new ProductVO();
+    	session.setAttribute("product", product);
 		productService.insertProduct(plc, pmc, psc, pc, vo, files);
 		return "redirect:/product/list";
 	}
     
-    // ìƒí’ˆ ë¦¬ìŠ¤íŠ¸
+    // »óÇ° ¸®½ºÆ®
     @RequestMapping(value="/product/list", method=RequestMethod.GET)
-    public ModelAndView list(ModelAndView mv, Criteria criteria) {
-    	ArrayList<ProductVO> list = productService.getProductList(criteria);
-    	int totalCount = productService.getProductTotalCount(criteria);
-		PageMaker pm = new PageMaker(totalCount, 3, criteria);
+    public ModelAndView list(ModelAndView mv, Criteria cri) {
+    	ArrayList<ProductVO> list = productService.getProductList(cri);
+    	int totalCount = productService.getProductTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 3, cri);
     	mv.addObject("list", list);
     	mv.addObject("pm", pm);
     	mv.setViewName("/product/list");
     	return mv;
 	}
     
-    // ìƒí’ˆ ìƒì„¸ í˜ì´ì§€
+    // »óÇ° »ó¼¼ ÆäÀÌÁö
     @RequestMapping(value="/product/detail/{pr_code}", method=RequestMethod.GET)
     public ModelAndView  productDetail(ModelAndView mv, 
     		@PathVariable("pr_code") int pr_code) {
@@ -70,7 +71,7 @@ public class ProductController {
     	return mv;
     }
     
-    // ìƒí’ˆ ìƒì„¸í˜ì´ì§€ - ì‚­ì œ
+    // »óÇ° »ó¼¼ÆäÀÌÁö - »èÁ¦
 	@RequestMapping(value = "/product/delete/{pr_code}", method=RequestMethod.GET)
 	public ModelAndView boardDelete(ModelAndView mv, 
 			@PathVariable("pr_code")int pr_code,
@@ -78,16 +79,16 @@ public class ProductController {
 		boolean res = productService.deleteProduct(pr_code);
 		if(res) {
 			MessageUtils.alertAndMovePage(response, 
-					"ê²Œì‹œê¸€ì„ ì‚­ì œí–ˆìŠµë‹ˆë‹¤.", "/onAirAuction", "/product/list");
+					"°Ô½Ã±ÛÀ» »èÁ¦Çß½À´Ï´Ù.", "/onAirAuction", "/product/list");
 		}else {
 			MessageUtils.alertAndMovePage(response, 
-					"ì‘ì„±ìê°€ ì•„ë‹ˆê±°ë‚˜ ì¡´ì¬í•˜ì§€ ì•Šì€ ê²Œì‹œê¸€ì…ë‹ˆë‹¤.", "/onAirAuction", 
+					"ÀÛ¼ºÀÚ°¡ ¾Æ´Ï°Å³ª Á¸ÀçÇÏÁö ¾ÊÀº °Ô½Ã±ÛÀÔ´Ï´Ù.", "/onAirAuction", 
 					"/product/detail/"+pr_code);
 		}
 		return mv;
 	}
 	
-    // ìƒí’ˆ ìƒì„¸í˜ì´ì§€ - ìˆ˜ì •
+    // »óÇ° »ó¼¼ÆäÀÌÁö - ¼öÁ¤
 	@RequestMapping(value = "/product/update/{pr_code}", method=RequestMethod.GET)
 	public ModelAndView boardUpdate(ModelAndView mv,
 			@PathVariable("pr_code")int pr_code) {
@@ -104,11 +105,11 @@ public class ProductController {
 			MultipartFile []files, int [] fileNums, HttpServletResponse response) {
 		if(productService.updateProduct(vo, files, fileNums)) {
 			MessageUtils.alertAndMovePage(response, 
-					"ê²Œì‹œê¸€ì„ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤.", "/OnAirAuction", 
+					"°Ô½Ã±ÛÀ» ¼öÁ¤Çß½À´Ï´Ù.", "/onAirAuction", 
 					"/product/detail/"+pr_code);
 		}else {
 			MessageUtils.alertAndMovePage(response, 
-					"ê²Œì‹œê¸€ì„ ìˆ˜ì •í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.", "/OnAirAuction", 
+					"°Ô½Ã±ÛÀ» ¼öÁ¤ÇÏÁö ¸øÇß½À´Ï´Ù.", "/onAirAuction", 
 					"/product/list");
 		}
 		return mv;
