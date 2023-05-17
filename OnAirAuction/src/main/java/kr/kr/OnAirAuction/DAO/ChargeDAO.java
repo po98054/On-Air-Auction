@@ -10,5 +10,6 @@ public interface ChargeDAO {
 
 	void chargeInsert(ChargeVO chargeVO);
 
+	ArrayList<ChargeVO> selectPoint(@Param("charge")ChargeVO charge);
 
 }
