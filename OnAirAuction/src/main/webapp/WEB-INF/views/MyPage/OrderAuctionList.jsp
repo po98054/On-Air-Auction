@@ -158,32 +158,29 @@
 		<div class="body-left">		
 			<ul class="nav-ul">		
 				<li class="list-li">구매자<br>
-					<a href="#" class="item-a">경매 참가 내역(일반/실시간 경매)</a><br>
-                    <a href="#" class="item-a">경매 참가 내역(인원수 제한 경매)</a><br>
-                    <a href="#" class="item-a">경매 개최 내역</a><br>
-                    <a href="#" class="item-a">주문 내역</a><br>
-                    <a href="#" class="item-a">환불 내역</a>
+					<a href="<c:url value='/MyPage/participateAuctionList'></c:url>" class="item-a">경매 참가 내역</a><br>
+                    <a href="<c:url value='/MyPage/heldAuctionList'></c:url>" class="item-a">경매 개최 내역</a><br>
+                    <a href="<c:url value='/MyPage/OrderAuctionList'></c:url>" class="item-a">주문 내역</a><br>
+                    <a href="<c:url value='/MyPage/RefundList'></c:url>" class="item-a">환불 내역</a>
 				</li>
 				<li class="list-li">판매자<br>
-					<a href="#" class="item-a">경매 참가 내역</a><br>
-                    <a href="#" class="item-a">경매 개최 내역</a><br>
-                    <a href="#" class="item-a">판매 내역</a>
+					<a href="<c:url value='/MyPage/participateAuctionList'></c:url>" class="item-a">경매 참가 내역</a><br>
+                    <a href="<c:url value='/MyPage/heldAuctionList'></c:url>" class="item-a">경매 개최 내역</a><br>
 				</li>	
 				<li class="list-li">후기<br>
-					<a href="#" class="item-a">후기 작성</a><br>
-                    <a href="#" class="item-a">후기 조회</a>	
+					<a href="<c:url value='/MyPage/ReviewInsert'></c:url>" class="item-a">후기 작성</a><br>
+                    <a href="<c:url value='/MyPage/ReviewList'></c:url>" class="item-a">후기 조회</a>	
 				</li>	
 				<li class="list-li">신고<br>
-					<a href="#" class="item-a">신고 작성</a><br>
-                    <a href="#" class="item-a">신고 조회</a>	
+					<a href="<c:url value='/MyPage/ReportInsert'></c:url>" class="item-a">신고 작성</a><br>
+                    <a href="<c:url value='/MyPage/ReportList'></c:url>" class="item-a">신고 조회</a>	
 				</li>	
 				<li class="list-li">문의 사항<br>	
-					<a href="#" class="item-a">문의 사항 등록</a><br>
-                    <a href="#" class="item-a">문의 사항 조회</a>
+					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
+                    <a href="<c:url value='/MyPage/InquiryList'></c:url>" class="item-a">문의 사항 조회</a>
 				</li>
 				<li class="list-li">회원<br>
-					<a href="#" class="item-a">회원 정보 수정</a><br>
-                    <a href="#" class="item-a">회원 탈퇴</a>
+					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
 				</li>		
 			</ul>		
 		</div>
@@ -210,7 +207,7 @@
 						<tr>
 							<th>선택</th>
 							<th>주문 물품명</th>
-							<th>판매자명</th>
+							<th>판매자 아이디</th>
 							<th>낙찰 가격</th>
 							<th>환불 진행 상태</th>
 							<th>배송 방법</th>
@@ -219,7 +216,7 @@
                             <th>배송 도착일</th>
 						</tr>
 					</thead>
-          	<tbody>
+          		<tbody>
           		<c:forEach items="${list}" var="pa">
             		<tr>
 					<td>
@@ -228,13 +225,13 @@
                 		</c:if>
             		</td>
               		<td>${pa.pr_name}</td>
-                	<td>${pa.me_name}</td>
-                	<td>${pa.ar_bidprice}</td>
+                	<td>${pa.au_me_id}</td>
+                	<td>${pa.ar_bid_price}</td>
                 	<td>${pa.re_progress}</td>
-					<td>${pa.ac_deliveryway}</td>
+					<td>${pa.au_delivery_way}</td>
                 	<td>${pa.de_state}</td>
-                	<td>${pa.de_startdate}</td>
-                	<td>${pa.de_completedate}</td>
+                	<td>${pa.de_start_date}</td>
+                	<td>${pa.de_complete_date}</td>
              	 </tr>
               </c:forEach>
             </tbody>
@@ -249,7 +246,7 @@
                     <option value="0">분류</option>
                     	
                     <option value="${pr_name}">주문물품명</option>
-                    <option value="${me_name}">판매자명</option>
+                    <option value="${au_me_id}">판매자명</option>
                     	
             	</select>
             		
@@ -261,10 +258,12 @@
             	
             </form>
             
+           
+            
             <div class="modal_layer modal_layer5">
         		<div id="modal">
             <div class="modal_content3">
-            		<input type="hidden" name="re_progress" value="주문 취소">
+            		<input type="hidden" name="re_progress" value="심사 중">
                     <div class="textarea_container">
                         <textarea name="re_reason" id="" cols="30" rows="10" style="border: none; width: 100%; height: 100%; border-radius: 20px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc;" placeholder="내용을 입력해주세요."></textarea>
                     </div>
@@ -339,13 +338,17 @@
         	
             $('#modal_open_btn5').show();
             
+            $('.btn-insert').show();
+            
         }else{
         	
             $('#modal_open_btn5').hide();
             
+            $('.btn-insert').show();
+            
         }})
     	
-    	$(function(){
+    $(function(){
         const modal1 = document.querySelector('.modal_layer5')
         function modalOn() {
         modal1.style.display = "flex"
@@ -366,7 +369,7 @@
     
     $("#modal_open_btn5").click(function(){
     	
-    	const ornum = $("input[name='radio']:checked").val();
+    	let ornum = $("input[name='radio']:checked").val();
     	
     	console.log(ornum);
     	
@@ -403,6 +406,8 @@
 			if(data.result){
 				
 				alert('해당 주문를 취소했습니다.');
+				
+				location.href = '<c:url value="/MyPage/OrderAuctionList"></c:url>';
 				
 				
 				

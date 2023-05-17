@@ -70,6 +70,8 @@ import kr.kr.OnAirAuction.VO.AuctionRecordVO;
 
 import kr.kr.OnAirAuction.VO.AuctionVO;
 
+import kr.kr.OnAirAuction.VO.OrderListVO;
+
 @Controller
 @RestController
 public class MyPageController {
@@ -104,6 +106,8 @@ public class MyPageController {
 		
 		//mv.addObject("auction", auction);
 		
+		mv.addObject("user", user);
+		
 		mv.addObject("AuctionCategory", AuctionCategory);
 		
 		mv.addObject("pm", pm);
@@ -119,13 +123,17 @@ public class MyPageController {
 	// 구매자 -> 경매 개최 내역
 	
 	@RequestMapping(value = "/MyPage/heldAuctionList")
-	public ModelAndView HeldAcutionList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView HeldAcutionList(ModelAndView mv, Criteria criteria, HttpSession session) {
 		
-		ArrayList<HeldAuctionVO> list = myPageService.getHeldAuctList(criteria);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		ArrayList<HeldAuctionVO> list = myPageService.getHeldAuctList(criteria, user);
 		
 		int totalCount = myPageService.getHeldAuctTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("pm", pm);
 		
@@ -140,6 +148,8 @@ public class MyPageController {
 	@RequestMapping(value = "/AuctionCancle/insert", method = RequestMethod.POST)
 	public Map<String, Object> AuctionCancleInsert(@RequestBody AuctionCancleVO auctionCancle){
 		
+		System.out.println(auctionCancle);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		boolean res = myPageService.insertAuctionCancle(auctionCancle);
@@ -152,13 +162,13 @@ public class MyPageController {
 		
 	}
 	
-	@RequestMapping(value = "/Auction/update", method = RequestMethod.GET)
+	@RequestMapping(value = "/Auction/update", method = RequestMethod.POST)
 	public Map<String, Object> AuctionUpdate(@RequestBody HeldAuctionVO held){
-		
-		Map<String, Object> map = new HashMap<String, Object>();
 		
 		System.out.println(held);
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+	
 		boolean res = myPageService.updateHeld(held);
 		
 		map.put("res", res);
@@ -172,13 +182,19 @@ public class MyPageController {
 	// 구매자 주문 내역 조회
 	
 	@RequestMapping(value = "/MyPage/OrderAuctionList")
-	public ModelAndView OrderAuctionList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView OrderAuctionList(ModelAndView mv, Criteria criteria, HttpSession session) {
 		
-		ArrayList<OrderAuctionVO> list = myPageService.getOrderAuctList(criteria);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		ArrayList<OrderAuctionVO> list = myPageService.getOrderAuctList(criteria, user);
+		
+		System.out.println(list);
 		
 		int totalCount = myPageService.getOrderAuctTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("pm", pm);
 		
@@ -208,13 +224,17 @@ public class MyPageController {
 	// 환불 내역
 	
 	@RequestMapping(value = "/MyPage/RefundList")
-	public ModelAndView RefundList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView RefundList(ModelAndView mv, Criteria criteria, HttpSession session) {
 		
-		ArrayList<OrderCancleVO> list = myPageService.getRefundList(criteria);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		ArrayList<OrderCancleVO> list = myPageService.getRefundList(criteria, user);
 		
 		int totalCount = myPageService.getRefundTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("pm", pm);
 		
@@ -229,15 +249,19 @@ public class MyPageController {
 	// 후기 등록
 	
 	@RequestMapping(value = "/MyPage/ReviewInsert", method = RequestMethod.GET)
-	public ModelAndView ReviewInsert(ModelAndView mv, Integer re_ar_num) {
+	public ModelAndView ReviewInsert(ModelAndView mv, HttpSession session) {
 		
-		System.out.println(re_ar_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
-		re_ar_num = re_ar_num == null ? 0 : re_ar_num;
+		System.out.println(user);
 		
-		ParticipateAuctionVO pate = myPageService.getPate(re_ar_num);
+		MemberVO user2 = myPageService.getUser(user);
 		
-		mv.addObject("re_ar_num", re_ar_num);
+		System.out.println(user2);
+		
+		mv.addObject("user", user);
+		
+		mv.addObject("user2", user2);
 		
 		mv.setViewName("/MyPage/ReviewInsert");
 		
@@ -248,6 +272,7 @@ public class MyPageController {
 	@RequestMapping(value = "/MyPage/ReviewInsert", method=RequestMethod.POST)
 	
 	public ModelAndView ReviewInsertPost(ModelAndView mv, ReviewVO review, MultipartFile []files) {
+		
 		
 		if(myPageService.insertReview(review, files)) {
 			
@@ -265,17 +290,59 @@ public class MyPageController {
 		
 	}
 	
+	@RequestMapping(value = "/OrderList", method = RequestMethod.POST)
+	
+	public Map<String, Object> OrderList(HttpSession session){
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<OrderListVO> order = myPageService.getOrder(user);
+		
+		System.out.println(order);
+		
+		map.put("order", order);
+		
+		return map;
+		
+	}
+	
+	// ajax를 통한 제품명을 누르면 화면에서 제품명 출력
+	
+	@RequestMapping(value = "/MyPage/OrderSelect", method = RequestMethod.POST)
+	
+	public Map<String, Object> OrderSelect(@RequestBody OrderListVO Order){
+		
+		System.out.println(Order);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<OrderListVO> result = myPageService.SelectOrder(Order);
+		
+		System.out.println(result);
+		
+		map.put("result", result);
+		
+		return map;
+		
+	}
+	
 	// 후기 조회
 	
 	@RequestMapping(value = "/MyPage/ReviewList", method = RequestMethod.GET)
 	
-	public ModelAndView ReviewList(ModelAndView mv, Criteria criteria) {
+	public ModelAndView ReviewList(ModelAndView mv, Criteria criteria, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		ArrayList<ReviewVO> list = myPageService.getReviewList(criteria);
 		
 		int totalCount = myPageService.getHeldAuctTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("list",list);
 		
@@ -291,13 +358,17 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/ReviewDetail/{re_num}", method=RequestMethod.GET)
 	
-	public ModelAndView ReviewDetail(ModelAndView mv, @PathVariable("re_num") int re_num) {
+	public ModelAndView ReviewDetail(ModelAndView mv, @PathVariable("re_num") int re_num, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		ReviewVO review = myPageService.getReview(re_num);
 		
 		ArrayList<FileVO> files = myPageService.getFileList(re_num);
 		
 		System.out.println(files);
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("review", review);
 		
@@ -377,9 +448,13 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/InquiryInsert", method = RequestMethod.GET)
 	
-	public ModelAndView InquiryInsert(ModelAndView mv) {
+	public ModelAndView InquiryInsert(ModelAndView mv, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		ArrayList<InquiryCategoryVO> inquiryCategory = myPageService.getInquiryCategory();
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("inquiryCategory", inquiryCategory);
 		
@@ -521,6 +596,8 @@ public class MyPageController {
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
 		
+		mv.addObject("user",user);
+		
 		mv.addObject("list",list);
 		
 		mv.addObject("pm", pm);
@@ -615,7 +692,7 @@ public class MyPageController {
 			
 		}
 		
-		mv.setViewName("redirect:/MyPage/ReplyInquiryInsert");
+		mv.setViewName("redirect:/MyPage/InquiryList");
 		
 		return mv;
 		
@@ -705,11 +782,15 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/MyPage/ReportInsert", method = RequestMethod.GET)
 	
-	public ModelAndView ReportInsert(ModelAndView mv) {
+	public ModelAndView ReportInsert(ModelAndView mv, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		ArrayList<ReportCategoryVO> reportCategory = myPageService.getReportCategory();
 		
 		mv.addObject("reportCategory", reportCategory);
+		
+		mv.addObject("user", user);
 		
 		mv.setViewName("/MyPage/ReportInsert");
 		
@@ -792,6 +873,8 @@ public class MyPageController {
 		int totalCount = myPageService.getReportTotalCount(criteria);
 			
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
+		
+		mv.addObject("user",user);
 			
 		mv.addObject("list",list);
 			

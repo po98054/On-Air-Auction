@@ -52,23 +52,22 @@
 		<div class="body-left">		
 			<ul class="nav-ul">		
 				<li class="list-li">구매자<br>
-					<a href="./마이페이지_구매자_경매참가내역.html" class="item-a">경매 참가 내역(일반/실시간 경매)</a><br>
-                    <a href="./마이페이지_구매자_경매참가내역2.html" class="item-a">경매 참가 내역(인원수 제한 경매)</a><br>
-                    <a href="./마이페이지_구매자_경매개최내역.html" class="item-a">경매 개최 내역</a><br>
-                    <a href="./마이페이지_구매자_주문내역.html" class="item-a">주문 내역</a><br>
-                    <a href="./마이페이지_구매자_환불내역.html" class="item-a">환불 내역</a>
+					<a href="<c:url value='/MyPage/participateAuctionList'></c:url>" class="item-a">경매 참가 내역</a><br>
+                    <a href="<c:url value='/MyPage/heldAuctionList'></c:url>" class="item-a">경매 개최 내역</a><br>
+                    <a href="<c:url value='/MyPage/OrderAuctionList'></c:url>" class="item-a">주문 내역</a><br>
+                    <a href="<c:url value='/MyPage/RefundList'></c:url>" class="item-a">환불 내역</a>
 				</li>
 				<li class="list-li">판매자<br>
-					<a href="./마이페이지_판매자_경매참가내역.html" class="item-a">경매 참가 내역</a><br>
-                    <a href="./마이페이지_판매자_경매개최내역.html" class="item-a">경매 개최 내역</a><br>
-                    <a href="./마이페이지_판매자_판매내역.html" class="item-a">판매 내역</a>
+					<a href="<c:url value='/MyPage/participateAuctionList'></c:url>" class="item-a">경매 참가 내역</a><br>
+                    <a href="<c:url value='/MyPage/heldAuctionList'></c:url>" class="item-a">경매 개최 내역</a><br>
 				</li>	
 				<li class="list-li">후기<br>
-                    <a href="./마이페이지_후기조회.html" class="item-a">후기 조회</a>	
+					<a href="<c:url value='/MyPage/ReviewInsert'></c:url>" class="item-a">후기 작성</a><br>
+                    <a href="<c:url value='/MyPage/ReviewList'></c:url>" class="item-a">후기 조회</a>	
 				</li>	
 				<li class="list-li">신고<br>
-					<a href="./마이페이지_신고작성.html" class="item-a">신고 작성</a><br>
-                    <a href="./마이페이지_신고조회.html" class="item-a">신고 조회</a>	
+					<a href="<c:url value='/MyPage/ReportInsert'></c:url>" class="item-a">신고 작성</a><br>
+                    <a href="<c:url value='/MyPage/ReportList'></c:url>" class="item-a">신고 조회</a>	
 				</li>	
 				<li class="list-li">문의 사항<br>	
 					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
@@ -76,7 +75,6 @@
 				</li>
 				<li class="list-li">회원<br>
 					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
-                    <a href="<c:url value='/MyPage/MemberDelete/${user.me_id}'></c:url>" class="item-a">회원 탈퇴</a>
 				</li>
 			</ul>		
 		</div>

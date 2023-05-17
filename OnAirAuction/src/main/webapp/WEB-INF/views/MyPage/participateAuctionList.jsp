@@ -142,32 +142,29 @@
 		<div class="body-left">		
 			<ul class="nav-ul">		
 				<li class="list-li">구매자<br>
-					<a href="#" class="item-a">경매 참가 내역(일반/실시간 경매)</a><br>
-                    <a href="#" class="item-a">경매 참가 내역(인원수 제한 경매)</a><br>
-                    <a href="#" class="item-a">경매 개최 내역</a><br>
-                    <a href="#" class="item-a">주문 내역</a><br>
-                    <a href="#" class="item-a">환불 내역</a>
+					<a href="<c:url value='/MyPage/participateAuctionList'></c:url>" class="item-a">경매 참가 내역</a><br>
+                    <a href="<c:url value='/MyPage/heldAuctionList'></c:url>" class="item-a">경매 개최 내역</a><br>
+                    <a href="<c:url value='/MyPage/OrderAuctionList'></c:url>" class="item-a">주문 내역</a><br>
+                    <a href="<c:url value='/MyPage/RefundList'></c:url>" class="item-a">환불 내역</a>
 				</li>
 				<li class="list-li">판매자<br>
-					<a href="#" class="item-a">경매 참가 내역</a><br>
-                    <a href="#" class="item-a">경매 개최 내역</a><br>
-                    <a href="#" class="item-a">판매 내역</a>
+					<a href="<c:url value='/MyPage/participateAuctionList'></c:url>" class="item-a">경매 참가 내역</a><br>
+                    <a href="<c:url value='/MyPage/heldAuctionList'></c:url>" class="item-a">경매 개최 내역</a><br>
 				</li>	
 				<li class="list-li">후기<br>
-					<a href="#" class="item-a">후기 작성</a><br>
-                    <a href="#" class="item-a">후기 조회</a>	
+					<a href="<c:url value='/MyPage/ReviewInsert'></c:url>" class="item-a">후기 작성</a><br>
+                    <a href="<c:url value='/MyPage/ReviewList'></c:url>" class="item-a">후기 조회</a>	
 				</li>	
 				<li class="list-li">신고<br>
-					<a href="#" class="item-a">신고 작성</a><br>
-                    <a href="#" class="item-a">신고 조회</a>	
+					<a href="<c:url value='/MyPage/ReportInsert'></c:url>" class="item-a">신고 작성</a><br>
+                    <a href="<c:url value='/MyPage/ReportList'></c:url>" class="item-a">신고 조회</a>	
 				</li>	
 				<li class="list-li">문의 사항<br>	
-					<a href="#" class="item-a">문의 사항 등록</a><br>
-                    <a href="#" class="item-a">문의 사항 조회</a>
+					<a href="<c:url value='/MyPage/InquiryInsert'></c:url>" class="item-a">문의 사항 등록</a><br>
+                    <a href="<c:url value='/MyPage/InquiryList'></c:url>" class="item-a">문의 사항 조회</a>
 				</li>
 				<li class="list-li">회원<br>
-					<a href="#" class="item-a">회원 정보 수정</a><br>
-                    <a href="#" class="item-a">회원 탈퇴</a>
+					<a href="<c:url value='/MyPage/MemberUpdate/${user.me_id}'></c:url>" class="item-a">회원 정보 수정</a><br>
 				</li>		
 			</ul>		
 		</div>
@@ -185,45 +182,45 @@
 				</div>	
 				<div class="auction-list">	
 					<ul>
-                        <li style="text-align: center; font-size: 20px;">경매 참가 내역 - 일반/실시간 경매<br>
+                        <li style="text-align: center; font-size: 20px;">경매 참가 내역<br>
                         </li>
                     </ul>
 				</div>
 			<div class="Result-Data">
 			
-				<table class="auction">
+				<table class="auction"> 
 					<thead>
-						<tr>
-							<th>경매 번호</th>
-							<th>판매자명</th>
-							<th>판매 물품명</th>
-							<th>최초 입찰가</th>
-							<th>경매 시작 시간</th>
-							<th>경매 상태</th>
-							<th>낙찰 확인</th>
-						</tr>
-					</thead>
-                    <tbody>
-                    	<c:forEach items="${list}" var="pa">
-                        <tr>
-                            <td>
-                                <a href="#" class="auction">${pa.au_num}</a>
-                            </td>
-                            <td>
-                                <a href="#" class="product">${pa.au_me_id}</a>
-                            </td>
-                            <td>${pa.pr_name}</td>
-                            <td>${pa.pr_start_price}</td>
-                            <td>${pa.au_start_date}</td>
-                            <td>${pa.pr_state}</td>
-                            <td>
-                            	<!--  <input type="number" name="au_num" value="${list.au_num}" style="display: none;">-->
-                            	<button type="button" class="btn btn-primary btn-console" data-toggle="modal" data-target="#myModal">확인</button>
-                            </td>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
+					<tr>
+						<th>경매 번호</th>
+						<th>경매 카데고리 명</th>
+						<th>판매자명</th>
+						<th>판매 물품명</th>
+						<th>최초 입찰가</th>
+						<th>경매 시작 시간</th>
+						<th>경매 상태</th>
+    					<th>낙찰 가격</th>
+    				</tr>
+    				</thead>
+    				<tbody>
+    				<c:forEach items="${list}" var="pa">
+    				<tr>
+    					<td>
+    						<a href="#" class="auction">${pa.au_num}</a>
+    					</td>
+    					<td>${pa.ac_name}</td>
+    					<td>
+    						<a href="#" class="product">${pa.au_me_id}</a>
+    					</td>
+    					<td>${pa.pr_name}</td>
+						<td>${pa.pr_start_price}</td>
+						<td>${pa.au_start_date}</td>
+						<td>${pa.pr_state}</td>
+						<td>${pa.ar_bid_price}</td>
+					</tr>
+					</c:forEach>
+					</tbody>
 				</table>
+			
 			</div>
 			
             <form class="input-group" action="<c:url value='/MyPage/participateAuctionList'></c:url>">
@@ -234,7 +231,7 @@
                     	
                     <option value="${pr_name}">판매물품명</option>
                     	
-                    <option value="${me_name}">판매자명</option>
+                    <option value="${au_me_id}">판매자명</option>
                     	
             	</select>
             		
@@ -284,32 +281,7 @@
             </div>
 		</div>
 		
-		 <!-- The Modal -->
-      <div class="modal" id="myModal" style="margin-top: 150px;">
-        <div class="modal-dialog">
-          <div class="modal-content">
-          
-            <!-- Modal Header -->
-            <div class="modal-header">
-            	
-                <label>낙찰 확인</label>
-              
-            </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body dream">
-              
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-      
+		
     </div>
    </div>
     
@@ -333,69 +305,6 @@
     		
     	})
     	
-    	$('.btn-console').click(function(){
-    		
-    		let a = String(${list.au_num});
-        	
-        	console.log(a);
-    		
-    	})
     	
     	
-    	
-		
-		/*$('#btn-search').click(function(){
-	
-			select(product)
-    
-		})
-
-function select(product){
-	
-	ajax('POST', product, '<c:url value="/ProductList"></c:url>', function(data){
-		
-			if(data.product){
-				
-				let str = '';
-				
-				let product = data.product;
-				
-				for(i = 0; i < product.length; i++){
-					
-				
-					
-				
-				
-				}
-				
-				$('.dream').html(str);
-				
-			}
-			
-		});
-	
-	}
-		
-		function ajax(method, obj, url, successFunc, errorFunc){
-			
-			$.ajax({
-				
-					async:false,
-					
-					type: method,
-					
-					data: JSON.stringify(obj),
-					
-					url: url,
-					
-					dataType:"json",
-					
-					contentType:"application/json; charset=UTF-8",
-					
-					success : successFunc
-					
-				});
-				
-			}*/
-    
     </script>

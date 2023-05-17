@@ -9,8 +9,11 @@ import kr.kr.OnAirAuction.Pagination.Criteria;
 import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 
 import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
+
 import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+
 import kr.kr.OnAirAuction.VO.AuctionVO;
+
 import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
@@ -24,6 +27,8 @@ import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
+import kr.kr.OnAirAuction.VO.OrderListVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
@@ -47,7 +52,7 @@ public interface MyPageDAO {
 	
 	// 경매 개최 내역 조회 서비스
 
-	ArrayList<HeldAuctionVO> selectHeldAuctList(@Param("criteria")Criteria criteria);
+	ArrayList<HeldAuctionVO> selectHeldAuctList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
 
 	int selectHeldAuctTotalCount(@Param("criteria")Criteria criteria);
 
@@ -58,8 +63,6 @@ public interface MyPageDAO {
 	// 후기 등록
 
 	void insertReview(@Param("review")ReviewVO review);
-
-	ParticipateAuctionVO selectAuction(@Param("re_ar_num")Integer re_ar_num);
 
 	void insertFile(@Param("fileVO")FileVO fileVo, @Param("re_num")int re_num);
 	
@@ -159,7 +162,7 @@ public interface MyPageDAO {
 	
 	// 구매자 주문 내역 조회
 
-	ArrayList<OrderAuctionVO> selectOrderAuctList(@Param("criteria")Criteria criteria);
+	ArrayList<OrderAuctionVO> selectOrderAuctList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
 
 	int selectOrderAuctTotalCount(@Param("criteria")Criteria criteria);
 
@@ -167,7 +170,7 @@ public interface MyPageDAO {
 	
 	// 환불 내역 조회
 
-	ArrayList<OrderCancleVO> selectRefundList(@Param("criteria")Criteria criteria);
+	ArrayList<OrderCancleVO> selectRefundList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
 
 	int selectRefundTotalCount(@Param("criteria")Criteria criteria);
 	
@@ -188,6 +191,12 @@ public interface MyPageDAO {
 	int updateReplyInquiry(@Param("inquiry")InquiryVO inquiry);
 
 	ArrayList<AuctionCategoryVO> selectAllAuctionCategory();
+
+	ArrayList<OrderListVO> selectOrderList(@Param("user")MemberVO user);
+
+	MemberVO selectUser(@Param("user")MemberVO user);
+
+	ArrayList<OrderListVO> selectOrderArNum(@Param("order")OrderListVO order);
 
 	/*ArrayList<AuctionVO> selectMaxAuction();
 

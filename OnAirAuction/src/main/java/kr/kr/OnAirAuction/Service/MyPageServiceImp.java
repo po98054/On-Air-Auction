@@ -19,7 +19,9 @@ import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
 
 import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+
 import kr.kr.OnAirAuction.VO.AuctionVO;
+
 import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
@@ -33,6 +35,8 @@ import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
+import kr.kr.OnAirAuction.VO.OrderListVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
@@ -85,7 +89,7 @@ public class MyPageServiceImp implements MyPageService{
 	}
 
 	@Override
-	public ArrayList<HeldAuctionVO> getHeldAuctList(Criteria criteria) {
+	public ArrayList<HeldAuctionVO> getHeldAuctList(Criteria criteria, MemberVO user) {
 		
 		if(criteria == null) {
 			
@@ -93,7 +97,13 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectHeldAuctList(criteria);
+		if(user == null) {
+			
+			return null;
+			
+		}
+		
+		return myPageDao.selectHeldAuctList(criteria, user);
 		
 	}
 
@@ -136,6 +146,12 @@ public class MyPageServiceImp implements MyPageService{
 		}
 		
 		if(review.getRe_content() == null || review.getRe_content().trim().length() == 0) {
+			
+			return false;
+			
+		}
+		
+		if(review.getRe_ar_num() <= 0) {
 			
 			return false;
 			
@@ -190,15 +206,6 @@ public class MyPageServiceImp implements MyPageService{
 			myPageDao.insertFile(fileVo, re_num);
 		}
 	}
-
-	@Override
-	public ParticipateAuctionVO getPate(Integer re_ar_num) {
-		
-		ParticipateAuctionVO pate = myPageDao.selectAuction(re_ar_num); 
-		
-		return null;
-		
-	}
 	
 	// 후기 조회
 
@@ -219,6 +226,7 @@ public class MyPageServiceImp implements MyPageService{
 
 	@Override
 	public ReviewVO getReview(int re_num) {
+		
 		
 		return myPageDao.selectReview(re_num);
 		
@@ -867,7 +875,7 @@ public class MyPageServiceImp implements MyPageService{
 	// 구매자 주문 내역 조회
 
 	@Override
-	public ArrayList<OrderAuctionVO> getOrderAuctList(Criteria criteria) {
+	public ArrayList<OrderAuctionVO> getOrderAuctList(Criteria criteria, MemberVO user) {
 		
 		if(criteria == null) {
 			
@@ -875,7 +883,15 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectOrderAuctList(criteria);
+		if(user == null) {
+			
+			return null;
+			
+		}
+		
+		System.out.println(user);
+		
+		return myPageDao.selectOrderAuctList(criteria, user);
 		
 	}
 
@@ -902,7 +918,7 @@ public class MyPageServiceImp implements MyPageService{
 	// 환불 내역 조회
 
 	@Override
-	public ArrayList<OrderCancleVO> getRefundList(Criteria criteria) {
+	public ArrayList<OrderCancleVO> getRefundList(Criteria criteria, MemberVO user) {
 		
 		if(criteria == null) {
 			
@@ -910,7 +926,13 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectRefundList(criteria);
+		if(user == null) {
+			
+			return null;
+			
+		}
+		
+		return myPageDao.selectRefundList(criteria, user);
 		
 	}
 
@@ -1083,23 +1105,38 @@ public class MyPageServiceImp implements MyPageService{
 		
 	}
 
-	/*@Override
-	public ArrayList<AuctionVO> SelectAuction() {
-		
-		return myPageDao.selectMaxAuction();
-		
-	}
-
 	@Override
-	public ArrayList<AuctionRecordVO> SelectMaxAuctionRecord(ArrayList<AuctionVO> auction) {
+	public ArrayList<OrderListVO> getOrder(MemberVO user) {
 		
-		if(auction == null) {
+		if(user == null) {
 			
 			return null;
 			
 		}
 		
-		return myPageDao.selectMaxAuctionRecord(auction);
-	}*/
+		return myPageDao.selectOrderList(user);
+		
+	}
+
+	@Override
+	public MemberVO getUser(MemberVO user) {
+		
+		if(user == null) {
+			
+			return null;
+			
+		}
+		
+		return myPageDao.selectUser(user);
+		
+	}
+
+	@Override
+	public ArrayList<OrderListVO> SelectOrder(OrderListVO order) {
+		
+		
+		return myPageDao.selectOrderArNum(order);
+		
+	}
 	
 }

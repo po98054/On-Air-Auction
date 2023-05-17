@@ -24,6 +24,8 @@ public class ReviewVO {
 	int re_st_num;
 	
 	int re_ar_num;
+	
+	String ar_me_id;
 
 	@Override
 	public String toString() {

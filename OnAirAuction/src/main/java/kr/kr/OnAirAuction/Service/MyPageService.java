@@ -11,7 +11,9 @@ import kr.kr.OnAirAuction.VO.AuctionCancleVO;
 import kr.kr.OnAirAuction.VO.AuctionCategoryVO;
 
 import kr.kr.OnAirAuction.VO.AuctionRecordVO;
+
 import kr.kr.OnAirAuction.VO.AuctionVO;
+
 import kr.kr.OnAirAuction.VO.FileVO;
 
 import kr.kr.OnAirAuction.VO.HeldAuctionVO;
@@ -25,6 +27,8 @@ import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.OrderAuctionVO;
 
 import kr.kr.OnAirAuction.VO.OrderCancleVO;
+
+import kr.kr.OnAirAuction.VO.OrderListVO;
 
 import kr.kr.OnAirAuction.VO.ParticipateAuctionVO;
 
@@ -48,7 +52,7 @@ public interface MyPageService {
 	
 	// 구매자 -> 경매 개최 내역
 
-	ArrayList<HeldAuctionVO> getHeldAuctList(Criteria criteria);
+	ArrayList<HeldAuctionVO> getHeldAuctList(Criteria criteria, MemberVO user);
 
 	int getHeldAuctTotalCount(Criteria criteria);
 
@@ -59,8 +63,6 @@ public interface MyPageService {
 	// 후기 등록
 
 	boolean insertReview(ReviewVO review, MultipartFile[] files);
-
-	ParticipateAuctionVO getPate(Integer re_ar_num);
 	
 	// 후기 조회
 
@@ -148,7 +150,7 @@ public interface MyPageService {
 	
 	// 구매자 주문 내역 조회
 
-	ArrayList<OrderAuctionVO> getOrderAuctList(Criteria criteria);
+	ArrayList<OrderAuctionVO> getOrderAuctList(Criteria criteria, MemberVO user);
 
 	int getOrderAuctTotalCount(Criteria criteria);
 
@@ -156,7 +158,7 @@ public interface MyPageService {
 	
 	// 환불 내역 조회
 
-	ArrayList<OrderCancleVO> getRefundList(Criteria criteria);
+	ArrayList<OrderCancleVO> getRefundList(Criteria criteria, MemberVO user);
 
 	int getRefundTotalCount(Criteria criteria);
 	
@@ -177,6 +179,12 @@ public interface MyPageService {
 	boolean UpdateReplyInquiry(InquiryVO inquiry, MultipartFile[] files, int[] fileNums, MemberVO user);
 
 	ArrayList<AuctionCategoryVO> getAuctionCategory();
+
+	ArrayList<OrderListVO> getOrder(MemberVO user);
+
+	MemberVO getUser(MemberVO user);
+
+	ArrayList<OrderListVO> SelectOrder(OrderListVO order);
 
 	/*ArrayList<AuctionVO> SelectAuction();
 

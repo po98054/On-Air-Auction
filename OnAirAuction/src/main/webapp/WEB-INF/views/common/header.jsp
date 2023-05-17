@@ -30,16 +30,19 @@
                         </p>
                         </c:if>
                         <c:if test="${user != null }">
-							<li class="nav-item">
-								<a href="<c:url value='/logout'></c:url>">로그아웃</a>
-							</li>
-						</c:if>
-			<p class="auction_massage" onclick="openPopup()">
-                        	<a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">쪽지함</a>
-                        </p>    
-                        <p>
-                            <a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">마이페이지</a>
-                        </p>
+							 <p>
+                            	<a href="<c:url value='/logout'></c:url>">로그아웃</a>
+                        	</p>
+							<p>
+                            	<a href="<c:url value='/AddressBook/List'></c:url>">주소록</a>
+                        	</p>
+							<p class="auction_massage" onclick="openPopup()">
+                        		<a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">쪽지함</a>
+                        	</p>    
+                        	<p>
+                            	<a href="#" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">마이페이지</a>
+                        	</p>
+                        </c:if>
                     </li>
                 </ul>
             </div>
@@ -53,7 +56,7 @@
         </div>
         <ul>
             <li>
-                <a href="<c:url value='/general/list'></c:url>" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">일반경매
+                <a href="#" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">일반경매
                     <sup>
                         <font color="red">
                             <b>New</b>

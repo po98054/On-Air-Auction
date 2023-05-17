@@ -26,21 +26,27 @@
 
 	<select id="selectPartAuctList" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
 	
-		select au_num, au_me_id, pr_name, pr_start_price, au_start_date, pr_state, ac_name
+		select auction.au_num, auction.au_me_id, product.pr_name, product.pr_start_price, auction.au_start_date, product.pr_state, 
 		
-		from auction join auction_category on ac_num = au_ac_num join auction_record on au_num = ar_au_num
+		auction_category.ac_name, auction_record.ar_bid_price, auction_record.ar_me_id
 		
-		join member on me_id = ar_me_id join product on pr_code = au_pr_code
+		from auction join auction_category on auction_category.ac_num = auction.au_ac_num join auction_record on auction.au_num = auction_record.ar_au_num
 		
-		where (pr_name like concat('%', #{criteria.search}, '%') or me_name like concat('%', #{criteria.search}, '%'))
+		join (select ar_num, max(ar_bid_time) as max_time, ar_au_num from auction_record where auction_record.ar_me_id = #{user.me_id} group by ar_au_num) as ar2
 		
-		and ar_me_id = #{user.me_id}
+		on auction_record.ar_au_num = ar2.ar_au_num
 		
-		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		join member on member.me_id = auction_record.ar_me_id join product on product.pr_code = auction.au_pr_code
 		
-		group by ar_au_num
+		where (product.pr_name like concat('%', #{criteria.search}, '%') or auction.au_me_id like concat('%', #{criteria.search}, '%'))
 		
-		order by au_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+		and auction_record.ar_bid_time = ar2.max_time
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and auction.au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		group by auction_record.ar_au_num
+		
+		order by auction.au_num limit #{criteria.pageStart}, #{criteria.perPageNum}
 	
 	</select>
 	
@@ -70,15 +76,15 @@
 	
 	<select id="selectHeldAuctList" resultType="kr.kr.OnAirAuction.VO.HeldAuctionVO">
 	
-		select ac_num, pr_name, pr_startprice, ac_startdate, ac_finaldate, ac_state, ac_immediate
+		select au_num, pr_name, pr_start_price, au_start_date, au_final_date, pr_state, au_immediate
 		
-		from auction join product on ac_pr_code = pr_code
+		from auction join product on au_pr_code = pr_code
 		
-		where (pr_name like concat('%', #{criteria.search}, '%'))
+		where (pr_name like concat('%', #{criteria.search}, '%')) and au_me_id = #{user.me_id}
 		
-		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
 		
-		 order by ac_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+		 order by au_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
 	
 	</select>
 	
@@ -86,21 +92,21 @@
 	
 		select count(*)
 		
-		from auction join product on ac_pr_code = pr_code
+		from auction join product on au_pr_code = pr_code
 	
 	</select>
 	
 	<select id="selectHeldList" resultType="kr.kr.OnAirAuction.VO.AuctionCancleVO">
 
-		select * from auction_cancle where ac_ac_num = #{ac_num}
+		select * from auction_cancle where ac_au_num = #{ac_num}
 
 	</select>
 	
 	<insert id="insertAuctionCancle">
   	
-  		insert into auction_cancel(ac_num, ac_date, ac_reason, ac_ac_num)
+  		insert into auction_cancel(ac_num, ac_date, ac_reason, ac_au_num)
   			
-  		select ifnull(max(ac_num), 0) + 1, now(), #{auctionCancle.ac_reason}, #{auctionCancle.ac_ac_num}
+  		select ifnull(max(ac_num), 0) + 1, now(), #{auctionCancle.ac_reason}, #{auctionCancle.ac_au_num}
 		
   		from auction_cancel
   		
@@ -110,17 +116,25 @@
   	
   	<select id="selectOrderAuctList" resultType="kr.kr.OnAirAuction.VO.OrderAuctionVO">
 	
-		select pr_name, me_name, ar_bidprice, re_progress, ac_deliveryway, de_state, de_startdate, de_completedate, or_num
+		select product.pr_name, auction.au_me_id, auction_record.ar_bid_price, auction.au_delivery_way, delivery.de_state, refund.re_progress,
 		
-		from product join auction on pr_code = ac_pr_code join auction_record on ac_num = ar_ac_num join member on ac_me_id = me_id 
+		delivery.de_start_date, delivery.de_complete_date, `order`.or_num, auction_record.ar_num
+        
+        from auction join product on product.pr_code = auction.au_pr_code
+        
+        join member on member.me_id = auction.au_me_id join `order` on auction.au_num = `order`.or_au_num left join refund on `order`.or_num = refund.re_or_num
+        
+        join delivery on `order`.or_num = delivery.de_or_num join auction_record on auction.au_num = auction_record.ar_au_num
+        
+        join (select max(ar_bid_time) as max_time, ar_au_num from auction_record group by ar_au_num) as ar2 on auction_record.ar_au_num = ar2.ar_au_num
 		
-		join `order` on me_id = or_me_id left join refund on or_num = re_or_num join delivery on or_num = de_or_num
+		where (pr_name like concat('%', #{criteria.search}, '%') or au_me_id like concat('%', #{criteria.search}, '%'))
 		
-		where (pr_name like concat('%', #{criteria.search}, '%') or me_name like concat('%', #{criteria.search}, '%'))
+		and auction_record.ar_bid_time = ar2.max_time and auction_record.ar_me_id = #{user.me_id}
 		
-		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
 		
-		 order by ac_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+		 order by au_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
 	
 	</select>
 	
@@ -128,7 +142,7 @@
 	
 		select count(*)
 		
-		from product join auction on pr_code = ac_pr_code join auction_record on ac_num = ar_ac_num join member on ac_me_id = me_id 
+		from product join auction on pr_code = au_pr_code join auction_record on au_num = ar_au_num join member on au_me_id = me_id 
 		
 		join `order` on me_id = or_me_id left join refund on or_num = re_or_num join delivery on or_num = de_or_num
 	
@@ -136,7 +150,7 @@
 	
 	<insert id="insertOrderCancle">
   	
-  		insert into refund(re_num, re_applydate, re_reason, re_or_num)
+  		insert into refund(re_num, re_apply_date, re_reason, re_or_num)
   			
   		select ifnull(max(re_num), 0) + 1, now(), #{refund.re_reason}, #{refund.re_or_num}
 		
@@ -148,13 +162,13 @@
   	
   	<select id="selectRefundList" resultType="kr.kr.OnAirAuction.VO.OrderCancleVO">
 	
-		select pr_name, re_progress, re_applydate, re_confirmdate
+		select product.pr_name, refund.re_progress, refund.re_apply_date, refund.re_confirm_date
 		
-		from product join auction on pr_code = ac_pr_code join `order` on ac_num = or_ac_num left join refund on or_num = re_or_num
+		from refund join `order` on `order`.or_num = refund.re_or_num join auction on auction.au_num = `order`.or_au_num join product on product.pr_code = auction.au_pr_code 
 		
-		where (pr_name like concat('%', #{criteria.search}, '%'))
+		where (pr_name like concat('%', #{criteria.search}, '%')) and `order`.or_me_id = 'po98087'
 		
-		<if test="criteria.fromDate != null and criteria.toDate != null">and ac_startDate between #{criteria.fromDate} and #{criteria.toDate}</if>
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
 		
 		 order by pr_name asc limit #{criteria.pageStart}, #{criteria.perPageNum}
 	
@@ -164,7 +178,7 @@
 	
 		select count(*)
 		
-		from product join auction on pr_code = ac_pr_code join `order` on ac_num = or_ac_num left join refund on or_num = re_or_num
+		from product join auction on pr_code = au_pr_code join `order` on au_num = or_au_num left join refund on or_num = re_or_num
 	
 	</select>
   	
@@ -172,27 +186,49 @@
   	
   	<insert id="insertReview" useGeneratedKeys="true" keyProperty="review.re_num">
   	
-  		insert into review(re_num, re_title, re_content, re_level, re_registration)
+  		insert into review(re_num, re_title, re_content, re_satisfaction, re_registration, re_ar_num)
   		
-  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_level}, now()
+  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_satisfaction}, now(), #{review.re_ar_num}
   		
   		from review
   	
   	</insert>
   	
-  	<select id="selectAuction" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
+  	<select id="selectOrderList" resultType="kr.kr.OnAirAuction.VO.OrderListVO">
   	
-  		select ar_num from auction_record where ar_num = #{re_ar_num} 
+  		select `order`.or_me_id, product.pr_name, auction_record.ar_num, auction.au_me_id
   		
+  		from auction join `order` on auction.au_num = `order`.or_au_num
+        
+        join product on product.pr_code = auction.au_pr_code
+        
+        join auction_record on auction.au_num = auction_record.ar_au_num
+        
+        join (select max(ar_bid_time) as max_time, ar_au_num from auction_record group by ar_au_num) as ar2 on auction_record.ar_au_num = ar2.ar_au_num
+        
+        where auction_record.ar_bid_time = ar2.max_time and auction_record.ar_me_id = #{user.me_id}
+  	
   	</select>
+  	
+  	<select id="selectUser" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+  	
+  		select me_id from member where me_id = #{user.me_id}
+  	
+  	</select>
+  	
+  	<select id="selectOrderArNum" resultType="kr.kr.OnAirAuction.VO.OrderListVO">
+	
+		select ar_num from auction_record where ar_num = #{order.ar_num}
+	
+	</select>
   	
   	<!-- 첨부 파일 -->
   	
   	<insert id="insertFile">
   	
-  		insert into file(fi_name, fi_savename, fi_tablename, fi_tablenum)
+  		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
   		
-  		values(#{fileVO.fi_name},#{fileVO.fi_savename}, '후기', #{re_num})
+  		values(#{fileVO.fi_name},#{fileVO.fi_save_name}, '후기', #{re_num})
   	
   	</insert>
   	
@@ -206,13 +242,13 @@
   	
 	<select id="selectReview" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
 	
-		select * from review where re_num = #{re_num}
+		select * from review join auction_record on ar_num = re_ar_num where re_num = #{re_num}
 		
 	</select>
 	
 	<select id="selectFileList" resultType="kr.kr.OnAirAuction.VO.FileVO">
 	
-		select * from file where fi_tablenum = #{re_num} and fi_tablename = '후기'
+		select * from file where fi_table_num = #{re_num} and fi_table_name = '후기'
 	
 	</select>
 	
@@ -220,7 +256,7 @@
 	
 	<update id="updateReview">
 	
-		update review set re_title = #{review.re_title}, re_content = #{review.re_content}, re_level = #{review.re_level}, re_modify = now()
+		update review set re_title = #{review.re_title}, re_content = #{review.re_content}, re_satisfaction = #{review.re_satisfaction}, re_modify = now()
 		
 		where re_num = #{review.re_num}
 	
@@ -250,7 +286,7 @@
 	
 	<select id="selectHeld" resultType="kr.kr.OnAirAuction.VO.HeldAuctionVO">
 	
-		select ac_num, pr_name, pr_startprice, ac_startdate, ac_finaldate, ac_state, ac_immediate
+		select ac_num, pr_name, pr_startprice, ac_startdate, ac_finaldate, pr_state, ac_immediate
 		
 		from auction join product on ac_pr_code = pr_code where ac_num = #{ac_num}
 	
@@ -258,7 +294,7 @@
 	
 	<update id="updateHeld">
 	
-		update auction set ac_state = #{held.ac_state} where ac_num = #{held.ac_num}
+		update auction join product on au_pr_code = pr_code set pr_state = #{held.pr_state} where au_num = #{held.au_num}
  	
 	</update>
 	

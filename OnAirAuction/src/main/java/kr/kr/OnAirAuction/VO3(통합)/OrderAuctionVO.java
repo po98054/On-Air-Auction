@@ -11,7 +11,7 @@ public class OrderAuctionVO {
 	
 	String pr_name;
 	
-	String me_name;
+	String au_me_id;
 	
 	int ar_bid_price;
 	

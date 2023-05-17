@@ -14,11 +14,11 @@ public class OrderCancleVO {
 	
 	int re_num;
 	
-	Date re_apply_date;
+	String re_apply_date;
 	
 	String re_reason;
 	
-	Date re_confirm_date;
+	String re_confirm_date;
 	
 	String re_progress;
 	
@@ -34,7 +34,7 @@ public class OrderCancleVO {
 		
 	}
 	
-	public String getRe_apply_date() {
+	/*public String getRe_apply_date() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -48,6 +48,6 @@ public class OrderCancleVO {
 		
 		return sdf.format(re_confirm_date);
 		
-	}
+	}*/
 
 }
