@@ -19,5 +19,11 @@ public class ChargeServiceImp implements ChargeService {
 		chargeDao.chargeInsert(chargeVO);			
 	}
 
+	@Override
+	public ArrayList<ChargeVO> getPoint(ChargeVO charge) {
+		if(charge== null)
+			charge = new ChargeVO();
+		return chargeDao.selectPoint(charge);
+	}
 
 }
