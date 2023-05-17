@@ -17,8 +17,15 @@ public class AuctionServiceImp implements AuctionService {
 	AuctionDAO auctionDao;
 
 	@Override
-	public void insertAuction(AuctionVO auction) {
+	public boolean insertAuction(AuctionVO auction, MemberVO user, ProductVO product) {
+		if(user == null)
+			return false;
+		if(product == null)
+			return false;
+		auction.setAu_me_id(user.getMe_id());
+		auction.setAu_pr_code(product.getPr_code());
 		auctionDao.insertAuction(auction);
+		return true;
 	}
 	
 	@Override
@@ -35,6 +42,11 @@ public class AuctionServiceImp implements AuctionService {
 	public AuctionVO getAuction(int au_num) {
 		return  auctionDao.selectAuction(au_num);
 	}
-
+	
+	@Override
+	public ProductVO getPrcode(int au_pr_code) {
+		ProductVO code = auctionDao.selectProduct(au_pr_code); 
+		return null;
+	}
 
 }
