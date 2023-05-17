@@ -17,6 +17,8 @@ public interface AuctionDAO {
 	int selectAuctionTotalCount(@Param("cri")Criteria cri);
 
 	AuctionVO selectAuction(@Param("au_num")int au_num);
+	
+	ProductVO selectProduct(@Param("au_pr_code")int au_pr_code);
 
 
 }
