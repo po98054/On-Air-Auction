@@ -53,7 +53,7 @@ public class AuctionController {
 		mv.setViewName("/auction/list");
 		return mv;
 	}
-    
+    /*
     //경매 상세 페이지
     @RequestMapping(value="/auction/detail/{au_num}", method=RequestMethod.GET)
     public ModelAndView  auctionDetail(ModelAndView mv, 
@@ -68,6 +68,6 @@ public class AuctionController {
     	 
     	return mv;
     }
-        
+    */    
     
 }
