@@ -2,10 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.kr.OnAirAuction.DAO.ChargeDAO">
-	<insert id="chargeInsert" parameterType="kr.kr.OnAirAuction.VO.ChargeVO">
+<mapper namespace="kr.kh.onAirAuction.dao.ChargeDAO">
+	<insert id="chargeInsert" parameterType="kr.kh.onAirAuction.vo.ChargeVO">
 		insert into charge(ch_amount, ch_method, ch_charge_date) values(#{ch_amount}, #{ch_method}, now())
 	</insert>
-	
+	<select id="selectPoint" resultType="kr.kh.onAirAuction.vo.ChargeVO">
+		select * from charge where ch_num = (SELECT MAX(ch_num) FROM charge)
+	</select>
 </mapper>
 

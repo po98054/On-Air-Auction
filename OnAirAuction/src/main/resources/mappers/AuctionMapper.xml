@@ -2,32 +2,35 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="kr.kr.OnAirAuction.DAO.AuctionDAO">
- 	<insert id="insertAuction" useGeneratedKeys="true" keyProperty="auction.au_num">
+ <mapper namespace="kr.kh.onAirAuction.dao.AuctionDAO">
+ 	<insert id="insertAuction" useGeneratedKeys="true" keyProperty="auction.ac_num">
  		insert into auction(au_num, au_ac_num, au_start_date, au_final_date, au_calculation, 
  				au_immediate, au_delivery_way, au_limit_bid_time, au_pr_code, au_me_id)
  		select ifnull(max(au_num),0)+1, #{auction.au_ac_num}, #{auction.au_start_date}, #{auction.au_final_date}, #{auction.au_calculation}, 
- 				#{auction.au_immediate}, #{auction.au_delivery_way}, #{auction.au_limit_bid_time}, 1, 'po98087'
+ 				#{auction.au_immediate}, #{auction.au_delivery_way}, #{auction.au_limit_bid_time}, #{auction.au_pr_code}, #{auction.au_me_id}
  		from auction
  	</insert>
- 	 <select id="selectAuctionList" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
-  		SELECT ac_name, au_num, au_start_date, au_final_date, au_calculation, au_immediate, au_delivery_way, au_limit_bid_time
-		   <!--  COALESCE(CASE WHEN au_limit_bid_time = 0 THEN 'X'
-		                  WHEN au_limit_bid_time = 1 THEN '15초'
-		                  WHEN au_limit_bid_time = 2 THEN '30초'
-		                  WHEN au_limit_bid_time = 3 THEN '1분'
-		                  WHEN au_limit_bid_time = 4 THEN '3분'
-		                  WHEN au_limit_bid_time = 5 THEN '5분'
-		                  ELSE 'X'
-		             END, '해당없음') AS au_limit_bid_time -->
-		FROM auction JOIN auction_category ON au_ac_num = au_num
+ 	<select id="selectAuctionList" resultType="kr.kh.onAirAuction.vo.AuctionVO">
+  		SELECT ac_name, au_num, au_start_date, au_final_date, au_calculation, au_immediate, au_delivery_way, 
+		COALESCE(CASE
+					    WHEN au_limit_bid_time = 1 THEN '15'
+					    WHEN au_limit_bid_time = 2 THEN '30'
+					    WHEN au_limit_bid_time = 3 THEN '60'
+					    WHEN au_limit_bid_time = 4 THEN '120'
+					    WHEN au_limit_bid_time = 5 THEN '180'
+					    ELSE NULL
+					END, NULL) AS au_limit_bid_time
+		FROM auction JOIN auction_category ON au_ac_num = ac_num
 		ORDER BY au_num ASC LIMIT #{cri.pageStart}, #{cri.perPageNum};
-	</select> 
+	</select>
 	<select id="selectAuctionTotalCount" resultType="int">
 		select count(*) from auction 
 	</select>
-	<select id="selectAuction" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
+	<select id="selectAuction" resultType="kr.kh.onAirAuction.vo.AuctionVO">
 		select * from auction where au_num = #{au_num}
+	</select>
+	<select id="selectProduct" resultType="kr.kh.onAirAuction.vo.ProductVO">
+		select pr_code from product where pr_code = #{au_pr_code}
 	</select>
  </mapper>
  

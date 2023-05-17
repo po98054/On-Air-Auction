@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.kr.OnAirAuction.DAO.ProductDAO">
+<mapper namespace="kr.kh.onAirAuction.dao.ProductDAO">
 	<insert id="ProductLargeCategoryVO">
 			insert into product_large_category(plc_num, plc_name) 
 			select ifnull(max(plc_num),0)+1, #{pc.plc_name}
@@ -34,16 +34,16 @@
 		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
   		values(#{file.fi_name}, #{file.fi_save_name}, '상품', #{pr_code})
 	</insert>
-	<select id="selectProductList" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+	<select id="selectProductList" resultType="kr.kh.onAirAuction.vo.ProductVO">
   		select * from product order by pr_code asc limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>	
 	<select id="selectProductTotalCount" resultType="int">
 		select count(*) from product 
 	</select>
-	<select id="selectProduct" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+	<select id="selectProduct" resultType="kr.kh.onAirAuction.vo.ProductVO">
 		select * from product where pr_code = #{pr_code}
 	</select>
-	<select id="selectFileList" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	<select id="selectFileList" resultType="kr.kh.onAirAuction.vo.FileVO">
 		select * from file where fi_table_num = #{pr_code}
 	</select>
 	<delete id="deleteProduct">
@@ -59,7 +59,7 @@
 			pr_refund_reason = #{vo.pr_refund_reason}, pr_start_price = #{vo.pr_start_price}, pr_origin = #{vo.pr_origin}, pr_size = #{vo.pr_size}
 		where pr_code = #{vo.pr_code}
 	</update>
-	<select id="selectFile" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	<select id="selectFile" resultType="kr.kh.onAirAuction.vo.FileVO">
 		select * from file where fi_num = #{fi_num}
 	</select>
 </mapper>
