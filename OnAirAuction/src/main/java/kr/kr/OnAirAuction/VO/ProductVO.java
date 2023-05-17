@@ -12,15 +12,31 @@ public class ProductVO {
 	String pr_detail;
 	String pr_location;
 	String pr_refund_ok;
-	String pr_refunddate;
-	String pr_refundreason; 
+	String pr_refund_date;
+	String pr_refund_reason; 
 	String pr_state;
-	int pr_startprice;
+	int pr_start_price;
 	String pr_origin; 
-	int pr_size;
+	String pr_size;
 	int pr_st_num;
 	int pr_pc_num;
 	
-	String pc_name;
+	int st_num;
 	
+	//productcategory
+	int pc_num;
+	String pc_name;
+	int pc_psc_num;
+	//productsmallcategory
+	int psc_num;
+	String psc_name;
+	int psc_pm_num;
+	//productmiddlecategory
+	int pmc_num;
+	String pmc_name;
+	int pmc_plc_num;
+	//productlargecategory
+	int plc_num;
+	String plc_name;
+		
 }
