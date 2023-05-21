@@ -416,14 +416,17 @@
         animation: blink-effect 1s step-end infinite;
     }
     .chat-bottom{
-        height: 150px;box-sizing: border-box;
+        height: 130px;box-sizing: border-box;
         
+    }
+    .chat-mid-cover{
+    height: 418px; border-radius: 17px; overflow: hidden;
     }
     .chat-mid{
         height: 417px; box-sizing: border-box;
         color: green; border: 1px solid #ccc;
         line-height: 420px; margin-bottom: 2px;
-        border-radius: 18px; 
+        border-radius: 18px; z-index: 10;
     }
     .chat-bottom input{
         height: 100%; box-sizing: border-box; border: 1px solid #ccc;
@@ -663,6 +666,26 @@
         overflow: hidden;
         padding: 30px; opacity: 0.9;
     }
+    .modal_layer6 .modal_content3 {
+        display: block;
+        width:600px;
+        height: 650px;
+        background:#fff;
+        border:1px solid #666;
+        box-sizing: border-box;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 30px; opacity: 0.9;
+    } #modal_close_btn6{
+        position: absolute; 
+        width:150px; padding: 5px;
+        bottom: 40px; left: 30px; font-weight: bold; cursor: pointer;
+    }
+    #modal_confirm_btn6{
+        position: absolute; 
+        width:150px; padding: 5px;
+        bottom: 40px; right: 30px; font-weight: bold; cursor: pointer;
+    }
     #modal_close_btn5{
         position: absolute; 
         width:150px; padding: 5px;
@@ -693,7 +716,8 @@
         width: 100%; overflow: hidden;height: 330px; margin-top: 10px; border: 2px solid #ccc; border-radius: 20px;
     }
     .chat-mid{
-    	line-height: 20px;
+    	line-height: 20px; text-align: left; overflow-y: auto; display: flex; flex-direction: column-reverse;
+    	padding-left: 15px; padding-bottom: 10px;
     }
     .popup {
 	  display: none;
@@ -836,7 +860,7 @@
                 <a href="#" class="sel_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매자 찜
                     <span class="all_icon"></span>
                 </a>
-                <a href='<c:url value="/userStore"></c:url>' class="more_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매자 상품 보기
+                <a href='<c:url value="/userStore/${auctionSeller.getMe_id()}"></c:url>' class="more_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">판매자 상품 보기
                     <span class="all_icon"></span> <!--/{store_num}-->
                 </a>
             </div>
@@ -845,11 +869,19 @@
             </div>
         </div>
         <div class="box mid">
-            <div id="tabl3">현재 입찰자: ${lastAuctionRecord.getAr_me_id()} 님	입찰가격: $ ${lastAuctionRecord.getAr_bid_price()}	입찰시간: ${lastAuctionRecord.getAr_bid_time()}</div>
-            <div class="chat-mid"></div>
+            <div class="chat-top" id="tabl3">현재 입찰자: ${lastAuctionRecord.getAr_me_id()} 님	입찰가격: $ ${lastAuctionRecord.getAr_bid_price()}	입찰시간: ${lastAuctionRecord.getAr_bid_time()}</div>
+            <div class="chat-mid-cover">
+            <div class="chat-mid" id="messages"></div>
+            </div>
             <div class="chat-bottom">
-                <input type="text" placeholder="내용을 입력해주세요.">
-                <button onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">전송</button>
+            	<div>           	
+        		<button type="button" onclick="closeSocket();">대회방 나가기</button>
+        		<button type="button" onclick="openSocket();">대화방 참여</button>
+            	</div>
+            	<input type="hidden" id="room" value="${chattingChannel}"> 
+        		<input type="hidden" id="sender" value="${userId}">
+                <input type="text" id="messageinput" placeholder="내용을 입력해주세요.">
+                <button type="button" onclick="send();" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)" id="message_send">전송</button>
             </div>
         </div>
         <div class="box right">
@@ -885,12 +917,12 @@
                             </dd>
                         </dl>
                     </li>
-                    <li>
+                    <li id="tabl8">
                     	<div id="tabl7">
 	                        <dl>
-	                            <dt>입찰종료시간</dt>
+	                            <dt>입찰가능시간</dt>
 	                            <dd class="korEndTime" style="font-weight: bold; color: green;">
-	                             	마지막 입찰 후 ${auction.au_limit_bid_time}초 count후 경매종료
+	                             	입찰시간은 ${endTime}
 	                            </dd>
 	                        </dl>
 	                	</div>
@@ -915,7 +947,7 @@
                             <dt class="c_000">현재 입찰가</dt>
                             <dd>
                             	
-                                	<font class="f18" id="tabl2"></font>
+                                	<font class="f18" id="tabl2">$ ${lastAuctionRecord.getAr_bid_price()}</font>
                    				
                                 <button class="history_btn" id="modal_open_btn3" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)" >
                                     <span class="all_icon"></span>
@@ -936,10 +968,18 @@
                                     자세히보기
                                     <span class="all_icon"></span>
                                 </button>
+                                
+                                
+                                <button style="display: none" class="est_ok" id="delivery_btn" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">
+                            		배송지설정
+                            	<span class="all_icon"></span>
+                            	
+                        		</button>
                                 <button class="est_ok" id="modal_open_btn1" onmouseover="mouseOver1(this)" onmouseout="mouseOut1(this)">
                                     입찰신청
                                     <span class="all_icon"></span>
                                 </button>
+                               
                             </dd>
                         </dl>
                     </li>
@@ -990,8 +1030,8 @@
         <div id="modal">
         	<div id="tabl4">
              <div class="modal_content1">
-                 회원님의 입찰신청 가격은 : $ ${lastAuctionRecord.getAr_next_bid_price()} 입니다. <br>
-                 입찰하시겠습니까?
+                 회원님의 입찰신청 가격은 : $ ${lastAuctionRecord.getAr_next_bid_price()} 입니다. <br> <!-- get안쓰고 .ar_next_bid_price-->
+                    입찰하시겠습니까?
              </div>
             </div>
             <button type="submit" id="modal_double_btn1">x  2 입찰하기</button>
@@ -1007,8 +1047,8 @@
                 <div class="box" id="tabl5">
                     <ul>
                         <li>현재 입찰가($) : $ ${lastAuctionRecord.getAr_bid_price()}</li>
-                        <li>환율 : </li>
-                        <li>₩표시 가격 :</li>
+	    				<li>환율 : </li>
+	    				<li>₩표시 가격 :</li>
                     </ul>
                 </div>
             </div>
@@ -1021,7 +1061,9 @@
                 <h1 style="font-size: 14px; text-align: center;">입찰내역</h1>
                 <div class="textarea_container" style="padding: 0px 0px 5px 0px; overflow: scroll;overflow-x: hidden; border: none; height: 65%" >
                 <ul id="tabl1">
-                	
+                	<c:forEach items="${auctionRecordList}" var="item" varStatus="status">
+				    	<li style="font-size: 12px; margin: 1px">입찰시간:${item.ar_bid_time} 입찰가격:${item.ar_bid_price} 입찰자:${item.ar_me_id}</li>
+				    </c:forEach>
                 </ul>
                	</div>
             </div>
@@ -1063,10 +1105,32 @@
             </div>
         </div>
     </form>
+   
+    <form action="<c:url value='/delivery'></c:url>" method="post" class="delivery">
+        <div class="modal_layer modal_layer6">
+            <div id="modal">
+                <div class="modal_content3">
+                	
+                    <c:forEach items="${boardList}" var="bl">
+					      <label>
+					        <input type="checkbox" name="bl_num" value="${bl.bl_num}">
+					        	${bl.bl_name} : ${bl.bl_detail_address} 
+					      </label>
+					      <br>
+				    </c:forEach>
+                        
+                </div>
+                <button type="button" id="modal_close_btn6" class="close_btn2">닫기</button>
+                <button type="submit" id="modal_confirm_btn6" class="confirm_btn2">저장하기</button>
+            </div>
+        </div>
+    </form>
     <input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_next_bid_price()}">
     <input type="hidden" id="sellerLikeState" value="${sellerLikeState}">
     <input type="hidden" id="productLikeState" value="${productLikeState}">
-    <input type="hidden" id="countDown" value="">
+    <input type="hidden" id="intEnd" value="999999">
+    <input type="hidden" id="bidder" value="">
+    
 	<div id="myPopup" class="popup">
       <div class="popup-content" onmousedown="dragPopup(event)">
         <div class="close-popup">
@@ -1076,13 +1140,11 @@
           <table class="auction-message">
             <thead>
               <tr>
-                <th>쪽지번호</th>
-                <th>수발신 시간</th>
-                <th>읽은 시간</th>
-                <th>보낸 ID</th>
-                <th>받는 ID</th>
-                <th>제목</th>
-                <th>내용</th>
+                <th style="width:10% ">쪽지번호</th>
+                <th style="width:20% ">수신시간</th>
+                <th style="width:10% ">보낸 ID</th>
+                <th style="width:30% ">   제목   </th>
+                <th style="width:30% ">   내용   </th>
               </tr>
             </thead>
             <tbody>
@@ -1090,9 +1152,7 @@
                 <tr>
                   <td>${vs}</td>
                   <td>${me.me_time}</td>
-                  <td>${me.me_read_time}</td>
                   <td>${me.me_send_id}</td>
-                  <td>${me.me_receive_id}</td>
                   <td>${me.me_title}</td>
                   <td>${me.me_content}</td>
                 </tr>
@@ -1101,10 +1161,14 @@
           </table>
         </div>
       </div>
-    </div>	
+    </div>
+    	
+   
     ${lastAuctionRecord.getAr_next_bid_price()}
     ${sellerLikeState}
     ${productLikeState}
+    
+    
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
@@ -1326,136 +1390,137 @@
             alert("쪽지가 전송되었습니다.")
         })
     })
+     $(function(){
+        const modal1 = document.querySelector('.modal_layer6')
+        function modalOn() {
+        modal1.style.display = "flex"
+        }
+        function modalOff1() {
+        modal1.style.display = "none"
+        }
+        
+        const btnModal = document.getElementById("delivery_btn");
+        btnModal.addEventListener("click", e => {
+        	const bidder = document.getElementById("bidder").value;
+        	const user = '${user.getMe_id()}';
+        	console.log(bidder);
+        	console.log(user);
+        	if (bidder === user){
+        		modalOn();
+        	};
+        });
+        const closeBtn = modal1.querySelector("#modal_close_btn6")
+        closeBtn.addEventListener("click", e => {
+            modalOff1()
+        })
+        const closeBtn1 = modal1.querySelector("#modal_confirm_btn6")
+        closeBtn1.addEventListener("click", e => {
+            modalOff1()
+            alert("배송받을 주소록이 저장되었습니다.")
+        })
+    })
+    setInterval(() => {
+		$('#tabl1').load(location.href + ' #tabl1')
+	}, 1000);
+	setInterval(() => {
+		$('#tabl2').load(location.href + ' #tabl2')
+	}, 1000);
+	setInterval(() => {
+		$('#tabl3').load(location.href + ' #tabl3')
+	}, 1000);
+	setInterval(() => {
+		$('#tabl4').load(location.href + ' #tabl4')
+	}, 1000);
+	setInterval(() => {
+		$('#tabl5').load(location.href + ' #tabl5')
+	}, 1000);
+	setInterval(() => {
+		$('#tabl6').load(location.href + ' #tabl6')
+	}, 1000);
+	setInterval(() => {
+		$('#tabl7').load(location.href + ' #tabl7')
+	}, 1000);
     
-    $(function list(){ 
-    	
-	    	$.ajax({
-	    		url : '<c:url value="/ajaxData"></c:url>',
-	    		type : "get",
-	    		dataType : "text",
-	    		contentType: false,
-	    	    processData: false,
-	    		cache : false
-	        }).done(function(result) {
-	        	
-	        		
-	         		var html = $('#tabl1').html(result); //태그안에 이전내용을 지우고 새로운 것을 넣음 result 삽입
-	    			html.find("div#indexListAjax").html();//html태그를 포함하여 선택한 요소안의 내용을 가져옴 >>저장안해서 의미없음
-	    			
-	    			
-	    			var content = html.find("font#indexListAjax2").detach();//html에서 찾아낸 요소를 떼어내서 붙힘
-	    			$('#tabl2').html(content); 
-	    			
-	    			
-	    			var text = html.find("div#indexListAjax3").detach();
-	    			$('#tabl3').html(text);
-	    			
-	    			var text2 = html.find("div#indexListAjax4").detach();
-	    			//$('#tabl4').html(text2);
-	    			
-	    			var text3 = html.find("ul#indexListAjax5").detach();
-	    			$('#tabl5').html(text3);
-	    			
-	    			var text4 = html.find("ul#indexListAjax6").detach();
-	    			$('#tabl6').html(text4);
-	    			
-	    			var text5 = html.find("dl#indexListAjax7").detach();
-	    			$('#tabl7').html(text5);
-	    			
-	    	}).fail(function (jqXHR, textStatus, errorThrown) {
-	    		console.log("에러");
-	    		console.log(jqXHR);
-	    		console.log(textStatus);
-	    		console.log(errorThrown);
-	    	}).complete(function(){
-	    		setTimeout(list, 1000);
-	    	});
-    	});
-    $(function countDown() {
    
-    	let num =  $("#countDown").val(); //함수이름과 변수이름이 동일하면 변수이름지정 충돌이 생김 let countDown으로 설정시 에러남
-    	if(num > 0)
-    		$.ajax({
-    			type: 'POST',
-				url: '<c:url value="/countDown"></c:url>',
-				data: JSON.stringify(num),
-				dataType:"JSON",
-				contentType:"application/json; charset=UTF-8",
-				success: function(result){
-					let str= '';
-					str +=
-                    '<dl>'+
-                        '<dt>판매종료시간</dt>'+
-                        '<dd class="korEndTime" style="font-weight: bold; color: green;">'+
-                         	'입찰 시간은 '  + result.count + '에 종료됩니다.' +
-                        '</dd>'+
-                    '</dl>'
-					$('#tabl7').html(str);
-					$("#countDown").val(result.count);	
-				},
-				error : function () {
-					console.log("error");
-				}
-    		});
-    	else if(num == 0)
-    		$(function autctionEnd(){
-    		let str= '';
-			str +=
-            '<dl>'+
-                '<dt>판매종료시간</dt>'+
-                '<dd class="korEndTime" style="font-weight: bold; color: green;">'+
-                 	'경매가 종료되었습니다.' +
-                '</dd>'+
-            '</dl>'
-			$('#tabl7').html(str);
-    	});
-    });
     
+   
     $('#modal_confirm_btn1').click(function () {
-    	
-    	let price = $("#nextPrice").val();
-    	let num = $('#countDown').val();
-    	if(num != 0)
-    		$.ajax({
-    			type: 'POST',
-				url: '<c:url value="/auctionBid"></c:url>',
-				data: JSON.stringify(price),
-				dataType:"JSON",
-				contentType:"application/json; charset=UTF-8",
-				success: function(result){
-					if(result.res){
-						let str = '';
-						str += 
-							'<div class="modal_content1" id="indexListAjax4">'+
-							'회원님의 입찰신청 가격은 : ' + '$' + result.nextPrice +' 입니다.'+'<br>'+
-							'입찰하시겠습니까?'
-							+'</div>';
-							$('#tabl4').html(str);
-							$("#nextPrice").val(result.nextPrice);
-							$("#countDown").val(result.bidTimeReset);
-							alert("입찰하였습니다.");
-						}
-					else if(result.bidPossible == false){
-						alert("경매시작전 입니다.")
-					}
-					else {
-						alert("보유계좌에 잔액이 부족합니다.");
-						
-					}
-					
-				},
-				error : function () {
-					console.log("error");
-				}
-    		});
-    	if(num == 0)
-    		alert("종료된 경매이므로 입찰할 수 없습니다.")
-    });
+        var price =	$("#nextPrice").val();
+        var end  = $("#intEnd").val();
+        
+        	
+        var formData = {
+        	 value1 : price,
+        	 value2 : end
+        }
+        	
+        		$.ajax({
+        			type: 'POST',
+    				url: '<c:url value="/auctionBid"></c:url>',
+    				data: JSON.stringify(formData), //두개이상보낼때는 json.stringify제거
+    				dataType:"JSON",
+    				contentType:"application/json; charset=UTF-8",
+    				success: function(result){
+    					if(result.res == true){
+    						alert("입찰신청 가격으로 입찰하였습니다.");
+    						$("#nextPrice").val(result.nextPrice);
+    						$("#intEnd").val(result.intEnd);
+    						$("#bidder").val(result.bidder);	
+    						//location.reload() //새로고침 코드
+    						}
+    					else if(result.bidPossible == false){
+    						alert("경매시작전 입니다.")
+    					}
+    					else if(result.res == false) {
+    						alert("보유계좌에 잔액이 부족합니다.");
+    					}
+    					else if(result.auctionEnd == true){
+    						let str = '';
+    						str += 
+    						'<div id="">'+
+    	                        '<dl>'+
+    		                        '<dt>'+'입찰가능시간'+'</dt>'+
+    		                        '<dd class="korEndTime" style="font-weight: bold; color: green;">'+
+    		                        	'경매가 종료되었습니다.'+
+    		                        '</dd>'+
+    	                    	'</dl>'+
+                			'</div>'
+    	                  	$('#tabl8').html(str);
+    	                  	$('#delivery_btn').css("display", "inline-block");
+    	                  	$('#modal_open_btn1').css("display", "none");
+                			
+                			alert("종료된 경매입니다.");
+    					}
+    					else if(result.already == true){
+    						let str = '';
+    						str += 
+    						'<div id="">'+
+    	                        '<dl>'+
+    		                        '<dt>'+'입찰가능시간'+'</dt>'+
+    		                        '<dd class="korEndTime" style="font-weight: bold; color: green;">'+
+    		                         	'이미 종료된 경매입니다.'+
+    		                        '</dd>'+
+    	                    	'</dl>'+
+                			'</div>'
+    	                  	$('#tabl8').html(str);
+    	                  	$('#modal_open_btn1').css("display", "none");
+                			alert("이미 종료된 경매입니다.");
+    					} 
+    				},
+    				error : function () {
+    					console.log("error");
+    				}
+        		});
+        });
     $('#modal_double_btn1').click(function () {
+    var price =	$("#nextPrice").val() * 2;
+    var end  = $("#intEnd").val();
+    
     	
-    	var formData = new FormData();
-    	formData.append('price', $("#nextPrice").val() * 2);
-    	formData.append('count', $("#countDown").val());
+    var formData = {
+    	 value1 : price,
+    	 value2 : end
+    }
     	
     		$.ajax({
     			type: 'POST',
@@ -1464,26 +1529,50 @@
 				dataType:"JSON",
 				contentType:"application/json; charset=UTF-8",
 				success: function(result){
-					if(result.res){
-						alert("현재입찰가의 2배로 입찰하였습니다.")
-						let str = '';
-						str += 
-							'<div class="modal_content1" id="indexListAjax4">'+
-							'회원님의 입찰신청 가격은 : ' + '$' + result.nextPrice +' 입니다.'+'<br>'+
-							'입찰하시겠습니까?'
-							+'</div>';
-							$('#tabl4').html(str);
-							$("#nextPrice").val(result.nextPrice);
-							$("#countDown").val(result.bidTimeReset);
+					if(result.res == true){
+						alert("입찰신청 가격의 2배로 입찰하였습니다.");
+						$("#nextPrice").val(result.nextPrice);
+						$("#intEnd").val(result.intEnd);
+						$("#bidder").val(result.bidder);	
 						//location.reload() //새로고침 코드
 						}
 					else if(result.bidPossible == false){
 						alert("경매시작전 입니다.")
 					}
-					else {
+					else if(result.res == false) {
 						alert("보유계좌에 잔액이 부족합니다.");
-						
 					}
+					else if(result.auctionEnd == true){
+						let str = '';
+						str += 
+						'<div id="">'+
+	                        '<dl>'+
+		                        '<dt>'+'입찰가능시간'+'</dt>'+
+		                        '<dd class="korEndTime" style="font-weight: bold; color: green;">'+
+		                         	'경매가 종료되었습니다.'+
+		                        '</dd>'+
+	                    	'</dl>'+
+            			'</div>'
+		                  $('#tabl8').html(str);
+		                  $('#delivery_btn').css("display", "inline-block");
+		                  $('#modal_open_btn1').css("display", "none");
+            			alert("종료된 경매입니다.");
+					}
+					else if(result.already == true){
+						let str = '';
+						str += 
+						'<div id="">'+
+	                        '<dl>'+
+		                        '<dt>'+'입찰가능시간'+'</dt>'+
+		                        '<dd class="korEndTime" style="font-weight: bold; color: green;">'+
+		                         	'이미 종료된 경매입니다.'+
+		                        '</dd>'+
+	                    	'</dl>'+
+            			'</div>'
+		                  $('#tabl8').html(str);
+		                  $('#modal_open_btn1').css("display", "none");
+            			alert("이미 종료된 경매입니다.");
+					} 
 					
 				},
 				error : function () {
@@ -1539,6 +1628,9 @@
 				}
     		});
     });
+    $('#message_send').click(function () {
+    	$('#messageinput').val('');
+    });
     </script>
     <script type="text/javascript">
     var popup = document.getElementById("myPopup");
@@ -1569,40 +1661,58 @@
       document.removeEventListener("mouseup", releasePopup);
     }
     </script>
-<script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
-<script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-<script src="<c:url value='/resources/js/jquery-ui.min.js'></c:url>"></script>
-<script>
-	$('.message').validate({
-		rules:{
-			me_title : {
-				required : true,
-				regex : /^[a-zA-Z][a-zA-Z0-9!@#$]{4,12}$/
-			},
-			me_content : {
-				required : true,
-				regex : /^[a-zA-Z][a-zA-Z0-9!@#$]{4,12}$/
-			}
-		},
-		messages:{
-			me_title : {
-				required : '필수 항목입니다.',
-				regex : '아이디는 영문자로 시작하며, 영문,숫자,!@#$를 이용하여 5~13까지 가능합니다.'
-			},
-			me_content : {
-				required : '필수 항목입니다.',
-				regex : '비번은 영문,숫자,!@#$를 이용하여 8~20까지 가능합니다.'
-			}
-		}
-	});
-	$.validator.addMethod(
-		"regex",
-		function(value, element, regexp) {
-			var re = new RegExp(regexp);
-			return this.optional(element) || re.test(value);
-		},
-		"Please check your input."
-	);
-</script>
+    <script type="text/javascript">
+       
+      	var ws;
+        var messages = document.getElementById("messages");
+        
+        function openSocket(){
+            if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
+                writeResponse("WebSocket is already opened.");
+                console.log();
+                console.log();
+                return;
+            }
+            //웹소켓 객체 만드는 코드 - 서버의 @OnOpen을 실행시킴
+            ws = new WebSocket("ws://localhost:8080/onairauction/echo.do/${chattingChannel}/${userId}");
+            
+            ws.onopen = function(event){
+                if(event.data === undefined){
+              		return;
+                }
+                writeResponse(event.data);
+            };
+            
+            ws.onmessage = function(event){ 
+                console.log('writeResponse');
+                console.log(event.data)
+                writeResponse(event.data);
+                console.log();
+            };
+            
+            ws.onclose = function(event){
+                writeResponse("대화 종료");
+            }
+            
+        }
+        
+        function send(){ 
+            var text = document.getElementById("messageinput").value+","+document.getElementById("sender").value+","+document.getElementById("room").value;
+            ws.send(text);
+            console.log(text);
+            text = "";
+        }
+        
+        function closeSocket(){
+            ws.close();
+        }
+        
+        function writeResponse(text){
+            messages.innerHTML += "<br>"+text;
+        }
+
+        
+  </script>
+
 </body>
 </html>

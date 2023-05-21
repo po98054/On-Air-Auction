@@ -12,35 +12,35 @@
 	  	insert into message(me_title, me_content, me_time, me_send_id, me_receive_id)
 	  		values(#{m.me_title},#{m.me_content}, now(), #{m.me_send_id}, #{m.me_receive_id})
   	</insert>
-  	<select id="selectAuctionRecord" resultType="kr.kh.onairauction.vo2.AuctionRecordVO">
+  	<select id="selectAuctionRecord" resultType="kr.kh.onairauction.vo.AuctionRecordVO">
 	  	select * from auction_record where ar_au_num = #{auctionNum}
   	</select>
-  	<select id="selectReportCategory" resultType="kr.kh.onairauction.vo2.ReportCategoryVO">
+  	<select id="selectReportCategory" resultType="kr.kh.onairauction.vo.ReportCategoryVO">
 	  	select * from report_category
   	</select>
-  	<select id="selectMember" resultType="kr.kh.onairauction.vo2.MemberVO">
+  	<select id="selectMember" resultType="kr.kh.onairauction.vo.MemberVO">
   		select * from member where me_id = #{id}  <!-- 나중에 삭제 -->
   	</select>
-  	<select id="selectSeller" resultType="kr.kh.onairauction.vo2.MemberVO">
+  	<select id="selectSeller" resultType="kr.kh.onairauction.vo.MemberVO">
   		select * from member where me_id = #{sellerId}
   	</select>
-  	<select id="selectProduct" resultType="kr.kh.onairauction.vo2.ProductVO">
+  	<select id="selectProduct" resultType="kr.kh.onairauction.vo.ProductVO">
   		select * from product where pr_code = #{productCode}
   	</select>
-  	<select id="selectMembership" resultType="kr.kh.onairauction.vo2.MembershipLevelVO">
+  	<select id="selectMembership" resultType="kr.kh.onairauction.vo.MembershipLevelVO">
   		select * from membership_level where  ml_name = #{levelName}
   	</select>
-  	<select id="selectAccount" resultType="kr.kh.onairauction.vo2.VirtualAccountVO">
+  	<select id="selectAccount" resultType="kr.kh.onairauction.vo.VirtualAccountVO">
   		select * from virtual_account where  va_me_id = #{id}
   	</select>
   	<insert id="insertAuctionRecord">
 	  	insert into auction_record(ar_bid_time, ar_bid_price, ar_me_id, ar_au_num)
 	  		values(now(), #{p}, #{i}, #{n})
   	</insert>
-  	<select id="selectAuction" resultType="kr.kh.onairauction.vo2.AuctionVO">
-  		select * from auction where au_me_id = #{id} <!-- 나중에 삭제 -->
+  	<select id="selectAuction" resultType="kr.kh.onairauction.vo.AuctionVO">
+  		select * from auction where au_num = #{num} <!-- 나중에 삭제 -->
   	</select>
-  	<select id="selectSellerLike" resultType="kr.kh.onairauction.vo2.SellerLikeVO">
+  	<select id="selectSellerLike" resultType="kr.kh.onairauction.vo.SellerLikeVO">
   		select * from seller_like where sl_me_id = #{userId} and sl_seller_id = #{sellerId}
   	</select>
   	<insert id="insertSellerLike">
@@ -54,7 +54,7 @@
   			where
   				sl_me_id = #{s.sl_me_id} and sl_seller_id = #{s.sl_seller_id}
   	</update>
-  	<select id="selectProductLike" resultType="kr.kh.onairauction.vo2.ProductLikeVO">
+  	<select id="selectProductLike" resultType="kr.kh.onairauction.vo.ProductLikeVO">
   		select * from product_like where pl_pr_code = #{productCode} and pl_me_id = #{userId}
   	</select>
   	<insert id="insertProductLike">
@@ -68,5 +68,59 @@
   			where
   				pl_pr_code = #{p.pl_pr_code} and pl_me_id = #{p.pl_me_id}
   	</update>
+  	<insert id="insertAuctionRecord2">
+	  	insert into auction_record(ar_bid_time, ar_bid_price, ar_me_id, ar_au_num)
+	  		values(#{date}, #{price}, #{id}, #{num})
+  	</insert>
+  	<update id="updateAuction">
+  		update auction
+  			set
+  				au_final_date = now()
+  			where
+  				au_num = #{a.au_num}
+  	</update>
+  	<update id="updateProduct">
+  		update product
+  			set
+  				pr_state = "경매종료"
+  			where
+  				pr_code = #{p.pr_code}
+  	</update>
+  	<select id="selectBoardList" resultType="kr.kh.onairauction.vo.BoardListVO">
+	  	select * from board_list where bl_me_id = #{me_id}
+  	</select>
+  	<insert id="insertWithdraw">
+	  	insert into withdraw(wi_amount, wi_withdraw_date, wi_withdraw_reason, wi_va_me_id)
+	  		values(#{s}, now(), "경매대금 결제", #{b})
+  	</insert>
+  	<update id="updateVirtualAccount">
+  		update virtual_account
+  			set
+  				va_holding_amount = #{a}
+  			where
+  				va_me_id = #{b}
+  	</update>
+  	<insert id="insertOrder">
+	  	insert into auction_order(ao_me_id, ao_au_num)
+	  		values(#{a}, #{n})
+  	</insert>
+  	<select id="selectOrder" resultType="kr.kh.onairauction.vo.AuctionOrderVO">
+	  	select * from auction_order where ao_au_num = #{num}
+  	</select>
+  	<insert id="insertDelivery">
+	  	insert into delivery(de_start_date, de_complete_date, de_ao_num, de_bl_num)
+	  		values(DATE_ADD(NOW(), INTERVAL 3 DAY), DATE_ADD(NOW(), INTERVAL 10 DAY),#{a}, #{b})
+  	</insert>
+  	<select id="selectChatting" resultType="kr.kh.onairauction.vo.ChattingVO">
+  		select * from chatting where  ch_au_num = #{au_num}
+  	</select>
+  	<insert id="insertChatting">
+	  	insert into chatting(ch_au_num)
+	  		values(#{au_num})
+  	</insert>
+  	<insert id="insertChattingRecord">
+	  	insert into chatting_record(cr_content, cr_time, cr_me_id, cr_ch_num)
+	  		values(#{m}, now(), #{s}, #{r})
+  	</insert>
   	
 </mapper>

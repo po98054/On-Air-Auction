@@ -42,9 +42,9 @@
   	</ul>
   	
   	<dl id="indexListAjax7">
-      <dt>판매종료시간</dt>
+      <dt>입찰가능시간</dt>
       <dd class="korEndTime" style="font-weight: bold; color: green;">
-       	경매가 종료되었습니다.
+       	입찰시간은 ${endTime}에 종료됩니다.
       </dd>
     </dl>
   	
