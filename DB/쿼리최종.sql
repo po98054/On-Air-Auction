@@ -10,19 +10,21 @@ CREATE TABLE `member` (
 	`me_id`	varchar(20)	NOT NULL,
 	`me_pw`	varchar(255) NOT NULL,
 	`me_email`	varchar(50) NOT NULL,
-    `me_post_num` varchar(70) NOT NULL,
-    `me_road_name` varchar(70) NOT NULL,
-    `me_detail_address` varchar(70) NOT NULL,
+    	`me_post_num` varchar(70) NOT NULL,
+    	`me_road_name` varchar(70) NOT NULL,
+    	`me_detail_address` varchar(70) NOT NULL,
 	`me_phone`	varchar(20)	NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
 	`me_birth`	date NOT NULL,
 	`me_certification`	int default 0 NULL,
 	`me_authority`	int default 0 NULL,
 	`me_account`	varchar(30)	NULL,
+    	`me_complation_number` int default 0 NULL,
+    	`me_reported_number` int default 0 NULL,
 	`me_join_time`	datetime	NULL,
 	`me_region`	varchar(100)	NULL,
 	`me_customer_certification`	varchar(20)	NULL,
-	`me_session_id`	varchar(30)	NULL,
+	`me_session_id`	varchar(255)	NULL,
 	`me_session_limit`	datetime	NULL,
 	`me_ml_name`	varchar(20)	 NULL
 );
@@ -54,7 +56,7 @@ CREATE TABLE `auction` (
 	`au_calculation`	int	NOT NULL,
 	`au_limit_bid_time`	int default 0	NULL,
 	`au_start_date`	datetime NOT NULL,
-	`au_final_date`	datetime  NULL,
+	`au_final_date`	datetime NULL,
 	`au_extension`	int default 0	NULL,
 	`au_faild`	int default 0	NULL,
 	`au_immediate`	int	NULL,
@@ -138,7 +140,7 @@ CREATE TABLE `delivery` (
 	`de_state`	varchar(20)	default '배송전' NULL,
 	`de_start_date`	datetime NOT NULL,
 	`de_complete_date`	datetime NOT NULL,
-	`de_or_num`	int	NOT NULL,
+	`de_ao_num`	int	NOT NULL,
 	`de_bl_num`	int	NOT NULL
 );
 
@@ -190,12 +192,12 @@ CREATE TABLE `chatting_record` (
 	`cr_ch_num`	int	NOT NULL
 );
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `auction_order`;
 
-CREATE TABLE `order` (
-	`or_num`	int auto_increment	NOT NULL primary key,
-	`or_me_id`	varchar(20)	NOT NULL,
-	`or_au_num`	int	NOT NULL
+CREATE TABLE `auction_order` (
+	`ao_num`	int auto_increment	NOT NULL primary key,
+	`ao_me_id`	varchar(20)	NOT NULL,
+	`ao_au_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `refund`;
@@ -206,7 +208,7 @@ CREATE TABLE `refund` (
 	`re_reason`	longtext NOT NULL,
 	`re_confirm_date`	datetime	NULL,
 	`re_progress`	varchar(20) default '심사중' NULL,
-	`re_or_num`	int	NOT NULL
+	`re_ao_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `auction_cancel`;
@@ -233,7 +235,7 @@ CREATE TABLE `report` (
 	`re_date`	datetime NOT NULL,
 	`re_result`	varchar(10) default '처리전'	NULL,
 	`re_report_id`	varchar(20)	NULL,
-	`re_report_product`	int	NULL,
+	`re_report_product`	varchar(50)	NULL,
 	`re_me_id`	varchar(20)	NOT NULL,
 	`re_rc_num`	int	NOT NULL
 );
@@ -302,8 +304,7 @@ DROP TABLE IF EXISTS `rating_standard`;
 
 CREATE TABLE `rating_standard` (
 	`rs_ml_name`	varchar(20)	NOT NULL,
-	`rs_complation_number`	int default 0	NULL,
-	`rs_report_number`	int default 0	NULL
+	`rs_standard_condition`	varchar(100) NOT NULL
 );
 
 DROP TABLE IF EXISTS `board_list`;
@@ -312,8 +313,8 @@ CREATE TABLE `board_list` (
 	`bl_num`	int auto_increment	NOT NULL primary key,
 	`bl_name`	varchar(30)	NOT NULL,
 	`bl_post_num` varchar(70) NOT NULL,
-    `bl_road_name` varchar(70) NOT NULL,
-    `bl_detail_address` varchar(70) NOT NULL,
+    	`bl_road_name` varchar(70) NOT NULL,
+    	`bl_detail_address` varchar(70) NOT NULL,
 	`bl_me_id`	varchar(20)	NOT NULL
 );
 
@@ -341,7 +342,7 @@ CREATE TABLE `withdraw` (
 	`wi_amount`	int NOT NULL,
 	`wi_withdraw_date`	datetime NOT NULL,
 	`wi_withdraw_reason`	varchar(50) NOT NULL,
-    `wi_va_me_id`	varchar(20)	NOT NULL
+    	`wi_va_me_id`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `message`;
@@ -364,18 +365,11 @@ CREATE TABLE `certification` (
 	`ce_time`	datetime	NULL
 );
 
-DROP TABLE IF EXISTS `message_box`;
-
-CREATE TABLE `message_box` (
-	`mb_me_id`	varchar(20)	NOT NULL,
-	`mb_me_num`	int	NOT NULL
-);
-
 DROP TABLE IF EXISTS `chatting_attend`;
 
 CREATE TABLE `chatting_attend` (
 	`ca_ch_num`	int	NOT NULL,
-    `ca_me_id`	varchar(20)	NOT NULL
+    	`ca_me_id`	varchar(20)	NOT NULL
 );
 
 ALTER TABLE `member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
@@ -511,11 +505,11 @@ REFERENCES `product_small_category` (
 	`psc_num`
 );
 
-ALTER TABLE `delivery` ADD CONSTRAINT `FK_order_TO_delivery_1` FOREIGN KEY (
-	`de_or_num`
+ALTER TABLE `delivery` ADD CONSTRAINT `FK_auction_order_TO_delivery_1` FOREIGN KEY (
+	`de_ao_num`
 )
-REFERENCES `order` (
-	`or_num`
+REFERENCES `auction_order` (
+	`ao_num`
 );
 
 ALTER TABLE `delivery` ADD CONSTRAINT `FK_board_list_TO_delivery_1` FOREIGN KEY (
@@ -574,25 +568,25 @@ REFERENCES `chatting` (
 	`ch_num`
 );
 
-ALTER TABLE `order` ADD CONSTRAINT `FK_member_TO_order_1` FOREIGN KEY (
-	`or_me_id`
+ALTER TABLE `auction_order` ADD CONSTRAINT `FK_member_TO_auction_order_1` FOREIGN KEY (
+	`ao_me_id`
 )
 REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `order` ADD CONSTRAINT `FK_auction_TO_order_1` FOREIGN KEY (
-	`or_au_num`
+ALTER TABLE `auction_order` ADD CONSTRAINT `FK_auction_TO_auction_order_1` FOREIGN KEY (
+	`ao_au_num`
 )
 REFERENCES `auction` (
 	`au_num`
 );
 
-ALTER TABLE `refund` ADD CONSTRAINT `FK_order_TO_refund_1` FOREIGN KEY (
-	`re_or_num`
+ALTER TABLE `refund` ADD CONSTRAINT `FK_auction_order_TO_refund_1` FOREIGN KEY (
+	`re_ao_num`
 )
-REFERENCES `order` (
-	`or_num`
+REFERENCES `auction_order` (
+	`ao_num`
 );
 
 ALTER TABLE `auction_cancel` ADD CONSTRAINT `FK_auction_TO_auction_cancel_1` FOREIGN KEY (
@@ -708,19 +702,6 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `message_box` ADD CONSTRAINT `FK_member_TO_message_box_1` FOREIGN KEY (
-	`mb_me_id`
-)
-REFERENCES `member` (
-	`me_id`
-);
-
-ALTER TABLE `message_box` ADD CONSTRAINT `FK_message_TO_message_box_1` FOREIGN KEY (
-	`mb_me_num`
-)
-REFERENCES `message` (
-	`me_num`
-);
 
 ALTER TABLE `chatting_attend` ADD CONSTRAINT `FK_chatting_TO_chatting_attend_1` FOREIGN KEY (
 	`ca_ch_num`
