@@ -92,7 +92,6 @@
   display: flex; align-items: center; justify-content: center;
 }
 .item-thumnail .zoo-img{
-  background-image: url(https://i.ebayimg.com/00/s/MTQ5NVgxNjAw/z/lOIAAOSw7npiMlXw/$_57.JPG?set_id=880000500F);
   cursor: pointer; 
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
   background-repeat: no-repeat; background-position: center;
@@ -120,7 +119,7 @@
   padding: 0; z-index: 1;
 }
 .thumnail-swiper-wrapper{
-  transition-duration: 0ms; transform: translate3d(15px, 0px, 0px);
+  transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);
   position: absolute; top: 0; left: 0; text-align: center;
   margin: 0 auto; width: 100%; height: 100%; z-index: 1;
   display: flex; box-sizing: content-box;
@@ -137,7 +136,7 @@
   background-position: left top; background-size: 85px 85px; cursor: pointer;
 }
 .swiper-slide-img img.selected{
-  border: 2px solid #ca6565;
+  border: 3px solid #ca6565;
 }
 .control-wrap button{
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -195,6 +194,7 @@
 .info-step01 .product-id .product-copy{
   margin-right: 5px; text-decoration: underline; color: #000;
   text-decoration-color: cornflowerblue; text-decoration-style: dotted;
+  text-underline-position:under;
 }
 .info-step01 .product-id .copy-icon{
   width: 16px; height: 20px; margin-left: 5px;
@@ -429,6 +429,19 @@
   background-position: -257px 0; height: 25px;
 }
 /* store-info-area 끝 */
+/* product-img-area 시작 */
+.product-img-area{
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+}
+.product-img-area img:first-child {
+  margin-top: 10px;
+}
+.product-img-area img{
+  margin-bottom: 5px;
+}
+
+/* product-img-area 끝*/
 /* simple-layout-right 끝 */
 .product-tab-wrap{
   font-family: Arial, Helvetica, sans-serif;
@@ -451,7 +464,7 @@
   border-bottom: 0; border-top: 2px solid #000;
   width: 33%; display: inline-block;
   text-align: center; height: 54px; line-height: 54px;
-  border-right: 1px solid #dfdfdf;
+  border-right: 1px solid #707070;
   border-bottom: 1px solid #707070;
 }
 .tab-area a{
@@ -469,6 +482,7 @@
   border-bottom: 0; 
 }
 
+<%--
 .product-img01{
   width: inherit; max-width: 100%; height: auto; vertical-align: top;
   border-style: none; padding-top: 40px 
@@ -477,6 +491,7 @@
   width: inherit; max-width: 100%; height: auto; vertical-align: top;
   border-style: none; padding-bottom: 70px;
 }
+--%>
 
 .product-review-area{
   display: table; table-layout: fixed; width: 100%;
@@ -596,15 +611,6 @@
   text-align: center; vertical-align: middle;
 }
 
-.review-layout-right .photo-review{
-  text-align: center; 
-}
-.review-layout-right .thumnail{
-  width: 80px; height: 80px; display: inline-block;
-}
-.review-layout-right .photo-review img{
-  width: 80px; height: 80px; border-radius: 2px; outline: none;
-}
 
 
 
@@ -630,7 +636,7 @@
   text-align: left;
 }
 .review-layout-right .coment-title{
-  padding-right: 21px;
+  padding-right: 21px; text-decoration: none;
 }
 .review-layout-right .box-coment strong{
   margin-bottom: 3px; display: inline-block; width: 100%; font-weight: bold;
@@ -677,11 +683,17 @@
   padding: 7px 20px 7px 20px; border: 1px solid #9ba0a8; border-radius: 2px;
   line-height: 30px; height: 30px; 
   font-size: 13px; font-weight: bold; color: #fff;
-  background: #a4a9b0; text-align: center; margin-left: 12px;
+  background: #5d5b5b; text-align: center; margin-left: 12px; margin-right: 9px;
+  cursor: pointer;
+}
+.product-qna-area .qna-layout-right a:hover{
+  background: #a4a9b0;
+  
 }
 .product-qna-area table{
   table-layout: fixed; width: 100%; border-collapse: collapse;
   border-top: 1px solid #a4a9b0; border-bottom: 1px solid #ececec;
+  margin-bottom: 10px;
 }
 .product-qna-area thead{
   display: table-header-group; vertical-align: middle; border-color: inherit;
@@ -735,8 +747,8 @@
   width: 50px; height: 50px; border-radius: 100%;
   text-align: center; line-height: 50px;
   text-decoration: none; font-size: 25px;
-  background-color: #fff; cursor: pointer;
-  color: black; opacity: 85%;
+  background-color: #000; cursor: pointer;
+  color: #fff; opacity: 70%;
   text-decoration: none;
 }
 /* 페이지 상단으로 이동하기 구현 끝 */
@@ -893,7 +905,7 @@
   margin-top: 15px; background-color: #38a000;
   color: #fff; border-radius: 6px; display: block;
   font-size: 15px; height: 62px; width: 100%; line-height: 62px;
-  text-align: center;
+  text-align: center; 
 }
 #imme-modal .imme-content .btn-area{
   clear: both;
@@ -911,7 +923,7 @@
   color: #fff; border-radius: 6px;
   display: block; font-size: 15px; 
   height: 62px; width: 100%; line-height: 62px;
-  text-align: center;
+  text-align: center; text-decoration: none;
 }
 /* 즉시 구매 입찰하기 모달창 끝 */
 /* 입찰하기 모달창 시작 */
@@ -951,10 +963,11 @@
 }
 #bid-modal .bid-content dt{
   display: inline-block; line-height: 26px; font-size: 15px;
+  margin-left: 15px;
 }
 #bid-modal .bid-content dd{
   text-align: right; float: right; width: 330px;
-  line-height: 26px; font-weight: 600;
+  line-height: 26px; font-weight: 600; margin-right: 30px;
 }
 #bid-modal .bid-content input{
   text-align: right;
@@ -991,7 +1004,7 @@
   color: #fff; border-radius: 6px;
   display: block; font-size: 15px; 
   height: 62px; width: 100%; line-height: 62px;
-  text-align: center;
+  text-align: center; text-decoration: none;
 }
 
 
@@ -1061,10 +1074,10 @@
   padding-left: 1px; font-size: 14px;
 }
 #qna-modal .bottom-btns{
-  margin-top: 15px; text-align: center;
+  margin-top: 15px; text-align: center; cursor: pointer;
 }
 #qna-modal .bottom-btns a{
-  display: inline-block; width: 50px; height: 30px;
+  width: 50px; height: 30px;
 }
 #qna-modal .bottom-btns span{
   display: inline-block; vertical-align: middle;
@@ -1144,24 +1157,11 @@
             </div> 
             <div class="mini-thumnail">
               <div class="thumnail-swiper-wrapper">
-                <div class="swiper-slide-img">
-                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/MiQAAOSwv41ix2EB/$_0.JPG?set_id=880000500F" class="thumbnail">
-                </div>
-                <div class="swiper-slide-img">
-                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/SAgAAOSwVOpix2EB/$_0.JPG?set_id=880000500F" class="thumbnail">
-                </div>
-                <div class="swiper-slide-img">
-                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/MiQAAOSwv41ix2EB/$_0.JPG?set_id=880000500F" class="thumbnail">
-                </div>
-                <div class="swiper-slide-img">
-                  <img src="https://i.ebayimg.com/00/s/MTQwMFgxNDAw/z/QcsAAOSw6TVix2EC/$_0.JPG?set_id=880000500F" class="thumbnail">
-                </div>
-                <div class="swiper-slide-img">
-                  <img src="https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/awAAAOSwlptix2EB/$_0.JPG?set_id=880000500F" class="thumbnail">
-                </div>
-                <div class="swiper-slide-img">
-                  <img src="https://i.ebayimg.com/00/s/MTMwMFgxMzAw/z/8o0AAOSwA5Fix2EB/$_0.JPG?set_id=880000500F" class="thumbnail">
-                </div>
+                <c:forEach items="${prodFile}" var="prodFile">
+                  <div class="swiper-slide-img">
+					<img src="<c:url value="/file${prodFile.fi_save_name}"></c:url>" class="thumbnail" height="400" width="600">
+                  </div>
+			    </c:forEach>
               </div>
               <div class="control-wrap">
                 <div class="swiper-control">
@@ -1217,8 +1217,7 @@
                       입찰수
                     </dt>
                     <dd class="bid-count">
-                      
-                      회
+                     ${lastAuctionRecord.getAr_num()} 회
                     </dd>
                   </dl>
                 </li>
@@ -1230,10 +1229,12 @@
                     <dd>
                     	<a id="countDday"></a>
                     	<span id="dday">( ${auction.au_final_date} )</span>
+                      	<!-- 
                       	<button class="btn-deadline" id="btn-modal-deadline_open">
                         	<i class="deadline-icon"></i>
                         	마감연장
                       	</button>
+                      	 -->
                      	 <button class="btn-bidlist" id="btn-modal-bidlist_open">
 	                       	 <i class="bidlist-icon"></i>
 	                        	경매기록보기 >
@@ -1246,7 +1247,7 @@
             <!-- 마감연장 모달창 시작 -->
             <div id="deadline-modal">
                <div class="deadline-content">
-                <button type="button" id="btn-modal-deadline-close" class="btn-close">X</button> 
+                <button type="button" id="btn-modal-deadline_close" class="btn-close">X</button> 
                 <h3>마감연장 창</h3>
                 <span>판매종료시간</span>
                 <span>${auction.au_final_date}</span>
@@ -1291,11 +1292,11 @@
                       <th>입찰일자</th>
                       <th>입찰가격</th>
                     </tr>
-                 	<c:forEach items="${list }" var="auRecord">
+                 	<c:forEach items="${auctionRecord }" var="ar">
                       <tr>
-                        <td>${auctionRecord.ar_me_id}</td>
-                        <td>${auctionRecord.ar_bid_time}</td>
-                        <td>${auctionRecord.ar_bid_price}</td>
+                        <td>${ar.ar_me_id}</td>
+                        <td>${ar.ar_bid_time}</td>
+                        <td><fmt:formatNumber value="${ar.ar_bid_price}" type="currency" currencySymbol="$" /></td>
                       </tr>
                     </c:forEach>
                   </table>
@@ -1320,7 +1321,7 @@
                   <dl>
                     <dt>현재가</dt>
                     <dd class="current-price">
-						<fmt:formatNumber value="${auRecord.getAr_bid_price()}" type="currency" currencySymbol="$" />                    
+						<fmt:formatNumber value="${lastAuctionRecord.getAr_bid_price()}" type="currency" currencySymbol="$" />                    
                     </dd>
                   </dl>
                 </li>
@@ -1329,11 +1330,7 @@
             <!-- info-step02 끝--> 
             <!-- product-info-btn-area 시작--> 
             <div class="product-info-btn-area">
-           	  <!-- 
-              <button class="btn-imme" id="btn-modal-imme_open" onclick="btnImme()">즉시 구매하기
-              </button>
-           	   -->
-           	  <button class="btn-imme" id="btn-modal-imme_open" onclick="btnImme()'">즉시 구매
+           	  <button class="btn-imme" id="btn-modal-imme_open" onclick="btnImme()">즉시 구매
                 <span class="imme-icon"></span>
            	  </button>
               <button class="btn-bid" id="btn-modal-bid_open" onclick="btnBid()">입찰하기
@@ -1353,24 +1350,14 @@
                     <dl>
                       <dt>즉시구매 희망가</dt>
                       <dd>
+                        <b>$</b>
                         <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                        <b>원</b>
                       </dd>
                     </dl>
                   </li>
                 </ul>
                 <div class="imme-btn">
-                  <a onclick="immeSuccess();">입찰하기</a>
-                </div>
-                <div class="btn-area">
-                  <ul>
-                    <li>
-                      <a href="http://es.auction.co.kr/cs/faq/view/82" onclick="popup_close();" target="_blank">경매보증금안내</a>
-                    </li>
-                    <li>
-                      <a href="http://es.auction.co.kr/my/assets?tabCode=deposit" onclick="popup_close();" target="_blank">보증금충전</a>
-                    </li>
-                  </ul>
+                  <a id="immeConfirm" onclick="immeSuccess();">즉시 구매하기</a>
                 </div>
               </div>
             </div>
@@ -1387,9 +1374,7 @@
                   <li>
                     <dl>
                       <dt>현재 입찰가</dt>
-                      <dd>
-                      	$ <input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_bid_price() }">
-                      </dd>
+                      <dd id="currentPrice"> $ ${lastAuctionRecord.getAr_bid_price() }</dd>
                     </dl>
                   </li>
                 </ul>
@@ -1397,18 +1382,9 @@
                   <div class="question">
                   	입찰 신청 가격은 $ ${lastAuctionRecord.getAr_next_bid_price()} 입니다. 입찰하시겠습니까?
                   </div>
-                  <a id="bidConfirm" onclick="bidConfirm();">입찰하기</a>
+                  <input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_next_bid_price()}">
+                  <a id="bid-confirm" onclick="bidConfirm();">입찰하기</a>
                   <div class="label">경매 입찰에 성공할 경우 낙찰된 상품은 반드시 구매해 주셔야 합니다.</div>
-                </div>
-                <div class="btn-area">
-                  <ul>
-                    <li>
-                      <a href="http://es.auction.co.kr/cs/faq/view/82" onclick="popup_close();" target="_blank">경매보증금안내</a>
-                    </li>
-                    <li>
-                      <a href="http://es.auction.co.kr/my/assets?tabCode=deposit" onclick="popup_close();" target="_blank">보증금충전</a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
@@ -1434,7 +1410,7 @@
                 판매자 찜
                 <span class="store-favorite-icon" id="btnStoreLike"></span>
               </a>
-              <a href="javascript:void(0)" class="btn-store-more" onclick="btnStoreMore()">
+              <a href="<c:url value='/like/seller'></c:url>" class="btn-store-more" onclick="btnStoreMore()">
                 판매자 상품보기
                 <span class="store-icon"></span>
               </a>
@@ -1450,7 +1426,7 @@
         <div class="tab-area">
           <ul>
             <li>
-              <a class="tab" id="btn-tab-product" data-target="#tab1" >상품설명</a></li>
+              <a class="tab" id="btn-tab-product" data-target="#tab1" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">상품설명</a></li>
             <li>
               <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
             <li>
@@ -1459,8 +1435,9 @@
         </div>
         <!-- 상품 설명 시작 -->
         <div class="product-img-area" id="tab1">
-          <img src="https://www.lge.co.kr/kr/images/monitors/md08922028/usp/usp_0101.jpg" alt="" class="product-img01">
-          <img src="https://www.lge.co.kr/kr/images/monitors/md08922028/usp/usp_0201.jpg" alt="" class="product-img02">
+	        <c:forEach items="${prodFile}" var="prodFile">
+				<img src="<c:url value="/file${prodFile.fi_save_name}"></c:url>" height="400" width="600">
+			</c:forEach>
         </div>
         <!-- 상품 설명 끝 -->
         <!-- 구매 후기 시작 -->
@@ -1469,7 +1446,7 @@
             <li>
               <a class="tab" id="btn-tab-product" data-target="#tab1">상품설명</a></li>
             <li>
-              <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">구매후기</a></li>
             <li>
               <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
           </ul>
@@ -1495,119 +1472,47 @@
             <table class="feedback-table">
               <div class="review-area">
                 <colgroup>
-                  <col style="width: 130px">
-                  <col style="width: 100px">
-                  <col style="width: 450px">
-                  <col style="width: 120px">
-                </colgroup>
+                  <col style="width: 20%">
+                  <col style="width: 50%">
+                  <col style="width: 18%">
+                 </colgroup>
                 <thead>
                   <tr>
-                    <th colspan="4"></th>
+                    <th colspan="3"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="photo-review">
-                      <a href="" class="thumnail">
-                        <img src="https://cdn.pixabay.com/photo/2023/03/10/14/59/external-hard-drive-7842510_960_720.jpg">
-                      </a>
-                    </td>
-                    <td class="badge-icon">
-                      <span class="box-feedback-star-rate">
-                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" class="star-image">
-                        <span class="box-rating">
-                          <span class="star-current">4 </span>/
-                          <span class="star-max">5</span>
-                        </span>
-                      </span>
-                    </td>
-                    <td class="coment">
-                      <div class="box-coment">
-                        <div class="coment-title">
-                          <strong>
-                            <a href="">[구매상품] USB 3.0 백업용 외장하드 디스크 500GB</a>
-                          </strong>
-                        </div>
-                        <p class="coment-detail">감사합니다</p>
-                      </div>
-                    </td>
-                    <td class="coment-user">
-                      <ul>
-                        <li class="id">
-                          <strong>kh112***</strong>
-                        </li>
-                        <li class="date">2023-02-18</li>
-                      </ul>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="photo-review">
-                      <a href="" class="thumnail">
-                        <img src="https://cdn.pixabay.com/photo/2021/11/11/22/07/ipad-6787365_960_720.jpg">
-                      </a>
-                    </td>
-                    <td class="badge-icon">
-                      <span class="box-feedback-star-rate">
-                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" class="star-image">
-                        <span class="box-rating">
-                          <span class="star-current">4 </span>/
-                          <span class="star-max">5</span>
-                        </span>
-                      </span>
-                    </td>
-                    <td class="coment">
-                      <div class="box-coment">
-                        <div class="coment-title">
-                          <strong>
-                            <a href="#">[구매상품] 아이패드 프로11(M2) wifi 256GB</a>
-                          </strong>
-                        </div>
-                        <p class="coment-detail">좋은 가격에 구매했습니다. 감사합니다.</p>
-                      </div>
-                    </td>
-                    <td class="coment-user">
-                      <ul>
-                        <li class="id">
-                          <strong>kh132***</strong>
-                        </li>
-                        <li class="date">2023-02-18</li>
-                      </ul>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="photo-review">
-                      <a href="" class="thumnail">
-                        <img src="https://cdn.pixabay.com/photo/2019/05/02/04/52/ipad-4172648_960_720.png">
-                      </a>
-                    </td>
-                    <td class="badge-icon">
-                      <span class="box-feedback-star-rate">
-                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" class="star-image">
-                        <span class="box-rating">
-                          <span class="star-current">3 </span>/
-                          <span class="star-max">5</span>
-                        </span>
-                      </span>
-                    </td>
-                    <td class="coment">
-                      <div class="box-coment">
-                        <div class="coment-title">
-                          <strong>
-                            <a href="#">[구매상품] 애플 펜슬 2세대</a>
-                          </strong>
-                        </div>
-                        <p class="coment-detail">포장 상태 좋아요. 잘 받았습니다.</p>
-                      </div>
-                    </td>
-                    <td class="coment-user">
-                      <ul>
-                        <li class="id">
-                          <strong>k71g2***</strong>
-                        </li>
-                        <li class="date">2023-02-18</li>
-                      </ul>
-                    </td>
-                  </tr>
+                  <c:forEach items="${review }" var="re">
+	                  <tr>
+	                    <td class="badge-icon">
+	                      <span class="box-feedback-star-rate">
+	                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" class="star-image">
+	                        <span class="box-rating">
+	                          <span class="star-current">${re.re_satisfaction }</span> /
+	                          <span class="star-max">5</span>
+	                        </span>
+	                      </span>
+	                    </td>
+	                    <td class="coment">
+	                      <div class="box-coment">
+	                        <div class="coment-title">
+	                          <strong>
+	                            <a href="">${re.re_title }</a>
+	                          </strong>
+	                        </div>
+	                        <p class="coment-detail">${re.re_content }</p>
+	                      </div>
+	                    </td>
+	                    <td class="coment-user">
+	                      <ul>
+	                        <li class="id">
+	                          <strong>kh112***</strong>
+	                        </li>
+	                        <li class="date">${re.re_registration }</li>
+	                      </ul>
+	                    </td>
+	                  </tr>
+                  </c:forEach>
                 </tbody>
               </div>
             </table>
@@ -1629,19 +1534,20 @@
             <li>
               <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
             <li>
-              <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
+              <a class="tab" id="btn-tab-qna" data-target="#tab3" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">상품문의</a></li>
           </ul>
         </div>
         <div class="product-qna-area" id="tab3">
           <div class="box-qna-area">
             <div class="qna-layout-right">
-              <a href="javascript:void(0)" id="btn-modal-qna_open">문의하기</a>
+              <a id="btn-modal-qna_open">문의하기</a>
               <div id="qna-modal">
                 <div class="qna-content">
                   <button type="button" id="btn-modal-qna_close">X</button> 
-                  <h1>판매자에게 문의하기</h1>
+                  <h3>판매자에게 문의하기</h3>
                   <br>
-                  <form action="" method="post">
+                  <!-- 
+                  <form action="<c:url value="/inquiry"></c:url>" method="post" enctype="multipart/form-data">
                     <table class="qna-table">
                       <tr>
                         <th>문의유형</th>
@@ -1669,17 +1575,16 @@
                         </td>
                       </tr>
                     </table>
-                    <input type="checkbox" class="check-secret">
-                      <span>비밀글로 문의하기</span>
                     <div class="bottom-btns">
-                      <a href="javascript:void(0)" class="btn-confirm">
+                      <a class="btn-confirm">
                         <span>등록</span>
                       </a>
-                      <a href="javascript:void(0)" class="btn-cancel" id="btn-cancel">
+                      <a class="btn-cancel" id="btn-cancel">
                         <span>취소</span>
                       </a>
                     </div>
                   </form>
+                 -->
                 </div>
                 <div class="modal_layer"></div>
               </div>
@@ -1712,64 +1617,34 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>23</td>
-                    <td>상품</td>
-                    <td class="ing">답변대기</td>
-                    <td class="qna-title">
-                      <a href="#">상품 문의입니다.
-                        <span class="lock-icon">비밀글</span>
-                      </a>
-                    </td>
-                    <td>qwe*****</td>
-                    <td>2023-02-21</td>
+                	<c:forEach items="${inquiry }" var="inqu">
+	                    <td>${inqu.in_num }</td>
+                    	<%-- 
+                    	<td>${inqu.ic_name }</td>
+                    	--%>
+	                    <td>${inqu.in_state }</td>
+	                    <td>${inqu.in_title }</td>
+	                    <td>${inqu.in_me_id }</td>
+	                    <td>${inqu.in_register_date }</td>
+	                </c:forEach>
                   </tr>
+                  <%--
                   <tr>
-                    <td>22</td>
-                    <td>상품</td>
-                    <td class="done">답변완료</td>
-                    <td class="qna-title">
-                      <a href="#">상품 문의입니다.
-                        <span class="lock-icon">비밀글</span>
-                      </a>
-                    </td>
-                    <td>wog***</td>
-                    <td>2023-02-15</td>
+                	<c:forEach items="${list }" var="inqu">
+	                    <td>${inqu.in_num }</td>
+	                </c:forEach>
+		                    <c:forEach items="${list}" var="inquCate">
+			                    <td>${inquCate.ic_num }</td>
+			                 </c:forEach>
+	                    <!-- td class="ing" or "done" -->
+	                    <c:forEach items="${list }" var="inqu">
+		                    <td class="ing">${inqu.in_state }</td>
+		                    <td>${inqu.in_title }</td>
+		                    <td>${inqu.in_me_id }</td>
+		                    <td>${inqu.in_register_date }</td>
+		                </c:forEach>
                   </tr>
-                  <tr>
-                    <td>21</td>
-                    <td>배송</td>
-                    <td class="done">답변완료</td>
-                    <td class="qna-title">
-                      <a href="#">배송 문의입니다.
-                      </a>
-                    </td>
-                    <td>dog****</td>
-                    <td>2023-02-01</td>
-                  </tr>
-                  <tr>
-                    <td>20</td>
-                    <td>상품</td>
-                    <td class="done">답변완료</td>
-                    <td class="qna-title">
-                      <a href="#">상품 문의입니다.
-                        <span class="lock-icon">비밀글</span>
-                      </a>
-                    </td>
-                    <td>qc1d****</td>
-                    <td>2023-01-28</td>
-                  </tr>
-                  <tr>
-                    <td>19</td>
-                    <td>상품</td>
-                    <td class="done">답변완료</td>
-                    <td class="qna-title">
-                      <a href="#">상품 문의입니다.
-                        <span class="lock-icon">비밀글</span>
-                      </a>
-                    </td>
-                    <td>cat2***</td>
-                    <td>2023-01-24</td>
-                  </tr>
+                  --%>
                 </tbody>
               </table>
 	            <ul class="qna pagination justify-content-center" id="qna-page">
@@ -1797,22 +1672,18 @@ function topBtn() {
 // 탭 클릭 시 해당 특정 위치로 스크롤
 $(function(){
   const tabs = document.querySelectorAll('.tab');
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    const targetId = tab.dataset.target;
-    const targetElement = document.querySelector(targetId);
-    if (targetElement) {
-      setTimeout(() => {
-        targetElement.scrollIntoView({ behavior: 'smooth'});
-      }, 100);
-    }
-  });
-});
+	tabs.forEach(tab => {
+	  tab.addEventListener('click', () => {
+	    const targetId = tab.dataset.target;
+	    const targetElement = document.querySelector(targetId);
+	    if (targetElement) {
+	      setTimeout(() => {
+	        targetElement.scrollIntoView({ behavior: 'smooth'});
+	      }, 100);
+	    }
+	  });
+	});
 })
-
-function btnStoreMore(){
-  alert('<페이지 이동 구현후 알림창 삭제 예정>\n판매자 상품보기 페이지로 이동합니다.')
-}
 
 
 function immeSuccess(){
@@ -1824,6 +1695,8 @@ function immeSuccess(){
 // 썸네일 이미지 표시
 $(function(){
   let selectedImage = null;
+  let images = document.querySelectorAll(".swiper-slide-img img"); // 이미지 선택을 위한 변수 선언
+  let currentIndex = 0;
 
   function selectImage(image) {
     if (selectedImage !== null) {
@@ -1832,51 +1705,68 @@ $(function(){
     image.classList.add("selected");
     selectedImage = image;
   }
-  let images = document.querySelectorAll(".swiper-slide-img img");
-  images.forEach((image) => {
+  
+  images.forEach((image, index) => {
     image.addEventListener("click", () => {
+      currentIndex = index; // 이미지 클릭 시 현재 인덱스 업데이트
       selectImage(image);
     });
   });
-  // 이전, 다음 버튼 클릭 시 선택된 테두리 색상 변경
+  
+ // 첫 번째 이미지를 선택 상태로 설정
+  selectImage(images[currentIndex]);
+
+ // 이전, 다음 버튼 클릭 시 선택된 테두리 색상 변경
   let prevButton = document.querySelector(".prev-btn");
   let nextButton = document.querySelector(".next-btn");
-  
+
   prevButton.addEventListener("click", () => {
-    let images = document.querySelectorAll(".swiper-slide-img img");
-    let currentIndex = Array.from(images).indexOf(selectedImage);
     if (currentIndex > 0) {
-      selectImage(images[currentIndex - 1]);
+      currentIndex--;
+    } else {
+      currentIndex = images.length - 1;  // 맨 마지막 이미지로 이동
     }
+    selectImage(images[currentIndex]);
   });
 
   nextButton.addEventListener("click", () => {
-    let images = document.querySelectorAll(".swiper-slide-img img");
-    let currentIndex = Array.from(images).indexOf(selectedImage);
     if (currentIndex < images.length - 1) {
-      selectImage(images[currentIndex + 1]);
+      currentIndex++;
+    } else {
+      currentIndex = 0;  // 첫 번째 이미지로 이동
     }
+    selectImage(images[currentIndex]);
   });
 });
-// 썸네일 이미지 클릭 시 큰 화면 표시 (구현중)
-$(function(){
-  const images = $('.zoom img');
-  const currentIndex = 0;
-
-  $('.prev-btn').click(function() {
-    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-    $('.thumbnail').attr('src', images.eq(currentIndex).attr('src'));
+  // 이미지 슬라이드 관련 변수 설정
+  var slideIndex = 0;
+  var images = document.querySelectorAll('.swiper-slide-img img');
+  var zoomImage = document.querySelector('.zoo-img');
+	
+  // 이전 버튼 클릭 이벤트 처리
+  document.getElementById('prev').addEventListener('click', function() {
+    showSlide(slideIndex - 1);
   });
-
-  $('.next-btn').click(function() {
-    currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-    $('.thumbnail').attr('src', images.eq(currentIndex).attr('src'));
+  // 다음 버튼 클릭 이벤트 처리
+  document.getElementById('next').addEventListener('click', function() {
+  	showSlide(slideIndex + 1);
   });
-});
-
-
-// 마우스 상품 이미지 확대 기능
-$(function(){
+  // 이미지 슬라이드 보여주기
+  function showSlide(index) {
+	if (index < 0) {
+      index = images.length - 1;
+    } else if (index >= images.length) {
+      index = 0;
+    }
+    slideIndex = index;
+	  
+  // 이미지 변경
+  zoomImage.style.backgroundImage = 'url("' + images[slideIndex].src + '")';
+  }
+  // 초기에 첫 번째 이미지 보여주기
+  showSlide(slideIndex);
+  
+  // 마우스 상품 이미지 확대 기능
   var img = document.getElementById("zoo-item");
   
   img.addEventListener("mousemove", function(event) {
@@ -1898,7 +1788,6 @@ $(function(){
   img.addEventListener("mouseleave", function(event) {
     img.style.transform = "none";
   });
-})
 
 // 상품 찜하기 버튼 클릭 시 이벤트 발생
 $(function(){
@@ -1909,7 +1798,10 @@ $(function(){
 	if('${user.me_id}' == ''){
 	    let res = confirm('로그인한 회원만 상품 찜하기가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
 	    if(res){
-	    	location.href="<c:url value='/login'></c:url>"
+	    	// location.href="<c:url value='/login'></c:url>"
+	    	let returnUrl = encodeURIComponent(window.location.href);
+	        let loginUrl = '<c:url value="/login" />';
+	        location.href = loginUrl + '?returnUrl=' + returnUrl;
 	    }
 	    return;
 	}
@@ -1919,12 +1811,12 @@ $(function(){
 	$.ajax({
  		async: true,
  		type: 'GET',
- 		url: "<c:url value='/like/product/${product.pr_code}/"+pl_state+"'></c:url>",
+ 		url: "<c:url value='/like/product/${product.pr_code}/" + pl_state + "'></c:url>",
  		dataType:"json",
  		success: function(data){
  			console.log(data);
  		}
- 	})
+ 	});
     const hasClass = btnProductlikeSel.classList.toggle("sel");
 	if(hasClass){
   		if(confirm("상품 찜하기를 등록했습니다.\n찜한 상품 페이지로 이동하시겠습니까?")){
@@ -1933,45 +1825,47 @@ $(function(){
     }else{
       alert("상품 찜하기를 취소했습니다.");
     }
-  })
 });
-
-// 스토어 찜하기 버튼 클릭 시 이벤트 발생
-$(function(){
+	// 스토어 찜하기 버튼 클릭 시 이벤트 발생
 	const btnStoreLike = document.getElementById("btn-store-like");
 	const btnStoreLikeSel = document.getElementById("btnStoreLike");
-  
-  	btnStoreLike.addEventListener("click", function() {
+	  
+	btnStoreLike.addEventListener("click", function() {
 	if('${user.me_id}' == ''){
 	    let res = confirm('로그인한 회원만 판매자 찜하기가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
 	    if(res){
-	    	location.href="<c:url value='/login'></c:url>"
+	    	let returnUrl = encodeURIComponent(window.location.href);
+	        let loginUrl = '<c:url value="/login" />';
+	        location.href = loginUrl + '?returnUrl=' + returnUrl;
 	    }
 	    return;
 	}
 	let sl_state = 1;
 	$.ajax({
- 		async: true,
- 		type: 'GET',
- 		url: "<c:url value='/like/product/${product.pr_code}/"+sl_state+"'></c:url>",
- 		dataType:"json",
- 		success: function(data){
- 			console.log(data);
- 		}
- 	})
-   	const hasClass = btnStoreLikeSel.classList.toggle("sel");
-   	
-   	if(hasClass){
-   		if(confirm("판매자 찜하기를 등록했습니다.\n찜한 판매자 페이지로 이동하시겠습니까?")){
-   			location.href = "${pageContext.request.contextPath}/like/seller"
-   		}
-    }else{
-    	alert("판매자 찜하기를 취소했습니다.");
-   	}
+		async: true,
+		type: 'GET',
+		url: "<c:url value='/like/product/${product.pr_code}/" + sl_state + "'></c:url>",
+		dataType:"json",
+		success: function(data){
+			console.log(data);
+		}
+	});
+  	const hasClass = btnStoreLikeSel.classList.toggle("sel");
+  	
+  	if(hasClass){
+  		if(confirm("판매자 찜하기를 등록했습니다.\n찜한 판매자 페이지로 이동하시겠습니까?")){
+  			location.href = "${pageContext.request.contextPath}/like/seller"
+	    }else{
+	   	alert("판매자 찜하기를 취소했습니다.");
+		}
+  	}
   })
 });
 
-// 공유하기
+
+
+
+// SNS 공유하기
 $(function(){
   const modal = document.getElementById("box-share")
   function modalOn() {
@@ -1993,30 +1887,55 @@ $(function(){
 
 // 마감연장 모달창
 $(function(){
-  const modal = document.getElementById("deadline-modal")
-  function modalOn() {
-    modal.style.display = "flex"
-  }
-  function modalOff() {
-    modal.style.display = "none"
-  }
-  const btnModal = document.getElementById("btn-modal-deadline_open")
-  btnModal.addEventListener("click", e => {
-	  // 구현 완료 하면 user.me_id == '' 삭제
-	 <%-- 
-	  if('${user.me_id}' == '${user.st_me_id}'){
-	 --%>
-	  if('${user.me_id}' == ''){
-		let res = alert('판매자만 마감연장이 가능합니다. \n로그인하면 모달창 열림. 수정 예정');
-	  }else{
-      	modalOn()
-	  }
-  })
-  const closeBtn = modal.querySelector("#btn-modal-deadline_close")
-  closeBtn.addEventListener("click", e => {
-      modalOff()
-  })
+	// 마감연장 창 요소 가져오기
+	const deadlineModal = document.getElementById("deadline-modal");
+	const deadlineOpenBtn = document.getElementById("btn-modal-deadline_open");
+	const deadlineCloseBtn = deadlineModal.querySelector("#btn-modal-deadline_close");
+	const deadlineExtendBtns = deadlineModal.querySelectorAll("a");
+	const deadlineExtendBtn = deadlineModal.querySelector("button");
+
+	// 마감연장 창 열기
+	deadlineOpenBtn.addEventListener("click", function() {
+	  deadlineModal.style.display = "flex";
+	});
+
+	// 마감연장 창 닫기
+	deadlineCloseBtn.addEventListener("click", function() {
+	  deadlineModal.style.display = "none";
+	});
+
+	// 마감 연장 버튼 클릭 이벤트 처리
+	deadlineExtendBtns.forEach(function(btn) {
+	  btn.addEventListener("click", function() {
+	    const extendTime = parseInt(btn.textContent); // 연장할 시간 (ex: 3, 5, 7)
+	    
+	    // 서버로 마감 연장 요청 전송
+	    // ...
+
+	    // 서버 응답 받아서 경매 종료 시간 갱신
+	    const newDeadline = ""; // 서버로부터 받은 새로운 종료 시간
+	    // 경매 종료 시간 갱신
+	    const deadlineElement = deadlineModal.querySelector("span");
+	    deadlineElement.textContent = newDeadline;
+	  });
+	});
+
+	// 마감연장하기 버튼 클릭 이벤트 처리
+	deadlineExtendBtn.addEventListener("click", function() {
+	  // 서버로 마감 연장 요청 전송
+	  // ...
+
+	  // 서버 응답 받아서 경매 종료 시간 갱신
+	  const newDeadline = ""; // 서버로부터 받은 새로운 종료 시간
+	  // 경매 종료 시간 갱신
+	  const deadlineElement = deadlineModal.querySelector("span");
+	  deadlineElement.textContent = newDeadline;
+
+	  // 마감연장 창 닫기
+	  deadlineModal.style.display = "none";
+	});
 });
+
 
 // 경매기록 모달창
 $(function(){
@@ -2036,22 +1955,25 @@ $(function(){
       modalOff()
   })
 })
-// 즉시 구매 입찰하기 페이지 이동
+
+
+// 즉시구매 입찰하기 페이지 이동
 $(function() {
-	
 	const btnImme = document.getElementById("btn-imme");
   
 	btnImme.addEventListener("click", function() {
 	if('${user.me_id}' == ''){
 	    let res = confirm('로그인한 회원만 즉시 구매가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
 	    if(res){
-	    	location.href="<c:url value='/login'></c:url>"
+	    	let returnUrl = encodeURIComponent(window.location.href);
+	        let loginUrl = '<c:url value="/login" />';
+	        location.href = loginUrl + '?returnUrl=' + returnUrl;
 		    }
 		}
 	})
 })
 
-// 즉시 구매 입찰하기 모달창
+// 즉시구매 입찰하기 모달창
 $(function(){
   const modal = document.getElementById("imme-modal")
   function modalOn() {
@@ -2070,8 +1992,79 @@ $(function(){
   })
 })
 
+// 즉시구매 모달창에서 즉시구매 버튼 클릭 시 기능 구현
+function immeConfirm(){
+  alert('즉시구매에 성공했습니다.')
+  document.getElementById("imme-modal").style.display = "none";
+}
+$('.btn-confirm').click(function(e){
+  e.preventDefault();
+});
+
 // 입찰하기 기능 구현
 // 입찰하기 모달창
+$(function() {
+  const btnBid = document.getElementById("btn-modal-bid_open");
+  const modal = document.getElementById("bid-modal");
+  
+  btnBid.addEventListener("click", function() {
+  	if ('${user.me_id}' == '') {
+      let res = confirm('로그인한 회원만 즉시 구매가 가능합니다.\n로그인 페이지로 이동하겠습니까?');
+      if (res) {
+    	  let returnUrl = encodeURIComponent(window.location.href);
+	      let loginUrl = '<c:url value="/login" />';
+	      location.href = loginUrl + '?returnUrl=' + returnUrl;
+      }
+   	} else {
+      	modal.style.display = "flex";
+    }
+ });
+
+  const closeBtn = modal.querySelector("#btn-modal-bid-close");
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+  });
+
+  $('#bid-confirm').click(function(e) {
+	let price = $("#nextPrice").val();
+	
+	$.ajax({
+		type: 'POST',
+		url: '<c:url value="/generalBid"></c:url>',
+		data: JSON.stringify({ price: price }),
+		dataType: "JSON",
+		contentType: "application/json; charset=UTF-8",
+		success: function(result){
+			if(result.res){
+				let str = '';
+				str +=
+					'<div class="bid-content">' +
+					'입찰 신청 가격은 ' + '$' + result.nextPrice + ' 입니다. 입찰하시겠습니까?' + 
+					'</div>';
+				$('.bid-content').html(str);
+				$("#nextPrice").val(result.nextPrice);
+				alert("입찰하였습니다.")
+				
+				// 현재가 업데이트
+			    $("#currentPrice").text('$' + result.nextPrice);
+			}
+			else if(result.bidPossible == false){
+				alert("경매시작 전입니다.")
+			}
+			else{
+				alert("보유계좌에 잔액이 부족합니다.");
+			}
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+    document.getElementById("bid-modal").style.display = "none";
+  });
+});
+
+/*
+ 
 $(function(){
   const modal = document.getElementById("bid-modal")
     
@@ -2103,20 +2096,23 @@ $('#bidConfirm').click(function(){
 	
 	$.ajax({
 		type: 'POST',
-		url: '<c:url value="/auctionBid"></c:url>',
+		url: '<c:url value="/general/bid"></c:url>',
 		data: JSON.stringify(price),
 		dataType: "JSON",
 		contentType: "application/json; charset=UTF-8",
 		success: function(result){
 			if(result.res){
-				alert("입찰되었습니다.")
 				let str = '';
 				str +=
 					'<div class="bid-content">' +
-					'입찰 신청 가격은 ' + result.nextPrice + ' 입니다. 입찰하시겠습니까?' + 
+					'입찰 신청 가격은 ' + '$' + result.nextPrice + ' 입니다. 입찰하시겠습니까?' + 
 					'</div>';
 					$('.bid-content').html(str);
 					$("#nextPrice").val(result.nextPrice);
+					alert("입찰하였습니다.")
+			}
+			else if(result.bidPossible == false){
+				alert("경매시작 전입니다.")
 			}
 			else{
 				alert("보유계좌에 잔액이 부족합니다.");
@@ -2126,6 +2122,8 @@ $('#bidConfirm').click(function(){
 			console.log("error");
 		}
 	});
+	if(num == 0)
+		alert("종료된 경매이므로 입찰할 수 없습니다.");
 });
 // 입찰하기 모달창에서 입찰하기 버튼 클릭 시 기능 구현
 function bidConfirm(){
@@ -2136,6 +2134,7 @@ $('.btn-confirm').click(function(e){
   e.preventDefault();
 });
 
+*/
 
 
 
@@ -2143,6 +2142,65 @@ $('.btn-confirm').click(function(e){
 
 
 // 문의하기 모달창
+$(function() {
+  const modal = document.getElementById("qna-modal");
+  const form = document.getElementById("qna-form");
+
+  function modalOn() {
+    modal.style.display = "flex";
+  }
+
+  function modalOff() {
+    modal.style.display = "none";
+  }
+
+  const btnModal = document.getElementById("btn-modal-qna_open");
+  btnModal.addEventListener("click", function(e) {
+    modalOn();
+  });
+
+  const closeBtn = modal.querySelector(".close");
+  closeBtn.addEventListener("click", function(e) {
+    modalOff();
+  });
+
+  const cancelBtn = modal.querySelector(".btn-cancel");
+  cancelBtn.addEventListener("click", function(e) {
+    modalOff();
+  });
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // 기본 제출 동작 방지
+
+    // 입력 값 가져오기
+    const category = document.querySelector(
+      "input[name='qna-kind']:checked"
+    ).value;
+    const title = document.getElementById("qna-title").value.trim();
+    const content = document.getElementById("qna-content").value.trim();
+
+    // 유효성 검사
+    if (title === "") {
+      alert("제목을 입력하세요.");
+      return;
+    }
+
+    if (content === "") {
+      alert("내용을 입력하세요.");
+      return;
+    }
+
+    // 여기서 AJAX 또는 fetch를 사용하여 서버에 데이터 전송 및 처리
+    // ...
+
+    // 모달창 닫기
+    modalOff();
+  });
+});
+
+
+
+/*
 $(function(){
   const modal = document.getElementById("qna-modal")
   function modalOn() {
@@ -2164,6 +2222,21 @@ $(function(){
       modalOff()
   })
 })
+// 문의하기
+$('form').submit(function(){
+	let title = $('.title').val();
+	if(title.trim().length == 0){  
+		alert('제목을 입력하세요.');
+		return false;
+	}
+	
+	let content = $('.content').val();
+	if(content.trim().length == 0){ 
+		alert('내용을 입력하세요.');
+		return false;
+	}
+});
+*/
 // 문의하기 페이지 번호 클릭 시 번호 색상 변경
 $(document).ready(function() {
   $('#qna-page .page-link').click(function(event) {
@@ -2219,7 +2292,7 @@ const countDownTimer = function (id, date) {
 var dateObj = new Date();
 dateObj.setDate(dateObj.getDate() + 1);
 
-countDownTimer('countDday', '05/31/2023 11:59 PM');
+countDownTimer('countDday', `${auction.au_final_date}`);
 
 // 페이스북 공유하기
 function shareFacebook() {
