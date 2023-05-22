@@ -191,17 +191,17 @@
 	                         	 	<tr>
 	                         	 		<c:forEach items="${files}" var="file">
 				  							<c:choose>
-						      					<c:when test="${file.fi_num == 29}">
+						      					<c:when test="${file.fi_num == 1}">
 							       					 <td>
 											        	<img src="<c:url value='/download${file.fi_save_name}'></c:url>" height="200" width="auto" style="margin-right: 30px;"  >
 											      	</td>
 						      					</c:when>
-						     					<c:when test="${file.fi_num == 47}">
+						     					<c:when test="${file.fi_num == 2}">
 											        <td>
 											        	<img src="<c:url value='/download${file.fi_save_name}'></c:url>" height="200" width="auto" style="margin-right: 30px;">
 											      	</td>
 										      	</c:when>
-										      	<c:when test="${file.fi_num == 3}">
+										      	<c:when test="${file.fi_num == 8}">
 											        <td>
 											        	<img src="<c:url value='/download${file.fi_save_name}'></c:url>" height="200" width="auto">
 											      	</td>

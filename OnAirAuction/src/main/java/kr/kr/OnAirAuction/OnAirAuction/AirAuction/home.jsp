@@ -1135,7 +1135,9 @@
             </div>
         </div>
     </form>
-    <input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_next_bid_price()}">
+    <div id="tabl8">
+    	<input type="hidden" id="nextPrice" value="${lastAuctionRecord.getAr_next_bid_price()}">
+    </div>
     <input type="hidden" id="sellerLikeState" value="${sellerLikeState}">
     <input type="hidden" id="productLikeState" value="${productLikeState}">
     <input type="hidden" id="intEnd" value="999999">
@@ -1450,6 +1452,9 @@
 	setInterval(() => {
 		$('#tabl7').load(location.href + ' #tabl7')
 	}, 1000);
+	setInterval(() => {
+		$('#tabl8').load(location.href + ' #tabl8')
+	}, 1000);
     
    
     
@@ -1513,6 +1518,7 @@
     	                    	'</dl>'+
                 			'</div>'
     	                  	$('#tabl8').html(str);
+    	                  	$('#delivery_btn').css("display", "inline-block");
     	                  	$('#modal_open_btn1').css("display", "none");
                 			alert("이미 종료된 경매입니다.");
     					} 
@@ -1580,6 +1586,7 @@
 	                    	'</dl>'+
             			'</div>'
 		                  $('#tabl8').html(str);
+		                  $('#delivery_btn').css("display", "inline-block");
 		                  $('#modal_open_btn1').css("display", "none");
             			alert("이미 종료된 경매입니다.");
 					} 

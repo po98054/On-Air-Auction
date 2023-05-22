@@ -36,16 +36,16 @@
 <div class="body">
   <h2>일반경매</h2>
   	<div class="col">
-	  <c:forEach items="${productList }" var="product">
+	  <c:forEach items="${auction}" var="auction">
 	  	<div class="col-md-4">
 		  <div class="card" style="width:1000px">
 		  <!-- 
 		    <img class="card-img-top" src="<c:url value='/file${file[0].fi_save_name}' />" alt="Card image" style="width:100%">
 		   -->
-		    <div class="card-body">
-		      <h4 class="card-title">${product.pr_name }</h4>
-		      <p class="card-text">${product.pr_intro }</p>
-		      <a href="<c:url value='/general/detail/${product.pr_code }'></c:url>" class="btn btn-primary">상품 보기</a>
+		    <div class="card-body justify-content-center">
+		      <h4 class="card-title">${auction.pr_name }</h4>
+		      <p class="card-text">${auction.pr_intro }</p>
+		      <a href="<c:url value='/general/detail/${auction.au_num}'></c:url>" class="btn btn-primary">상품 보기</a>
 		    </div>
 		  </div>
 		  <br>

@@ -57,6 +57,7 @@ public class GeneralController {
 			HttpSession session) {
 		// 서비스에게 해당하는 정보를 요청 
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		System.out.println(user);
 		AuctionVO auction = generalService.getAuction(au_num);
 		System.out.println("경매 정보 : " + auction);
 		int pr_code = auction.getAu_pr_code();

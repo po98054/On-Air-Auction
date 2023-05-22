@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <div class="containertoo">
         <div class="container-inner1">
-            <div class="comList">
+            <div class="comList" id="tabl6">
                 <ul class="list-unstyled">
                     <li class="timer">
-                        <span>2023. 2. 20. 19:58:35</span>
+                        <span>${nowTime}</span>
                     </li>
                     <li class="clearFix">
                         <p>
