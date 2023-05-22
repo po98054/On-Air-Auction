@@ -31,8 +31,9 @@
   		from product
 	</insert>
 	<insert id="insertFile">
-		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
-  		values(#{file.fi_name}, #{file.fi_save_name}, '상품', #{pr_code})
+		insert into file(fi_num, fi_name, fi_save_name, fi_table_name, fi_table_num)
+		select ifnull(max(fi_num),0)+1, #{file.fi_name}, #{file.fi_save_name}, '상품', #{pr_code}
+  		from file
 	</insert>
 	<select id="selectProductList" resultType="kr.kh.onAirAuction.vo.ProductVO">
   		select * from product order by pr_code asc limit #{cri.pageStart}, #{cri.perPageNum}
