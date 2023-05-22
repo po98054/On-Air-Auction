@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kr.OnAirAuction.DAO.MemberDAO">
+
+<!-- 회원 가입 쿼리 -->
+
+<insert id="insertMember">
+	
+	insert into member(me_id, me_pw, me_email, me_post_num, me_road_name, me_detail_address, me_phone, me_name, me_birth, me_join_time)
+	
+	select #{member.me_id}, #{member.me_pw}, #{member.me_email}, #{member.me_post_num}, #{member.me_road_name}, #{member.me_detail_address}, #{member.me_phone}
+	
+			, #{member.me_name}, #{member.me_birth}, now()
+
+</insert>
+
+<!-- 이메일 인증 쿼리 -->
+
+<insert id="insertMemberOK">
+
+  		insert into certification(ce_me_id, ce_certification_number, ce_time) 
+  		
+  		values(#{mok.ce_me_id},#{mok.ce_certification_number}, date_add(#{mok.ce_time},interval 1 hour))
+  		
+</insert>
+
+<select id="selectMemberOK" resultType="kr.kr.OnAirAuction.VO.MemberOKVO">
+
+  		select * from certification where ce_me_id = #{mok.ce_me_id} and ce_certification_number = #{mok.ce_certification_number} and ce_time >= now()
+  		
+</select>
+
+<delete id="deleteMemberOK">
+
+  		delete from certification where ce_me_id = #{mok.ce_me_id} and ce_certification_number = #{mok.ce_certification_number}
+  		
+</delete>
+
+<update id="updateCertification">
+
+  		update member set me_certification = #{me_certification} where me_id = #{me_id}
+  		
+</update>
+
+<!-- 로그인 쿼리 -->
+
+<select id="selectMemberById" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+
+	select * from member where me_id = #{me_id}
+
+</select>
+
+<!-- 자동 로그인 쿼리 -->
+
+<select id="selectMemberBySession" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+
+  		select * from member where me_session_id = #{me_session_id} and me_session_limit > now()
+  		
+</select>
+
+<update id="updateSession">
+
+  		update member set me_session_id = #{member.me_session_id}, me_session_limit = #{member.me_session_limit} where me_id = #{member.me_id}
+  		
+</update>
+
+<update id="updateMemberAuthority">
+
+  		update member set me_authority = 2 where me_id = 'admin'
+  		
+</update>
+
+</mapper>

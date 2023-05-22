@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kr.OnAirAuction.DAO.MyPageDAO">
+
+	<!-- 경매 참가 내역 조회 쿼리 -->
+	
+	<select id="selectAllAuctionCategory" resultType="kr.kr.OnAirAuction.VO.AuctionCategoryVO">
+	
+		select * from auction_category
+	
+	</select>
+	
+	<!-- <select id="selectMaxAuction" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
+	
+		select * from auction
+	
+	</select>
+	
+	 <select id="selectMaxAuctionRecord" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
+	
+		select * from auction_record
+	
+	</select>-->
+
+	<select id="selectPartAuctList" resultType="kr.kr.OnAirAuction.VO.ParticipateAuctionVO">
+	
+		select auction.au_num, auction.au_me_id, product.pr_name, product.pr_start_price, auction.au_start_date, product.pr_state, 
+		
+		auction_category.ac_name, auction_record.ar_bid_price, auction_record.ar_me_id
+		
+		from auction join auction_category on auction_category.ac_num = auction.au_ac_num join auction_record on auction.au_num = auction_record.ar_au_num
+		
+		join (select ar_num, max(ar_bid_time) as max_time, ar_au_num from auction_record where auction_record.ar_me_id = #{user.me_id} group by ar_au_num) as ar2
+		
+		on auction_record.ar_au_num = ar2.ar_au_num
+		
+		join member on member.me_id = auction_record.ar_me_id join product on product.pr_code = auction.au_pr_code
+		
+		where (product.pr_name like concat('%', #{criteria.search}, '%') or auction.au_me_id like concat('%', #{criteria.search}, '%'))
+		
+		and auction_record.ar_bid_time = ar2.max_time
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and auction.au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		group by auction_record.ar_au_num
+		
+		order by auction.au_num limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<!-- 경매 개최 내역 관련 쿼리 -->
+	
+	<select id="selectPartAuctTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from auction join member on au_me_id = me_id join product on pr_code = au_pr_code
+		
+		join auction_record on au_num = ar_au_num
+	
+	</select>
+	
+	<select id="selectPartAuctTotalCount2" resultType="int">
+	
+		select count(*)
+		
+		from auction join member on ac_me_id = me_id join product on pr_code = ac_pr_code
+		
+		join auction_record on ac_num = ar_ac_num
+	
+	</select>
+	
+	<!-- 경매 참가 내역 조회 쿼리 -->
+	
+	<select id="selectHeldAuctList" resultType="kr.kr.OnAirAuction.VO.HeldAuctionVO">
+	
+		select au_num, pr_name, pr_start_price, au_start_date, au_final_date, pr_state, au_immediate
+		
+		from auction join product on au_pr_code = pr_code
+		
+		where (pr_name like concat('%', #{criteria.search}, '%')) and au_me_id = #{user.me_id}
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		 order by au_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<select id="selectHeldAuctTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from auction join product on au_pr_code = pr_code
+	
+	</select>
+	
+	<select id="selectHeldList" resultType="kr.kr.OnAirAuction.VO.AuctionCancleVO">
+
+		select * from auction_cancle where ac_au_num = #{ac_num}
+
+	</select>
+	
+	<insert id="insertAuctionCancle">
+  	
+  		insert into auction_cancel(ac_num, ac_date, ac_reason, ac_au_num)
+  			
+  		select ifnull(max(ac_num), 0) + 1, now(), #{auctionCancle.ac_reason}, #{auctionCancle.ac_au_num}
+		
+  		from auction_cancel
+  		
+  	</insert>
+  	
+  	<!-- 구매자 주문 내역 조회 -->
+  	
+  	<select id="selectOrderAuctList" resultType="kr.kr.OnAirAuction.VO.OrderAuctionVO">
+	
+		select product.pr_name, auction.au_me_id, auction_record.ar_bid_price, auction.au_delivery_way, delivery.de_state, refund.re_progress,
+		
+		delivery.de_start_date, delivery.de_complete_date, auction_order.ao_num, auction_record.ar_num
+        
+        from auction join product on product.pr_code = auction.au_pr_code
+        
+        join member on member.me_id = auction.au_me_id join auction_order on auction.au_num = auction_order.ao_au_num 
+        
+        left join refund on auction_order.ao_num = refund.re_ao_num
+        
+        join delivery on auction_order.ao_num = delivery.de_ao_num join auction_record on auction.au_num = auction_record.ar_au_num
+        
+        join (select max(ar_bid_time) as max_time, ar_au_num from auction_record group by ar_au_num) as ar2 on auction_record.ar_au_num = ar2.ar_au_num
+		
+		where (pr_name like concat('%', #{criteria.search}, '%') or au_me_id like concat('%', #{criteria.search}, '%'))
+		
+		and auction_record.ar_bid_time = ar2.max_time and auction_record.ar_me_id = #{user.me_id}
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		 order by au_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<select id="selectOrderAuctTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from product join auction on pr_code = au_pr_code join auction_record on au_num = ar_au_num join member on au_me_id = me_id 
+		
+		join auction_order on me_id = ao_me_id left join refund on ao_num = re_ao_num join delivery on ao_num = de_ao_num
+	
+	</select>
+	
+	<insert id="insertOrderCancle">
+  	
+  		insert into refund(re_num, re_apply_date, re_reason, re_or_num)
+  			
+  		select ifnull(max(re_num), 0) + 1, now(), #{refund.re_reason}, #{refund.re_or_num}
+		
+  		from refund
+  		
+  	</insert>
+  	
+  	<!-- 환불 조회 -->
+  	
+  	<select id="selectRefundList" resultType="kr.kr.OnAirAuction.VO.OrderCancleVO">
+	
+		select product.pr_name, refund.re_progress, refund.re_apply_date, refund.re_confirm_date
+		
+		from refund join auction_order on auction_order.ao_num = refund.re_ao_num join auction on auction.au_num = auction_order.ao_au_num 
+		
+		join product on product.pr_code = auction.au_pr_code 
+		
+		where (pr_name like concat('%', #{criteria.search}, '%')) and auction_order.ao_me_id = 'po98087'
+		
+		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
+		
+		 order by pr_name asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+	
+	</select>
+	
+	<select id="selectRefundTotalCount" resultType="int">
+	
+		select count(*)
+		
+		from product join auction on pr_code = au_pr_code join auction_order on au_num = ao_au_num left join refund on ao_num = re_ao_num
+	
+	</select>
+  	
+  	<!-- 후기 등록 -->
+  	
+  	<insert id="insertReview" useGeneratedKeys="true" keyProperty="review.re_num">
+  	
+  		insert into review(re_num, re_title, re_content, re_satisfaction, re_registration, re_ar_num)
+  		
+  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_satisfaction}, now(), #{review.re_ar_num}
+  		
+  		from review
+  	
+  	</insert>
+  	
+  	<select id="selectOrderList" resultType="kr.kr.OnAirAuction.VO.OrderListVO">
+  	
+  		select auction_order.ao_me_id, product.pr_name, auction_record.ar_num, auction.au_me_id
+  		
+  		from auction join auction_order on auction.au_num = auction_order.ao_au_num
+        
+        join product on product.pr_code = auction.au_pr_code
+        
+        join auction_record on auction.au_num = auction_record.ar_au_num
+        
+        join (select max(ar_bid_time) as max_time, ar_au_num from auction_record group by ar_au_num) as ar2 on auction_record.ar_au_num = ar2.ar_au_num
+        
+        where auction_record.ar_bid_time = ar2.max_time and auction_record.ar_me_id = #{user.me_id}
+  	
+  	</select>
+  	
+  	<select id="selectUser" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+  	
+  		select me_id from member where me_id = #{user.me_id}
+  	
+  	</select>
+  	
+  	<select id="selectOrderArNum" resultType="kr.kr.OnAirAuction.VO.OrderListVO">
+	
+		select ar_num from auction_record where ar_num = #{order.ar_num}
+	
+	</select>
+  	
+  	<!-- 첨부 파일 -->
+  	
+  	<insert id="insertFile">
+  	
+  		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
+  		
+  		values(#{fileVO.fi_name},#{fileVO.fi_save_name}, '후기', #{re_num})
+  	
+  	</insert>
+  	
+  	<!-- 후기 조회 -->
+  	
+  	<select id="selectReviewList" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
+  		
+  		select * from Review order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		
+  	</select>
+  	
+	<select id="selectReview" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
+	
+		select * from review join auction_record on ar_num = re_ar_num where re_num = #{re_num}
+		
+	</select>
+	
+	<select id="selectFileList" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_table_num = #{re_num} and fi_table_name = '후기'
+	
+	</select>
+	
+	<!-- 후기 수정 -->
+	
+	<update id="updateReview">
+	
+		update review set re_title = #{review.re_title}, re_content = #{review.re_content}, re_satisfaction = #{review.re_satisfaction}, re_modify = now()
+		
+		where re_num = #{review.re_num}
+	
+	</update>
+	
+	<!-- 첨부 파일 삭제 -->
+	
+	<delete id="deleteFile">
+	
+		delete from file where fi_num = #{file.fi_num}
+	
+	</delete>
+	
+	<select id="selectFile" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_num = #{fi_num}
+	
+	</select>
+	
+	<!-- 후기 삭제 -->
+	
+	<delete id="deleteReview">
+	
+		delete from review where re_num = #{re_num}
+	
+	</delete>
+	
+	<select id="selectHeld" resultType="kr.kr.OnAirAuction.VO.HeldAuctionVO">
+	
+		select ac_num, pr_name, pr_startprice, ac_startdate, ac_finaldate, pr_state, ac_immediate
+		
+		from auction join product on ac_pr_code = pr_code where ac_num = #{ac_num}
+	
+	</select>
+	
+	<update id="updateHeld">
+	
+		update auction join product on au_pr_code = pr_code set pr_state = #{held.pr_state} where au_num = #{held.au_num}
+ 	
+	</update>
+	
+	<select id="selectProduct" resultType="kr.kr.OnAirAuction.VO.ProductSearchVO">
+	
+		select pr_name, me_name, pr_code from product join store on pr_st_num = st_num join member on st_me_id = me_id
+		
+		where (pr_name like concat('%', #{criteria.search}, '%')) 
+	
+	</select>
+	
+	<select id="selectProductName" resultType="kr.kr.OnAirAuction.VO.ProductSearchVO">
+	
+		select pr_name, pr_code from product where pr_name = #{product.pr_name}
+	
+	</select>
+	
+	<!-- 문의 사항 등록 -->
+	
+	<select id="selectAllInquiryCategory" resultType="kr.kr.OnAirAuction.VO.InquiryCategoryVO">
+	
+		select * from inquiry_category
+	
+	</select>
+	
+	<insert id="insertInquiry" useGeneratedKeys="true" keyProperty="inquiry.in_num">
+	
+		<choose>
+		
+		<when test="inquiry.in_ic_num == 1">
+		
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			
+		</when>
+		
+		<when test="inquiry.in_ic_num == 2">
+		
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			
+		</when>
+		
+		<when test="inquiry.in_ic_num == 3">
+		
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code}  from inquiry
+			
+		</when>
+		
+		<otherwise>
+	
+			insert into inquiry(in_num, in_title, in_content, in_register_date, in_ic_num, in_me_id)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_content}, now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id} from inquiry
+			
+		</otherwise>
+		
+		</choose>
+		
+	</insert>
+	
+	<!-- 문의 사항 등록시 첨부 파일 등록 -->
+	
+	<insert id="insertFileByInquiry">
+  	
+  		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
+  		
+  		values(#{file.fi_name},#{file.fi_save_name}, '문의 사항', #{in_num})
+  	
+  	</insert>
+  	
+  	<!-- 문의 사항 조회 -->
+	
+	<select id="selectInquiryList" resultType="kr.kr.OnAirAuction.VO.InquiryVO">
+  		
+  		select * from inquiry join inquiry_category on in_ic_num = ic_num
+  		
+  		where in_me_id = #{user.me_id}
+  		
+  		order by in_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		
+  	</select>
+  	
+  	<select id="selectInquiryTotalCount" resultType="int">
+	
+		select count(*) from inquiry
+	
+	</select>
+	
+	<!-- 문의 사항 상세 보기
+	
+		inner join시 외래키 값이 있으면 inner join(join) 사용 가능
+		
+		허나 외래키 값이 없으면 Left Join Or Right Join 사용 해야 함
+		
+	 -->
+	
+	<select id="selectInquiry" resultType="kr.kr.OnAirAuction.VO.InquiryVO">
+	
+		select * from inquiry left join product on in_pr_code = pr_code where in_num = #{in_num}
+	
+	</select>
+	
+	<select id="selectFileListByInquiry" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_table_num = #{in_num} and fi_table_name = '문의 사항'
+	
+	</select>
+	
+	<!-- 문의 사항 수정 -->
+	
+	<update id="updateInquiry">
+	
+		update inquiry set in_title = #{inquiry.in_title}, in_content = #{inquiry.in_content}, in_ic_num = #{inquiry.in_ic_num}, in_modify_date = now()
+		
+		where in_num = #{inquiry.in_num}
+	
+	</update>
+	
+	<!-- 문의 사항 삭제 -->
+	
+	<delete id="deleteInquiry">
+	
+		delete from inquiry where in_num = #{in_num}
+	
+	</delete>
+	
+	<select id="selectInquiryByNum" resultType="kr.kr.OnAirAuction.VO.InquiryVO">
+  		
+  		select pr_name, in_num, in_ic_num, in_pr_code from inquiry join inquiry_category on in_ic_num = ic_num left join product on in_pr_code = pr_code
+  		
+  		where in_num = #{in_num}
+  		
+  	</select>
+  	
+  	<insert id="insertInquiryReply" useGeneratedKeys="true" keyProperty="inquiry.in_num">
+  	
+  		<choose>
+		
+		<when test="inquiry.in_ic_num == 1">
+		
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			
+		</when>
+		
+		<when test="inquiry.in_ic_num == 2">
+		
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code} from inquiry
+			
+		</when>
+		
+		<when test="inquiry.in_ic_num == 3">
+		
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id, in_pr_code)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id}, #{inquiry.in_pr_code}  from inquiry
+			
+		</when>
+		
+		<otherwise>
+	
+			insert into inquiry(in_num, in_title, in_answer_content, in_register_date, in_answer_date, in_ic_num, in_me_id)
+		
+			select <if test="inquiry.in_num == 0"> ifnull(max(in_num), 0) + 1</if> <if test="inquiry.in_num != 0">#{inquiry.in_num}</if>, 
+			
+			#{inquiry.in_title}, #{inquiry.in_answer_content}, now(), now(), #{inquiry.in_ic_num}, #{inquiry.in_me_id} from inquiry
+			
+		</otherwise>
+		
+		</choose>
+  	
+  	</insert>
+  	
+  	<update id="updateReplyInquiry">
+	
+		update inquiry set in_title = #{inquiry.in_title}, in_answer_content = #{inquiry.in_answer_content}, in_ic_num = #{inquiry.in_ic_num}, 
+		
+		in_modify_date = now()
+		
+		where in_num = #{inquiry.in_num}
+	
+	</update>
+	
+	<!-- 신고 등록 -->
+	
+	<select id="selectAllReportCategory" resultType="kr.kr.OnAirAuction.VO.ReportCategoryVO">
+	
+		select * from report_category
+	
+	</select>
+	
+	<select id="selectPerson" resultType="kr.kr.OnAirAuction.VO.PersonSearchVO">
+	
+		select me_name, me_id from member where (me_id like concat('%', #{criteria.select}, '%')) 
+	
+	</select>
+	
+	<select id="selectPersonName" resultType="kr.kr.OnAirAuction.VO.PersonSearchVO">
+	
+		select me_id from member where me_id = #{person.me_id}
+	
+	</select>
+	
+	<insert id="insertReport" useGeneratedKeys="true" keyProperty="report.re_num">
+	
+		<choose>
+		
+		<when test="report.re_rc_num == 1">
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_report_product, re_me_id)
+		
+			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
+			
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_pr_code}, #{report.re_me_id} from report
+		
+		</when>
+		
+		<when test="report.re_rc_num == 2">
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_report_id, re_me_id)
+		
+			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
+			
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_report_id}, #{report.re_me_id} from report
+			
+		</when>
+		
+		<otherwise>
+		
+			insert into report(re_num, re_content, re_date, re_rc_num, re_me_id)
+		
+			select <if test="report.re_num == 0"> ifnull(max(re_num), 0) + 1</if> <if test="report.re_num != 0">#{report.re_num}</if>, 
+			
+			#{report.re_content}, now(), #{report.re_rc_num}, #{report.re_me_id} from report
+			
+		</otherwise>
+		
+		</choose>
+		
+	</insert>
+	
+	<!-- 신고 등록시 첨부 파일 등록 -->
+	
+	<insert id="insertFileByReport">
+  	
+  		insert into file(fi_name, fi_save_name, fi_table_name, fi_table_num)
+  		
+  		values(#{file.fi_name},#{file.fi_save_name}, '신고', #{re_num})
+  	
+  	</insert>
+  	
+  	<!-- 신고 조회 -->
+	
+	<select id="selectReportList" resultType="kr.kr.OnAirAuction.VO.ReportVO">
+  		
+  		select * from report join report_category on re_rc_num = rc_num left join product on re_report_product = pr_code
+  		
+  		where re_me_id = #{user.me_id}
+  		
+  		 order by re_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
+  		
+  	</select>
+  	
+  	<select id="selectReportTotalCount" resultType="int">
+	
+		select count(*) from report
+	
+	</select>
+	
+	<!-- 신고 상세 보기 -->
+	
+	<select id="selectReport" resultType="kr.kr.OnAirAuction.VO.ReportVO">
+	
+		select * from report left join member on me_id = re_me_id left join product on re_report_product = pr_code
+		
+		where re_num = #{re_num}
+	
+	</select>
+	
+	<select id="selectFileListByReport" resultType="kr.kr.OnAirAuction.VO.FileVO">
+	
+		select * from file where fi_table_num = #{re_num} and fi_table_name = '신고'
+	
+	</select>
+	
+	<!-- 신고 수정 -->
+	
+	<update id="updateReport">
+	
+		update report set re_content = #{report.re_content}, re_rc_num = #{report.re_rc_num}, re_report_product = #{report.re_pr_code}, 
+		
+		re_report_id = #{report.re_report_id} where re_num = #{report.re_num}
+	
+	</update>
+	
+	<!-- 신고 삭제 -->
+	
+	<delete id="deleteReport">
+	
+		delete from report where re_num = #{re_num}
+	
+	</delete>
+	
+	<!-- 회원 정보 수정 -->
+	
+	<select id="selectMember" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+	
+		select * from member where me_id = #{me_id}
+	
+	</select>
+	
+	<update id="updateMember">
+	
+		update member set me_pw = #{member.me_pw}, me_email = #{member.me_email}, me_phone = #{member.me_phone}, me_post_num = #{member.me_post_num}
+		
+		, me_road_name = #{member.me_road_name}, me_detail_address = #{member.me_detail_address}
+		
+		where me_id = #{member.me_id}
+	
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	
+	<delete id="deleteMember">
+	
+		delete from member where me_id = #{user.me_id} and me_pw = #{user.me_pw}
+	
+	</delete>
+
+</mapper>

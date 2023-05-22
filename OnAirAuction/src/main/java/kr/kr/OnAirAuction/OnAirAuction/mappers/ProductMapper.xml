@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kr.OnAirAuction.DAO.ProductDAO">
+	<insert id="ProductLargeCategoryVO">
+			insert into product_large_category(plc_num, plc_name) 
+			select ifnull(max(plc_num),0)+1, #{pc.plc_name}
+			from product_large_category
+	</insert>
+	<insert id="ProductMiddleCategoryVO">
+		insert into product_middle_category(pmc_num, pmc_name, pmc_plc_num) 
+		select ifnull(max(pmc_num),0)+1, #{pc.pmc_name}, ifnull(max(pmc_plc_num),0)+1
+		from product_middle_category
+	</insert>
+	<insert id="ProductSmallCategoryVO">
+		insert into product_small_category(psc_num, psc_name, psc_pmc_num) 
+		select ifnull(max(psc_num),0)+1, #{pc.psc_name}, ifnull(max(psc_pmc_num),0)+1
+		from product_small_category
+	</insert>
+	<insert id="ProductCategoryVO">
+		insert into product_category(pc_num, pc_name, pc_psc_num) 
+		select ifnull(max(pc_num),0)+1, #{pc.pc_name}, ifnull(max(pc_psc_num),0)+1
+		from product_category
+	</insert>
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="p.pr_code">
+		insert into product(pr_code, pr_name, pr_intro, pr_condition, pr_detail, pr_location, pr_refund_ok, pr_refund_date, 
+				pr_refund_reason, pr_start_price, pr_origin, pr_size, pr_pc_num, pr_st_num)
+  		select ifnull(max(pr_code),0)+1, #{p.pr_name}, #{p.pr_intro}, #{p.pr_condition}, #{p.pr_detail}, #{p.pr_location}, #{p.pr_refund_ok}, #{p.pr_refund_date}, 
+  				#{p.pr_refund_reason}, #{p.pr_start_price}, #{p.pr_origin}, #{p.pr_size}, 1, 1
+  		from product
+	</insert>
+	<insert id="insertFile">
+		insert into file(fi_num, fi_name, fi_save_name, fi_table_name, fi_table_num)
+		select ifnull(max(fi_num),0)+1, #{file.fi_name}, #{file.fi_save_name}, '상품', #{pr_code}
+  		from file
+	</insert>
+	<select id="selectProductList" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+  		select * from product order by pr_code asc limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>	
+	<select id="selectProductTotalCount" resultType="int">
+		select count(*) from product 
+	</select>
+	<select id="selectProduct" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+		select * from product where pr_code = #{pr_code}
+	</select>
+	<select id="selectFileList" resultType="kr.kr.OnAirAuction.VO.FileVO">
+		select * from file where fi_table_num = #{pr_code}
+	</select>
+	<delete id="deleteProduct">
+		delete from product where pr_code = #{pr_code}
+	</delete>
+	<delete id="deleteFile">
+		delete from file where fi_num = #{file.fi_num}
+	</delete>
+	<update id="updateProduct">
+		update product 
+		set pr_name = #{vo.pr_name}, pr_intro = #{vo.pr_intro}, pr_condition = #{vo.pr_condition}, pr_detail = #{vo.pr_detail}, 
+			pr_location = #{vo.pr_location}, pr_refund_ok = #{vo.pr_refund_ok}, pr_refund_date = #{vo.pr_refund_date},
+			pr_refund_reason = #{vo.pr_refund_reason}, pr_start_price = #{vo.pr_start_price}, pr_origin = #{vo.pr_origin}, pr_size = #{vo.pr_size}
+		where pr_code = #{vo.pr_code}
+	</update>
+	<select id="selectFile" resultType="kr.kr.OnAirAuction.VO.FileVO">
+		select * from file where fi_num = #{fi_num}
+	</select>
+</mapper>
+

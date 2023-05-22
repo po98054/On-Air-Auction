@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kr.OnAirAuction.DAO.AdminDAO">
+
+<select id="selectReportCategory" resultType="kr.kr.OnAirAuction.VO.ReportCategoryVO">
+
+	select * from report_category
+
+</select>
+
+<insert id="insertReportCategory">
+
+	insert into report_category(rc_name)
+	
+	values(#{rc.rc_name}) 
+
+</insert>
+
+<update id="updateReportCategory">
+
+	update report_category set rc_name = #{rc.rc_name} where rc_num = #{rc.rc_num}
+
+</update>
+
+<delete id="deleteReportCategory">
+
+	delete from report_category where rc_num = #{rc_num}
+
+</delete>
+
+<select id="selectInquiryCategory" resultType="kr.kr.OnAirAuction.VO.InquiryCategoryVO">
+
+	select * from inquiry_category
+
+</select>
+
+<insert id="insertInquiryCategory">
+
+	insert into inquiry_category(ic_name)
+	
+	values(#{ic.ic_name}) 
+
+</insert>
+
+<update id="updateInquiryCategory">
+
+	update inquiry_category set ic_name = #{ic.ic_name} where ic_num = #{ic.ic_num}
+
+</update>
+
+<delete id="deleteInquiryCategory">
+
+	delete from inquiry_category where ic_num = #{ic_num}
+
+</delete>
+
+<select id="selectAuctionCategory" resultType="kr.kr.OnAirAuction.VO.AuctionCategoryVO">
+
+	select * from auction_category
+
+</select>
+
+<insert id="insertAuctionCategory">
+
+	insert into auction_category(ac_name)
+	
+	values(#{ac.ac_name}) 
+
+</insert>
+
+<update id="updateAuctionCategory">
+
+	update auction_category set ac_name = #{ac.ac_name} where ac_num = #{ac.ac_num}
+
+</update>
+
+<delete id="deleteAuctionCategory">
+
+	delete from auction_category where ac_num = #{ac_num}
+
+</delete>
+
+<select id="selectMembership" resultType="kr.kr.OnAirAuction.VO.MembershipLevelVO">
+
+	select * from membership_level
+
+</select>
+
+<insert id="insertMembership">
+
+	insert into membership_level(ml_name, ml_expense)
+	
+	values(#{ms.ml_name}, #{ms.ml_expense}) 
+
+</insert>
+
+<update id="updateMembership">
+
+	update membership_level set ml_expense = #{ms.ml_expense} where ml_name = #{ms.ml_name}
+
+</update>
+
+<delete id="deleteMembership">
+
+	delete from membership_level where ml_name = #{ml_name}
+
+</delete>
+
+</mapper>
