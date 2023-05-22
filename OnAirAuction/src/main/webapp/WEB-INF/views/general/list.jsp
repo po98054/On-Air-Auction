@@ -23,26 +23,51 @@
 .body h2{
   padding: 18px 0 15px;
 }
+.card-title{
+  font-size: 16px; font-weight: 600;
+}
+.card-text{
+  font-size: 15px;
+}
 </style>
 <body>
 <div class="body">
   <h2>일반경매</h2>
-  	<div class="row">
-	  <c:forEach items="${list }" var="pr">
+  	<div class="col">
+	  <c:forEach items="${productList }" var="product">
 	  	<div class="col-md-4">
-			<div class="container col-md-4">
-				  <div class="card" style="width:200px">
-				    <img class="card-img-top" src="https://cdn.pixabay.com/photo/2017/10/05/10/05/leaf-2818896_960_720.jpg" alt="Card image" style="width:100%">
-				    <div class="card-body">
-				      <h4 class="card-title">${pr.pr_name }</h4>
-				      <p class="card-text">${pr.pr_intro }</p>
-				      <a href="<c:url value='/general/detail/${pr.pr_code }'></c:url>" class="btn btn-primary">See Detail</a>
-				    </div>
-				  </div>
-			  <br>
-			</div>
+		  <div class="card" style="width:1000px">
+		  <!-- 
+		    <img class="card-img-top" src="<c:url value='/file${file[0].fi_save_name}' />" alt="Card image" style="width:100%">
+		   -->
+		    <div class="card-body">
+		      <h4 class="card-title">${product.pr_name }</h4>
+		      <p class="card-text">${product.pr_intro }</p>
+		      <a href="<c:url value='/general/detail/${product.pr_code }'></c:url>" class="btn btn-primary">상품 보기</a>
+		    </div>
+		  </div>
+		  <br>
 		</div>
 	 </c:forEach>
+  	</div>
+  	<div class="pagination-container">
+	  	<ul class="pagination justify-content-center">
+	  	<c:if test="${pm.prev}">
+	  		<li class="page-item">
+	  			<a class="page-link" href="<c:url value='/general/list?page=${pm.startPage-1}&search=${pm.cri.search}'></c:url>">이전</a>
+	  		</li>
+	  	</c:if>
+	  	<c:forEach begin="${pm.startPage}" end="${pm.endPage }" var="i">
+	  		<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+	  			<a class="page-link" href="<c:url value='/general/list?page=${i}&search=${pm.cri.search}'></c:url>">${i}</a>
+	  		</li>
+	  	</c:forEach>
+	  	<c:if test="${pm.next}">
+	  		<li class="page-item">
+	  			<a class="page-link" href="<c:url value='/general/list?page=${pm.endPage+1}&search=${pm.cri.search}'></c:url>">다음</a>
+	  		</li>
+	  	</c:if>
+	  	</ul>
   	</div>
 </div>
 </body>
