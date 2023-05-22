@@ -3,18 +3,23 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="kr.kr.OnAirAuction.DAO.GeneralDAO">
- 	<!-- 일반 경매 상품 리스트 가져오기 -->
+ 	<!-- 일반 경매 목록 - 상품 리스트 가져오기 -->
  	<select id="selectGeneralList" resultType="kr.kr.OnAirAuction.VO.ProductVO">
  		SELECT * FROM product
  	</select>
 
- 	<!-- 상품 정보 가져오기 -->
+	<!-- 일반 경매 목록 - 일반 경매의 전체의 수  -->
+ 	<select id="selectTotalCountProduct" resultType="int">
+ 		select count(*) from Product
+ 	</select>
+
+ 	<!-- 일반 경매 상품 - 상품 상세페이지 가져오기 -->
 	<select id="selectGeneral" resultType="kr.kr.OnAirAuction.VO.ProductVO">
 		SELECT * FROM product 
 			WHERE pr_code = #{pr_code}
 	</select>
 	
- 	<!-- 상품 카테고리 가져오기 -->
+ 	<!-- 일반 경매 카테고리 - 상품 카테고리 가져오기 -->
  	<select id="selectProdCategory" resultType="kr.kr.OnAirAuction.VO.ProdCategoryVO">
 	 	SELECT psc_name, pmc_name, pc_name FROM product
 			JOIN product_category ON pr_pc_num = pc_num
@@ -23,23 +28,97 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE pr_code = #{pc_num}
  	</select>
  	
+ 	<!-- 경매 정보 - 상품의 경매 정보 가져오기 -->
  	<select id="selectAuction" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
-
 		SELECT * FROM auction
 			JOIN product ON au_num = pr_code
 			WHERE pr_code = #{pr_code}
- 		
- 		<!-- 오류 
- 		SELECT * FROM auction
-			JOIN product ON au_pr_code = au_num
-    		WHERE au_num = #{pr_code}
- 		-->
  	</select>
+ 	
+  	<!-- 스토어 정보 - 스토어 정보 가져오기 -->
+  	<select id="selectStore" resultType="kr.kr.OnAirAuction.VO.StoreVO">
+  		SELECT * FROM store
+			JOIN product ON st_num = pr_code
+			WHERE st_num = #{pr_code}
+  	</select>
+ 	
+  	<!-- 경매 기록 - 경매 기록 가져오기 -->
+  	<select id="selectAuctionRecord" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
+	  	SELECT * FROM auction_record
+			JOIN product on pr_code = ar_au_num
+			WHERE pr_code = #{pr_code}
+  	</select>
+  	
+  	<!-- 경매 최근 기록 - 경매 최근 기록 가져오기 -->
+  	<select id="selectAuctionRecordList" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
+  		SELECT * FROM auction_record
+  	</select>
+ 	
+ 	<!-- 이미지 파일 - 상품의 이미지 가져오기 -->
+ 	<select id="selectProdFileList" resultType="kr.kr.OnAirAuction.VO.FileVO">
+		SELECT * FROM file
+			JOIN product ON fi_table_num = pr_code
+			WHERE fi_table_num = #{pr_code}
+ 	</select>
+ 	
+ 	<!-- 상품 후기 - 판매자의 리뷰 가져오기 -->
+ 	<select id="selectReview" resultType="kr.kr.OnAirAuction.VO.ReviewVO">
+ 		SELECT * FROM review 
+			JOIN product ON re_st_num = pr_code
+			JOIN store ON pr_st_num = st_num
+			WHERE pr_code = #{pr_code}
+ 	</select>
+ 	
+ 	
+ 	<!-- 입찰하기: 가상계좌 -->
+ 	<select id="selectUserAccount" resultType="kr.kr.OnAirAuction.VO.VirtualAccountVO">
+  		SELECT * FROM virtual_account
+  			WHERE va_me_id = #{id}
+ 	</select>
+ 	
+ 	<!-- 입찰하기: 회원등급 -->
+ 	<select id="selectMembership" resultType="kr.kr.OnAirAuction.VO.MembershipLevelVO">
+ 		SELECT * FROM membership_level
+ 			WHERE ml_name = #{membershipName}
+ 	</select>
+ 	
+ 	<!-- 입찰하기: 입찰 등록 -->
+ 	<insert id="insertAuctionRecord">
+ 		INSERT INTO auction_record(ar_bid_time, ar_bid_price, ar_me_id, ar_au_num)
+	  		VALUES(now(), #{price}, #{id}, #{auctionNum})
+ 	</insert>
+ 	
+ 	
+ 	<!-- 5/16 코드 구현중 -->
+  	<select id="selectProdLikeById" resultType="kr.kr.OnAirAuction.VO.ProductLikeVO">
+  		SELECT * FROM product_like
+			WHERE pl_pr_code = #{pl_pr_code} AND pl_me_id = #{pl_me_id}
+  	</select>
+ 	
+ 	
+ 	<!-- 추가중 -->
+ 	
+ 	<!-- 상품 문의 - 상품 문의 가져오기 -->
+  	<select id="selectInquiry" resultType="kr.kr.OnAirAuction.VO.InquiryVO">
+		SELECT * FROM inquiry
+			JOIN inquiry_category ON in_ic_num = ic_num
+			JOIN product ON in_pr_code = pr_code
+			WHERE pr_code = #{pr_code}
+  	</select>
+ 	
+ 	
+ 	<!-- 5/19 구현 상품 문의 등록하기 -->
+ 	<insert id="insertInquiry">
+ 		insert into inquiry(in_title, in_contenet, in_resister_date, in_me_id)
+	  		values(#{inquiry.in_title},#{inquiry.in_title}, now(), #{inquiry.in_me_id})
+ 	</insert>
+ 	
+ 	
  	
  	<!-- 회원의 찜한 상품 정보 가져오기 -->
  	<select id="selectLikeProductById" resultType="kr.kr.OnAirAuction.VO.ProductLikeVO">
  		select * from product_like
-			where pl_pr_code = #{pl_pr_code} and pl_me_id = #{pl_me_id};
+			where pl_pr_code = #{pl_pr_code} and pl_me_id = #{pl_me_id}
  	</select>
  	
 	<!-- 상품 찜하기 등록 -->
@@ -73,20 +152,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			set sl_state = #{s_li.sl_state}
   			where sl_seller_id = #{s_li.sl_seller_id}
   	</insert>
-  	
-  	<!-- 스토어 정보 가져오기 -->
-  	<select id="selectStore" resultType="kr.kr.OnAirAuction.VO.StoreVO">
-  		SELECT * FROM store
-			JOIN product ON st_num = pr_code
-			WHERE st_num = #{pr_code}
-  	</select>
-  	
  	
- 	<!-- 아래부터 추가중 -->
- 	
- 	<select id="selectTotalCountProduct" resultType="int">
- 		select count(*) from Product
- 	</select>
+
 	
 	<select id="selectBidlist" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
 		select * from auction_record
@@ -103,21 +170,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	<select id="selectBidlistTotalCount" resultType="int">
   		select count(*) from auction_record
   	</select>
-  	
-  	<select id="selectAuRecord" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
-  		SELECT ifnull(ar_bid_price, 0) FROM auction_record
-			join auction on au_num = ar_au_num
-		    join product on pr_code = au_pr_code
-			WHERE pr_code = #{pr_code}
-			ORDER BY ar_bid_price DESC
-		    LIMIT 1;
-  	</select>
-  	
-  	
-  	<select id="selectAuctionRecord" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
-	  	SELECT * FROM auction_record
-			JOIN product on pr_code = ar_au_num
-			WHERE pr_code = #{pr_code}
-  	</select>
-  	
 </mapper>
