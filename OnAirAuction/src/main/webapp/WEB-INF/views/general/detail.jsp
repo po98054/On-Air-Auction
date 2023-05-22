@@ -498,18 +498,19 @@
 }
 .product-review-area .feedback-table{
   box-sizing: border-box; text-indent: initial;
-  border-color: grey; width: 990px
+  border-color: grey; width: 990px;
 }
 .product-review-area .colgroup{
   display: table-caption; 
 }
 
+/*
 .product-review-area .review-layout-left{
   display: table-cell; width: 250px; padding: 60px 0 20px 0;
   text-align: center; cursor: default; 
   float: left; 
-   
 }
+*/
 .product-review-area h4{
   font-size: 12px; color: #808991; font-weight: 700;
   display: block; 
@@ -1230,11 +1231,11 @@
                     	<a id="countDday"></a>
                     	<span id="dday">( ${auction.au_final_date} )</span>
                       	<!-- 
+                      	 -->
                       	<button class="btn-deadline" id="btn-modal-deadline_open">
                         	<i class="deadline-icon"></i>
                         	마감연장
                       	</button>
-                      	 -->
                      	 <button class="btn-bidlist" id="btn-modal-bidlist_open">
 	                       	 <i class="bidlist-icon"></i>
 	                        	경매기록보기 >
@@ -1428,7 +1429,7 @@
             <li>
               <a class="tab" id="btn-tab-product" data-target="#tab1" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">상품설명</a></li>
             <li>
-              <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2">판매자가 받은 구매후기</a></li>
             <li>
               <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
           </ul>
@@ -1446,12 +1447,13 @@
             <li>
               <a class="tab" id="btn-tab-product" data-target="#tab1">상품설명</a></li>
             <li>
-              <a class="tab" id="btn-tab-review" data-target="#tab2" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">판매자가 받은 구매후기</a></li>
             <li>
               <a class="tab" id="btn-tab-qna" data-target="#tab3">상품문의</a></li>
           </ul>
         </div>
         <div class="product-review-area" id="tab2">
+          <!-- 
           <div class="review-layout-left">
             <h4>구매자 별점</h4>
             <p class="buyer-score">
@@ -1468,54 +1470,55 @@
               <strong>(246)</strong>
             </p>
           </div>
+           -->
           <div class="review-layout-right">
-            <table class="feedback-table">
-              <div class="review-area">
-                <colgroup>
-                  <col style="width: 20%">
-                  <col style="width: 50%">
-                  <col style="width: 18%">
-                 </colgroup>
-                <thead>
-                  <tr>
-                    <th colspan="3"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <c:forEach items="${review }" var="re">
+	          <div class="table-container">
+	            <table class="feedback-table">
+	                <colgroup>
+	                  <col style="width: 23%">
+	                  <col style="width: 62%">
+	                  <col style="width: 17%">
+	                 </colgroup>
+	                <thead>
 	                  <tr>
-	                    <td class="badge-icon">
-	                      <span class="box-feedback-star-rate">
-	                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" class="star-image">
-	                        <span class="box-rating">
-	                          <span class="star-current">${re.re_satisfaction }</span> /
-	                          <span class="star-max">5</span>
-	                        </span>
-	                      </span>
-	                    </td>
-	                    <td class="coment">
-	                      <div class="box-coment">
-	                        <div class="coment-title">
-	                          <strong>
-	                            <a href="">${re.re_title }</a>
-	                          </strong>
-	                        </div>
-	                        <p class="coment-detail">${re.re_content }</p>
-	                      </div>
-	                    </td>
-	                    <td class="coment-user">
-	                      <ul>
-	                        <li class="id">
-	                          <strong>kh112***</strong>
-	                        </li>
-	                        <li class="date">${re.re_registration }</li>
-	                      </ul>
-	                    </td>
+	                    <th colspan="3"></th>
 	                  </tr>
-                  </c:forEach>
-                </tbody>
-              </div>
-            </table>
+	                </thead>
+	                <tbody class="review-area">
+	                  <c:forEach items="${review }" var="re">
+		                  <tr>
+		                    <td class="badge-icon">
+		                      <span class="box-feedback-star-rate">
+		                        <img src="http://pics.auction.co.kr/pc/single/used-market/vip__star2.png" class="star-image">
+		                        <span class="box-rating">
+		                          <span class="star-current">${re.re_satisfaction }</span> /
+		                          <span class="star-max">5</span>
+		                        </span>
+		                      </span>
+		                    </td>
+		                    <td class="coment">
+		                      <div class="box-coment">
+		                        <div class="coment-title">
+		                          <strong>
+		                            <a href="">${re.re_title }</a>
+		                          </strong>
+		                        </div>
+		                        <p class="coment-detail">${re.re_content }</p>
+		                      </div>
+		                    </td>
+		                    <td class="coment-user">
+		                      <ul>
+		                        <li class="id">
+		                          <strong></strong>
+		                        </li>
+		                        <li class="date">${re.re_registration }</li>
+		                      </ul>
+		                    </td>
+		                  </tr>
+	                  </c:forEach>
+	                </tbody>
+	            </table>
+            </div>
           </div>
           <ul class="review pagination justify-content-center" id="review-page">
           	<li class="page-item disabled"><a class="page-link active" href="#">&laquo;</a></li>
@@ -1532,7 +1535,7 @@
             <li>
               <a class="tab" id="btn-tab-product" data-target="#tab1">상품설명</a></li>
             <li>
-              <a class="tab" id="btn-tab-review" data-target="#tab2">구매후기</a></li>
+              <a class="tab" id="btn-tab-review" data-target="#tab2">판매자가 받은 구매후기</a></li>
             <li>
               <a class="tab" id="btn-tab-qna" data-target="#tab3" style="background-color: #dcdcdc; display: block; height: 100%; font-weight: 600">상품문의</a></li>
           </ul>
