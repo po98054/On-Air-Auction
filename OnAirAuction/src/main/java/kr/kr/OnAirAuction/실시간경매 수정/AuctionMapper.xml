@@ -125,5 +125,15 @@
   	<select id="selectFile" resultType="kr.kh.onairauction.vo.FileVO">
   		select * from file where  fi_table_num = #{productCode} and fi_table_name = "상품"
   	</select>
+  	<select id="selectDelivery" resultType="kr.kh.onairauction.vo.DeliveryVO">
+  		select * from delivery where  de_ao_num = #{ao_num}
+  	</select>
+  	<update id="updateDelivery">
+  		update delivery
+  			set
+  				de_bl_num = #{b}
+  			where
+  				de_ao_num = #{a}
+  	</update>
   	
 </mapper>

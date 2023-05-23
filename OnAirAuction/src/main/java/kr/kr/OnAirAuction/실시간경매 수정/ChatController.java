@@ -41,7 +41,7 @@ public class ChatController {
         logger.info("Participate Room:"+ num +", "+ "Open session id:" + id);
         try {
             final Basic basic=session.getBasicRemote();
-            basic.sendText("대화방에 연결되었습니다.");
+            basic.sendText("대화방에 연결되었습니다.::"+id);
         }catch (Exception e) {
             
             System.out.println(e.getMessage());

@@ -13,6 +13,7 @@ import kr.kh.onairauction.vo.AuctionRecordVO;
 import kr.kh.onairauction.vo.AuctionVO;
 import kr.kh.onairauction.vo.BoardListVO;
 import kr.kh.onairauction.vo.ChattingVO;
+import kr.kh.onairauction.vo.DeliveryVO;
 import kr.kh.onairauction.vo.FileVO;
 import kr.kh.onairauction.vo.MemberVO;
 import kr.kh.onairauction.vo.MembershipLevelVO;
@@ -346,9 +347,24 @@ public class AuctionServiceImp implements AuctionService {
 		
 	}
 	@Override
-	public FileVO selectFile(int productCode) {
+	public ArrayList<FileVO> selectFile(int productCode) {
 		
 		return auctionDAO.selectFile(productCode);
+	}
+	@Override
+	public AuctionOrderVO selectAuctionOrder(int au_num) {
+		
+		return auctionDAO.selectOrder(au_num);
+	}
+	@Override
+	public DeliveryVO selectDelivery(int ao_num) {
+		
+		return auctionDAO.selectDelivery(ao_num);
+	}
+	@Override
+	public void updateDelivery(int ao_num, int bl_num) {
+		auctionDAO.updateDelivery(ao_num, bl_num);
+		
 	}
 	
 	
