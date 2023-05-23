@@ -1,12 +1,12 @@
 package kr.kr.OnAirAuction.Service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
 import kr.kr.OnAirAuction.VO.AuctionRecordVO;
 import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.FileVO;
-import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 import kr.kr.OnAirAuction.VO.InquiryVO;
 import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.MembershipLevelVO;
@@ -14,6 +14,7 @@ import kr.kr.OnAirAuction.VO.ProdCategoryVO;
 import kr.kr.OnAirAuction.VO.ProductLikeVO;
 import kr.kr.OnAirAuction.VO.ProductVO;
 import kr.kr.OnAirAuction.VO.ReviewVO;
+import kr.kr.OnAirAuction.VO.SellerLikeVO;
 import kr.kr.OnAirAuction.VO.StoreVO;
 import kr.kr.OnAirAuction.VO.VirtualAccountVO;
 
@@ -58,19 +59,25 @@ public interface GeneralService {
 	// 입찰하기: 입찰 등록
 	boolean insertBid(int price, MemberVO user, VirtualAccountVO userAccount, int expense, int auctionNum);
 	
-	
-	
-	// ---------------------------------------------------------------------------------
-	
-
-	// 샹품 찜 구현중
-	ProductLikeVO getProdLike(MemberVO user, int pr_code);
-
-	// 상품 문의 구현중
+	// 상품 문의
 	ArrayList<InquiryVO> getInquiry(int pr_code);
-
-	// 상품 문의 등록 구현중
-	boolean insertInquiry(InquiryVO inquiry);
 	
+	// 상품 문의 목록 수
+	int getInquiryTotalCount(Criteria cri);
+
+	// 상품 후기 목록 수
+	int getReviewTotalCount(Criteria cri);
+
+	// 상품 좋아요
+	Map<String, Object> likeProduct(int productCode, String userId, int productLikeState);
+	
+	// 상품 좋아요 가져오기
+	ProductLikeVO selectProductLike(int productCode, String likeProduct);
+	
+	// 상품 좋아요 등록
+	void insertProductLike(int productCode, String likeProduct, int num);
+
+	// 상품 좋아요 수정
+	void updateProductLike(int productCode, String user, int productLikeState);
 
 }

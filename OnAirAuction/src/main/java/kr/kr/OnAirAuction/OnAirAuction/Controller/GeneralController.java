@@ -1,7 +1,6 @@
 package kr.kr.OnAirAuction.Controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +24,7 @@ import kr.kr.OnAirAuction.VO.InquiryVO;
 import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.MembershipLevelVO;
 import kr.kr.OnAirAuction.VO.ProdCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductLikeVO;
 import kr.kr.OnAirAuction.VO.ProductVO;
 import kr.kr.OnAirAuction.VO.ReviewVO;
 import kr.kr.OnAirAuction.VO.StoreVO;
@@ -39,6 +39,7 @@ public class GeneralController {
 	// 일반 경매 상품 리스트
 	@RequestMapping(value = "/general/list", method=RequestMethod.GET)
 	public ModelAndView generalList(ModelAndView mv, Criteria cri) {
+		
 		ArrayList<ProductVO> productList = generalService.getGeneralList(cri);
 		int totalCount = generalService.getGeneralTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
@@ -56,37 +57,59 @@ public class GeneralController {
 			Criteria cri,
 			HttpSession session) {
 		// 서비스에게 해당하는 정보를 요청 
+		// 회원 정보
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		System.out.println(user);
+		// 경매 정보
 		AuctionVO auction = generalService.getAuction(au_num);
-		System.out.println("경매 정보 : " + auction);
+		// 상품코드를 가져옴
 		int pr_code = auction.getAu_pr_code();
-		System.out.println("제품 코드 : " + pr_code);
+		// 상품 정보
 		ProductVO product = generalService.getGeneralProduct(pr_code);
+		// 상품 카테고리
 		ProdCategoryVO prodCategory = generalService.getProdCategory(pr_code);
-		//AuctionVO auction = generalService.getAuction(pr_code);
+		// 스토어 정보
 		StoreVO store = generalService.getStore(pr_code);
+		// 경매 기록
 		ArrayList<AuctionRecordVO> auctionRecord = generalService.getAuctionRecord(pr_code);
+		// 경매 기록 리스트
 		ArrayList<AuctionRecordVO> auctionRecordList = generalService.selectAuctionRecordList();
+		// 최근 경매 기록
 		int lastAuctionRecordIndex = auctionRecordList.size()-1;
 		AuctionRecordVO lastAuctionRecord = new AuctionRecordVO();
 		lastAuctionRecord = auctionRecordList.get(lastAuctionRecordIndex);
+		// 상품 파일
 		ArrayList<FileVO> prodFile = generalService.getProdFileList(pr_code);
+		// 상품 후기
 		ArrayList<ReviewVO> review = generalService.getReview(pr_code);
+		int reviewTotalCount = generalService.getReviewTotalCount(cri);
+		PageMaker rePm = new PageMaker(reviewTotalCount, 5, cri);
+		mv.addObject("rePm", rePm);
+		
+		int auctionNum = auction.getAu_num();
+		mv.addObject("auctionNum", auctionNum);
+		
+		// 상품 문의
 		ArrayList<InquiryVO> inquiry = generalService.getInquiry(pr_code);
+		int inquiryTotalCount = generalService.getInquiryTotalCount(cri);
+		PageMaker inPm = new PageMaker(inquiryTotalCount, 5, cri);
+		mv.addObject("inPm", inPm);
 		
-		// 테스트
-//		ProductLikeVO prodLike = generalService.getProdLike(user, pr_code);
-//		mv.addObject("prodLike", prodLike);
-		
-//		InquiryCategoryVO inquCategory = generalService.getInquCategory(pr_code);
-//		mv.addObject("inquCategory", inquCategory);
+		// 상품 좋아요
+		ProductLikeVO productLikeState = generalService.selectProductLike(product.getPr_code(), user.getMe_id());
+		if(productLikeState == null && user != null) {
+			generalService.insertProductLike(product.getPr_code(), user.getMe_id(), 0);
+			productLikeState = generalService.selectProductLike(product.getPr_code(), user.getMe_id());
+			int state = productLikeState.getPl_state();
+			mv.addObject("productLikeState", state);
+		}else if(productLikeState != null && user != null) {
+			int state = productLikeState.getPl_state();
+			mv.addObject("productLikeState", state);
+		}
 		
 		// 가져온 정보를 화면에 추가
 		mv.addObject("user", user);
 		mv.addObject("product", product);
 		mv.addObject("prodCategory", prodCategory);
-//		mv.addObject("prodLike", prodLike);
 		mv.addObject("auction", auction);
 		mv.addObject("store", store);
 		mv.addObject("auctionRecord", auctionRecord);
@@ -99,14 +122,19 @@ public class GeneralController {
 		return mv;
 	}
 	
-	
 	// 입찰하기
 	@RequestMapping(value = "/generalBid", method=RequestMethod.POST)
 	public Map<String, Object> generalBid(@RequestBody Map<String, Object> requestData, HttpSession session) {
 		String priceString = (String) requestData.get("price");
 		int price = (int) Double.parseDouble(priceString);
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		AuctionVO auction = generalService.getAuction(1);
+		session.setAttribute("auction", auction);
+		
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		session.setAttribute("user", user);
+		
 		String id = user.getMe_id();
 		// 가상계좌
 		VirtualAccountVO userAccount = generalService.getUserAccount(id);
@@ -116,7 +144,9 @@ public class GeneralController {
 		// 등급수수료
 		int expense = membership.getMl_expense();
 		// 경매
-		AuctionVO auction = (AuctionVO)session.getAttribute("auction");
+		// AuctionVO auction = (AuctionVO)session.getAttribute("auction");
+		
+		auction = (AuctionVO)session.getAttribute("auction");
 		int auctionNum = auction.getAu_num();
 		
 		boolean res = generalService.insertBid(price, user, userAccount, expense, auctionNum);
@@ -130,63 +160,15 @@ public class GeneralController {
 		return map;
 	}
 	
-	@RequestMapping(value = "/inquiry", method=RequestMethod.POST)
-	public ModelAndView inquiry(ModelAndView mv, InquiryVO inquiry, HttpSession session) {
+	// 상품 좋아요
+	@RequestMapping(value = "/likeProduct", method=RequestMethod.POST)
+	public Map<String, Object> likeProduct(@RequestBody int productLikeState, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		String id = user.getMe_id();
-		boolean inquirySubmit = generalService.insertInquiry(inquiry);
-		System.out.println(inquirySubmit);
-		mv.setViewName("redirect:/");
-		return mv;
+		String userId = user.getMe_id();
+		ProductVO product = (ProductVO)session.getAttribute("auctionProduct");
+		int productCode = product.getPr_code();
+		map = generalService.likeProduct(productCode, userId, productLikeState);
+		return map;
 	}
-	
-//	// 찜한 상품
-//	@RequestMapping(value = "/general/like/product/{pr_code}/{pl_state}", method=RequestMethod.GET)
-//	public ModelAndView likeProduct(ModelAndView mv,
-//			@PathVariable("pr_code")int pr_code,
-//			@PathVariable("pl_state")int pl_state,
-//			HttpSession session) {
-//		MemberVO user = (MemberVO)session.getAttribute("user");
-//		ProductLikeVO prodLike = generalService.getProdLike(user, pl_state);
-//		ProductVO product = generalService.getGeneralProduct(pr_code);
-//		
-//		mv.addObject("user", user);
-//		mv.addObject("prodLike", prodLike);
-//		mv.addObject("product", product);
-//		
-//		return mv;
-//	}
-//
-//	// 상품 찜
-//	@ResponseBody
-//	@RequestMapping(value = "/like/product/{pl_pr_code}/{pl_state}", method=RequestMethod.GET)
-//	public Map<String, Object> likeProduct(HttpSession session,
-//			@PathVariable("pl_pr_code")int pl_pr_code,  // 상품코드 확인
-//			@PathVariable("pl_state")int pl_state) { // 찜의 유무 값 확인
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		// 회원 정보 가져오기
-//		MemberVO user = (MemberVO)session.getAttribute("user");
-//		// res=1: 찜, res=0: 찜취소
-//		int res = generalService.updateLikeProduct(pl_pr_code, pl_state, user);
-//		map.put("state", res);
-//		map.put("res", res);
-//		return map;
-//	}
-//	
-//	// 스토어 찜
-//	@RequestMapping(value = "/like/seller/{sl_seller_id}/{sl_state}", method=RequestMethod.GET)
-//	public Map<String, Object> likeSeller(HttpSession session,
-//			@PathVariable("sl_seller_id")String sl_seller_id,  // 판매자 아이디 확인
-//			@PathVariable("sl_state")int sl_state) { // 찜의 유무 값 확인
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		// 회원 정보 가져오기
-//		MemberVO user = (MemberVO)session.getAttribute("user");
-//		// res=1: 찜, res=0: 찜취소
-//		int res = generalService.updateLikeSeller(sl_seller_id, sl_state, user);
-//		map.put("state", res);
-//		map.put("res", res);
-//		return map;
-//	}
-
-
 }

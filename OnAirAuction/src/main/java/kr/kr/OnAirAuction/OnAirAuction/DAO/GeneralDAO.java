@@ -5,17 +5,15 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kr.OnAirAuction.Pagination.Criteria;
+import kr.kr.OnAirAuction.VO.AuctionRecordVO;
 import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.FileVO;
-import kr.kr.OnAirAuction.VO.InquiryCategoryVO;
 import kr.kr.OnAirAuction.VO.InquiryVO;
 import kr.kr.OnAirAuction.VO.MembershipLevelVO;
-import kr.kr.OnAirAuction.VO.AuctionRecordVO;
 import kr.kr.OnAirAuction.VO.ProdCategoryVO;
+import kr.kr.OnAirAuction.VO.ProductLikeVO;
 import kr.kr.OnAirAuction.VO.ProductVO;
 import kr.kr.OnAirAuction.VO.ReviewVO;
-import kr.kr.OnAirAuction.VO.ProductLikeVO;
-import kr.kr.OnAirAuction.VO.SellerLikeVO;
 import kr.kr.OnAirAuction.VO.StoreVO;
 import kr.kr.OnAirAuction.VO.VirtualAccountVO;
 
@@ -60,45 +58,23 @@ public interface GeneralDAO {
 	// 입찰하기: 입찰 등록
 	void insertAuctionRecord(@Param("price")int price, @Param("id")String id, @Param("auctionNum")int auctionNum);
 	
-	
-	
-	
-	// ---------------------------------------------------------------------------------
-	
-	
-	
-	// 5/18 상품 문의 - 상품 문의 가져오기
+	// 상품 문의 - 상품 문의 가져오기
 	ArrayList<InquiryVO> selectInquiry(@Param("pr_code")int pr_code);
 	
-//	// 상품 문의 카테고리 - 상품 문의 카테고리 가져오기
-//	InquiryCategoryVO selectInquCategory(@Param("pr_code")int pr_code);
-	
-	
-	/* 추가중 */
-	
-	// 회원의 찜한 판매자 정보 가져오기
-	SellerLikeVO selectLikeSellerById(@Param("sl_me_id")String sl_me_id, @Param("sl_seller_id")String sl_seller_id);
+	// 상품 문의 목록 - 일반 경매의 상품 문의 게시물의 수
+	int selectTotalCountInquiry(@Param("cri")Criteria cri);
 
-	// 판매자 찜하기 등록
-	void insertLikeSeller(@Param("s_li")SellerLikeVO seller_likeVO);
-	
-	// 판매자 찜하기 변경(수정 필요)
-	void updateLikeSeller(@Param("s_li")SellerLikeVO seller_likeVO);
-	
-	int insertImmediate(@Param("bid") AuctionVO bid);
-	
-	int selectBidlistTotalCount(@Param("cri") Criteria cri); // ? 
+	// 상품 후기 목록 - 일반 경매의 상품 후기 게시물의 수
+	int selectTotalCountReview(@Param("cri") Criteria cri);
 
+	// 상품 좋아요: 조회
+	ProductLikeVO selectProductLike(@Param("productCode")int productCode, @Param("userId")String userId);
 
-	// 상품 찜하기 등록
-	// void insertLikeProduct(@Param("p_li")ProductLikeVO pLikeVo);
-		
-	// 상품 찜하기 변경(수정 필요)
-	// void updateLikeProduct(@Param("p_li")ProductLikeVO pLikeVo);
+	// 상품 좋아요: 등록
+	void insertProductLike(@Param("productCode")int productCode, @Param("userId")String userId, @Param("num")int num);
 	
-	
-	ProductLikeVO selectProdLikeById(@Param("me_id")String me_id, @Param("pr_code")int pr_code);
+	// 상품 좋아요: 수정
+	void updateProductLike(@Param("table")ProductLikeVO table, @Param("productLikeState")int productLikeState);
 
-	int insertInquiry(@Param("inquiry")InquiryVO inquiry);
 	
 }

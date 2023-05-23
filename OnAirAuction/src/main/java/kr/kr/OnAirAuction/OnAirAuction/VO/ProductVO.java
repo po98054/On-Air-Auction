@@ -38,5 +38,6 @@ public class ProductVO {
 	//productlargecategory
 	int plc_num;
 	String plc_name;
+	int au_num;
 		
 }
