@@ -47,6 +47,7 @@ public class AirAuctionController {
 	@RequestMapping(value = "/onairauction/detail/{au_num}", method=RequestMethod.GET)// /{au_num}
 	public ModelAndView home(ModelAndView mv, HttpSession session, @PathVariable("au_num")int au_num) {
 		mv.setViewName("/AirAuction/home");
+		//
 		
 		
 		// 1. 경매번호로 경매불러오고 세션에 저장해주고, 세션에 저장되어있는 유저아이디를 불러와준다.
@@ -103,14 +104,30 @@ public class AirAuctionController {
 			String end = AirauctionService.endTime(lastAuctionRecord, auction);
 			mv.addObject("endTime", end + "에 종료됩니다.");
 		}
+		String lol = now.replaceAll("[^0-9]", "");
+		lol = lol.substring(8);
+		int intNowTime = Integer.parseInt(lol);
+		mv.addObject("intNow", intNowTime);
 		ChattingVO channel = AirauctionService.selectChatting(au_num);
 		String userId = user.getMe_id();
 		int chattingChannel = channel.getCh_num();
 		session.setAttribute("chattingChannel", chattingChannel);
-		session.setAttribute("userId", userId);
+		mv.addObject("userId", userId);
 		return mv;
 		//DB에 저장되어 있는 데이터 - 구매자, 판매자, 상품, 경매, 경매카테고리, 신고카테고리, 가상계좌
 		
+	}
+	@RequestMapping(value = "/auctionFinish", method=RequestMethod.POST)
+	public Map<String, Object> auctionFinish(@RequestBody Map<String, String> formData, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		String value1 = formData.get("value1");
+		int now = Integer.parseInt(value1);
+		String value2 = formData.get("value2");
+		int end = Integer.parseInt(value2);
+		AuctionVO auction = (AuctionVO)session.getAttribute("auction");
+		boolean auctionEnd = AirauctionService.finishAuction(now, end, auction);
+		map.put("res", auctionEnd);
+		return map;
 	}
 	
 	@RequestMapping(value = "/report", method=RequestMethod.POST)
@@ -128,20 +145,21 @@ public class AirAuctionController {
 		return mv;
 	}
 	@RequestMapping(value = "/delivery", method=RequestMethod.POST)
-	public ModelAndView delivery(ModelAndView mv, int bl_num, HttpSession session) {
+	public Map<String,Object> delivery(@RequestBody int bl_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		AuctionVO auction = (AuctionVO)session.getAttribute("auction");
+		System.out.println(bl_num);
 		AuctionOrderVO order = AirauctionService.insertOrder(auction);
 		AirauctionService.insertDelivery(order.getAo_num(), bl_num);
-		mv.setViewName("redirect:/onairauction/detail/"+auction.getAu_num());
-		return mv;
+		
+		map.put("res",true);
+		return map;
 	}
 
 	@RequestMapping(value = "/auctionBid", method=RequestMethod.POST) //1. 입찰종료 되었을 때, 입찰막기 추가해야함 //2. 새로운입찰이 들어왔을 때, 판매종료시간 리셋해야함
 	public Map<String, Object> auctionBid(@RequestBody Map<String, String> formData, HttpSession session){
 		String value1 = formData.get("value1");
 		double price = Double.parseDouble(value1);
-		String value2 = formData.get("value2");
-		int end = Integer.parseInt(value2);
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String id = user.getMe_id();
@@ -158,33 +176,19 @@ public class AirAuctionController {
 		String lol = now.replaceAll("[^0-9]", "");
 		lol = lol.substring(8);
 		int intNowTime = Integer.parseInt(lol);
-		int intEndTime = end;
 		boolean bidPossible = AirauctionService.timeChange(auctionOpenTime, serverTime);
 		if(auction.getAu_final_date() == null) {
-			boolean auctionEnd = AirauctionService.finishAuction(intNowTime, intEndTime, auction);
-			//boolean bidPossible2 = auctionOpenTime.before(serverTime);//OpenTime이 serverTime 이전이면 true
-			//경매시작시간이 되기전에 입찰하기 안되게 코드짜기 
-			if(bidPossible && auctionEnd==false) {
+			if(bidPossible) {
 				boolean res = AirauctionService.insertBid(price, expense, userAccount, user, auctionNum);
 				map.put("res", res);
 				AuctionRecordVO lastRecord = AirauctionService.lastAuctionRecord(auctionNum);
-				String bidder =lastRecord.getAr_me_id();
-				double nextPrice = lastRecord.getAr_next_bid_price(price);
 				String lastTime = AirauctionService.endTime(lastRecord, auction);
 				String intEnd = lastTime.replaceAll("[^0-9]", "");
-				map.put("bidder", bidder);
 				map.put("intEnd", intEnd);
-				map.put("nextPrice", nextPrice);
 			}
 			map.put("bidPossible", bidPossible);
-			map.put("auctionEnd", auctionEnd);
-			System.out.println(map);
-		}
-		if(auction.getAu_final_date() != null) {
-			map.put("already", true);
 		}
 		return map;
-		
 	}
 	
 	@RequestMapping(value = "/userStore/{id}", method=RequestMethod.GET)
@@ -211,6 +215,16 @@ public class AirAuctionController {
 		ProductVO product = (ProductVO)session.getAttribute("auctionProduct");
 		int productCode = product.getPr_code();
 		map = AirauctionService.productLike(productCode, userId, productLikeState);
+		return map;
+	}
+	@RequestMapping(value = "/chattingJoin", method=RequestMethod.POST) 
+	public Map<String, Object> chatting(@RequestBody Map<String, String> formData, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		String message = formData.get("value1");
+		String sender = formData.get("value2");
+		String channel = formData.get("value3");
+		AirauctionService.insertChattingRecord(message, sender, channel);
+	
 		return map;
 	}
 	

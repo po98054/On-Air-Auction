@@ -9,6 +9,7 @@ import kr.kr.OnAirAuction.VO.AuctionRecordVO;
 import kr.kr.OnAirAuction.VO.AuctionVO;
 import kr.kr.OnAirAuction.VO.BoardListVO;
 import kr.kr.OnAirAuction.VO.ChattingVO;
+import kr.kr.OnAirAuction.VO.DeliveryVO;
 import kr.kr.OnAirAuction.VO.FileVO;
 import kr.kr.OnAirAuction.VO.MemberVO;
 import kr.kr.OnAirAuction.VO.MembershipLevelVO;
@@ -82,4 +83,8 @@ public interface AirAuctionDAO {
 	void insertChattingRecord(@Param("m")String message, @Param("s")String sender, @Param("r")String room);
 
 	ArrayList<FileVO> selectFile(int productCode);
+
+	DeliveryVO selectDelivery(int ao_num);
+
+	void updateDelivery(@Param("a")int ao_num, @Param("b")int bl_num);
 }

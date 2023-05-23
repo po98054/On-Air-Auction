@@ -1,27 +1,27 @@
-package kr.kr.OnAirAuction.Service;
+package kr.kh.onairauction.service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-import kr.kr.OnAirAuction.VO.AuctionRecordVO;
-import kr.kr.OnAirAuction.VO.AuctionVO;
-import kr.kr.OnAirAuction.VO.BoardListVO;
-import kr.kr.OnAirAuction.VO.ChattingVO;
-import kr.kr.OnAirAuction.VO.DeliveryVO;
-import kr.kr.OnAirAuction.VO.FileVO;
-import kr.kr.OnAirAuction.VO.MemberVO;
-import kr.kr.OnAirAuction.VO.MembershipLevelVO;
-import kr.kr.OnAirAuction.VO.MessageVO;
-import kr.kr.OnAirAuction.VO.AuctionOrderVO;
-import kr.kr.OnAirAuction.VO.ProductLikeVO;
-import kr.kr.OnAirAuction.VO.ProductVO;
-import kr.kr.OnAirAuction.VO.ReportCategoryVO;
-import kr.kr.OnAirAuction.VO.ReportVO;
-import kr.kr.OnAirAuction.VO.SellerLikeVO;
-import kr.kr.OnAirAuction.VO.VirtualAccountVO;
+import kr.kh.onairauction.vo.AuctionRecordVO;
+import kr.kh.onairauction.vo.AuctionVO;
+import kr.kh.onairauction.vo.BoardListVO;
+import kr.kh.onairauction.vo.ChattingVO;
+import kr.kh.onairauction.vo.DeliveryVO;
+import kr.kh.onairauction.vo.FileVO;
+import kr.kh.onairauction.vo.MemberVO;
+import kr.kh.onairauction.vo.MembershipLevelVO;
+import kr.kh.onairauction.vo.MessageVO;
+import kr.kh.onairauction.vo.AuctionOrderVO;
+import kr.kh.onairauction.vo.ProductLikeVO;
+import kr.kh.onairauction.vo.ProductVO;
+import kr.kh.onairauction.vo.ReportCategoryVO;
+import kr.kh.onairauction.vo.ReportVO;
+import kr.kh.onairauction.vo.SellerLikeVO;
+import kr.kh.onairauction.vo.VirtualAccountVO;
 
-public interface AirAuctionService {
+public interface AuctionService {
 	
 	ArrayList<ReportCategoryVO> selectReportCategory();
 

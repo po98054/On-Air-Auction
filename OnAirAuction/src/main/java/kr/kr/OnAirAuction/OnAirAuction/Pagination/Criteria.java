@@ -30,7 +30,7 @@ public class Criteria {
 		
 		this.page = 1;
 		
-		this.perPageNum = 3;
+		this.perPageNum = 5;
 		
 		this.search = "";
 		

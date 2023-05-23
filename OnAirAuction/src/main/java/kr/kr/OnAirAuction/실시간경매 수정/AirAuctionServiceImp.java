@@ -1,4 +1,4 @@
-package kr.kr.OnAirAuction.Service;
+package kr.kh.onairauction.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,39 +8,39 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import kr.kr.OnAirAuction.DAO.AirAuctionDAO;
-import kr.kr.OnAirAuction.VO.AuctionRecordVO;
-import kr.kr.OnAirAuction.VO.AuctionVO;
-import kr.kr.OnAirAuction.VO.BoardListVO;
-import kr.kr.OnAirAuction.VO.ChattingVO;
-import kr.kr.OnAirAuction.VO.DeliveryVO;
-import kr.kr.OnAirAuction.VO.FileVO;
-import kr.kr.OnAirAuction.VO.MemberVO;
-import kr.kr.OnAirAuction.VO.MembershipLevelVO;
-import kr.kr.OnAirAuction.VO.MessageVO;
-import kr.kr.OnAirAuction.VO.AuctionOrderVO;
-import kr.kr.OnAirAuction.VO.ProductLikeVO;
-import kr.kr.OnAirAuction.VO.ProductVO;
-import kr.kr.OnAirAuction.VO.ReportCategoryVO;
-import kr.kr.OnAirAuction.VO.ReportVO;
-import kr.kr.OnAirAuction.VO.SellerLikeVO;
-import kr.kr.OnAirAuction.VO.VirtualAccountVO;
+import kr.kh.onairauction.dao.AuctionDAO;
+import kr.kh.onairauction.vo.AuctionRecordVO;
+import kr.kh.onairauction.vo.AuctionVO;
+import kr.kh.onairauction.vo.BoardListVO;
+import kr.kh.onairauction.vo.ChattingVO;
+import kr.kh.onairauction.vo.DeliveryVO;
+import kr.kh.onairauction.vo.FileVO;
+import kr.kh.onairauction.vo.MemberVO;
+import kr.kh.onairauction.vo.MembershipLevelVO;
+import kr.kh.onairauction.vo.MessageVO;
+import kr.kh.onairauction.vo.AuctionOrderVO;
+import kr.kh.onairauction.vo.ProductLikeVO;
+import kr.kh.onairauction.vo.ProductVO;
+import kr.kh.onairauction.vo.ReportCategoryVO;
+import kr.kh.onairauction.vo.ReportVO;
+import kr.kh.onairauction.vo.SellerLikeVO;
+import kr.kh.onairauction.vo.VirtualAccountVO;
 
 @Service
-public class AirAuctionServiceImp implements AirAuctionService {
+public class AuctionServiceImp implements AuctionService {
 	@Autowired
-	AirAuctionDAO AirauctionDAO;
+	AuctionDAO auctionDAO;
 	
 	
 	@Override
 	public ArrayList<ReportCategoryVO> selectReportCategory(){
-		return AirauctionDAO.selectReportCategory();
+		return auctionDAO.selectReportCategory();
 	}
 	@Override
 	public boolean insertReport(ReportVO report) {
 		if(report == null)
 			return false;
-		if(AirauctionDAO.insertReport(report) != 0)
+		if(auctionDAO.insertReport(report) != 0)
 			return true;
 		return false;
 	}
@@ -48,23 +48,23 @@ public class AirAuctionServiceImp implements AirAuctionService {
 	public boolean insertMessage(MessageVO message) {
 		if(message.getMe_content() == ""||message.getMe_title()=="")//수정해야함
 			return false;
-		if(AirauctionDAO.insertMessage(message) != 0)
+		if(auctionDAO.insertMessage(message) != 0)
 			return true;
 		return false;
 	}
 	@Override
 	public ArrayList<AuctionRecordVO> selectAuctionRecord(String auctionStart, int productPrice, String sellerId, int auctionNum){
-		ArrayList<AuctionRecordVO> a = AirauctionDAO.selectAuctionRecord(auctionNum);
+		ArrayList<AuctionRecordVO> a = auctionDAO.selectAuctionRecord(auctionNum);
 		if(a.size() == 0) {
 			insertAuctionRecord(auctionStart, productPrice, sellerId, auctionNum);
 		}
-		a = AirauctionDAO.selectAuctionRecord(auctionNum);
+		a = auctionDAO.selectAuctionRecord(auctionNum);
 		return a;
 	}
 	@Override
 	public MemberVO getUser(String me_id) { //나중에 삭제
 		
-		return AirauctionDAO.selectMember(me_id);
+		return auctionDAO.selectMember(me_id);
 	}
 	@Override
 	public boolean insertBid(double price, int expense, VirtualAccountVO userAccount, MemberVO user, int auctionNum) {
@@ -77,7 +77,7 @@ public class AirAuctionServiceImp implements AirAuctionService {
 		}
 		else if (b <= a) {
 			System.out.println("입찰되었습니다.");
-			AirauctionDAO.insertAuctionRecord(price, id, auctionNum);
+			auctionDAO.insertAuctionRecord(price, id, auctionNum);
 			return true;
 		}
 		return false;
@@ -85,27 +85,27 @@ public class AirAuctionServiceImp implements AirAuctionService {
 	@Override
 	public MembershipLevelVO selectMebership(String levelName) {
 		
-		return AirauctionDAO.selectMembership(levelName);
+		return auctionDAO.selectMembership(levelName);
 	}
 	@Override
 	public VirtualAccountVO selectAccount(String id) {
 		
-		return AirauctionDAO.selectAccount(id);
+		return auctionDAO.selectAccount(id);
 	}
 	@Override
 	public AuctionVO getAuction(int num) { 
 		
-		return AirauctionDAO.selectAuction(num);
+		return auctionDAO.selectAuction(num);
 	}
 	@Override
 	public ProductVO selectProduct(int productCode) {
 		
-		return AirauctionDAO.selectProduct(productCode);
+		return auctionDAO.selectProduct(productCode);
 	}
 	@Override
 	public MemberVO selectSeller(String sellerId) {
 		
-		return AirauctionDAO.selectSeller(sellerId);
+		return auctionDAO.selectSeller(sellerId);
 	}
 	@Override
 	public boolean timeChange(Date a, Date b) {
@@ -130,38 +130,38 @@ public class AirAuctionServiceImp implements AirAuctionService {
 	}
 	@Override
 	public SellerLikeVO selectSellerLike(String userId, String sellerId) {
-		return AirauctionDAO.selectSellerLike(userId, sellerId);
+		return auctionDAO.selectSellerLike(userId, sellerId);
 	}
 	@Override
 	public void insertSellerLike(String userId, String sellerId, int num) {
-		AirauctionDAO.insertSellerLike(userId, sellerId, num);
+		auctionDAO.insertSellerLike(userId, sellerId, num);
 	}
 	@Override
 	public void updateSellerLike(String userId, String sellerId, int sellerLikeState) {
-		SellerLikeVO table = AirauctionDAO.selectSellerLike(userId, sellerId);
+		SellerLikeVO table = auctionDAO.selectSellerLike(userId, sellerId);
 		if(table.getSl_state() == 0) {
-			AirauctionDAO.updateSellerLike(table, sellerLikeState);
+			auctionDAO.updateSellerLike(table, sellerLikeState);
 		}else if(table.getSl_state() == 1) {
-			AirauctionDAO.updateSellerLike(table, sellerLikeState);
+			auctionDAO.updateSellerLike(table, sellerLikeState);
 		}
 		
 	}
 	@Override
 	public ProductLikeVO selectProductLike(int productCode, String userId) {
-		return AirauctionDAO.selectProductLike(productCode, userId);
+		return auctionDAO.selectProductLike(productCode, userId);
 	}
 	@Override
 	public void insertProductLike(int productCode, String userId, int num) {
-		AirauctionDAO.insertProductLike(productCode, userId, num);
+		auctionDAO.insertProductLike(productCode, userId, num);
 		
 	}
 	@Override
 	public void updateProductLike(int productCode, String userId, int productLikeState) {
-		ProductLikeVO table = AirauctionDAO.selectProductLike(productCode, userId);
+		ProductLikeVO table = auctionDAO.selectProductLike(productCode, userId);
 		if(table.getPl_state() == 0) {
-			AirauctionDAO.updateProductLike(table, productLikeState);
+			auctionDAO.updateProductLike(table, productLikeState);
 		}else if(table.getPl_state() == 1) {
-			AirauctionDAO.updateProductLike(table, productLikeState);
+			auctionDAO.updateProductLike(table, productLikeState);
 		}
 		
 	}
@@ -281,11 +281,11 @@ public class AirAuctionServiceImp implements AirAuctionService {
 	}
 	@Override
 	public void insertAuctionRecord(String auctionStart, int pr_start_price, String me_id, int au_num) {
-		AirauctionDAO.insertAuctionRecord2(auctionStart, pr_start_price,  me_id, au_num);
+		auctionDAO.insertAuctionRecord2(auctionStart, pr_start_price,  me_id, au_num);
 	}
 	@Override
 	public AuctionRecordVO lastAuctionRecord(int auctionNum) {
-		ArrayList<AuctionRecordVO> recordList = AirauctionDAO.selectAuctionRecord(auctionNum);
+		ArrayList<AuctionRecordVO> recordList = auctionDAO.selectAuctionRecord(auctionNum);
 		int a = recordList.size() - 1;
 		AuctionRecordVO L = recordList.get(a);
 		return L;
@@ -293,9 +293,9 @@ public class AirAuctionServiceImp implements AirAuctionService {
 	@Override
 	public boolean finishAuction(int intNow, int intEnd2, AuctionVO auction) {
 		if(intNow > intEnd2 || auction.getAu_final_date() != null) {
-			AirauctionDAO.updateAuction(auction);
-			ProductVO product =	AirauctionDAO.selectProduct(auction.getAu_pr_code());
-			AirauctionDAO.updateProduct(product);
+			auctionDAO.updateAuction(auction);
+			ProductVO product =	auctionDAO.selectProduct(auction.getAu_pr_code());
+			auctionDAO.updateProduct(product);
 			AuctionRecordVO last = lastAuctionRecord(auction.getAu_num());
 			String bidder = last.getAr_me_id();
 			int auctionPrice = last.getAr_bid_price();
@@ -307,8 +307,8 @@ public class AirAuctionServiceImp implements AirAuctionService {
 			double sum = auctionPrice + (auctionPrice * expense * 0.001);
 			double amount = bidderAccount.getVa_holding_amount();
 			double afterAmount = amount - sum;
-			AirauctionDAO.insertWithdraw(sum, bidder);
-			AirauctionDAO.updateVirtualAccount(bidder, afterAmount);
+			auctionDAO.insertWithdraw(sum, bidder);
+			auctionDAO.updateVirtualAccount(bidder, afterAmount);
 			return true;
 		}
 		return false;
@@ -316,54 +316,54 @@ public class AirAuctionServiceImp implements AirAuctionService {
 	@Override
 	public ArrayList<BoardListVO> selectBoardList(String me_id) {
 		
-		return AirauctionDAO.selectBoardList(me_id);
+		return auctionDAO.selectBoardList(me_id);
 	}
 	@Override
 	public AuctionOrderVO insertOrder(AuctionVO auction) {
-		int num = auction.getAu_num();
+		int num = auction.getAu_ac_num();
 		AuctionRecordVO last = lastAuctionRecord(auction.getAu_num());
 		String auctionBidder = last.getAr_me_id();
-		AirauctionDAO.insertOrder(auctionBidder, num);
-		AuctionOrderVO order = AirauctionDAO.selectOrder(num);
+		auctionDAO.insertOrder(auctionBidder, num);
+		AuctionOrderVO order = auctionDAO.selectOrder(num);
 		return order;
 	}
 	@Override
 	public void insertDelivery(int ao_num, int bl_num) {
-		AirauctionDAO.insertDelivery(ao_num, bl_num);
+		auctionDAO.insertDelivery(ao_num, bl_num);
 		
 	}
 	@Override
 	public ChattingVO selectChatting(int au_num) {
-		ChattingVO channel = AirauctionDAO.selectChatting(au_num);
+		ChattingVO channel = auctionDAO.selectChatting(au_num);
 		if(channel == null) {
-			AirauctionDAO.insertChatting(au_num);
-			channel = AirauctionDAO.selectChatting(au_num);
+			auctionDAO.insertChatting(au_num);
+			channel = auctionDAO.selectChatting(au_num);
 		}
 		return channel;
 	}
 	@Override
 	public void insertChattingRecord(String message, String sender, String room) {
-		AirauctionDAO.insertChattingRecord(message, sender, room);
+		auctionDAO.insertChattingRecord(message, sender, room);
 		
 	}
 	@Override
 	public ArrayList<FileVO> selectFile(int productCode) {
 		
-		return AirauctionDAO.selectFile(productCode);
+		return auctionDAO.selectFile(productCode);
 	}
 	@Override
 	public AuctionOrderVO selectAuctionOrder(int au_num) {
 		
-		return AirauctionDAO.selectOrder(au_num);
+		return auctionDAO.selectOrder(au_num);
 	}
 	@Override
 	public DeliveryVO selectDelivery(int ao_num) {
 		
-		return AirauctionDAO.selectDelivery(ao_num);
+		return auctionDAO.selectDelivery(ao_num);
 	}
 	@Override
 	public void updateDelivery(int ao_num, int bl_num) {
-		AirauctionDAO.updateDelivery(ao_num, bl_num);
+		auctionDAO.updateDelivery(ao_num, bl_num);
 		
 	}
 	

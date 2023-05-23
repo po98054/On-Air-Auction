@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.kr.OnAirAuction.DAO.AirAuctionDAO">
+<mapper namespace="kr.kh.onairauction.dao.AuctionDAO">
   	<insert id="insertReport">
 	  	insert into report(re_content, re_date, re_rc_num, re_me_id, re_report_id, re_report_product)
 	  		values(#{r.re_content}, now(), #{r.re_rc_num}, #{r.re_me_id},
@@ -12,35 +12,35 @@
 	  	insert into message(me_title, me_content, me_time, me_send_id, me_receive_id)
 	  		values(#{m.me_title},#{m.me_content}, now(), #{m.me_send_id}, #{m.me_receive_id})
   	</insert>
-  	<select id="selectAuctionRecord" resultType="kr.kr.OnAirAuction.VO.AuctionRecordVO">
+  	<select id="selectAuctionRecord" resultType="kr.kh.onairauction.vo.AuctionRecordVO">
 	  	select * from auction_record where ar_au_num = #{auctionNum}
   	</select>
-  	<select id="selectReportCategory" resultType="kr.kr.OnAirAuction.VO.ReportCategoryVO">
+  	<select id="selectReportCategory" resultType="kr.kh.onairauction.vo.ReportCategoryVO">
 	  	select * from report_category
   	</select>
-  	<select id="selectMember" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+  	<select id="selectMember" resultType="kr.kh.onairauction.vo.MemberVO">
   		select * from member where me_id = #{id}  <!-- 나중에 삭제 -->
   	</select>
-  	<select id="selectSeller" resultType="kr.kr.OnAirAuction.VO.MemberVO">
+  	<select id="selectSeller" resultType="kr.kh.onairauction.vo.MemberVO">
   		select * from member where me_id = #{sellerId}
   	</select>
-  	<select id="selectProduct" resultType="kr.kr.OnAirAuction.VO.ProductVO">
+  	<select id="selectProduct" resultType="kr.kh.onairauction.vo.ProductVO">
   		select * from product where pr_code = #{productCode}
   	</select>
-  	<select id="selectMembership" resultType="kr.kr.OnAirAuction.VO.MembershipLevelVO">
+  	<select id="selectMembership" resultType="kr.kh.onairauction.vo.MembershipLevelVO">
   		select * from membership_level where  ml_name = #{levelName}
   	</select>
-  	<select id="selectAccount" resultType="kr.kr.OnAirAuction.VO.VirtualAccountVO">
+  	<select id="selectAccount" resultType="kr.kh.onairauction.vo.VirtualAccountVO">
   		select * from virtual_account where  va_me_id = #{id}
   	</select>
   	<insert id="insertAuctionRecord">
 	  	insert into auction_record(ar_bid_time, ar_bid_price, ar_me_id, ar_au_num)
 	  		values(now(), #{p}, #{i}, #{n})
   	</insert>
-  	<select id="selectAuction" resultType="kr.kr.OnAirAuction.VO.AuctionVO">
+  	<select id="selectAuction" resultType="kr.kh.onairauction.vo.AuctionVO">
   		select * from auction where au_num = #{num} <!-- 나중에 삭제 -->
   	</select>
-  	<select id="selectSellerLike" resultType="kr.kr.OnAirAuction.VO.SellerLikeVO">
+  	<select id="selectSellerLike" resultType="kr.kh.onairauction.vo.SellerLikeVO">
   		select * from seller_like where sl_me_id = #{userId} and sl_seller_id = #{sellerId}
   	</select>
   	<insert id="insertSellerLike">
@@ -54,7 +54,7 @@
   			where
   				sl_me_id = #{s.sl_me_id} and sl_seller_id = #{s.sl_seller_id}
   	</update>
-  	<select id="selectProductLike" resultType="kr.kr.OnAirAuction.VO.ProductLikeVO">
+  	<select id="selectProductLike" resultType="kr.kh.onairauction.vo.ProductLikeVO">
   		select * from product_like where pl_pr_code = #{productCode} and pl_me_id = #{userId}
   	</select>
   	<insert id="insertProductLike">
@@ -86,7 +86,7 @@
   			where
   				pr_code = #{p.pr_code}
   	</update>
-  	<select id="selectBoardList" resultType="kr.kr.OnAirAuction.VO.BoardListVO">
+  	<select id="selectBoardList" resultType="kr.kh.onairauction.vo.BoardListVO">
 	  	select * from board_list where bl_me_id = #{me_id}
   	</select>
   	<insert id="insertWithdraw">
@@ -104,14 +104,14 @@
 	  	insert into auction_order(ao_me_id, ao_au_num)
 	  		values(#{a}, #{n})
   	</insert>
-  	<select id="selectOrder" resultType="kr.kr.OnAirAuction.VO.AuctionOrderVO">
+  	<select id="selectOrder" resultType="kr.kh.onairauction.vo.AuctionOrderVO">
 	  	select * from auction_order where ao_au_num = #{num}
   	</select>
   	<insert id="insertDelivery">
 	  	insert into delivery(de_start_date, de_complete_date, de_ao_num, de_bl_num)
 	  		values(DATE_ADD(NOW(), INTERVAL 3 DAY), DATE_ADD(NOW(), INTERVAL 10 DAY),#{a}, #{b})
   	</insert>
-  	<select id="selectChatting" resultType="kr.kr.OnAirAuction.VO.ChattingVO">
+  	<select id="selectChatting" resultType="kr.kh.onairauction.vo.ChattingVO">
   		select * from chatting where  ch_au_num = #{au_num}
   	</select>
   	<insert id="insertChatting">
@@ -122,10 +122,10 @@
 	  	insert into chatting_record(cr_content, cr_time, cr_me_id, cr_ch_num)
 	  		values(#{m}, now(), #{s}, #{r})
   	</insert>
-  	<select id="selectFile" resultType="kr.kr.OnAirAuction.VO.FileVO">
+  	<select id="selectFile" resultType="kr.kh.onairauction.vo.FileVO">
   		select * from file where  fi_table_num = #{productCode} and fi_table_name = "상품"
   	</select>
-  	<select id="selectDelivery" resultType="kr.kr.OnAirAuction.VO.DeliveryVO">
+  	<select id="selectDelivery" resultType="kr.kh.onairauction.vo.DeliveryVO">
   		select * from delivery where  de_ao_num = #{ao_num}
   	</select>
   	<update id="updateDelivery">

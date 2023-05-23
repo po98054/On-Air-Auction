@@ -1,6 +1,8 @@
 package kr.kr.OnAirAuction.Controller;
 
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.kr.OnAirAuction.Service.AirAuctionService;
 
@@ -41,7 +45,7 @@ public class ChatController {
         logger.info("Participate Room:"+ num +", "+ "Open session id:" + id);
         try {
             final Basic basic=session.getBasicRemote();
-            basic.sendText("대화방에 연결되었습니다.");
+            basic.sendText("대화방에 연결되었습니다.::"+id);
         }catch (Exception e) {
             
             System.out.println(e.getMessage());
