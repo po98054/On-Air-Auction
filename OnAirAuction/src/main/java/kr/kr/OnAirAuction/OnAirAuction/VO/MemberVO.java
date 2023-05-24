@@ -20,7 +20,7 @@ public class MemberVO {
 	String me_account;
 	Date me_join_time;
 	String me_region;
-	String me_trade_certification;
+	String me_customer_certification;
 	String me_session_id;
 	Date me_session_limit;
 	String me_ml_name;

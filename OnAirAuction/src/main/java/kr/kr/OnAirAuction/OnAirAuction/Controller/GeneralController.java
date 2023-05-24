@@ -59,8 +59,10 @@ public class GeneralController {
 		// 서비스에게 해당하는 정보를 요청 
 		// 회원 정보
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
 		// 경매 정보
 		AuctionVO auction = generalService.getAuction(au_num);
+		session.setAttribute("auction", auction);
 		// 상품코드를 가져옴
 		int pr_code = auction.getAu_pr_code();
 		// 상품 정보
@@ -93,7 +95,7 @@ public class GeneralController {
 		int inquiryTotalCount = generalService.getInquiryTotalCount(cri);
 		PageMaker inPm = new PageMaker(inquiryTotalCount, 5, cri);
 		mv.addObject("inPm", inPm);
-		
+
 		// 상품 좋아요
 		ProductLikeVO productLikeState = generalService.selectProductLike(product.getPr_code(), user.getMe_id());
 		if(productLikeState == null && user != null) {
@@ -105,9 +107,9 @@ public class GeneralController {
 			int state = productLikeState.getPl_state();
 			mv.addObject("productLikeState", state);
 		}
-		
+
 		// 가져온 정보를 화면에 추가
-		mv.addObject("user", user);
+		mv.addObject("userId", userId);
 		mv.addObject("product", product);
 		mv.addObject("prodCategory", prodCategory);
 		mv.addObject("auction", auction);
@@ -162,7 +164,7 @@ public class GeneralController {
 	
 	// 상품 좋아요
 	@RequestMapping(value = "/likeProduct", method=RequestMethod.POST)
-	public Map<String, Object> likeProduct(@RequestBody int productLikeState, HttpSession session) {
+	public Map<String, Object> productLike(@RequestBody int productLikeState, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
@@ -171,4 +173,5 @@ public class GeneralController {
 		map = generalService.likeProduct(productCode, userId, productLikeState);
 		return map;
 	}
+
 }

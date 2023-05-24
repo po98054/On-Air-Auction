@@ -98,7 +98,7 @@ public interface MyPageService {
 	
 	// 문의 사항 조회
 
-	ArrayList<InquiryVO> getInquiryList(Criteria criteria, MemberVO user);
+	ArrayList<InquiryVO> getInquiryList(Criteria criteria);
 
 	int getInquiryTotalCount(Criteria criteria);
 	

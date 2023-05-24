@@ -33,5 +33,6 @@ public interface MemberDAO {
 	void updateSession(@Param("member")MemberVO user);
 
 	void updateMemberAuthority(@Param("member")MemberVO member);
+
 	
 }

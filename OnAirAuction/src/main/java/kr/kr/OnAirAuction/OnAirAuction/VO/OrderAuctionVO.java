@@ -25,7 +25,7 @@ public class OrderAuctionVO {
 	
 	Date de_complete_date;
 	
-	int or_num;
+	int ao_num;
 	
 	int ar_num;
 	

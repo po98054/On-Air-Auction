@@ -141,15 +141,23 @@ public class HomeController {
 	
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
 		
-		MemberVO user = memberService.login(member);
+		System.out.println("회원 정보 : " + member);
 		
-		mv.addObject("user", user);
+		member.setMe_authority(member.getMe_authority());
+		
+		MemberVO user = memberService.login(member);
 		
 		if(user != null) {
 			
 			mv.setViewName("redirect:/");
 			
 			user.setAutoLogin(member.isAutoLogin());
+			
+			user.setMe_authority(member.getMe_authority());
+			
+			System.out.println("회원 정보 : " + user);
+			
+			mv.addObject("user", user);
 			
 			System.out.println("로그인 성공");
 			

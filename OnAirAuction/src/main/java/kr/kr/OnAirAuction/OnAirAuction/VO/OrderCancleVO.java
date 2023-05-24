@@ -22,13 +22,13 @@ public class OrderCancleVO {
 	
 	String re_progress;
 	
-	int re_or_num;
+	int re_ao_num;
 	
 	String pr_name;
 	
-	public OrderCancleVO(int re_or_num, String re_reason) {
+	public OrderCancleVO(int re_ao_num, String re_reason) {
 		
-		this.re_or_num = re_or_num;
+		this.re_ao_num = re_ao_num;
 		
 		this.re_reason = re_reason;
 		

@@ -152,9 +152,9 @@
 	
 	<insert id="insertOrderCancle">
   	
-  		insert into refund(re_num, re_apply_date, re_reason, re_or_num)
+  		insert into refund(re_num, re_apply_date, re_reason, re_ao_num)
   			
-  		select ifnull(max(re_num), 0) + 1, now(), #{refund.re_reason}, #{refund.re_or_num}
+  		select ifnull(max(re_num), 0) + 1, now(), #{refund.re_reason}, #{refund.re_ao_num}
 		
   		from refund
   		
@@ -170,7 +170,7 @@
 		
 		join product on product.pr_code = auction.au_pr_code 
 		
-		where (pr_name like concat('%', #{criteria.search}, '%')) and auction_order.ao_me_id = 'po98087'
+		where (pr_name like concat('%', #{criteria.search}, '%')) and auction_order.ao_me_id = 'hsm1004'
 		
 		<if test="criteria.fromDate != null and criteria.toDate != null">and au_start_date between #{criteria.fromDate} and #{criteria.toDate}</if>
 		
@@ -190,9 +190,9 @@
   	
   	<insert id="insertReview" useGeneratedKeys="true" keyProperty="review.re_num">
   	
-  		insert into review(re_num, re_title, re_content, re_satisfaction, re_registration, re_ar_num)
+  		insert into review(re_num, re_title, re_content, re_satisfaction, re_registration, re_ar_num, re_st_num)
   		
-  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_satisfaction}, now(), #{review.re_ar_num}
+  		select ifnull(max(re_num),0)+1, #{review.re_title}, #{review.re_content}, #{review.re_satisfaction}, now(), #{review.re_ar_num}, 1
   		
   		from review
   	
@@ -387,8 +387,6 @@
 	<select id="selectInquiryList" resultType="kr.kr.OnAirAuction.VO.InquiryVO">
   		
   		select * from inquiry join inquiry_category on in_ic_num = ic_num
-  		
-  		where in_me_id = #{user.me_id}
   		
   		order by in_num asc limit #{criteria.pageStart}, #{criteria.perPageNum}
   		

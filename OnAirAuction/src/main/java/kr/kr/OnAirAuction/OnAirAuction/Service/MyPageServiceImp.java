@@ -472,13 +472,7 @@ public class MyPageServiceImp implements MyPageService{
 	// 문의 사항 조회
 	
 	@Override
-	public ArrayList<InquiryVO> getInquiryList(Criteria criteria, MemberVO user) {
-		
-		if(user == null) {
-			
-			return null;
-			
-		}
+	public ArrayList<InquiryVO> getInquiryList(Criteria criteria) {
 		
 		if(criteria == null) {
 			
@@ -486,7 +480,7 @@ public class MyPageServiceImp implements MyPageService{
 			
 		}
 		
-		return myPageDao.selectInquiryList(criteria, user);
+		return myPageDao.selectInquiryList(criteria);
 		
 	}
 

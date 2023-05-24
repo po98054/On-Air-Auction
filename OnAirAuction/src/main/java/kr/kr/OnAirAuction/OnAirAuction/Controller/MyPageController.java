@@ -588,15 +588,11 @@ public class MyPageController {
 	
 	public ModelAndView InquiryList(ModelAndView mv, Criteria criteria, HttpSession session) {
 		
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		
-		ArrayList<InquiryVO> list = myPageService.getInquiryList(criteria, user);
+		ArrayList<InquiryVO> list = myPageService.getInquiryList(criteria);
 		
 		int totalCount = myPageService.getInquiryTotalCount(criteria);
 		
 		PageMaker pm = new PageMaker(totalCount, 1, criteria);
-		
-		mv.addObject("user",user);
 		
 		mv.addObject("list",list);
 		
@@ -623,6 +619,8 @@ public class MyPageController {
 		ArrayList<FileVO> files = myPageService.getFileListByInquiry(in_num);
 		
 		mv.addObject("inquiry", inquiry);
+		
+		mv.addObject("user", user);
 		
 		mv.addObject("files", files);
 		

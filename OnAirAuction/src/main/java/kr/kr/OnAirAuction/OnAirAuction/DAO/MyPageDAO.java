@@ -106,7 +106,7 @@ public interface MyPageDAO {
 	
 	// 문의 사항 조회
 
-	ArrayList<InquiryVO> selectInquiryList(@Param("criteria")Criteria criteria, @Param("user")MemberVO user);
+	ArrayList<InquiryVO> selectInquiryList(@Param("criteria")Criteria criteria);
 
 	int selectInquiryTotalCount(@Param("criteria")Criteria criteria);
 	
